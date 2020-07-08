@@ -70,4 +70,7 @@ public class HomeController {
 		return "home2";
 	}
 	
+	//예아 ㅇ0ㅇ
+	
+	
 }
