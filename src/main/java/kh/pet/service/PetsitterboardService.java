@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.pet.dao.PetsitterboardDAO;
+import kh.pet.dto.PetDto;
 import kh.pet.dto.PetsitterboardDTO;
 import kh.pet.dto.TotboardDTO;
 import kh.pet.staticInfo.PetSitterConfiguration;
@@ -24,6 +25,10 @@ public class PetsitterboardService {
 	public int selectCnt(String psb_writer) throws Exception{
 		System.out.println("service에서:"+psb_writer);
 		return psbdao.selectCnt(psb_writer);
+	}
+	
+	public List<PetDto> selectMypet(String mem_id)throws Exception{
+		return psbdao.selectMypet(mem_id);
 	}
 	
 	public int insert(TotboardDTO totdto) throws Exception{

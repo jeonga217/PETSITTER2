@@ -26,7 +26,7 @@
       </div>
       <div class="site-mobile-menu-body"></div>
     </div>
-  </div>
+    
    <header id="header" class="site-navbar" role="banner">
 
 			<div class="container">

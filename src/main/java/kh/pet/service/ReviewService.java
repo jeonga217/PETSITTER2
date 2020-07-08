@@ -19,6 +19,7 @@ public class ReviewService {
 	}
 
 	public int delete(int rw_seq, String rw_parent_seq) throws Exception{
+		System.out.println("rw_parent_seq :"+rw_parent_seq);
 		return rwdao.delete(rw_seq,rw_parent_seq);
 	}
 	

@@ -1,5 +1,7 @@
 package kh.pet.dto;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class ReviewDTO {
 

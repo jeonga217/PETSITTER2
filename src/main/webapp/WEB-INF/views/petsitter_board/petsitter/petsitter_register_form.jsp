@@ -131,12 +131,6 @@
 					var filename = $(this).val().split('/').pop().split('\\').pop(); 
 				  } $(this).siblings('.upload-name').val(filename); 
 				 }); 
-			  	
-			  $("#ps_img").on('change', function(){
-		      });
-			  $("#ps_img").on('change', function(){
-
-		      });
 			  
 			$("#register_frm").bind('submit',function(){
 				

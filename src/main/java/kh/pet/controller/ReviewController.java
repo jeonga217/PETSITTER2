@@ -22,8 +22,9 @@ public class ReviewController {
 	private PetsitterService psservice;
 	
 	@RequestMapping("/deleteProc")
-	public String deleteProc(int rw_seq, String rw_parent_seq) throws Exception{
-		rwservice.delete(rw_seq,rw_parent_seq);
+	public String deleteProc(String rw_seq, String rw_parent_seq) throws Exception{
+		System.out.println("rw_parent_seq :"+rw_parent_seq);
+		rwservice.delete(Integer.parseInt(rw_seq),rw_parent_seq);
 		return "SUCCESS";
 	}
 	

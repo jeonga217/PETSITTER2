@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.pet.dto.PetDto;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
 import kh.pet.dto.TotboardDTO;
@@ -17,11 +20,17 @@ public class PetsitterboardDAO {
 	
 	@Autowired
 	private SqlSessionTemplate mybatis;
-
+	@Autowired
+	private HttpSession session;
+	
 	public String selectNextSeq() throws Exception{
 		String seq = mybatis.selectOne("Board.selectNextSeq");
 		String psb_seq = "ps"+seq;
 		return psb_seq;
+	}
+	
+	public List<PetDto> selectMypet(String mem_id) throws Exception{
+		return mybatis.selectList("Board.selectMypet", mem_id);
 	}
 	
 	public int insert(TotboardDTO totdto) throws Exception{

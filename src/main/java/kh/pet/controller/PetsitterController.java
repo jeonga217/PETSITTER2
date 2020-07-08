@@ -38,24 +38,25 @@ public class PetsitterController {
 	@RequestMapping("/insertProc")
 	public String insertProc(HttpServletRequest req, PetsitterDTO psdto, MultipartFile[] files) throws Exception{
 		String realPath=session.getServletContext().getRealPath("upload");
+		System.out.println("realPath : "+realPath);
+		File tempFilepath = new File(realPath);
+		if(!tempFilepath.exists()) {tempFilepath.mkdir();}
+
 		for(int i=0;i<files.length;i++) {
-			if(!files[i].isEmpty()) {
 				UUID uuid = UUID.randomUUID();
 				String img_oriName = files[i].getOriginalFilename();
 				String img_sysName = uuid.toString()+"_"+img_oriName;
-				
 				if(i==0) {
 					psdto.setPs_img(img_sysName);
-				} 
-				if(i==1) {
+				} else if (i==1) {
 					psdto.setPs_license_img(img_sysName);
 				}
 			files[i].transferTo(new File(realPath+"/"+img_sysName));
+			System.out.println((realPath+"/"+img_sysName));
 			}
+			psservice.insert(psdto);
+			return "redirect:outputSingle";
 		}
-		psservice.insert(psdto);
-		return "redirect:outputSingle";
-	}
 	
 	@RequestMapping("/outputSingle")
 	public String outputSingle(Model model,PetsitterDTO psdto) throws Exception{

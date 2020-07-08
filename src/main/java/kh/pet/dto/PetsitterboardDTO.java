@@ -14,10 +14,11 @@ public class PetsitterboardDTO {
 	private String psb_end_day;
 	private String psb_time;
 	private String psb_petType;
+	private String psb_boardstatus;
 	
 	public PetsitterboardDTO(String psb_seq, String psb_title, String psb_writer, Timestamp psb_date,
 			String psb_contents, String psb_thumb, String psb_service, String psb_start_day, String psb_end_day,
-			String psb_time, String psb_petType) {
+			String psb_time, String psb_petType, String psb_boardstatus) {
 		super();
 		this.psb_seq = psb_seq;
 		this.psb_title = psb_title;
@@ -30,8 +31,9 @@ public class PetsitterboardDTO {
 		this.psb_end_day = psb_end_day;
 		this.psb_time = psb_time;
 		this.psb_petType = psb_petType;
+		this.psb_boardstatus = psb_boardstatus;
 	}
-	
+
 	public PetsitterboardDTO() {}
 
 	public String getPsb_seq() {
@@ -121,5 +123,14 @@ public class PetsitterboardDTO {
 	public void setPsb_petType(String psb_petType) {
 		this.psb_petType = psb_petType;
 	}
+
+	public String getPsb_boardstatus() {
+		return psb_boardstatus;
+	}
+
+	public void setPsb_boardstatus(String psb_boardstatus) {
+		this.psb_boardstatus = psb_boardstatus;
+	}
+
 	
 }

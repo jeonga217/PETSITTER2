@@ -32,7 +32,6 @@
       </div>
       <div class="site-mobile-menu-body"></div>
     </div>
-    </div>
        <header id="header" class="site-navbar" role="banner">
 
 			<div class="container">
@@ -83,7 +82,7 @@
             <div class="row justify-content-center mb-4">
               <div class="col-md-10 text-center">
                 <h1 data-aos="fade-up">Find Nearby <span class="typed-words"></span></h1>
-                <p data-aos="fade-up" data-aos-delay="100">Happy moment with pet  <a href="https://localhost/" target="_blank"> DOG and CAT</a></p>
+                <p data-aos="fade-up" data-aos-delay="100">Happy moment with pet  <a href="https://localhost/" target="_blank"> DOG&CAT</a></p>
               </div>
               <button id="register_btn" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">펫시터 지원하기</button>
               

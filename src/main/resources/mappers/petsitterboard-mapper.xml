@@ -37,4 +37,7 @@
 		select * from (select petsitter_board.*, row_number () over (order by psb_seq desc) rnum from petsitter_board)where rnum between #{start} and #{end}
 	</select>
 	
+	<select id="selectMypet" resultType="kh.pet.dto.PetDto">
+		select pet_name from mypet where master_id = #{mem_id}
+	</select>
 </mapper>

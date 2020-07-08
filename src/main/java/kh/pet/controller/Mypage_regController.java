@@ -33,10 +33,10 @@ public class Mypage_regController {
 	@RequestMapping("contentview")
 	public String contentview(HttpServletRequest request) {
 		int seq = Integer.parseInt(request.getParameter("seq"));
-		System.out.println("시퀀스 값 : "+seq);
+		System.out.println("�떆���뒪 媛� : "+seq);
 		Mypet_regDTO dto = mdao.petlist(seq);
 		request.setAttribute("dto", dto);
-		return "mypage-contentview";
+		return "/mypage/mypage-contentview";
 	}
 	
 	
