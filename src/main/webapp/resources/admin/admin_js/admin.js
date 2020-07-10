@@ -23,10 +23,16 @@ $(function(){
 		$("#summernote").attr('class',id);
 	})
 	
+	
+	$(".stop_btn").on("click",function(){
+		$("#s_stop_day").val($(this).parent().children('.state').val());
+		$("#stop_id").val($(this).parent().parent().children('.id').html());
+	})
+	
 	$(".messagesend").on("click",function(){
 	
 		var id = $("#summernote").attr("class");	
-		var queryString = $("form[name=message_form]").serialize() ;
+		var queryString = $("form[name=message_form]").serialize();
 		
 		console.log(id);
 		$.ajax({
@@ -47,26 +53,24 @@ $(function(){
 			}	
 		})
 	})
+	
+	
 	$(".stopsend").on("click",function(){
-		var tmp = $(".note-editable").html();
-		var contents = tmp.replace( 'script', '' );
-		var tmp2 = $("#msg_title").val();
-		var title = tmp2.replace( 'script', '' );
-		var id = $("#summernote").attr("class");
-		console.log(id);
+		var queryString = $("form[name=stop_info]").serialize();
 		$.ajax({
 			type: "GET",
-			url: "/admin/message?msg_reciever="+ id+"&msg_title="+title+"&msg_contents="+contents,
+			url: "/admin/mem_stop",
 			cache: false,
+			data : queryString,
 			dataType : "json",
 			success: function(data){
 				check = data.re;
 				if(check > 0 ){
-					alert('성공적으로 메세지를 전송하였습니다.');
+					alert('해당 아이디를 정지 시켰습니다.');
 					location.reload();
 				}
 				else{
-					alert('메세지 전송에 실패했습니다.');
+					alert('정지 시키는 것을 실패했습니다.');
 				}		
 			}	
 		})

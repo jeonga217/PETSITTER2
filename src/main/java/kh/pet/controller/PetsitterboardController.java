@@ -67,13 +67,15 @@ public class PetsitterboardController {
  		return "petsitter_board/board/board_register";
 	}
 
-	@RequestMapping("board_single_view")
-	public String board_single_view(Model model,TotboardDTO totdto)throws Exception{
-		model.addAttribute("tot_Info",totdto);
-		List<Mypet_regDTO> pet_list = psbservice.selectMypet(((MemberDTO)session.getAttribute("loginIfo")).getMem_id());
-		model.addAttribute("pet_list",pet_list);
-		return "petsitter_board/board/board_single_view";
-	}
+   @RequestMapping("board_single_view")
+   public String board_single_view(String psb_writer,String psb_seq,Model model)throws Exception{
+      TotboardDTO totdto = psbservice.selectBoard(psb_writer,psb_seq);
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+      
+      List<Mypet_regDTO> pet_list = psbservice.selectMypet(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
+      model.addAttribute("pet_list",pet_list);
+      return "petsitter_board/board/board_single_view";
+   }
 	
 	@RequestMapping("output")
 	public String output(Model model)throws Exception{

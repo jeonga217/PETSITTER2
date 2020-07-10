@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Admin">
 	
+	
 	<!--baord managemnet  -->
 	
 	<update id="board_state">
@@ -24,11 +25,27 @@
 	
 	<!-- memeber management  -->
 	<select id="memberlist" resultType="kh.pet.dto.MemberDTO">
-	 select * from (select member.* , row_number() over(order by MEM_JOIN_DATE desc)rnum from member) where rnum between ${start} and ${end}
+	 	select * from (select member.* , row_number() over(order by MEM_JOIN_DATE desc)rnum from member) where rnum between ${start} and ${end}
 	</select>
+	
+	<update id="mem_state">
+		update member set  mem_status = <choose><when test="s_stop_day == 'no'">'no'</when><otherwise>'stop'</otherwise></choose> where mem_id = #{stop_id}
+	</update>
 	
 	<select id="membercount" resultType="int">
 		select count(*) from member
+	</select>
+	
+	<insert id="mem_stop">
+		insert into stop_mem values(stop_seq.nextval,sysdate,#{stop_id},#{stop_reason},${stop_day})
+	</insert>
+	
+	<update id="mem_stop_update">
+		update stop_mem set <choose><when test="s_stop_day == 'no'">stop_day = 0 where stop_id = #{stop_id} </when><otherwise>stop_day = stop_day+${stop_day} where stop_id = #{stop_id} </otherwise></choose> 
+	</update>
+	
+	<select id="mem_stop_search" resultType="int">
+		select count(*) from stop_mem where stop_day != 0 and stop_id = #{value}
 	</select>
 	
 	<!--reservation management -->

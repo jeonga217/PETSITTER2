@@ -151,58 +151,65 @@
 											  </div>
 											</div>
                                     	<c:forEach var="i" items="${memberlist}">
-                                    	<form name="user_state">
                                     	<div class="row body">
-                                    		<div class="col-4 col-lg">${i.mem_id}</div>
+                                    		<div class="col-4 col-lg id">${i.mem_id}</div>
 		                                   	<div class="col-4 col-lg">
 		                                   	<c:choose>
 		                                   	<c:when test="${i.mem_type eq 1}">일반회원</c:when>
 		                                   	<c:otherwise>펫 시터</c:otherwise>
 		                                   	</c:choose>
-		                                   	</div>
-		                                   	
+		                                   	</div> 
 		                                   	<div class="d-none d-lg-block col-lg">${i.mem_join_date}</div>
 		                                   	<div class="d-none d-lg-block col-lg">${i.mem_point}</div>
 		                                   	<div class="col-4 col-lg">${i.mem_warning}</div>
-		                                   	<div class="d-none d-lg-block col-lg">통상</div>
+		                                   	<div class="d-none d-lg-block col-lg">
+		                                   		<c:choose>
+		                                   			<c:when test="${i.mem_status eq 'no'}">
+		                                   				통상
+		                                   			</c:when>
+		                                   			<c:otherwise>
+		                                   				정지
+		                                   			</c:otherwise>
+		                                   		</c:choose>
+		                                   	</div>
 		                                   	<div class="col-4 col-lg"><button  class="btn btn-outline-primary my-2 my-sm-0 btn-sm message" id="${i.mem_id}" data-toggle="modal" data-target="#staticBackdrop">보내기</button></div>
 		                                   	<div class="col col-lg-3">
-                                                 <select name="state" class="btn btn-info dropdown-toggle btn-sm" id="stop_day">
+                                                 <select name="state" class="btn btn-info dropdown-toggle btn-sm state">
                                                      <option value="no">통상</option>
                                                      <option value="3_stop">3일 정지 추가</option>
                                                      <option value="7_stop">7일 정지 추가</option>
                                                      <option value="f_stop">영구 정지</option>
                                                  </select>
-                                                 <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm" data-toggle="modal" data-target="#staticBackdrop2">변경</button>
+                                                 <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm stop_btn" data-toggle="modal" data-target="#staticBackdrop2">변경</button>
                                              </div>
                                              <hr class="hr2">  
                                         </div>  
-                                        </form>
                                         </c:forEach>
                                         <div class="col-12" style="text-align: center">${navi}</div>   
                                     	<div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-											  <div class="modal-dialog modal-dialog-centered modal-lg">
-											    <div class="modal-content">
-											      <div class="modal-header">
-											      <form name="stop_reason">
-											        <h5 class="modal-title" id="staticBackdropLabel">사유 작성</h5>	
-											      </form>   
-											        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											          <span aria-hidden="true">&times;</span>
-											        </button>
-											      </div>
-											      <div class="modal-body">
-										          <br>
-									      	 		<textarea id="summernote2" name="msg_contents"></textarea>
-									        	   <br>
-											      </div>	
-											      <div class="modal-footer">
-											        <button type="button" class="btn btn-secondary no" data-dismiss="modal">취소</button>
-											        <button type="button" class="btn btn-primary stopsend">완료</button>
-											      </div>
-											    </div>
-											  </div>
-											</div>
+										  <div class="modal-dialog modal-dialog-centered modal-lg">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <h5 class="modal-title" id="staticBackdropLabel">사유 작성</h5>	  
+										        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+										          <span aria-hidden="true">&times;</span>
+										      </div>
+										         <form name="stop_info">
+										      <div class="modal-body">
+									          <br>
+									          	<input type="text" style="display: none" id="stop_id" name="stop_id" value="">
+									          	<input type="text" style="display: none" id="s_stop_day" name="s_stop_day" value="">
+								      	 		<textarea id="summernote2" name="stop_reason"></textarea>
+								        	   <br>
+										      </div>	
+										       </form> 
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-secondary no" data-dismiss="modal">취소</button>
+										        <button type="button" class="btn btn-primary stopsend">완료</button>
+										      </div>
+										    </div>
+										  </div>
+										</div>
                                     </div>
                                 </div>
                             </div>
