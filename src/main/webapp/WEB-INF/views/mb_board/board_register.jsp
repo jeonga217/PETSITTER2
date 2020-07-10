@@ -190,9 +190,7 @@
 										<c:if test="${!empty list}">
 											<c:forEach items="${list}" var="i">
 												<input type="hidden" name="mb_petphoto" id="petphoto">
-												<input type="checkbox" data-imgsrc="${i.pet_photo}"
-													class="petname" name="mb_pet_name" id="${i.pet_name}"
-													value="${i.pet_name}" />
+												<input type="checkbox" data-imgsrc="${i.pet_photo}" class="petname" name="mb_pet_name" id="${i.pet_name}" value="${i.pet_name}" />
 												<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
 											</c:forEach>
 										</c:if>

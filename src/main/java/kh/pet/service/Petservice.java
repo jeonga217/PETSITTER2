@@ -38,9 +38,8 @@ public class Petservice {
 		return dao.gettime(time);
 	}
 	
-	public String getpettype(String petname) {
-		System.out.println(dao.getpettype(petname));
-		return dao.getpettype(petname);
+	public String getpettype(Mypet_regDTO pdto) {
+		return dao.getpettype(pdto);
 	}
 	
 	public MemboardDto modlist(String mb_seq) {
