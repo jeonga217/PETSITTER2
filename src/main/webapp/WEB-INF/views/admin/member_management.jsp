@@ -121,13 +121,13 @@
 		                                   	<div class="d-none d-lg-block col-lg">가입 날짜</div>
 		                                   	<div class="d-none d-lg-block col-lg">포인트</div>
 		                                   	<div class="col-4 col-lg">경고</div>
-		                                   	<div class="col-4 col-lg">상태</div>
+		                                   	<div class="d-none d-lg-block col-lg">상태</div>
 		                                   	<div class="col-4 col-lg">메세지</div>
-		                                   	<div class="col-4 col-lg-3">상태 변경</div>
+		                                   	<div class="col col-lg-3">상태 변경</div>
                                     	</div>
                                     	<hr class="hr2">
                                    		<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-											  <div class="modal-dialog">
+											  <div class="modal-dialog modal-dialog-centered modal-lg">
 											    <div class="modal-content">
 											      <div class="modal-header">
 											        <h5 class="modal-title" id="staticBackdropLabel">메세지 작성</h5>	   
@@ -136,19 +136,22 @@
 											        </button>
 											      </div>
 											      <div class="modal-body">
-											      <div><label>제목</label><input type="text" name="msg_title" style="width: 90%;" id="msg_title"></div> 
+											      <form name="message_form">
+											      <div><input type="text" name="msg_title" style="width: 100%;" id="msg_title" placeholder="제목을 적어주시길 바랍니다."></div> 
 										          <br>
-									      	 	<textarea id="summernote" name="msg_contents"></textarea>
+									      	 		<textarea id="summernote" name="msg_contents" class=""></textarea>
 									        	   <br>
+									        	   </form>
 											      </div>	
 											      <div class="modal-footer">
 											        <button type="button" class="btn btn-secondary no" data-dismiss="modal">취소</button>
-											        <button type="button" class="btn btn-primary send">전송</button>
+											        <button type="button" class="btn btn-primary messagesend">전송</button>
 											      </div>
 											    </div>
 											  </div>
 											</div>
                                     	<c:forEach var="i" items="${memberlist}">
+                                    	<form name="user_state">
                                     	<div class="row body">
                                     		<div class="col-4 col-lg">${i.mem_id}</div>
 		                                   	<div class="col-4 col-lg">
@@ -157,27 +160,49 @@
 		                                   	<c:otherwise>펫 시터</c:otherwise>
 		                                   	</c:choose>
 		                                   	</div>
+		                                   	
 		                                   	<div class="d-none d-lg-block col-lg">${i.mem_join_date}</div>
 		                                   	<div class="d-none d-lg-block col-lg">${i.mem_point}</div>
 		                                   	<div class="col-4 col-lg">${i.mem_warning}</div>
-		                                   	<div class="col-4 col-lg">통상</div>
+		                                   	<div class="d-none d-lg-block col-lg">통상</div>
 		                                   	<div class="col-4 col-lg"><button  class="btn btn-outline-primary my-2 my-sm-0 btn-sm message" id="${i.mem_id}" data-toggle="modal" data-target="#staticBackdrop">보내기</button></div>
-		                                   	<div class="col-4 col-lg-3">
-			                                   	<form>
-	                                                 <select name="state" class="btn btn-info dropdown-toggle btn-sm">
-	                                                     <option value="no">통상</option>
-	                                                     <option value="3_stop">3일 정지 추가</option>
-	                                                     <option value="7_stop">7일 정지 추가</option>
-	                                                     <option value="f_stop">영구 정지</option>
-	                                                 </select>
-	                                                 <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">변경</button>
-	                                             </form>
+		                                   	<div class="col col-lg-3">
+                                                 <select name="state" class="btn btn-info dropdown-toggle btn-sm" id="stop_day">
+                                                     <option value="no">통상</option>
+                                                     <option value="3_stop">3일 정지 추가</option>
+                                                     <option value="7_stop">7일 정지 추가</option>
+                                                     <option value="f_stop">영구 정지</option>
+                                                 </select>
+                                                 <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm" data-toggle="modal" data-target="#staticBackdrop2">변경</button>
                                              </div>
-                                             <hr class="hr2">   
-                                        </div>   	
+                                             <hr class="hr2">  
+                                        </div>  
+                                        </form>
                                         </c:forEach>
                                         <div class="col-12" style="text-align: center">${navi}</div>   
-                                    	 
+                                    	<div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+											  <div class="modal-dialog modal-dialog-centered modal-lg">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											      <form name="stop_reason">
+											        <h5 class="modal-title" id="staticBackdropLabel">사유 작성</h5>	
+											      </form>   
+											        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											          <span aria-hidden="true">&times;</span>
+											        </button>
+											      </div>
+											      <div class="modal-body">
+										          <br>
+									      	 		<textarea id="summernote2" name="msg_contents"></textarea>
+									        	   <br>
+											      </div>	
+											      <div class="modal-footer">
+											        <button type="button" class="btn btn-secondary no" data-dismiss="modal">취소</button>
+											        <button type="button" class="btn btn-primary stopsend">완료</button>
+											      </div>
+											    </div>
+											  </div>
+											</div>
                                     </div>
                                 </div>
                             </div>
