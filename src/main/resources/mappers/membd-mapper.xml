@@ -24,7 +24,7 @@
 </select>
 
 <select id="getpettype" resultType="String">
-	select pet_type from mypet where pet_name=#{value}
+	select pet_type from mypet where pet_name=#{pet_name} and master_id = #{master_id}
 </select>
 
 <select id="modlist" resultType="kh.pet.dto.MemboardDto">
