@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="membd">
 
-<select id="petselect" resultType="kh.pet.dto.PetDto">
-	select * from mypet
+<select id="petselect" resultType="kh.pet.dto.Mypet_regDTO">
+	select * from mypet where master_id = #{value}
 </select>
 
 <insert id="memboardinsert">
@@ -24,7 +24,7 @@
 </select>
 
 <select id="getpettype" resultType="String">
-	select pet_type from mypet where pet_name=#{value}
+	select pet_type from mypet where pet_name=#{pet_name} and master_id = #{master_id}
 </select>
 
 <select id="modlist" resultType="kh.pet.dto.MemboardDto">

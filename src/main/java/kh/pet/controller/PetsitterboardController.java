@@ -1,6 +1,7 @@
 package kh.pet.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.pet.dto.MemberDTO;
-import kh.pet.dto.PetDto;
+import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
 import kh.pet.dto.TotboardDTO;
@@ -51,7 +52,9 @@ public class PetsitterboardController {
 		try {
 			cpage= Integer.parseInt(req.getParameter("cpage"));
 		} catch(Exception e) {}
+
 		List<PetsitterboardDTO> list =psbservice.outputList(cpage);
+
 		String pageNavi = psbservice.getPageNavi(cpage);
 		model.addAttribute("list",list);
 		model.addAttribute("pageNavi",pageNavi);
@@ -64,13 +67,15 @@ public class PetsitterboardController {
  		return "petsitter_board/board/board_register";
 	}
 
-	@RequestMapping("board_single_view")
-	public String board_single_view(Model model,TotboardDTO totdto)throws Exception{
-		model.addAttribute("tot_Info",totdto);
-		List<PetDto> pet_list = psbservice.selectMypet(((MemberDTO)session.getAttribute("loginIfo")).getMem_id());
-		model.addAttribute("pet_list",pet_list);
-		return "petsitter_board/board/board_single_view";
-	}
+   @RequestMapping("board_single_view")
+   public String board_single_view(String psb_writer,String psb_seq,Model model)throws Exception{
+      TotboardDTO totdto = psbservice.selectBoard(psb_writer,psb_seq);
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+      
+      List<Mypet_regDTO> pet_list = psbservice.selectMypet(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
+      model.addAttribute("pet_list",pet_list);
+      return "petsitter_board/board/board_single_view";
+   }
 	
 	@RequestMapping("output")
 	public String output(Model model)throws Exception{
@@ -117,5 +122,11 @@ public class PetsitterboardController {
 //		System.out.println("time:"+wdto.getPsb_time());
 		String mem_id=((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
 		wdto.setMem_id(mem_id);
+		
+		String start_day = wdto.getRsv_start_day();
+		//String end_day = wdto.getRsv_end_day();
+		SimpleDateFormat basic_format = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(basic_format.format(start_day));
+		
 	}
 }

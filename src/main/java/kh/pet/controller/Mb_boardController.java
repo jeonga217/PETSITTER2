@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.MemboardDto;
-import kh.pet.dto.PetDto;
+import kh.pet.dto.Mypet_regDTO;
 import kh.pet.service.Petservice;
 
 @Controller
@@ -30,11 +30,10 @@ public class Mb_boardController {
 	
 	@RequestMapping("home")
 	public String home(Model m) {
-		List<PetDto> list = service.Petselect();
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
+		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
 		String add = service.addselec(mdto.getMem_id());
-		System.out.println(mdto.getMem_id());
-		System.out.println(add);
+		
 		m.addAttribute("list", list);
 		m.addAttribute("add", add);
 		return "mb_board/board_register";
@@ -52,8 +51,9 @@ public class Mb_boardController {
 
 
 	@RequestMapping("redlist")
-	public String redlist(Model m,MemboardDto mbdto) {
+	public String redlist(Model m,MemboardDto mbdto,Mypet_regDTO pdto) {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
+		pdto.setMaster_id(mdto.getMem_id());
 		String add = service.addselec(mdto.getMem_id());
 		List<MemboardDto> dtolist  = service.seqid(mdto.getMem_id());
 		MemboardDto mlist = service.redlist(dtolist.get(0).getMb_seq());
@@ -63,8 +63,8 @@ public class Mb_boardController {
 		List<String> petphoto = new ArrayList<>();
 		List<String> services = new ArrayList<>();
 		for(String petname : petnamearr) {
-			System.out.println(petname);
-			pettype.add(service.getpettype(petname));
+			pdto.setPet_name(petname);
+			pettype.add(service.getpettype(pdto));
 		}
 		for(String petname : petnamearr) {
 
@@ -93,8 +93,9 @@ public class Mb_boardController {
 
 	// 占쎈땾占쎌젟 �뀎占�	
 	@RequestMapping("modfilist")
-	public String modfilist(Model m,MemboardDto mbdto) {
+	public String modfilist(Model m,MemboardDto mbdto,Mypet_regDTO pdto) {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
+		pdto.setMaster_id(mdto.getMem_id());
 		String add = service.addselec(mdto.getMem_id());
 		MemboardDto mlist = service.redlist(mbdto.getMb_seq());
 		String[] servicearr = mlist.getMb_service().split(",");
@@ -103,8 +104,8 @@ public class Mb_boardController {
 		List<String> petphoto = new ArrayList<>();
 		List<String> services = new ArrayList<>();
 		for(String petname : petnamearr) {
-			System.out.println(petname);
-			pettype.add(service.getpettype(petname));
+			pdto.setPet_name(petname);
+			pettype.add(service.getpettype(pdto));
 		}
 		for(String petname : petnamearr) {
 
@@ -132,6 +133,7 @@ public class Mb_boardController {
 
 	@RequestMapping("modified")
 	public String redlist_modified(Model m,String mb_seq) {
+		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		MemboardDto modlist = service.modlist(mb_seq);
 		String[] petnamearr = modlist.getMb_pet_name().split(",");
 		String[] servicearr = modlist.getMb_service().split(",");
@@ -144,7 +146,7 @@ public class Mb_boardController {
 		for(String petname : petnamearr) {
 			petnames.add(petname);
 		}
-		List<PetDto> list = service.Petselect();
+		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
 
 		String add = service.addselec(modlist.getMb_writer());
 		m.addAttribute("list", list);

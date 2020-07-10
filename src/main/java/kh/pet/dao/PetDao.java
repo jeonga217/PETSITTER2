@@ -8,15 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.pet.dto.MemboardDto;
-import kh.pet.dto.PetDto;
+import kh.pet.dto.Mypet_regDTO;
+
 
 @Repository
 public class PetDao {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	public List<PetDto> Petselect(){
-		return mybatis.selectList("membd.petselect");
+	public List<Mypet_regDTO> Petselect(String id){
+		return mybatis.selectList("membd.petselect",id);
 	}
 	
 	public int Memboardinsert(MemboardDto mdto) {
@@ -36,8 +37,8 @@ public class PetDao {
 		return mybatis.selectOne("membd.gettime", time);
 	}
 	
-	public String getpettype(String petname) {
-		return mybatis.selectOne("membd.getpettype",petname);
+	public String getpettype(Mypet_regDTO pdto) {
+		return mybatis.selectOne("membd.getpettype",pdto);
 	}
 	
 	public MemboardDto modlist(String mb_seq) {

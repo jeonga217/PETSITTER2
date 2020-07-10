@@ -14,6 +14,7 @@ import kh.pet.dto.MemberDTO;
 import kh.pet.dto.MemboardDto;
 import kh.pet.dto.MessageDTO;
 import kh.pet.dto.PetsitterDTO;
+import kh.pet.dto.Stop_memberDTO;
 import kh.pet.dto.WaitlistDTO;
 import kh.pet.staticInfo.Admin_Configuration;
 
@@ -67,6 +68,26 @@ public class AdminService {
 	}
 	
 	//회원 관리
+	
+	public int stop_mem(Stop_memberDTO dto){
+		String tmp = dto.getS_stop_day();
+		if(tmp.contentEquals("3_stop")) {
+			dto.setStop_day(3);
+		}else if(tmp.contentEquals("7_stop")){
+			dto.setStop_day(7);
+		}else if(tmp.contentEquals("f_stop")) {
+			dto.setStop_day(10000000);
+		}else if(tmp.contentEquals("no")) {
+			dto.setStop_day(0);
+		}
+		if(dao.mem_stop_search(dto.getStop_id())==0) {
+			return dao.mem_stop(dto);
+		}
+		else {
+			return dao.mem_stop_update(dto);
+		}
+		
+	}
 	
 	public List<MemberDTO> member(int cpage){
 		int start = cpage*Admin_Configuration.member_RECORD_COUNT_PER_PAGE - (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);

@@ -10,7 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kh.pet.dto.PetDto;
+import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
 import kh.pet.dto.TotboardDTO;
@@ -29,7 +29,7 @@ public class PetsitterboardDAO {
 		return psb_seq;
 	}
 	
-	public List<PetDto> selectMypet(String mem_id) throws Exception{
+	public List<Mypet_regDTO> selectMypet(String mem_id) throws Exception{
 		return mybatis.selectList("Board.selectMypet", mem_id);
 	}
 	

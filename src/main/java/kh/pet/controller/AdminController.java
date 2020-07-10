@@ -1,5 +1,6 @@
 package kh.pet.controller;
 
+import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -21,6 +22,7 @@ import kh.pet.dto.MemboardDto;
 import kh.pet.dto.MessageDTO;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
+import kh.pet.dto.Stop_memberDTO;
 import kh.pet.dto.WaitlistDTO;
 import kh.pet.service.AdminService;
 import kh.pet.service.MessageService;
@@ -88,7 +90,6 @@ public class AdminController {
 	
 
 	//펫 시터 신청서 관리
-
 	@RequestMapping("petsiter")
 	public String go_admin_petsiter(Model m) {
 		List<PetsitterDTO> pet =  admin_service.petsitter();
@@ -147,7 +148,6 @@ public class AdminController {
 		return "admin/member_management";
 	}
 	
-	
 	@RequestMapping("message")
 	public void admin_message(MessageDTO dto,HttpServletResponse response) throws Exception{
 		dto.setMsg_sender("관리자");
@@ -157,6 +157,13 @@ public class AdminController {
 		response.getWriter().append(jobj.toString());
 	}
 	
+	@RequestMapping("mem_stop")
+	public void member_stop(Stop_memberDTO dto,HttpServletResponse response) throws Exception {
+		int re = admin_service.stop_mem(dto);
+		JSONObject jobj = new JSONObject();
+		jobj.put("re", re );
+		response.getWriter().append(jobj.toString());
+	}
 	//블랙 회원 관리
 
 	@RequestMapping("black")

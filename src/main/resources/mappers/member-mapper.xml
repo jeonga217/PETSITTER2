@@ -12,7 +12,6 @@
 	<select resultType="int" id="emailCheck">select count(*) from member where
 		mem_email = #{value} </select>
 
-
 	<insert id="signup">
 		insert into member values(#{mem_id},#{mem_pw},#{mem_name},#{mem_email},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},1,1, sysdate, 0, 0, 'n',#{mem_authkey},'no') 
 	</insert>

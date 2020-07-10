@@ -10,15 +10,16 @@ import org.springframework.stereotype.Service;
 import kh.pet.staticInfo.Mb_Configuration;
 import kh.pet.dao.PetDao;
 import kh.pet.dto.MemboardDto;
-import kh.pet.dto.PetDto;
+import kh.pet.dto.Mypet_regDTO;
+
 
 @Service
 public class Petservice {
 	@Autowired
 	private PetDao dao;
 	
-	public List<PetDto> Petselect(){
-		return dao.Petselect();
+	public List<Mypet_regDTO> Petselect(String id){
+		return dao.Petselect(id);
 	}
 	
 	public int Memboardinsert(MemboardDto mdto) {
@@ -37,9 +38,8 @@ public class Petservice {
 		return dao.gettime(time);
 	}
 	
-	public String getpettype(String petname) {
-		System.out.println(dao.getpettype(petname));
-		return dao.getpettype(petname);
+	public String getpettype(Mypet_regDTO pdto) {
+		return dao.getpettype(pdto);
 	}
 	
 	public MemboardDto modlist(String mb_seq) {
