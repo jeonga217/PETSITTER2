@@ -24,11 +24,14 @@
 <link rel="stylesheet" href="/resources/main/css/magnific-popup.css">
 <link rel="stylesheet" href="/resources/main/css/jquery-ui.css">
 <link rel="stylesheet" href="/resources/main/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/resources/main/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="/resources/main/css/owl.theme.default.min.css">
 
-<link rel="stylesheet" href="/resources/main/css/bootstrap-datepicker.css">
+<link rel="stylesheet"
+	href="/resources/main/css/bootstrap-datepicker.css">
 
-<link rel="stylesheet" href="/resources/main/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet"
+	href="/resources/main/fonts/flaticon/font/flaticon.css">
 
 <link rel="stylesheet" href="/resources/main/css/aos.css">
 <link rel="stylesheet" href="/resources/main/css/rangeslider.css">
@@ -48,8 +51,10 @@
 	href="/resources/main/vendor1/select2/select2.min.css">
 <link rel="stylesheet" type="text/css"
 	href="/resources/main/vendor1/perfect-scrollbar/perfect-scrollbar.css">
-<link rel="stylesheet" type="text/css" href="/resources/main/css1/util.css">
-<link rel="stylesheet" type="text/css" href="/resources/main/css1/main.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/css1/util.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/css1/main.css">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <script
@@ -108,10 +113,10 @@
 
 			</div>
 		</header>
-			
+
 	</div>
 
-	
+
 
 
 	<div class="site-blocks-cover inner-page-cover overlay"
@@ -160,7 +165,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="i" items="${list}">
+										<c:forEach var="i" items="${bdto}">
 											<tr>
 												<td>${i.cu_category}</td>
 												<td><a href="kk?seq=${i.cu_seq}">${i.cu_title}</a></td>
@@ -170,7 +175,9 @@
 									</tbody>
 								</table>
 
-
+								<div class="col-12 mt-5 text-center">
+									<div class="custom-pagination">${navi}</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -251,19 +258,19 @@
 	</div>
 
 
-		<script src="/resources/main/js/jquery-3.3.1.min.js"></script>
-		<script src="/resources/main/js/jquery-migrate-3.0.1.min.js"></script>
-		<script src="/resources/main/js/jquery-ui.js"></script>
-		<script src="/resources/main/js/popper.min.js"></script>
-		<script src="/resources/main/js/bootstrap.min.js"></script>
-		<script src="/resources/main/js/owl.carousel.min.js"></script>
-		<script src="/resources/main/js/jquery.stellar.min.js"></script>
-		<script src="/resources/main/js/jquery.countdown.min.js"></script>
-		<script src="/resources/main/js/jquery.magnific-popup.min.js"></script>
-		<script src="/resources/main/js/bootstrap-datepicker.min.js"></script>
-		<script src="/resources/main/js/aos.js"></script>
-		<script src="/resources/main/js/rangeslider.min.js"></script>
+	<script src="/resources/main/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/main/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="/resources/main/js/jquery-ui.js"></script>
+	<script src="/resources/main/js/popper.min.js"></script>
+	<script src="/resources/main/js/bootstrap.min.js"></script>
+	<script src="/resources/main/js/owl.carousel.min.js"></script>
+	<script src="/resources/main/js/jquery.stellar.min.js"></script>
+	<script src="/resources/main/js/jquery.countdown.min.js"></script>
+	<script src="/resources/main/js/jquery.magnific-popup.min.js"></script>
+	<script src="/resources/main/js/bootstrap-datepicker.min.js"></script>
+	<script src="/resources/main/js/aos.js"></script>
+	<script src="/resources/main/js/rangeslider.min.js"></script>
 
-		<script src="/resources/main/js/main.js"></script>
+	<script src="/resources/main/js/main.js"></script>
 </body>
 </html>

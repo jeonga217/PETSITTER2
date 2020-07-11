@@ -8,14 +8,19 @@
 	</resultMap>
 
 	<select id="pointcount" resultType="int">
-		select p_point from points where p_id=#{id}
+		select p_point from points
+		where p_id=#{id}
 	</select>
 
 	<select id="pointminus" resultType="int">
-		select p_point from points where p_method=#{minus} or p_method=#{minus1} and
+		select p_point from points
+		where p_method=#{minus} or p_method=#{minus1} and
 		p_id=#{id}
 	</select>
 
+	<select id="pointlistall" resultType="kh.pet.dto.PointDTO">
+		select * from points where p_id=#{value}
+	</select>
 
 	<insert id="pet_insert">
 		insert into mypet
@@ -42,20 +47,23 @@
 	</select>
 
 	<select id="point" resultType="kh.pet.dto.PointDTO">
-		select * from memberpoint where id=#{value}
+		select * from memberpoint where
+		id=#{value}
 	</select>
 
 	<insert id="pointinsert">
 		insert into points
-		values(#{p_id},#{mem_type},${p_point},#{p_method},sysdate)
+		values(#{p_id},${p_point},#{mem_type},#{p_method},sysdate)
 	</insert>
 
 	<select id="lookup" resultType="kh.pet.dto.RegLookupDTO">
-		select * from reservation where mem_id=#{value}
+		select * from reservation where
+		mem_id=#{value}
 	</select>
 
 	<select id="typecheck" resultType="String">
-		select mem_type from member where mem_id=#{value}
+		select mem_type from member
+		where mem_id=#{value}
 	</select>
 
 </mapper>
