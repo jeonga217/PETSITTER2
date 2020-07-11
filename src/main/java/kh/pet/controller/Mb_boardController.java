@@ -183,7 +183,7 @@ public class Mb_boardController {
 				mb.setPhoto(photoarr);
 			}
 		}
-		
+	
 		String navi = service.getPageNavi(cpage);
 		m.addAttribute("navi", navi);
 		m.addAttribute("mblist", mblist);

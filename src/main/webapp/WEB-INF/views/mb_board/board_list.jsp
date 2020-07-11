@@ -129,7 +129,7 @@
 									</div>
 								</div>
 							</div>
-							</c:if>				
+							</c:if>		
 						</c:forEach>
 
 						<div class="col-12 mt-5 text-center">

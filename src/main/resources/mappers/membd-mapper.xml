@@ -44,7 +44,7 @@
 </select>
 
 <select id="mb_boardList" resultType="kh.pet.dto.MemboardDto">
-	select * from (select mem_board.*,row_number()over (order by mb_seq desc) rnum from mem_board) where rnum between ${start} and ${end}
+	select * from (select mem_board.*,row_number()over (order by mb_seq desc) rnum from mem_board where sysdate <![CDATA[<=]]> mb_startday) where rnum between ${start} and ${end}
 </select>
 
 <delete id="deleteboard">

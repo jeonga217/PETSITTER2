@@ -190,8 +190,8 @@ public class MemboardDto {
 	}
 	
 	public String getdate() {
-		long mb_date = this.mb_date.getTime();//글 작성 시점
-		long current_date = System.currentTimeMillis();// 현재 시점
+		long mb_date = this.mb_date.getTime();
+		long current_date = System.currentTimeMillis();
 		
 		long gapTime = (current_date - mb_date)/1000;
 		
