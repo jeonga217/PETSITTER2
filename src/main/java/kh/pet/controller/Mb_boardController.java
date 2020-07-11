@@ -76,7 +76,6 @@ public class Mb_boardController {
 		}
 		
 		
-		
 		String[] stimearr = mlist.getMb_stime().split(":");
 		String[] etimearr = mlist.getMb_etime().split(":");
 		int stime = Integer.parseInt(stimearr[0]);
@@ -94,8 +93,7 @@ public class Mb_boardController {
 		
 		return "mb_board/board";
 	}
-
-	// 占쎈땾占쎌젟 �뀎占�	
+	
 	@RequestMapping("modfilist")
 	public String modfilist(Model m,MemboardDto mbdto,Mypet_regDTO pdto) {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
@@ -211,7 +209,6 @@ public class Mb_boardController {
 		try {
 			response.getWriter().append(jobj.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

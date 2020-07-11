@@ -28,8 +28,6 @@ public class HomeController {
 	}
 	
 	
-	
-	
 	@RequestMapping("login2")
 	public String login(String id) {
 		session.setAttribute("id", id);
