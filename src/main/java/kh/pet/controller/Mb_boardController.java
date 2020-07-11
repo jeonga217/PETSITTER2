@@ -1,6 +1,7 @@
 package kh.pet.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,9 @@ public class Mb_boardController {
 		for(String service : servicearr) {
 			services.add(service);
 		}
+		
+		
+		
 		String[] stimearr = mlist.getMb_stime().split(":");
 		String[] etimearr = mlist.getMb_etime().split(":");
 		int stime = Integer.parseInt(stimearr[0]);
@@ -179,6 +183,7 @@ public class Mb_boardController {
 				mb.setPhoto(photoarr);
 			}
 		}
+		
 		String navi = service.getPageNavi(cpage);
 		m.addAttribute("navi", navi);
 		m.addAttribute("mblist", mblist);

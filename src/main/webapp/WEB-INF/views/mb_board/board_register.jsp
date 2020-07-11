@@ -254,9 +254,9 @@
 							<div class="d-block d-md-flex listing-horizontal">
 								<div class="lh-content">
 									<div class="d-block my-3">
-										<h3>특이사항</h3>
+										<h3>요구사항</h3>
 										<div contenteditable="true" id="uniqueness"></div>
-										<input type="hidden" name="mb_unique" id="mb_unique">
+										<input type="hidden" name="mb_request" id="mb_request">
 									</div>
 								</div>
 							</div>
@@ -710,7 +710,7 @@
     <script>
 			$("#uniqueness").on("keyup", function() {
 				var uniquetext = $("#uniqueness").html();
-				$("#mb_unique").val(uniquetext);
+				$("#mb_request").val(uniquetext);
 			})
 
 			$("#title").on("keyup", function() {
@@ -726,7 +726,7 @@
     			var petVal = $(".petname:checked").val();
     			var serviceVal = $(".chservi:checked").val();
     			var startdayVal = $("#mb_startday").val();
-    			var uniqueVal = $("#mb_unique").val();
+    			var requestVal = $("#mb_request").val();
     			if(titleVal == ""){
     				alert("제목을 입력 해주세요");
     				return false;
@@ -752,7 +752,7 @@
     				return false;
     			}		
 
-    			if(uniqueVal == ""){
+    			if(requestVal == ""){
     				alert("특이 사항을 입력 해주세요");
     				return false;
     			}		

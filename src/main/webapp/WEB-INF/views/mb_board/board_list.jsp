@@ -124,9 +124,12 @@
 									<h3>
 										<a href="/mb/modfilist?mb_seq=${i.mb_seq}">${i.mb_title}</a>
 									</h3>
+									<div>
+										${i.date}
+									</div>
 								</div>
 							</div>
-							</c:if>
+							</c:if>				
 						</c:forEach>
 
 						<div class="col-12 mt-5 text-center">
@@ -140,56 +143,8 @@
 
                         <div class="mb-5">
                             <a href="/mb/home" class="btn btn-primary text-white" id="board_add" style="line-height: 35px">등록하기</a>
-                        </div>
-
-                        <div class="mb-5">
-                            <form action="#" method="post">
-                                <div class="form-group">
-                                    <p>Radius around selected destination</p>
-                                </div>
-                                <div class="form-group">
-                                    <input type="range" min="0" max="100" value="20" data-rangeslider>
-                                </div>
+                        </div>                      
                             </form>
-                        </div>
-
-                        <div class="mb-5">
-                            <form action="#" method="post">
-                                <div class="form-group">
-                                    <p>Category 'Restaurant' is selected</p>
-                                    <p>More filters</p>
-                                </div>
-                                <div class="form-group">
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <label for="option1">
-                                                <input type="checkbox" id="option1">
-                                                Coffee
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="option2">
-                                                <input type="checkbox" id="option2">
-                                                Vegetarian
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="option3">
-                                                <input type="checkbox" id="option3">
-                                                Vegan Foods
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="option4">
-                                                <input type="checkbox" id="option4">
-                                                Sea Foods
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </form>
-                        </div>
-
                     </div>
                 </div>
             </div>
