@@ -228,9 +228,9 @@
 							</div>
 							<div class="d-block d-md-flex listing-horizontal">
 								<div class="lh-content">
-									<h3>특이사항</h3>
+									<h3>요구사항</h3>
 									<c:if test="${!empty mlist}">
-										<span>${mlist.mb_unique}</span>
+										<span>${mlist.mb_request}</span>
 									</c:if>
 								</div>
 							</div>

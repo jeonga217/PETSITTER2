@@ -1,6 +1,7 @@
 package kh.pet.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class MemboardDto {
 	private String mb_seq;
@@ -13,13 +14,14 @@ public class MemboardDto {
 	private String mb_endday;
 	private String mb_stime;
 	private String mb_etime;
-	private String mb_unique;
+	private String mb_request;
 	private String mb_point;
 	private String mb_petphoto;
 	private String mb_boardstatus;
 	private String mb_restatus;
 	private String mb_booker;
 	private String[] photo;
+	private String date;
 	
 	public MemboardDto() {
 		super();
@@ -27,9 +29,9 @@ public class MemboardDto {
 	}
 
 	public MemboardDto(String mb_seq, String mb_title, String mb_writer, Timestamp mb_date, String mb_pet_name,
-			String mb_service, String mb_startday, String mb_endday, String mb_stime, String mb_etime, String mb_unique,
+			String mb_service, String mb_startday, String mb_endday, String mb_stime, String mb_etime, String mb_request,
 			String mb_point, String mb_petphoto, String mb_boardstatus, String mb_restatus, String mb_booker,
-			String[] photo) {
+			String[] photo, String date) {
 		super();
 		this.mb_seq = mb_seq;
 		this.mb_title = mb_title;
@@ -41,13 +43,14 @@ public class MemboardDto {
 		this.mb_endday = mb_endday;
 		this.mb_stime = mb_stime;
 		this.mb_etime = mb_etime;
-		this.mb_unique = mb_unique;
+		this.mb_request = mb_request;
 		this.mb_point = mb_point;
 		this.mb_petphoto = mb_petphoto;
 		this.mb_boardstatus = mb_boardstatus;
 		this.mb_restatus = mb_restatus;
 		this.mb_booker = mb_booker;
 		this.photo = photo;
+		this.date = new SimpleDateFormat("YYYY-MM-dd").format(mb_date);
 	}
 
 	public String getMb_seq() {
@@ -130,12 +133,12 @@ public class MemboardDto {
 		this.mb_etime = mb_etime;
 	}
 
-	public String getMb_unique() {
-		return mb_unique;
+	public String getmb_request() {
+		return mb_request;
 	}
 
-	public void setMb_unique(String mb_unique) {
-		this.mb_unique = mb_unique;
+	public void setmb_request(String mb_request) {
+		this.mb_request = mb_request;
 	}
 
 	public String getMb_point() {
@@ -186,6 +189,23 @@ public class MemboardDto {
 		this.photo = photo;
 	}
 	
-	
+	public String getdate() {
+		long mb_date = this.mb_date.getTime();
+		long current_date = System.currentTimeMillis();
+		
+		long gapTime = (current_date - mb_date)/1000;
+		
+		if(gapTime<60) {
+			return "방금전";
+		}else if(gapTime<300) {
+			return "5분 이내";
+		}else if(gapTime<3600) {
+			return "1시간 이내";
+		}else if(gapTime<86400) {
+			return "24시간 이내";
+		}else {
+			return date;
+		}
+	}
 	
 }
