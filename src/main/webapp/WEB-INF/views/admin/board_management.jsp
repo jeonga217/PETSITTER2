@@ -154,7 +154,6 @@
 																class="btn btn-info dropdown-toggle btn-sm">	
 																<option value="yes">통상</option>
 																<option value="stop">정지</option>
-																<option value="delete">삭제</option>
 															</select>
 															<button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">변경</button>
 														</form>

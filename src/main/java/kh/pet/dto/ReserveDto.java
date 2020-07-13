@@ -3,8 +3,8 @@ package kh.pet.dto;
 import java.sql.Date;
 
 public class ReserveDto {
-	private int reserve_seq;
-	private int parent_seq;
+	private String reserve_seq;
+	private String petsitter_board_seq;
 	private String petsitter_id;
 	private String mem_id;
 	private String pet_name; 
@@ -14,12 +14,13 @@ public class ReserveDto {
 	private String reserve_time;
 	
 	public ReserveDto() {}
-
 	
-	public ReserveDto(int reserve_seq, int parent_seq, String petsitter_id, String mem_id, String pet_name,
-			int reserve_point, Date start_day, Date end_day, String reserve_time) {
+
+	public ReserveDto(String reserve_seq, String petsitter_board_seq, String petsitter_id, String mem_id,
+			String pet_name, int reserve_point, Date start_day, Date end_day, String reserve_time) {
+		super();
 		this.reserve_seq = reserve_seq;
-		this.parent_seq = parent_seq;
+		this.petsitter_board_seq = petsitter_board_seq;
 		this.petsitter_id = petsitter_id;
 		this.mem_id = mem_id;
 		this.pet_name = pet_name;
@@ -30,20 +31,20 @@ public class ReserveDto {
 	}
 
 
-	public int getReserve_seq() {
+	public String getReserve_seq() {
 		return reserve_seq;
 	}
 
-	public void setReserve_seq(int reserve_seq) {
+	public void setReserve_seq(String reserve_seq) {
 		this.reserve_seq = reserve_seq;
 	}
 
-	public int getParent_seq() {
-		return parent_seq;
+	public String getPetsitter_board_seq() {
+		return petsitter_board_seq;
 	}
 
-	public void setParent_seq(int parent_seq) {
-		this.parent_seq = parent_seq;
+	public void setPetsitter_board_seq(String petsitter_board_seq) {
+		this.petsitter_board_seq = petsitter_board_seq;
 	}
 
 	public String getPetsitter_id() {
@@ -101,5 +102,5 @@ public class ReserveDto {
 	public void setReserve_time(String reserve_time) {
 		this.reserve_time = reserve_time;
 	}
-	
+
 }

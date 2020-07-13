@@ -40,20 +40,64 @@
 	</insert>
 	
 	<update id="mem_stop_update">
-		update stop_mem set <choose><when test="s_stop_day == 'no'">stop_day = 0 where stop_id = #{stop_id} </when><otherwise>stop_day = stop_day+${stop_day} where stop_id = #{stop_id} </otherwise></choose> 
+		update stop_mem set stop_day = stop_day+${stop_day} where stop_id = #{stop_id} 
 	</update>
 	
 	<select id="mem_stop_search" resultType="int">
 		select count(*) from stop_mem where stop_day != 0 and stop_id = #{value}
 	</select>
 	
-	<!--reservation management -->
-	<select id="rememboard" resultType="kh.pet.dto.MemboardDto">
-		select * from mem_board where MB_RESTATUS = 'yes'
+	<delete id="mem_stop_cancel">
+		delete from stop_mem where stop_id = #{value}
+	</delete>
+	
+	<update id="mem_stop_count">
+		update stop_mem set stop_day = (stop_day-1)
+	</update>
+	
+	<update id="mem_stop_solve">
+		update member set  mem_status = 'no' where mem_id = #{value}
+	</update>
+	
+	<select id="mem_stop_solve_search" resultType="kh.pet.dto.Stop_memberDTO">
+		select * from stop_mem where stop_day = 0
 	</select>
 	
+	
+	
+	<!--reservation management -->
+	
+	
+	<!--mem_board  -->
+	<select id="rememboard" resultType="kh.pet.dto.MemboardDto">
+		select * from mem_board where mb_restatus = 'yes' and mb_RESERVE_num = null
+	</select>
+	
+	<update id="accept_mem_board">
+		update mem_board set mb_RESERVE_num = #{seq} where mb_seq = #{p_seq}
+	</update>
+	
+	
+	<!--petsitter_board  -->
 	<select id="repsboard" resultType="kh.pet.dto.WaitlistDTO">
 		select * from waitlist
+	</select>
+	
+	<select id="accept_pet_info">
+		select * from waitlist where BOARD_SEQ = #{value}
+	</select>
+	
+	<insert id="accept_pet_rsv">
+		insert into RESERVATION values(RESERVE_SEQ,nextval,#{reserve_seq},#{petsitter_board_seq},#{petsitter_id},#{mem_id},#{pet_name},${reserve_point},#{reserve_sdate},#{reserve_edate},#{reserve_time})
+	</insert>
+	
+	<delete id="accept_del_rsv">
+		delete from stop_mem where BOARD_SEQ = #{value}
+	</delete>
+	
+	<!--report management -->
+	<select id="reportlist" resultType="kh.pet.dto.ReportDTO">
+		select * from reports
 	</select>
 	
 </mapper>
