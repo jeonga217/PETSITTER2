@@ -26,20 +26,19 @@
 		<div class="wrapper">
 
 
-			<form action="writeProc">
+			<form action="/community/writeProc">
 			<select name="cu_category" id="category">
-					<option value="3">정보공유</option>
-					<option value="4">실종</option>
-					<option value="5">보호</option>
-					<option value="6">산책커뮤니티</option>
-					<option value="7">내새꾸자랑</option>
+					<option value="2">정보공유</option>
+					<option value="3">실종</option>
+					<option value="4">보호</option>
+					<option value="5">산책커뮤니티</option>
+					<option value="6">내새꾸자랑</option>
 				</select>
 				<input type="text" id="title" class="title" name="cu_title" placeholder="멤버글쓰기">
 				<hr>
 				<textarea id="summernote" name="cu_contents" class="contents" style="height:500px;"></textarea>
-				<!-- <div id="summernote" class="contents"></div> -->
 				<input type="text" name="cu_thumb" id="thumb_file" style="display:none">
-				<input type="submit" id="submit" value="게시">
+				<button type="submit" class="btn btn-primary btn text-white" id="submit">게시</button>
 				
 			</form>
 
@@ -89,7 +88,6 @@
 					var title = $("#title").val();
 					var contents = $(".note-editable").html();
 					var file =  $(".note-editable").find('img').attr('src');
-					
 					$("#thumb_file").val(file);
 					
 					if(title.trim() == "") {
@@ -99,7 +97,6 @@
 						
 					} else if(contents.trim() == "<p><br></p>" || contents.trim() == ""){
 						alert("내용을 입력하세요");
-						
 						return false;
 						
 					} else {

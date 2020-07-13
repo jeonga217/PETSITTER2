@@ -2,45 +2,43 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-  <head>
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
 
-	<style>
-	.wrapper {
-		width: 800px;
-		margin: 30px auto;
-	}
-	
-	#title {
-		width: 100%
-	}
-	</style>
- 	</head>
-  <body>
-	<jsp:include page="/WEB-INF/views/community/header.jsp"/>
-	    <div class="site-section">
-	      <div class="container">
-	        
-		<div class="wrapper">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<style>
+.wrapper {
+	width: 800px;
+	margin: 30px auto;
+}
+
+#title {
+	width: 100%
+}
+</style>
+</head>
+<body>
+	<jsp:include page="/WEB-INF/views/community/header.jsp" />
+	<div class="site-section">
+		<div class="container">
+
+			<div class="wrapper">
 
 
-			<form action="writeProc">
-			<select name="cu_category" id="category">
-					<option value="1">공지사항</option>
-					<option value="2">펫시터랭킹</option>
-				</select>
-				<input type="text" id="title" class="title" name="cu_title" placeholder="멤버글쓰기">
-				<hr>
-				<textarea id="summernote" name="cu_contents" class="contents" style="height:500px;"></textarea>
-				<!-- <div id="summernote" class="contents"></div> -->
-				<input type="text" name="cu_thumb" id="thumb_file" style="display:none">
-				<input type="submit" id="submit" value="게시">
-				
-			</form>
+				<form action="/community/writeProc">
+					<select name="cu_category" id="category">
+						<option value="1">공지</option>
+					</select> <input type="text" id="title" class="title" name="cu_title" placeholder="멤버글쓰기">
+					<hr>
+					<textarea id="summernote" name="cu_contents" class="contents" style="height: 500px;"></textarea>
+					<!-- <div id="summernote" class="contents"></div> -->
+					<input type="text" name="cu_thumb" id="thumb_file" style="display: none">
+					<button type="submit" class="btn btn-primary btn text-white" id="submit">게시</button>
+				</form>
 
-			<script>
+				<script>
 				$(function(){
 					
 					$('#summernote').summernote({
@@ -106,10 +104,10 @@
 				})
 			}) 
 			</script>
+			</div>
 		</div>
-	      </div>
-	    </div>
+	</div>
 
-	<jsp:include page="/WEB-INF/views/community/footer.jsp"/>
-	</body>
+	<jsp:include page="/WEB-INF/views/community/footer.jsp" />
+</body>
 </html>

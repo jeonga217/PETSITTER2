@@ -6,7 +6,7 @@
 <html lang="en">
   <head>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+ 
   <style>
   	#div_ps_myself {
 		border: 1px solid grey;
@@ -189,7 +189,7 @@
 										<input class="upload-name" value="파일선택" disabled="disabled" required>
 										<label for="ps_img">찾아보기</label>
 										<input type="file" id="ps_img" class="upload-hidden form-control"
-											name="files" value="" required>
+											name="files" accept="image/gif,image/jpeg,image/png" value="" required>
 									</div>
 								</div>
 								<div class="mb-3">
@@ -210,17 +210,17 @@
 								<div class="mb-3">
 									<label for="sample4_postcode">우편번호</label>
 									<div class="filebox">
-									<input type="text" id="sample4_postcode" class="upload-name" required readonly>
+									<input type="text" id="sample4_postcode" class="upload-name" value="${sessionScope.loginInfo.mem_zipcode }"required readonly>
 									<label for="ps_zipcode">찾기</label>
 									<input type="button" id="ps_zipcode" onclick="sample4_execDaumPostcode()">
 								</div>
 								<div class="mb-3">
 									<label for="sample4_roadAddress">주 소</label>
-									<input type="text" class="form-control" id="sample4_roadAddress" name="ps_address1" readonly>
+									<input type="text" class="form-control" id="sample4_roadAddress" name="ps_address1" value="${sessionScope.loginInfo.mem_address1 }" readonly>
 								</div>
 								<div class="mb-3">
 									<label for="ps_address2">상세주소</label>
-									<input type="text" class="form-control" id="ps_address2" name="ps_address2" required>
+									<input type="text" class="form-control" id="ps_address2" name="ps_address2" value="${sessionScope.loginInfo.mem_address2 }" required readonly>
 								</div>
 								<div class="mb-3">
 									<label for="">거주 유형</label>
@@ -326,7 +326,7 @@
 										<input id="license_img" class="upload-name" value="파일선택" disabled="disabled" required>
 										<label for="ps_license_img">찾아보기</label>
 										<input type="file" id="ps_license_img" class="upload-hidden form-control"
-											name="files" value="">
+											name="files" accept="image/gif,image/jpg,image/png" value="">
 									</div>
 								</div>
 								<div class="mb-3">

@@ -107,58 +107,27 @@
                                         </nav>
                                     </div>
                                     <div class="col-12">
-                                        <table style="width: 100%">
-                                            <tr>
-                                                <th>신고 번호</th>
-                                                <th>제목</th>
-                                                <th>신고자</th>
-                                                <th>피신고자</th>
-                                                <th>신고 날짜</th>
-                                                <th>수락/거절</th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    사기
-                                                </td>
-                                                <td>
-                                                    아무개
-                                                </td>
-                                                <td>
-                                                    바보
-                                                </td>
-                                                <td>
-                                                    20.3.13
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">수락</button>
-                                                    <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">거절</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    파기
-                                                </td>
-                                                <td>
-                                                    바보
-                                                </td>
-                                                <td>
-                                                    아무개
-                                                </td>
-                                                <td>
-                                                    20.3.13
-                                                </td>
-                                                <td>
-                                                    <button  class="btn btn-outline-primary my-2 my-sm-0 btn-sm">수락</button>
-                                                    <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">거절</button>
-                                                </td>
-                                            </tr>
-                                        </table>
+	                                    <div class="row">
+	                                    	<div class="col">신고 번호</div>
+	                                    	<div class="col">신고글 번호</div>
+	                                    	<div class="col">사유</div>
+	                                    	<div class="col">신고자</div>
+	                                    	<div class="col">수락/거절</div>
+	                                    </div>
+	                                   <hr class="hr2">
+	                                    <c:forEach var="i" items="${reportlist}">
+	                                    <div class="row">
+	                                    	<div class="col">${i.report_seq}</div>
+	                                    	<div class="col">${i.parents_seq}</div>
+	                                    	<div class="col">${i.report_contents}</div>
+	                                    	<div class="col">${i.report_id}</div>
+	                                    	<div class="col">
+	                                    		<button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">수락</button>
+	                                            <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">거절</button>
+	                                       </div>
+	                                    </div>
+	                                    <hr class="hr2">
+	                                    </c:forEach>
                                     </div>
                                 </div>
                             </div>
