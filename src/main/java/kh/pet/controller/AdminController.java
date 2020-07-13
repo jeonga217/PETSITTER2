@@ -3,7 +3,9 @@ package kh.pet.controller;
 import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +24,11 @@ import kh.pet.dto.MemboardDto;
 import kh.pet.dto.MessageDTO;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
+import kh.pet.dto.ReportDTO;
 import kh.pet.dto.Stop_memberDTO;
 import kh.pet.dto.WaitlistDTO;
 import kh.pet.service.AdminService;
+import kh.pet.service.MemberService;
 import kh.pet.service.MessageService;
 import kh.pet.service.Petservice;
 import kh.pet.service.PetsitterboardService;
@@ -48,7 +52,9 @@ public class AdminController {
 	@Autowired
 	private MessageService message_service;
 	
-
+	@Autowired
+	private MemberService member_service;
+	
 	@RequestMapping("adminindex")
 	public String admin() {
 		return "admin/index";
@@ -76,7 +82,6 @@ public class AdminController {
 	
 	@RequestMapping("re_select")
 	public String re_board_select(String boardtype,Model m) {
-		session.removeAttribute("boardtype");
 		if(boardtype.contentEquals("mb")) {
 			List<MemboardDto> list = admin_service.re_memboard();
 			m.addAttribute("list", list);
@@ -87,6 +92,20 @@ public class AdminController {
 		session.setAttribute("boardtype", boardtype);
 		return "admin/reservation_management";
 	}
+	
+	@RequestMapping("accept_memboard")
+	public void accept_memboard(MemboardDto dto, HttpServletResponse response) {
+		int re = admin_service.accept_memboard(dto);
+		JSONObject jobj = new JSONObject();
+		jobj.put("re", re);
+		try {
+			response.getWriter().append(jobj.toString());
+		} catch (Exception e) {
+			
+		}
+	}
+	
+	
 	
 
 	//펫 시터 신청서 관리
@@ -102,6 +121,9 @@ public class AdminController {
 		int re = admin_service.petaccept(id);
 		try {
 			if(re>0) {
+				MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+				MemberDTO mdto = member_service.loginInfo(dto.getMem_id());
+				session.setAttribute("loginInfo", mdto);
 				response.sendRedirect("/admin/petsiter");
 			}
 			else {
@@ -215,7 +237,9 @@ public class AdminController {
 	}
 
 	@RequestMapping("declaration")
-	public String go_admin_declaration() {
+	public String go_admin_declaration(Model m) {
+		List<ReportDTO> list = admin_service.reportlist();
+		m.addAttribute("reportlist", list);
 		return "admin/Declaration_management";
 	}
 

@@ -41,6 +41,7 @@ $(function(){
 			data : queryString,
 			cache: false,
 			dataType : "json",
+			processData : false,
 			success: function(data){
 				check = data.re;
 				if(check > 0 ){
@@ -71,6 +72,30 @@ $(function(){
 				}
 				else{
 					alert('정지 시키는 것을 실패했습니다.');
+				}		
+			}	
+		})
+	})
+	
+	$(".mem_accept").on("click",function(){
+		var seq = $(this).parent().parent().children('.p_seq').html();
+		var writer = $(this).parent().parent().children('.writer').html();
+		var booker = $(this).parent().parent().children('.booker').html();
+		var point = $(this).parent().parent().children('.point').html();
+		console.log("aa");
+		$.ajax({
+			type: "GET",
+			url:"/admin/accept_memboard?mb_seq="+seq+"&mb_writer="+writer+"&mb_booker="+booker+"&mb_point="+point,
+			cache: false,
+			dataType : "json",
+			success: function(data){
+				check = data.re;
+				if(check > 0 ){
+					alert('성공적으로 예약을 진행하였습니다.');
+					location.reload();
+				}
+				else{
+					alert('예약을 진행하는 것을 실패하였습니다.');
 				}		
 			}	
 		})
