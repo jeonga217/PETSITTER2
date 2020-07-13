@@ -88,7 +88,7 @@
 	</select>
 	
 	<insert id="accept_pet_rsv">
-		insert into RESERVATION values(RESERVE_SEQ,nextval,#{reserve_seq},#{petsitter_board_seq},#{petsitter_id},#{mem_id},#{pet_name},${reserve_point},#{reserve_sdate},#{reserve_edate},#{reserve_time})
+		insert into RESERVATION values(RESERVE_SEQ,nextval,#{petsitter_board_seq},#{petsitter_id},#{mem_id},#{pet_name},${reserve_point},#{start_day},#{end_day},#{reserve_time})
 	</insert>
 	
 	<delete id="accept_del_rsv">
