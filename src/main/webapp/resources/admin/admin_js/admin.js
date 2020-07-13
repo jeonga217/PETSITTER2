@@ -76,13 +76,12 @@ $(function(){
 			}	
 		})
 	})
-	
+	//memboard 
 	$(".mem_accept").on("click",function(){
 		var seq = $(this).parent().parent().children('.p_seq').html();
 		var writer = $(this).parent().parent().children('.writer').html();
 		var booker = $(this).parent().parent().children('.booker').html();
 		var point = $(this).parent().parent().children('.point').html();
-		console.log("aa");
 		$.ajax({
 			type: "GET",
 			url:"/admin/accept_memboard?mb_seq="+seq+"&mb_writer="+writer+"&mb_booker="+booker+"&mb_point="+point,
@@ -96,6 +95,71 @@ $(function(){
 				}
 				else{
 					alert('예약을 진행하는 것을 실패하였습니다.');
+				}		
+			}	
+		})
+	})
+	
+	
+	$(".mem_cancel").on("click",function(){
+		var seq = $(this).parent().parent().children('.p_seq').html();
+		var booker = $(this).parent().parent().children('.booker').html();
+		var point = $(this).parent().parent().children('.point').html();
+		$.ajax({
+			type: "GET",
+			url:"/admin/cancel_memboard?mb_seq="+seq+"&mb_booker="+booker+"&mb_point="+point,
+			cache: false,
+			dataType : "json",
+			success: function(data){
+				check = data.re;
+				if(check > 0 ){
+					alert('성공적으로 작업이 완료 되었습니다..');
+					location.reload();
+				}
+				else{
+					alert('작업이 실패하였습니다.');
+				}		
+			}	
+		})
+	})
+	
+	
+	//petboard
+	$(".pet_accept").on("click",function(){
+		var wait_seq = $(this).attr("id");
+		$.ajax({
+			type: "GET",
+			url:"/admin/accept_petboard?wait_seq="+wait_seq,
+			cache: false,
+			dataType : "json",
+			success: function(data){
+				check = data.re;
+				if(check > 0 ){
+					alert('성공적으로 예약을 진행하였습니다.');
+					location.reload();
+				}
+				else{
+					alert('예약을 진행하는 것을 실패하였습니다.');
+				}		
+			}	
+		})
+	})
+	
+	$(".pet_cancel").on("click",function(){
+		var wait_seq = $(this).attr("id");
+		$.ajax({
+			type: "GET",
+			url:"/admin/cancel_patsitter?wait_seq="+wait_seq,
+			cache: false,
+			dataType : "json",
+			success: function(data){
+				check = data.re;
+				if(check > 0 ){
+					alert('성공적으로 작업이 완료 되었습니다..');
+					location.reload();
+				}
+				else{
+					alert('작업이 실패하였습니다.');
 				}		
 			}	
 		})

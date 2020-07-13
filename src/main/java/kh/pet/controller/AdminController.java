@@ -105,6 +105,42 @@ public class AdminController {
 		}
 	}
 	
+	@RequestMapping("cancel_memboard")
+	public void cancel_memboard(MemboardDto dto, HttpServletResponse response) {
+		int re = admin_service.cancel_memboard(dto);
+		JSONObject jobj = new JSONObject();
+		jobj.put("re", re);
+		try {
+			response.getWriter().append(jobj.toString());
+		} catch (Exception e) {
+			
+		}
+	}
+	
+	
+	@RequestMapping("accept_petboard")
+	public void accept_petboard(int wait_seq,HttpServletResponse response) {
+		int re = admin_service.accept_petsitter(wait_seq);
+		JSONObject jobj = new JSONObject();
+		jobj.put("re", re);
+		try {
+			response.getWriter().append(jobj.toString());
+		} catch (Exception e) {
+			
+		}
+	}
+	
+	@RequestMapping("cancel_patsitter")
+	public void cancel_petboard(int wait_seq,HttpServletResponse response) {
+		int re = admin_service.cancel_petsitter(wait_seq);
+		JSONObject jobj = new JSONObject();
+		jobj.put("re", re);
+		try {
+			response.getWriter().append(jobj.toString());
+		} catch (Exception e) {
+			
+		}
+	}
 	
 	
 

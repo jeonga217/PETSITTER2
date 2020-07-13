@@ -11,8 +11,10 @@ public class ReportDTO {
 	
 	public ReportDTO() {}
 
+
 	public ReportDTO(int report_seq, int r_parent_seq, String report_contents, String report_id, String report_target,
 			int report_type) {
+
 		super();
 		this.report_seq = report_seq;
 		this.r_parent_seq = r_parent_seq;
@@ -37,7 +39,6 @@ public class ReportDTO {
 	public void setR_parent_seq(int r_parent_seq) {
 		this.r_parent_seq = r_parent_seq;
 	}
-
 	public String getReport_contents() {
 		return report_contents;
 	}
