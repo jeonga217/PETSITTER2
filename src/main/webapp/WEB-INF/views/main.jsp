@@ -35,6 +35,26 @@
 
 <link rel="stylesheet" href="resources/main/css/style.css">
 
+
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="/resources/member/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/css/util.css">
+<link rel="stylesheet" 	href="/resources/member/css/main.css">
+<!--===============================================================================================-->
+
 </head>
 <style>
 .number:hover {
@@ -76,11 +96,80 @@
 								<li><a href="adminindex"><span>관리자</span></a></li>
 								<li><a href="mb/mb_board?cpage=1"><span>반려인 게시판</span></a></li>
 								<li><a href="/mypage/mypage"><span>MyPage</span></a></li>
-								<li><a href="/member/login"><span>로그인</span></a></li>
+								<li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
 								<li><a href="signup"><span>회원가입</span></a></li>
 							</ul>
 						</nav>
 					</div>
+					<!-- 로그인-->
+					<div class="modal fade" id="login" data-keyboard="false"
+                  tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-body">
+                           <div class="limiter">
+                              <div class="container-login100">
+                                 <div class="wrap-login100">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                       aria-label="Close">
+                                       <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <form class="login100-form validate-form" action="/member/loginProc" method="post">
+                                       <span class="logo100 p-10">
+                                          <p class="logo">
+                                             <span class="lnr lnr-paw"></span>뭐하냥 도와주개
+                                          </p>
+                                       </span> <span class="login100-form-title p-b-23"> LOGIN </span>
+                                       <div class="wrap-input100 validate-input"
+                                          data-validate="ID를 입력하세요.">
+                                          <input class="input100" type="text" name="mem_id">
+                                          <span class="focus-input100"></span> <span
+                                             class="label-input100">ID</span>
+                                       </div>
+
+                                       <div class="wrap-input100 validate-input"
+                                          data-validate="비밀번호를 입력하세요.">
+                                          <input class="input100" type="password" name="mem_pw">
+                                          <span class="focus-input100"></span> <span
+                                             class="label-input100">Password</span>
+                                       </div>
+                                       <div class="flex-sb-m w-full p-t-3 p-b-32">
+                                          <div class="contact100-form-checkbox">
+                                             <a href="/member/findInfo" class="txt1"> Forgot ID/Password? </a>
+                                          </div>
+                                          <div>
+                                             <a href="/member/signup" class="txt1"> Sign Up </a>
+                                          </div>
+                                       </div>
+
+
+                                       <div class="container-login100-form-btn">
+                                          <button class="login100-form-btn" type="submit">Login</button>
+                                       </div>
+                                       <div class="text-center p-t-46 p-b-20">
+                                          <span class="txt2"> OR SNS LOGIN </span>
+                                       </div>
+
+                                       <div class="login100-form-social flex-c-m bg2 m-r-5">
+                                          <a class="btns" href="https://kauth.kakao.com/oauth/authorize?client_id=4dd67a91f5b80223eb0934cae5fa4c50&redirect_uri=http://192.168.60.13/member/kakao&response_type=code"> <span><img
+                                                src="/resources/member/images/kakao_icon.png"></span> <span class="txt3">Kakao
+                                                Login</span>
+                                          </a> <a class="btns" href="/member/naver"> <span><img
+                                                src="/resources/member/images/naver_icon.PNG" width="34px" height="35px"></span>
+                                             <span class="txt3">Naver Login</span>
+                                          </a>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+					
+					
+					
 
 
 					<div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3"
@@ -733,6 +822,25 @@
 	<script src="resources/main/js/bootstrap-datepicker.min.js"></script>
 	<script src="resources/main/js/aos.js"></script>
 	<script src="resources/main/js/rangeslider.min.js"></script>
+
+	<!-- 로그인 -->
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/bootstrap/js/popper.js"></script>
+	<script src="/resources/member/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/daterangepicker/moment.min.js"></script>
+	<script	src="/resources/member/vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/js/main.js"></script>
+	<!--===============================================================================================-->
+
+
 
 
 	<script src="resources/main/js/typed.js"></script>
