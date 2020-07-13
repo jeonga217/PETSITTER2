@@ -17,6 +17,7 @@
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
 <script src="/resources/admin/admin_js/navi.js"></script>
+<script src="/resources/admin/admin_js/admin.js"></script>
 <link rel="stylesheet" href="/resources/admin/admin_css/case.css"
 	type="text/css">
 </head>
@@ -125,15 +126,15 @@
 									<hr style="width: 100%; margin: 15px;">
 									<c:choose>
 										<c:when test="${boardtype eq 'mb'}">
-											<c:forEach var="i" items="${list}">
-												<div class="row">
+											<c:forEach var="i" items="${list}">										
+											<div class="row">
 													<div class="mb" style="display: none;"></div>
-													<div class="col">${i.mb_seq}</div>
-													<div class="col">${i.mb_writer}</div>
-													<div class="col">${i.mb_booker}</div>
-													<div class="col">${i.mb_point}</div>
+													<div class="col p_seq">${i.mb_seq}</div>
+													<div class="col writer">${i.mb_writer}</div>
+													<div class="col booker">${i.mb_booker}</div>
+													<div class="col point">${i.mb_point}</div>
 													<div class="col">
-														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm ok"> 
+														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_accept"> 
 														<input type="button" value="거절" class="btn btn-outline-primary my-2 my-sm-0 btn-sm cancle">
 													</div>
 												</div>
@@ -144,12 +145,12 @@
 											<c:forEach var="i" items="${list}">
 												<div class="row">
 													<div class="ps" style="display: none;"></div>
-													<div class="col">${i.board_seq}</div>
+													<div class="col p_seq">${i.board_seq}</div>
 													<div class="col">${i.petsitter_id}</div>
 													<div class="col">${i.mem_id}</div>
 													<div class="col">${i.rsv_point}</div>
 													<div class="col">
-														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm ok"> 
+														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm ok pet_accept"> 
 														<input type="button" value="거절" class="btn btn-outline-primary my-2 my-sm-0 btn-sm cancle">
 													</div>
 												</div>

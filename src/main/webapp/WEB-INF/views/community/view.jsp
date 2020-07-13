@@ -39,17 +39,17 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 <link rel="shortcut icon" href="ftco-32x32.png">
 <link href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
-<link rel="stylesheet" href="/resources/community/fonts/icomoon/style.css">
-<link rel="stylesheet" href="/resources/community/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/community/css/magnific-popup.css">
-<link rel="stylesheet" href="/resources/community/css/jquery-ui.css">
-<link rel="stylesheet" href="/resources/community/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/resources/community/css/owl.theme.default.min.css">
-<link rel="stylesheet" href="/resources/community/css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="/resources/community/fonts/flaticon/font/flaticon.css">
-<link rel="stylesheet" href="/resources/community/css/aos.css">
-<link rel="stylesheet" href="/resources/community/css/rangeslider.css">
-<link rel="stylesheet" href="/resources/community/css/style.css">
+<link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/css/magnific-popup.css">
+<link rel="stylesheet" href="/resources/css/jquery-ui.css">
+<link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet" href="/resources/css/aos.css">
+<link rel="stylesheet" href="/resources/css/rangeslider.css">
+<link rel="stylesheet" href="/resources/css/style.css">
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
@@ -118,7 +118,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 
 
-	<div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/resources/community/images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+	<div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/resources/images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div class="row align-items-center justify-content-center text-center">
 
@@ -155,12 +155,12 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 							</div>
 
 							<c:choose>
-								<c:when test="${view.cu_writer eq loginInfo.mem_id}">
+								<c:when test="${view.cu_writer eq id}">
 									<div class="col-md-4">
 										<a href="/community/update?cu_seq=${view.cu_seq}" class="btn btn-primary btn-md text-white">수정하기</a>
 									</div>
 									<div class="col-md-4">
-										<a href="/community/delete?cu_seq=${view.cu_seq}" class="btn btn-primary btn-md text-white">삭제하기</a>
+										<a href="/community/delete?cu_seq=${view.cu_seq}" class="btn btn-primary btn-md text-white community_delete">삭제하기</a>
 									</div>
 								</c:when>
 								<c:otherwise>
@@ -218,7 +218,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 									<c:when test="${i.cm_writer eq id}">
 										<button class="btn btn-primary btn text-white comments_update">댓글수정</button>
 										<button class="btn btn-primary btn text-white comments_updatecom" id="${i.cm_seq}" style="display: none">수정완료</button>
-										<button class="btn btn-primary btn text-white" id="comments_delete">댓글삭제</button>
+										<button class="btn btn-primary btn text-white comments_delete" id="${i.cm_seq}" >댓글삭제</button>
 									</c:when>
 									<c:otherwise>
 										<div class="col-md-4">
@@ -255,52 +255,86 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 							</div>
 						</div>
 					</div>
+					
+					<!-- 신고하기 -->
 					<script>
-										$('#myModal').on('shown.bs.modal', function() {
-													$('#myInput').trigger('focus')
-										})
-										$("#report_bt").on("click",function(){
-											var report_contents = $("#report_text").val();
-											
-											$.ajax({
-												url : "/community/report",
-												type : "POST",
-												data : {
-													report_contents : report_contents
-												}
-											})
-											window.location.reload();
-										})
-									</script>
-					<script>
-						$(".comments_update").on( "click", function() {
-									$(this).parent().children(".contents") .attr("contenteditable", "true");
-									$(this).parent().children( ".comments_updatecom").css( "display", "");
-								})
-						$(".comments_updatecom").on( "click", function() {
-									var cm_contents = $(this).parent() .children(".contents").html();
-									var cm_seq = $(this).attr("id");
-									console.log(cm_seq);
-									$.ajax({
-										url : "/community/comments_update",
+						$('#myModal').on('shown.bs.modal', function() {
+							$('#myInput').trigger('focus')
+						})
+						$("#report_bt").on("click",function(){
+							var report_contents = $("#report_text").val();
+								$.ajax({
+										url : "/community/report",
 										type : "POST",
 										data : {
-											cm_contents : cm_contents,
-											cm_seq : cm_seq
+										report_contents : report_contents
+											}
+										})
+										window.location.reload();
+						})
+					</script>
+					
+					<!-- 댓글 수정 -->
+					<script>
+						$(".comments_update").on( "click", function() {
+								$(this).parent().children(".contents") .attr("contenteditable", "true");
+								$(this).parent().children( ".comments_updatecom").css( "display", "");
+							})
+						$(".comments_updatecom").on( "click", function() {
+								var cm_contents = $(this).parent() .children(".contents").html();
+								var cm_seq = $(this).attr("id");
+								console.log(cm_seq);
+								$.ajax({
+									url : "/community/comments_update",
+									type : "POST",
+									data : {
+									cm_contents : cm_contents,
+									cm_seq : cm_seq
 										}
 									})
 									window.location.reload()
 								})
 					</script>
-
+					
+					<!-- 댓글삭제 -->
+					<script>
+						$(".comments_delete").on("click", function(){
+							var comment_del = confirm("정말 삭제하시겠습니까?");
+							var cm_seq = $(this).attr("id");
+							if(comment_del==true){
+								
+								$.ajax({
+									url : "/community/comments_delete",
+									type : "POST",
+									data : {
+									cm_seq : cm_seq
+										}
+									})
+									window.location.reload()
+							} else {
+								return false;
+							}
+						})
+					</script>
+					
+					<!-- 게시글 삭제  -->
+					<script>
+						$(".community_delete").on("click",function(){
+							var community_del = confirm("정말 삭제하시겠습니까?");
+							var cu_seq = $(this).attr("id");
+							
+							if(community_del == true){
+								return true;
+							} else {
+								return false;
+							}
+						})
+					</script> 
 					<c:if test="${empty cm_list}">
             		댓글이 없습니다
            			</c:if>
 				</div>
-
-
 			</div>
-
 		</div>
 	</div>
 	</div>
@@ -392,20 +426,20 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 	</footer>
 	</div>
 
-	<script src="/resources/community/js/jquery-3.3.1.min.js"></script>
-	<script src="/resources/community/js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="/resources/community/js/jquery-ui.js"></script>
-	<script src="/resources/community/js/popper.min.js"></script>
-	<script src="/resources/community/js/bootstrap.min.js"></script>
-	<script src="/resources/community/js/owl.carousel.min.js"></script>
-	<script src="/resources/community/js/jquery.stellar.min.js"></script>
-	<script src="/resources/community/js/jquery.countdown.min.js"></script>
-	<script src="/resources/community/js/jquery.magnific-popup.min.js"></script>
-	<script src="/resources/community/js/bootstrap-datepicker.min.js"></script>
-	<script src="/resources/community/js/aos.js"></script>
-	<script src="/resources/community/js/rangeslider.min.js"></script>
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="/resources/js/jquery-ui.js"></script>
+	<script src="/resources/js/popper.min.js"></script>
+	<script src="/resources/js/bootstrap.min.js"></script>
+	<script src="/resources/js/owl.carousel.min.js"></script>
+	<script src="/resources/js/jquery.stellar.min.js"></script>
+	<script src="/resources/js/jquery.countdown.min.js"></script>
+	<script src="/resources/js/jquery.magnific-popup.min.js"></script>
+	<script src="/resources/js/bootstrap-datepicker.min.js"></script>
+	<script src="/resources/js/aos.js"></script>
+	<script src="/resources/js/rangeslider.min.js"></script>
 
-	<script src="/resources/community/js/main.js"></script>
+	<script src="/resources/js/main.js"></script>
 
 
 </body>
