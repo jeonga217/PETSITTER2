@@ -9,6 +9,9 @@
 <title>email 인증</title>
 </head>
 <body>
+
+
+	<jsp:include page="/WEB-INF/views/member/header.jsp" />
 	<c:choose>
 		<c:when test="${empty msg}">
 
@@ -23,6 +26,7 @@
 	</c:otherwise>
 	</c:choose>
 
+	<jsp:include page="/WEB-INF/views/member/footer.jsp" />
 	<script>
 		$("#login").on("click", function() {
 			location.href = "login"
