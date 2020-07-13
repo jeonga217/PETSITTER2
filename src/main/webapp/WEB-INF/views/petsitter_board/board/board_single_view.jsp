@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -8,11 +8,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
-	href="/resources/main/fonts/flaticon/font/flaticon.css">
+   href="/resources/main/fonts/flaticon/font/flaticon.css">
 <link rel="stylesheet" href="/resources/petsiter/css/tavo-calendar.css">
 <link href="/resources/mb/icofont/icofont.min.css" rel="stylesheet">
 <link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'
-	rel='stylesheet'>
+   rel='stylesheet'>
 <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
@@ -36,93 +36,93 @@
 <style>
 #datePicker .d-table { display:flex !important; }
 #div_psb_contents {
-	border: 1px solid grey;
-	width: 100%;
-	overflow-y: auto;
-	float: left;
-	word-wrap: break-word;
-	word-break: break-all;
-	padding: 5px;
+   border: 1px solid grey;
+   width: 100%;
+   overflow-y: auto;
+   float: left;
+   word-wrap: break-word;
+   word-break: break-all;
+   padding: 5px;
 }
 .services input[type="checkbox"] {
-	display: none;
-	font-weight: bold;
+   display: none;
+   font-weight: bold;
 }
 .services input[type="checkbox"]:checked+label ,.resident_type_list input[type="radio"]:checked+label, .psb_petType input[type="checkbox"]:checked+label{
-	color: #ff4301;
+   color: #ff4301;
 }
 
 .services {
-	display: inline-block;
-	border: 1px solid grey;
-	width: 150px;
-	height: 60px;
-	line-height: 60px;
-	border-radius: 5px;
-	margin: 10px 10px;
-	font-weight: bold;
+   display: inline-block;
+   border: 1px solid grey;
+   width: 150px;
+   height: 60px;
+   line-height: 60px;
+   border-radius: 5px;
+   margin: 10px 10px;
+   font-weight: bold;
 }
 
 .filebox input[type="file"] {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	border: 0;
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   border: 0;
 }
 
 ul {
-	padding-inline-start: 5px;
+   padding-inline-start: 5px;
 }
 
 ul>li, input {
-	style: none;
-	display: inline-block;
-	padding-right: 20px;
+   style: none;
+   display: inline-block;
+   padding-right: 20px;
 }
 
 .comment-form-wrap {
-	clear: both;
+   clear: both;
 }
 
 .comment_title {
-	margin: 10px;
+   margin: 10px;
 }
 
 .star, .star1 {
-	display: inline-block;
-	width: 15px;
-	height: 30px;
-	cursor: pointer;
+   display: inline-block;
+   width: 15px;
+   height: 30px;
+   cursor: pointer;
 }
 
 .star_left {
-	background: url(/resources/images/star_off.png) no-repeat 0 0;
-	background-size: 30px;
-	margin-right: -2px;
+   background: url(/resources/images/star_off.png) no-repeat 0 0;
+   background-size: 30px;
+   margin-right: -2px;
 }
 
 .star1_left
 {
-	background: url(/resources/images/star_off.png) no-repeat 0 0;
-	background-size: 30px;
+   background: url(/resources/images/star_off.png) no-repeat 0 0;
+   background-size: 30px;
 }
 
 .star_right {
-	background: url(/resources/images/star_off.png) no-repeat -15px 0;
-	background-size: 30px;
-	margin-left: -2px;
+   background: url(/resources/images/star_off.png) no-repeat -15px 0;
+   background-size: 30px;
+   margin-left: -2px;
 }
 .star1_right {
-	background: url(/resources/images/star_off.png) no-repeat -15px 0;
-	background-size: 30px;
+   background: url(/resources/images/star_off.png) no-repeat -15px 0;
+   background-size: 30px;
 }
 
 .star.on , .star1.on {
-	background-image: url(/resources/images/star_on.png);
+   background-image: url(/resources/images/star_on.png);
 }
 </style>
 
@@ -489,6 +489,7 @@ ul>li, input {
 					</div>
 				
 			<div class="mb-5">
+
               <ul class="comment-list">
                  <!-- 리뷰 동적으로 생성되는 공간 -->   
               </ul>
@@ -496,20 +497,20 @@ ul>li, input {
               <div class="comment-form-wrap mb-5">
                 <h7 class="mb-5">리뷰남기기</h7>
                   <div class="form-group">
-	                    <label for="rw_star">Score</label>
-	                    <div>
-					      <span class="star star_left"></span>
-					      <span class="star star_right"></span>
-					      <span class="star star_left"></span>
-					      <span class="star star_right"></span>
-					      <span class="star star_left"></span>
-					      <span class="star star_right"></span>
-					     <span class="star star_left"></span>
-					     <span class="star star_right"></span>
-					     <span class="star star_left"></span>
-					     <span class="star star_right"></span>
-	                  </div>
-	                  <input type="hidden" id="rw_star" name="rw_star" value="">
+                       <label for="rw_star">Score</label>
+                       <div>
+                     <span class="star star_left"></span>
+                     <span class="star star_right"></span>
+                     <span class="star star_left"></span>
+                     <span class="star star_right"></span>
+                     <span class="star star_left"></span>
+                     <span class="star star_right"></span>
+                    <span class="star star_left"></span>
+                    <span class="star star_right"></span>
+                    <span class="star star_left"></span>
+                    <span class="star star_right"></span>
+                     </div>
+                     <input type="hidden" id="rw_star" name="rw_star" value="">
                  </div>
                  
                   <div class="form-group">
@@ -548,11 +549,12 @@ ul>li, input {
                     			
                     		});
                     	})
+
                     </script>
                   </div>
               </div>
             </div>
-				
+
 				</div>
 				
 				<div class="col-lg-4 ml-5">
@@ -850,5 +852,6 @@ ul>li, input {
 			}
 		});
 	</script>
+
 </body>
 </html>

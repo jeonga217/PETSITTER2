@@ -87,7 +87,7 @@ public class PetsitterboardController {
 		model.addAttribute("pet_list",pet_list);
 		return "petsitter_board/board/board_single_view";
 	}
-	
+
 	@RequestMapping("output")
 	public String output(Model model)throws Exception{
 		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();

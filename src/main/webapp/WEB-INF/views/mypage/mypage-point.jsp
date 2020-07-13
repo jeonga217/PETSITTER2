@@ -91,6 +91,28 @@
 	float: right;
 	position: relative;
 }
+
+#sum {
+	position: relative;
+	float: left;
+}
+
+.date {
+	text-align: center;
+}
+
+.method1 {
+	text-align: center;
+}
+
+.point {
+	text-align: center;
+}
+
+#drop {
+	position: relative;
+	float: right;
+}
 </style>
 <body>
 
@@ -214,7 +236,8 @@
 								<div class="container">
 									<canvas id="myChart"></canvas>
 								</div>
-								<br> 현재 합계 : ${sum}
+								<br>
+								<div id="sum">현재 합계 : ${sum}</div>
 								<div class="container-table20">
 									<div class="wrap-table20">
 										<div class="table20">
@@ -237,6 +260,7 @@
 												</tbody>
 											</table>
 											<br>
+
 											<button type="button" class="btn btn-primary" id="add"
 												style="float: right;">충전하기</button>
 											<button type="button" class="btn btn-secondary" id="back">뒤로가기</button>
@@ -332,13 +356,30 @@
 			</div>
 		</div>
 	</footer>
+
 	<script>
-		var day = document.getElementsByClassName("date");
+	
+		var arr = new Array();
+		var k;
+		for(var i = 0; i<${list.size()}; i++){
+		var point = ${list.get(i).getP_point()};
+		var methods = "${list.get(i).getP_method()}";
+		var dates = "${list.get(i).getP_dates()}";
+		var full = point+":"+methods+":"+dates;
+		arr.push(full);
+		k = arr[i].split(":");
+		}
+		console.log(k[0]); //포인트
+		console.log(k[1]); //유형
+		console.log(k[2]); //날짜
+		
+		/* var day = document.getElementsByClassName("date");
 		var methods = document.getElementsByClassName("method1");
 		var point = document.getElementsByClassName("point");
+		
 		var arr = new Array();
 
-		for (var i = 0; i < day.length; i++) {
+		for (var i = 0; i < day.lensgth; i++) {
 			var day1 = day[i].innerHTML;
 			var day2 = day1.replace('<td class="date">', '');
 			day3 = day2.replace('</td>', '');
@@ -350,17 +391,15 @@
 			var me = methods[i].innerHTML; //유형
 			var full = month + " " + points + " " + me;//전체
 			arr.push(full);
-		}
-		//	console.log(day.length)
-		//	console.log("arr : "+arr[9]);
-		var k = arr[0].split(" ");
-		//console.log("값이다 : " + k);
+			var k = arr[i].split(" ");
+			console.log("값이다 : " + k);
+		} */
 		//월	console.log(k[0]); 
 		//포인트	console.log(k[1]);
 		//유형	console.log(k[2]);
 
-		let myChart = document.getElementById('myChart').getContext('2d');
-		let massPopChart = new Chart(myChart, {
+		var myChart = document.getElementById('myChart').getContext('2d');
+		var massPopChart = new Chart(myChart, {
 			type : 'bar', //bar, horizontalBar, pie, line, doughnut, raddr
 			data : {
 				labels : [ '1월', '2월', '3월', '4월', '6월', '7월', '8월', '9월',
@@ -401,49 +440,61 @@
 							borderWidth : 1
 						} ]
 			},
-			options : {}
-		});
-		var fulls =0;
-		for (var i = 0; i < day.length; i++) {
-			for (var j = 0; j < day.length; j++) {
-				var mo = arr[i].split(" ");
-				var  k = 0;
-				if (mo[0] == "01" || "02" || "03" || "04" || "05" || "06"
-						|| "07" || "08" || "09"){
-					k = mo[0].replace('0', '');
-				}
-				
-				//월 맞추기
-				if (massPopChart.boxes[0].chart.config.data.labels[j] == k
-						+ "월") {
+			options : {},
 
-					console.log("sss : "+massPopChart.config.data.datasets[0].label )
-					console.log(mo[2])
-					
+		});
+
+		for (var i = 0; i < ${list.size()}; i++) {
+			for (var j = 0; j < 12; j++) {
+				var mos = 0;
+				if (k[2] == "01" || "02" || "03" || "04" || "05" || "06"
+						|| "07" || "08" || "09") {
+					mos = k[2].replace('0', '');
+				} 
+				//월 맞추기
+				if (massPopChart.boxes[0].chart.config.data.labels[j] == mos
+						+ "월") {
 					//충전인지 판단
+
 					if (massPopChart.config.data.datasets[0].label == mo[2]) {
-						//충전위치
-						console.log("들어옴")
-						var nums = massPopChart.config.data.datasets[0].data[i];
-						nums = Number(nums);
-						var zero = mo[1];
-						zero = Number(zero);
-						fulls = nums + mo[1];
-						console.log("dddz : "+fulls);
-					
+						var nums = parseInt(massPopChart.config.data.datasets[0].data[i]);
+						var mo1 = parseInt(mo[1]);
+						console.log("1번 : " + nums)
+						console.log("2번 : " + mo1)
+						var k = 0;
+						if (j == i) {
+							nums = 0;
+							massPopChart.config.data.datasets[0].data[j] += mo1
+							console
+									.log("aab22 :   "
+											+ massPopChart.config.data.datasets[0].data[j])
+						} else {
+							massPopChart.config.data.datasets[0].data[j] += (nums + mo1);
+							console
+									.log("aab :   "
+											+ massPopChart.config.data.datasets[0].data[j])
+						}
 					}
 
 					//사용/환전위판단
-					else if (massPopChart.config.data.datasets[1].label.substr(0,2) == mo[2]
-							|| massPopChart.config.data.datasets[1].label.substr(3,4) == mo[2]) {
-						var nums = massPopChart.config.data.datasets[1].data[i];
-						nums = mo[1];
-						
-					}
+					else if (massPopChart.config.data.datasets[1].label.substr(
+							0, 2) == mo[2]
+							|| massPopChart.config.data.datasets[1].label
+									.substr(3, 4) == mo[2]) {
+						var nums = parseInt(massPopChart.config.data.datasets[1].data[i]);
+						var mo1 = parseInt(mo[1]);
+						massPopChart.config.data.datasets[1].data[j] += (nums + mo1);
 
+					}
 				}
 			}
 		}
+		
+
+		massPopChart.update({
+			duration : 800,
+			easing : 'easeOutBounce'
+		});
 
 		//충전포인트 찾는 코드
 		//	for (var i = 0; i <= 10; i++) {

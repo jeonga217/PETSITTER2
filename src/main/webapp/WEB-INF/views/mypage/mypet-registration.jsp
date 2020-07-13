@@ -16,6 +16,9 @@
 <script src='/resources/main/js-full/jquery-ui.custom.min.js'
 	type="text/javascript"></script>
 <script src='/resources/main/js-full/fullcalendar.js' type="text/javascript"></script>
+
+
+
 <script>
 	$(document).ready(
 			function() {
@@ -146,6 +149,8 @@
 
 			});
 </script>
+	
+
 <style>
 #external-events {
 	float: left;
@@ -196,6 +201,7 @@
 </style>
 </head>
 <body>
+
 	<div id="box1">
 		<div id='wrap'>
 

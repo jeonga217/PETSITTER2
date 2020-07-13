@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.MemboardDto;
 import kh.pet.dto.PetsitterDTO;
+import kh.pet.dto.Stop_memberDTO;
 import kh.pet.dto.WaitlistDTO;
 
 @Repository
@@ -45,6 +46,20 @@ public class AdminDAO {
 	
 	public int membercount() {
 		return mybatis.selectOne("Admin.membercount");
+	}
+	
+	public int mem_stop(Stop_memberDTO dto) {
+		mybatis.insert("Admin.mem_stop",dto);
+		return mybatis.update("Admin.mem_state",dto);
+	}
+	
+	public int mem_stop_update(Stop_memberDTO dto) {
+		mybatis.update("Admin.mem_state",dto);
+		return mybatis.update("Admin.mem_stop_update",dto);
+	}
+	
+	public int mem_stop_search(String id) {
+		return mybatis.selectOne("Admin.mem_stop_search", id);
 	}
 	
 	//예약 관리  테이블

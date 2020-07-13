@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Comments">
+
+<!-- 댓글달기 -->
+<insert id="insert">
+	insert into comments values(cm_seq.nextval, #{cm_parent_seq}, #{cm_writer}, sysdate, #{cm_contents})
+</insert>
+
+<!-- 댓글보기 -->
+<select id="selectAll" resultType="kh.pet.dto.CommentsDTO">
+	select cm_writer, cm_contents, cm_date, cm_seq from comments where cm_parent_seq=#{cm_parent_seq} order by cm_seq desc 
+</select>
+
+<!-- 댓글수정 -->
+<update id="update">
+	update comments set cm_contents=#{cm_contents} where cm_seq=#{cm_seq}
+</update>
+
+
+<!-- 댓글삭제 -->
+<delete id="delete">
+	delete from comments where cm_seq=#{cm_seq}
+</delete>
+
+</mapper>

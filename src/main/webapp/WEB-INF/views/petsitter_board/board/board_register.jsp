@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -27,12 +26,12 @@
 	href="https://fonts.googleapis.com/css?family=Raleway:400,600">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
 <script src="/resources/petsiter/js/datepickk.min.js"></script>
 <script src="/resources/petsiter/js/datepickk.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
+
 <link rel="stylesheet" href="/resources/petsiter/css/datepickk.min.css">
 <link rel="stylesheet" href="/resources/petsiter/css/datepickk.css">
 <link rel="stylesheet" href="/resources/petsiter/css/doc.css">
@@ -45,76 +44,76 @@
 }
 
 #div_psb_contents {
-	border: 1px solid grey;
-	width: 100%;
-	overflow-y: auto;
-	word-wrap: break-word;
-	word-break: break-all;
-	padding: 5px;
+   border: 1px solid grey;
+   width: 100%;
+   overflow-y: auto;
+   word-wrap: break-word;
+   word-break: break-all;
+   padding: 5px;
 }
 
 .services input[type="checkbox"] {
-	display: none;
-	font-weight: bold;
+   display: none;
+   font-weight: bold;
 }
 
 .services input[type="checkbox"]+label {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 .services input[type="checkbox"]:checked+label {
-	color: #ff4301;
+   color: #ff4301;
 }
 
 .services {
-	display: inline-block;
-	border: 1px solid grey;
-	width: 150px;
-	height: 60px;
-	line-height: 60px;
-	border-radius: 5px;
-	margin: 10px 10px;
-	font-weight: bold;
+   display: inline-block;
+   border: 1px solid grey;
+   width: 150px;
+   height: 60px;
+   line-height: 60px;
+   border-radius: 5px;
+   margin: 10px 10px;
+   font-weight: bold;
 }
 
 .filebox input[type="file"] {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	border: 0;
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   border: 0;
 }
 
 .filebox label {
-	display: inline-block;
-	padding: .5em .75em;
-	color: #01a9b4;
-	font-size: inherit;
-	line-height: normal;
-	vertical-align: middle;
-	background-color: #fdfdfd;
-	cursor: pointer;
-	border: 1px solid #01a9b4;
-	border-bottom-color: #01a9b4;
-	border-radius: .25em;
+   display: inline-block;
+   padding: .5em .75em;
+   color: #01a9b4;
+   font-size: inherit;
+   line-height: normal;
+   vertical-align: middle;
+   background-color: #fdfdfd;
+   cursor: pointer;
+   border: 1px solid #01a9b4;
+   border-bottom-color: #01a9b4;
+   border-radius: .25em;
 } /* named upload */
 .filebox .upload-name {
-	display: inline-block;
-	padding: .5em .75em; /* label의 패딩값과 일치 */
-	font-size: inherit;
-	font-family: inherit;
-	line-height: normal;
-	vertical-align: middle;
-	background-color: #f5f5f5;
-	border: 1px solid #ebebeb;
-	border-bottom-color: #e2e2e2;
-	border-radius: .25em;
-	-webkit-appearance: none; /* 네이티브 외형 감추기 */
-	-moz-appearance: none;
-	appearance: none;
+   display: inline-block;
+   padding: .5em .75em; /* label의 패딩값과 일치 */
+   font-size: inherit;
+   font-family: inherit;
+   line-height: normal;
+   vertical-align: middle;
+   background-color: #f5f5f5;
+   border: 1px solid #ebebeb;
+   border-bottom-color: #e2e2e2;
+   border-radius: .25em;
+   -webkit-appearance: none; /* 네이티브 외형 감추기 */
+   -moz-appearance: none;
+   appearance: none;
 }
 
 ul {

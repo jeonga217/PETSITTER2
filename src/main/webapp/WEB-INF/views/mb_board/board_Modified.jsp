@@ -279,9 +279,9 @@
 							</div>
 							<div class="d-block d-md-flex listing-horizontal">
 								<div class="lh-content">
-									<h3>특이사항</h3>
+									<h3>요구사항</h3>
 									<div contenteditable="true" id="uniqueness"></div>
-									<input type="hidden" name="mb_unique" id="mb_unique" value="${modlist.mb_unique}">
+									<input type="hidden" name="mb_request" id="mb_request" value="${modlist.mb_request}">
 								</div>
 							</div>
 							<div class="conb">
@@ -387,7 +387,7 @@
 			$("#uniqueness").on("keyup", function() {
 				var uniquetext = $("#uniqueness").html();
 				console.log(uniquetext);
-				$("#mb_unique").val(uniquetext);
+				$("#mb_request").val(uniquetext);
 			})
 
 			$("#title").on("keyup", function() {
@@ -570,7 +570,7 @@
 			var title = "${modlist.mb_title}";
 			$("#title").html(title);
 
-			var text = "${modlist.mb_unique}";
+			var text = "${modlist.mb_request}";
 			$("#uniqueness").html(text);
 
 			$(".mb_service").each(function(index, items) {
@@ -683,7 +683,7 @@
 			var petVal = $(".petname:checked").val();
 			var serviceVal = $(".mb_service:checked").val();
 			var startdayVal = $("#mb_startday").val();
-			var uniqueVal = $("#mb_unique").val();
+			var requestVal = $("#mb_request").val();
 
 			if (titleVal == "") {
 				alert("제목을 입력 해주세요");
@@ -710,12 +710,29 @@
 				return false;
 			}
 
-			if (uniqueVal == "") {
+			if (requestVal == "") {
 				alert("특이 사항을 입력 해주세요");
 				return false;
 			}
 		})
 	</script>
+	<script>
+		$("#save").on("submit", function() {
+			var count = 0;
+			<c:forEach var="i" items="${petname}">
+			$(".petname:checked").each(function(index, item) {
+				if ("${i}" == $(item).val()) {
+					count++
+				}
+			})
+			</c:forEach>
+			if (count > 0) {
+				alert("이미등록된 강아지가 있습니다.")
+				return false;
+			} else {
+				return true;
+			}
+		})
+	</script>
 </body>
-
 </html>

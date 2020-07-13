@@ -1,5 +1,6 @@
 package kh.pet.service;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,17 +31,16 @@ public class Petservice {
 		return dao.redlist(mb_seq);
 	}
 	
-	public String petphoto(String  mb_pet_name) {
-		return dao.petphoto(mb_pet_name);
+	public String petphoto(Mypet_regDTO pdto) {
+		return dao.petphoto(pdto);
 	}
 	
 	public String gettime(String time) {
 		return dao.gettime(time);
 	}
 	
-	public String getpettype(String petname) {
-		System.out.println(dao.getpettype(petname));
-		return dao.getpettype(petname);
+	public String getpettype(Mypet_regDTO pdto) {
+		return dao.getpettype(pdto);
 	}
 	
 	public MemboardDto modlist(String mb_seq) {
@@ -66,6 +66,14 @@ public class Petservice {
 	
 	public int applyup(MemboardDto mbdto) {
 		return dao.applyup(mbdto);
+	}
+	
+	public int petsitter(String id) {
+		return dao.petsitter(id);
+	}
+
+	public List<MemboardDto> petselname(String id){
+		return dao.petselname(id);
 	}
 	
 	public List<MemboardDto> mb_boardList(int cpage){

@@ -1,6 +1,7 @@
 package kh.pet.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.MemboardDto;
@@ -31,9 +33,20 @@ public class Mb_boardController {
 	@RequestMapping("home")
 	public String home(Model m) {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
-		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
 		String add = service.addselec(mdto.getMem_id());
-		
+		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
+		List<MemboardDto> plist = service.petselname(mdto.getMem_id());
+		List<String[]> petarr = new ArrayList<>();
+		List<String> petname = new ArrayList<>();
+		for(MemboardDto petlist : plist) {
+			petarr.add(petlist.getMb_pet_name().split(","));
+		}
+		for(String[] PetNameList : petarr) {
+			for(String PetNameArr : PetNameList) {
+				petname.add(PetNameArr);
+			}
+		}
+		m.addAttribute("petname",petname);
 		m.addAttribute("list", list);
 		m.addAttribute("add", add);
 		return "mb_board/board_register";
@@ -46,32 +59,33 @@ public class Mb_boardController {
 		mbdto.setMb_writer(mdto.getMem_id());
 		service.Memboardinsert(mbdto);
 
-		return "redirect:redlist";
+		return "redirect:mbinset";
 	}
 
 
-	@RequestMapping("redlist")
-	public String redlist(Model m,MemboardDto mbdto) {
+	@RequestMapping("mbinset")
+	public String redlist(Model m,MemboardDto mbdto,Mypet_regDTO pdto) {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
+		pdto.setMaster_id(mdto.getMem_id());
+		int petResult = service.petsitter(mdto.getMem_id());
+		System.out.println(petResult);
 		String add = service.addselec(mdto.getMem_id());
-		List<MemboardDto> dtolist  = service.seqid(mdto.getMem_id());
+		List<MemboardDto> dtolist = service.seqid(mdto.getMem_id());
 		MemboardDto mlist = service.redlist(dtolist.get(0).getMb_seq());
 		String[] servicearr = mlist.getMb_service().split(",");
 		String[] petnamearr = mlist.getMb_pet_name().split(",");
 		List<String> pettype = new ArrayList<>();
-		List<String> petphoto = new ArrayList<>();
 		List<String> services = new ArrayList<>();
 		for(String petname : petnamearr) {
-			System.out.println(petname);
-			pettype.add(service.getpettype(petname));
+			pdto.setPet_name(petname);
+			pdto.setMaster_id(mdto.getMem_id());
+			pettype.add(service.getpettype(pdto));
+		}	
+		if(mlist.getMb_petphoto() != null) {
+			String[] photoarr = mlist.getMb_petphoto().split(",",-1);
+			mlist.setPhoto(photoarr);
 		}
-		for(String petname : petnamearr) {
-
-			petphoto.add(service.petphoto(petname));
-		}
-		for(String service : servicearr) {
-			services.add(service);
-		}
+		for(String service : servicearr) {services.add(service);}
 		String[] stimearr = mlist.getMb_stime().split(":");
 		String[] etimearr = mlist.getMb_etime().split(":");
 		int stime = Integer.parseInt(stimearr[0]);
@@ -79,39 +93,37 @@ public class Mb_boardController {
 		int timesub = stime - etime;
 		String[]  alltimearr = Integer.toString(timesub).split("-");
 		int alltime = Integer.parseInt(alltimearr[1]);
-		System.out.println(alltime);
+		m.addAttribute("petResult",petResult);
 		m.addAttribute("mlist", mlist);
 		m.addAttribute("add", add);
 		m.addAttribute("services", services);
 		m.addAttribute("pettype", pettype);
 		m.addAttribute("id", mdto.getMem_id());
-		m.addAttribute("petphoto", petphoto);
-		
 		return "mb_board/board";
 	}
-
-	// 占쎈땾占쎌젟 �뀎占�	
+	
 	@RequestMapping("modfilist")
-	public String modfilist(Model m,MemboardDto mbdto) {
+	public String modfilist(Model m,MemboardDto mbdto,Mypet_regDTO pdto) {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
+		int petResult = service.petsitter(mdto.getMem_id());
+		System.out.println(petResult);
+		pdto.setMaster_id(mdto.getMem_id());
 		String add = service.addselec(mdto.getMem_id());
 		MemboardDto mlist = service.redlist(mbdto.getMb_seq());
 		String[] servicearr = mlist.getMb_service().split(",");
 		String[] petnamearr = mlist.getMb_pet_name().split(",");
 		List<String> pettype = new ArrayList<>();
-		List<String> petphoto = new ArrayList<>();
 		List<String> services = new ArrayList<>();
 		for(String petname : petnamearr) {
-			System.out.println(petname);
-			pettype.add(service.getpettype(petname));
+			pdto.setPet_name(petname);
+			pdto.setMaster_id(mdto.getMem_id());
+			pettype.add(service.getpettype(pdto));
+		}	
+		if(mlist.getMb_petphoto() != null) {
+			String[] photoarr = mlist.getMb_petphoto().split(",",-1);
+			mlist.setPhoto(photoarr);
 		}
-		for(String petname : petnamearr) {
-
-			petphoto.add(service.petphoto(petname));
-		}
-		for(String service : servicearr) {
-			services.add(service);
-		}
+		for(String service : servicearr) {services.add(service);}
 		String[] stimearr = mlist.getMb_stime().split(":");
 		String[] etimearr = mlist.getMb_etime().split(":");
 		int stime = Integer.parseInt(stimearr[0]);
@@ -119,12 +131,12 @@ public class Mb_boardController {
 		int timesub = stime - etime;
 		String[]  alltimearr = Integer.toString(timesub).split("-");
 		int alltime = Integer.parseInt(alltimearr[1]);
+		m.addAttribute("petResult",petResult);
 		m.addAttribute("mlist", mlist);
 		m.addAttribute("add", add);
 		m.addAttribute("services", services);
 		m.addAttribute("pettype", pettype);
 		m.addAttribute("id", mdto.getMem_id());
-		m.addAttribute("petphoto", petphoto);
 		m.addAttribute("alltime",alltime);
 		return "mb_board/board";
 	}
@@ -137,16 +149,27 @@ public class Mb_boardController {
 		String[] servicearr = modlist.getMb_service().split(",");
 		List<String> petnames = new ArrayList<>();
 		List<String> services = new ArrayList<>();
+		List<MemboardDto> plist = service.petselname(mdto.getMem_id());
+		List<String[]> petarr = new ArrayList<>();
+		List<String> petname = new ArrayList<>();
+		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
 		for(String service : servicearr) {
 			services.add(service);
 		}
-
-		for(String petname : petnamearr) {
-			petnames.add(petname);
+		for(String pet : petnamearr) {
+			petnames.add(pet);
+		}		
+		for(MemboardDto petlist : plist) {
+			petarr.add(petlist.getMb_pet_name().split(","));
 		}
-		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
-
+		for(String[] PetNameList : petarr) {
+			for(String PetNameArr : PetNameList) {
+				petname.add(PetNameArr);
+			}
+		}
+		
 		String add = service.addselec(modlist.getMb_writer());
+		m.addAttribute("petname",petname);
 		m.addAttribute("list", list);
 		m.addAttribute("add", add);	
 		m.addAttribute("modlist", modlist);	
@@ -165,6 +188,7 @@ public class Mb_boardController {
 
 	@RequestMapping("mb_board")
 	public String mb_board(Model m,HttpServletRequest req) throws Exception{
+		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		int cpage = 1;
 		try {
 			cpage= Integer.parseInt(req.getParameter("cpage"));
@@ -172,12 +196,14 @@ public class Mb_boardController {
 
 		List<MemboardDto> mblist = service.mb_boardList(cpage);
 		for(MemboardDto mb : mblist) {
+			m.addAttribute("petname",mb.getMb_pet_name());
 			if(mb.getMb_petphoto() != null) {
 				String[] photoarr = mb.getMb_petphoto().split(",",-1);
 				mb.setPhoto(photoarr);
 			}
 		}
 		String navi = service.getPageNavi(cpage);
+		m.addAttribute("id",mdto.getMem_id());
 		m.addAttribute("navi", navi);
 		m.addAttribute("mblist", mblist);
 		return "mb_board/board_list";
@@ -204,7 +230,6 @@ public class Mb_boardController {
 		try {
 			response.getWriter().append(jobj.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

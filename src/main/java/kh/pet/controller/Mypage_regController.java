@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.pet.dao.MypageDAO;
+import kh.pet.dto.MemberDTO;
 import kh.pet.dto.Mypet_regDTO;
 import kh.pet.service.Pet_regService;
 
@@ -29,8 +30,8 @@ public class Mypage_regController {
 	
 	@RequestMapping("mypet_reg")
 	public void mypet_reg(Mypet_regDTO dto,MultipartFile img, HttpServletResponse response) throws Exception{	
-		String id = (String)session.getAttribute("id");
-		regservice.reg(id, dto, img);
+		MemberDTO dtos = (MemberDTO)session.getAttribute("loginInfo");
+		regservice.reg(dtos.getMem_id(), dto, img);
 		response.sendRedirect("list");
 	}
 	
