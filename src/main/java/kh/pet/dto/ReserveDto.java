@@ -1,5 +1,7 @@
 package kh.pet.dto;
 
+import java.sql.Date;
+
 public class ReserveDto {
 	private String reserve_seq;
 	private String petsitter_board_seq;
@@ -7,15 +9,15 @@ public class ReserveDto {
 	private String mem_id;
 	private String pet_name; 
 	private int reserve_point; 
-	private String reserve_sdate;
-	private String reserve_edate;
+	private Date start_day;
+	private Date end_day;
 	private String reserve_time;
 	
-	public ReserveDto() {
-	}
+	public ReserveDto() {}
+	
 
 	public ReserveDto(String reserve_seq, String petsitter_board_seq, String petsitter_id, String mem_id,
-			String pet_name, int reserve_point, String reserve_sdate, String reserve_edate, String reserve_time) {
+			String pet_name, int reserve_point, Date start_day, Date end_day, String reserve_time) {
 		super();
 		this.reserve_seq = reserve_seq;
 		this.petsitter_board_seq = petsitter_board_seq;
@@ -23,10 +25,11 @@ public class ReserveDto {
 		this.mem_id = mem_id;
 		this.pet_name = pet_name;
 		this.reserve_point = reserve_point;
-		this.reserve_sdate = reserve_sdate;
-		this.reserve_edate = reserve_edate;
+		this.start_day = start_day;
+		this.end_day = end_day;
 		this.reserve_time = reserve_time;
 	}
+
 
 	public String getReserve_seq() {
 		return reserve_seq;
@@ -76,20 +79,20 @@ public class ReserveDto {
 		this.reserve_point = reserve_point;
 	}
 
-	public String getReserve_sdate() {
-		return reserve_sdate;
+	public Date getStart_day() {
+		return start_day;
 	}
 
-	public void setReserve_sdate(String reserve_sdate) {
-		this.reserve_sdate = reserve_sdate;
+	public void setStart_day(Date start_day) {
+		this.start_day = start_day;
 	}
 
-	public String getReserve_edate() {
-		return reserve_edate;
+	public Date getEnd_day() {
+		return end_day;
 	}
 
-	public void setReserve_edate(String reserve_edate) {
-		this.reserve_edate = reserve_edate;
+	public void setEnd_day(Date end_day) {
+		this.end_day = end_day;
 	}
 
 	public String getReserve_time() {
@@ -99,5 +102,5 @@ public class ReserveDto {
 	public void setReserve_time(String reserve_time) {
 		this.reserve_time = reserve_time;
 	}
-	
+
 }

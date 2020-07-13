@@ -8,14 +8,11 @@ $(function(){
 	var mpet = [];
 	$(".petname").on("click",function(){
 		var img = $(this).data("imgsrc");
-		if($(".petname").prop("checked") == true){ 
-				$(".petselec").html('<img src="/resources/images/'+img+'"/>');
-		}else{ 
-			$(".petselec").html("<img src='/resources/images/mypet.jpg'/>");
-			
+		if($(this).is(":checked")==true){			
+			$("#photo").attr("src","/upload/"+img);			
 		}
 	})
-		
+
 })
 
 

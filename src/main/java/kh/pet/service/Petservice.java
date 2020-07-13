@@ -31,8 +31,8 @@ public class Petservice {
 		return dao.redlist(mb_seq);
 	}
 	
-	public String petphoto(String  mb_pet_name) {
-		return dao.petphoto(mb_pet_name);
+	public String petphoto(Mypet_regDTO pdto) {
+		return dao.petphoto(pdto);
 	}
 	
 	public String gettime(String time) {
@@ -66,6 +66,14 @@ public class Petservice {
 	
 	public int applyup(MemboardDto mbdto) {
 		return dao.applyup(mbdto);
+	}
+	
+	public int petsitter(String id) {
+		return dao.petsitter(id);
+	}
+
+	public List<MemboardDto> petselname(String id){
+		return dao.petselname(id);
 	}
 	
 	public List<MemboardDto> mb_boardList(int cpage){

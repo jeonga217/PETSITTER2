@@ -1,13 +1,13 @@
 package kh.pet.dto;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class ReviewDTO {
 
 	private int rw_seq;
 	private String rw_writer;
-	private String rw_date;
+	private Date rw_date;
 	private String rw_contents;
 	private float rw_star;
 	private String rw_petsitter_id;
@@ -15,7 +15,7 @@ public class ReviewDTO {
 	
 	public ReviewDTO() {}
 
-	public ReviewDTO(int rw_seq, String rw_writer, String rw_date, String rw_contents, float rw_star,
+	public ReviewDTO(int rw_seq, String rw_writer, Date rw_date, String rw_contents, float rw_star,
 			String rw_petsitter_id, String rw_parent_seq) {
 		super();
 		this.rw_seq = rw_seq;
@@ -43,11 +43,11 @@ public class ReviewDTO {
 		this.rw_writer = rw_writer;
 	}
 
-	public String getRw_date() {
+	public Date getRw_date() {
 		return rw_date;
 	}
 
-	public void setRw_date(String rw_date) {
+	public void setRw_date(Date rw_date) {
 		this.rw_date = rw_date;
 	}
 
@@ -82,7 +82,6 @@ public class ReviewDTO {
 	public void setRw_parent_seq(String rw_parent_seq) {
 		this.rw_parent_seq = rw_parent_seq;
 	}
-	
-	
+
 	
 }

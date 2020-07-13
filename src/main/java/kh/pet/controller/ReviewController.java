@@ -28,7 +28,7 @@ public class ReviewController {
 		return "SUCCESS";
 	}
 	
-	//AJAX부분
+
 	@RequestMapping(value="/insertProc", method=RequestMethod.POST)
 	@ResponseBody
 	public String insertProc(ReviewDTO rwdto) throws Exception{

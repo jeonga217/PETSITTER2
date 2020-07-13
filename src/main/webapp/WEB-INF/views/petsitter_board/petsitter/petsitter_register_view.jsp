@@ -5,12 +5,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   </head>
   <body>
 	<jsp:include page="/WEB-INF/views/petsitter_board/header.jsp"/>
 	 <script>
 		$(function(){
+			console.log('${petsitterInfo.ps_gender}');
 		  		$("input[name='ps_gender']").each(function(index,item){
 		  			if('${petsitterInfo.ps_gender}' == $(item).val()){
 		  				$(this).prop("checked",true);

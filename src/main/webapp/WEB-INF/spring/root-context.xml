@@ -17,7 +17,7 @@
 	</bean>
 
 	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory"
 			ref="sqlSessionFactory"></constructor-arg>
 	</bean>

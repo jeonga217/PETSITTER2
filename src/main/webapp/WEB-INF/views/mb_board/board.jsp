@@ -161,134 +161,137 @@
 
 		<div class="site-section bg-light">
 			<div class="container">
-					<div class="row">
-						<div class="col-lg-7">
-							<div class="d-block d-md-flex listing-horizontal">
-								<div class="lh-content">
-									<h3>제목</h3>
+				<div class="row">
+					<div class="col-lg-7">
+						<div class="d-block d-md-flex listing-horizontal">
+							<div class="lh-content">
+								<h3>제목</h3>
+								<c:if test="${!empty mlist}">
+									<span>${mlist.mb_title}</span>
+								</c:if>
+							</div>
+						</div>
+
+						<div class="d-block d-md-flex listing-horizontal">
+							<c:if test="${!empty mlist}">
+								<div class="petselec">
+									<img src="/upload/${mlist.photo[0]}">
+								</div>
+							</c:if>
+
+							<div class="lh-content">
+								<h3>나의 펫</h3>
+								<div class="pet">
 									<c:if test="${!empty mlist}">
-										<span>${mlist.mb_title}</span>
+										<span>${mlist.mb_pet_name}</span>
 									</c:if>
 								</div>
 							</div>
 
-							<div class="d-block d-md-flex listing-horizontal">
-								<c:if test="${!empty mlist}">
-									<div class="petselec">
-										<img src="/resources/mb/images/mypet.jpg">
-									</div>
-								</c:if>
+						</div>
 
-								<div class="lh-content">
-									<h3>나의 펫</h3>
-									<div class="pet">
+						<div class="d-block d-md-flex listing-horizontal">
+							<div class="lh-content">
+								<h5 class="mb-3">서비스</h5>
+								<div class="d-block my-3">
+									<div class="service_list" style="text-align: center">
+										<div>
+											<span class="services" id="service1"> <i
+												class="icofont-tasks-alt"></i>장기예약
+											</span> <span class="services" id="service2"> <i
+												class="icofont-pills"></i>약물 복용
+											</span> <span class="services" id="service3"> <i
+												class='bx bx-bone'></i>실내 놀이
+											</span>
+										</div>
+										<div>
+											<span class="services" id="service4"> <i
+												class="icofont-bathtub"></i>목욕 가능
+											</span> <span class="services" id="service5"> <i
+												class="icofont-first-aid"></i>응급처치
+											</span> <span class="services" id="service6"> <i
+												class='bx bx-walk'></i>야외 산책
+											</span>
+										</div>
+										<div>
+											<span class="services" id="service7"> <i
+												class="icofont-tasks-alt"></i>발톱관리
+											</span> <span class="services" id="service8"> <i
+												class="icofont-ui-cut"></i>모발 관리
+											</span> <span class="services" id="service9"> <i
+												class="icofont-car-alt-3"></i>집앞픽업
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="d-block d-md-flex listing-horizontal">
+							<div class="lh-content">
+								<h3>요구사항</h3>
+								<c:if test="${!empty mlist}">
+									<span>${mlist.mb_request}</span>
+								</c:if>
+							</div>
+						</div>
+						<div class="conb">
+							<c:if test="${mlist.mb_writer eq id}">
+								<a href="/mb/modified?mb_seq=${mlist.mb_seq}" class="text-white"
+									id="modified">수정</a>
+								<a href="/mb/deleteboard?mb_seq=${mlist.mb_seq}"
+									class="text-white" id="delete">삭제</a>
+							</c:if>
+							<a href="/mb/mb_board" class="text-white" id="modified">목록</a>
+						</div>
+						<div class="col-12 mt-5 text-center"></div>
+
+					</div>
+					<div class="col-lg-4 ml-5">
+
+						<div data-brackets-id='1'>
+							<div data-brackets-id='2'
+								style="width: 375px; border-radius: 8px; border: 1px solid #DFE3EA; box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.07); padding-left: 32px; padding-right: 32px; padding-bottom: 32px">
+								<p data-brackets-id='3'
+									style="font-family: Noto Sans KR; font-size: 14px; letter-spacing: -0.2px; line-height: 20px; color: #393C47; margin-top: 38px">펫시터가
+									필요해요</p>
+								<div data-brackets-id='4'
+									style="display: flex; flex-grow: 1; margin-top: 24px">
+									<div class="reserve_calendar">
+										<div id="my-calendar"></div>
+										<input type="hidden" name="mb_startday" id="mb_startday">
+										<input type="hidden" name="mb_endday" id="mb_endday">
+									</div>
+								</div>
+
+								<p data-brackets-id='18'
+									style="font-family: Noto Sans KR; font-size: 14px; letter-spacing: -0.2px; line-height: 20px; color: #393C47; margin-top: 38px">선택시간</p>
+								<div data-brackets-id='16'
+									style="display: flex; flex-direction: row; justify-content: space-between;">
+									<div id="timelist">
 										<c:if test="${!empty mlist}">
-											<span>${mlist.mb_pet_name}</span>
+											<div>
+												<span>시작시간&nbsp;&nbsp;${mlist.mb_stime}</span>&nbsp;&nbsp;<span>끝시간&nbsp;&nbsp;${mlist.mb_etime}</span>
+											</div>
 										</c:if>
 									</div>
 								</div>
-
-							</div>
-
-							<div class="d-block d-md-flex listing-horizontal">
-								<div class="lh-content">
-									<h5 class="mb-3">서비스</h5>
-									<div class="d-block my-3">
-										<div class="service_list" style="text-align: center">
-											<div>
-												<span class="services" id="service1"> <i
-													class="icofont-tasks-alt"></i>장기예약
-												</span> <span class="services" id="service2"> <i
-													class="icofont-pills"></i>약물 복용
-												</span> <span class="services" id="service3"> <i
-													class='bx bx-bone'></i>실내 놀이
-												</span>
-											</div>
-											<div>
-												<span class="services" id="service4"> <i
-													class="icofont-bathtub"></i>목욕 가능
-												</span> <span class="services" id="service5"> <i
-													class="icofont-first-aid"></i>응급처치
-												</span> <span class="services" id="service6"> <i
-													class='bx bx-walk'></i>야외 산책
-												</span>
-											</div>
-											<div>
-												<span class="services" id="service7"> <i
-													class="icofont-tasks-alt"></i>발톱관리
-												</span> <span class="services" id="service8"> <i
-													class="icofont-ui-cut"></i>모발 관리
-												</span> <span class="services" id="service9"> <i
-													class="icofont-car-alt-3"></i>집앞픽업
-												</span>
-											</div>
-										</div>
+								<div>
+									<div class="price">
+										<span></span> 포인트
 									</div>
 								</div>
-							</div>
-							<div class="d-block d-md-flex listing-horizontal">
-								<div class="lh-content">
-									<h3>요구사항</h3>
-									<c:if test="${!empty mlist}">
-										<span>${mlist.mb_request}</span>
-									</c:if>
-								</div>
-							</div>
-								<div class="conb">
-							<c:if test="${mlist.mb_writer eq id}">
-									<a href="/mb/modified?mb_seq=${mlist.mb_seq}" class="text-white" id="modified">수정</a>
-									<a href="/mb/deleteboard?mb_seq=${mlist.mb_seq}" class="text-white" id="delete">삭제</a>
-							</c:if>		
-									<a href="/mb/mb_board" class="text-white" id="modified">목록</a>
-								</div>
-							<div class="col-12 mt-5 text-center"></div>
-
-						</div>
-						<div class="col-lg-4 ml-5">
-
-							<div data-brackets-id='1'>
-								<div data-brackets-id='2'
-									style="width: 375px; border-radius: 8px; border: 1px solid #DFE3EA; box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.07); padding-left: 32px; padding-right: 32px; padding-bottom: 32px">
-									<p data-brackets-id='3'
-										style="font-family: Noto Sans KR; font-size: 14px; letter-spacing: -0.2px; line-height: 20px; color: #393C47; margin-top: 38px">펫시터가
-										필요해요</p>
-									<div data-brackets-id='4'
-										style="display: flex; flex-grow: 1; margin-top: 24px">
-										<div class="reserve_calendar">
-											<div id="my-calendar"></div>
-											<input type="hidden" name="mb_startday" id="mb_startday">
-											<input type="hidden" name="mb_endday" id="mb_endday">
-										</div>
-									</div>
-
-									<p data-brackets-id='18'
-										style="font-family: Noto Sans KR; font-size: 14px; letter-spacing: -0.2px; line-height: 20px; color: #393C47; margin-top: 38px">선택시간</p>
-									<div data-brackets-id='16'
-										style="display: flex; flex-direction: row; justify-content: space-between;">
-										<div id="timelist">
-											<c:if test="${!empty mlist}">									
-													<div>
-														<span>시작시간&nbsp;&nbsp;${mlist.mb_stime}</span>&nbsp;&nbsp;<span>끝시간&nbsp;&nbsp;${mlist.mb_etime}</span>
-													</div>							
-											</c:if>
-										</div>
-									</div>
-									<div>
-										<div class="price">
-											<span></span> 포인트
-										</div>
-									</div>
+								<c:if test="${petResult==2}">
 									<div class="custom-pagination">
 										<button class="btn btn-primary text-white apply">신청하기</button>
 									</div>
-
-									<div class="mb-5">
-										<div id="map" style="width: 100%; height: 350px;"></div>
-									</div>
+								</c:if>
+								<div class="mb-5">
+									<div id="map" style="width: 100%; height: 350px;"></div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -191,7 +191,7 @@ public class AdminService {
 	public int accept_petsitter(String p_seq) {
 		WaitlistDTO w_dto = dao.accept_pet_info(p_seq);
 		UUID uuid = UUID.randomUUID();
-		ReserveDto dto = new ReserveDto(uuid.toString(),w_dto.getBoard_seq(),w_dto.getPetsitter_id(),w_dto.getMem_id(),w_dto.getPet_name(),w_dto.getRsv_point(),w_dto.getRsv_start_day(),w_dto.getRsv_end_day(),w_dto.getPsb_time());
+		ReserveDto dto = new ReserveDto(uuid.toString(),w_dto.getBoard_seq(),w_dto.getPetsitter_id(),w_dto.getMem_id(),w_dto.getRsv_pet_name(),w_dto.getRsv_point(),w_dto.getRsv_start_day(),w_dto.getRsv_end_day(),w_dto.getRsv_time());
 
 		MessageDTO b_dto = new MessageDTO();
 		b_dto.setMsg_reciever(w_dto.getMem_id());

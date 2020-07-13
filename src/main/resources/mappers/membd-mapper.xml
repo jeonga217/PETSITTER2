@@ -16,7 +16,7 @@
 </select>
 
 <select id="petphoto" resultType="String">
-	select pet_photo from mypet where pet_name=#{mb_pet_name}
+	select pet_photo from mypet where pet_name=#{pet_name} and master_id = #{master_id}
 </select> 
 
 <select id="gettime" resultType="String">
@@ -44,7 +44,7 @@
 </select>
 
 <select id="mb_boardList" resultType="kh.pet.dto.MemboardDto">
-	select * from (select mem_board.*,row_number()over (order by mb_seq desc) rnum from mem_board where sysdate <![CDATA[<=]]> mb_startday) where rnum between ${start} and ${end}
+	select * from (select mem_board.*,row_number()over (order by mb_date desc) rnum from mem_board where sysdate <![CDATA[<=]]> mb_startday) where rnum between ${start} and ${end}
 </select>
 
 <delete id="deleteboard">
@@ -57,5 +57,13 @@
 
 <select id="addselec" resultType="String">
 	select mem_address1 from member where mem_id=#{value}
+</select>
+
+<select id="petsitter" resultType="int">
+	select mem_type from member where mem_id=#{value}
+</select>
+
+<select id="petselname" resultType="kh.pet.dto.MemboardDto">
+	select mb_pet_name  from mem_board where mb_writer=#{value}
 </select>
 </mapper>

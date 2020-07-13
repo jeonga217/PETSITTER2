@@ -2,11 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
 
-	<insert id="insert">
+	<insert id="insertBoard">
 		insert into petsitter_board
 		(psb_seq,psb_title,psb_writer,psb_contents,psb_thumb,psb_service,psb_start_day,psb_end_day,psb_time,psb_petType)
 		values (#{psb_seq},#{psb_title},#{psb_writer},#{psb_contents},#{psb_thumb},#{psb_service},#{psb_start_day,jdbcType=VARCHAR},#{psb_end_day,jdbcType=VARCHAR},#{psb_time},#{psb_petType})
 	</insert>
+	
+	<insert id="insertWaitlist">
+		insert into WaitList (wait_seq, board_seq,petsitter_id,mem_id,rsv_pet_name,rsv_point,rsv_start_day,rsv_end_day,rsv_time) values (wait_seq.nextval, #{board_seq}, #{petsitter_id}, #{mem_id}, #{rsv_pet_name},#{rsv_point},#{rsv_start_day},#{rsv_end_day},#{rsv_time} ) 
+	</insert>
+	
+	<insert id="createTb">
+		insert into cur_reserve (parent_board_seq, cur_date) values(#{parent_board_seq},#{cur_date})
+	</insert>
+	
+	<delete id="deleteBoard">
+		delete from petsitter_board where psb_seq=#{psb_seq}
+	</delete>
 	
 	<select id="selectBoard" resultType="kh.pet.dto.TotboardDTO">
 		select psb.psb_seq psb_seq, psb.psb_title psb_title, psb.psb_writer psb_writer, psb.psb_thumb psb_thumb, ps.ps_age ps_age, ps.ps_gender ps_gender, ps.ps_address1 ps_address1, psb.psb_petType psb_petType, ps.ps_resident_type ps_resident_type, psb.psb_service psb_service, psb.psb_contents psb_contents, psb.psb_start_day psb_start_day, psb.psb_end_day psb_end_day, psb.psb_time psb_time from petsitter_board psb, petsitter ps where ps.ps_id=#{writer} and psb.psb_seq=#{seq}
@@ -38,6 +50,26 @@
 	</select>
 	
 	<select id="selectMypet" resultType="kh.pet.dto.Mypet_regDTO">
-		select pet_name from mypet where master_id = #{mem_id}
+		select * from mypet where master_id = #{mem_id}
+	</select>
+	
+	<select id="selectCurrentReserve" resultType="kh.pet.dto.CurrentReserveDTO">
+		select * from cur_reserve where parent_board_seq = #{value}
+	</select>
+	
+	<select id="checkExistReservation" resultType="int">
+		select count(*) from reservation where PETSITTER_PARENT_SEQ = #{psb_seq}
+	</select>
+	
+	<update id="updateCurrentReserve">
+		update cur_reserve set am = am - ${am} , pm = pm - ${pm} where parent_board_seq = #{parent_board_seq} and cur_date = #{s_cur_date} 
+	</update>
+	
+	<select id="selectPrice" resultType="int">
+		select point from price where time = #{time} and pet_type = #{type} 
+	</select>
+	
+	<select id="selectFullday" resultType="list">
+		select cur_date from cur_reserve where parent_board_seq = #{board_seq}
 	</select>
 </mapper>
