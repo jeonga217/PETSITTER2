@@ -29,8 +29,8 @@ public class PetDao {
 		return mybatis.selectOne("membd.redlist",seq);
 	}
 	
-	public String petphoto(String mb_pet_name) {
-		return mybatis.selectOne("membd.petphoto", mb_pet_name);
+	public String petphoto(Mypet_regDTO pdto) {
+		return mybatis.selectOne("membd.petphoto", pdto);
 	}
 	
 	public String gettime(String time) {
@@ -50,7 +50,6 @@ public class PetDao {
 	}
 	
 	public int applyup(MemboardDto mbdto) {
-		System.out.println(mbdto);
 		return mybatis.update("membd.applyup",mbdto);
 	}
 	
@@ -73,5 +72,13 @@ public class PetDao {
 	
 	public String addselec(String id) {
 		return mybatis.selectOne("membd.addselec",id);
+	}
+	
+	public int petsitter(String id) {
+		return mybatis.selectOne("membd.petsitter",id);
+	}
+	
+	public List<MemboardDto> petselname(String id){
+		return mybatis.selectList("membd.petselname",id);
 	}
 }

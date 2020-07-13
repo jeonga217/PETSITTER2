@@ -17,13 +17,14 @@ import kh.pet.staticInfo.Log_Count;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private HttpSession session;
 	
 	
 	@RequestMapping("/")
 	public String home(Locale locale, Model model) {
+		System.out.println(ClassLoader.getSystemClassLoader().getResource(".").getPath());
 		return "main";
 	}
 	

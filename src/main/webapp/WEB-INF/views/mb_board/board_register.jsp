@@ -175,7 +175,7 @@
 								<div class="lh-content">
 									<div class="title">
 										<h3>제목</h3>
-										<div contenteditable="true" id="title" ></div>
+										<div contenteditable="true" id="title"></div>
 										<input type="hidden" name="mb_title" id="mb_title">
 									</div>
 								</div>
@@ -183,14 +183,16 @@
 
 							<div class="d-block d-md-flex listing-horizontal">
 								<div class="petselec">
-									<img src="/resources/mb/images/mypet.jpg">
+									<img id="photo" src="/resources/mb/images/mypet.jpg">
 								</div>
 								<div class="lh-content">
 									<div class="pet">
 										<c:if test="${!empty list}">
 											<c:forEach items="${list}" var="i">
 												<input type="hidden" name="mb_petphoto" id="petphoto">
-												<input type="checkbox" data-imgsrc="${i.pet_photo}" class="petname" name="mb_pet_name" id="${i.pet_name}" value="${i.pet_name}" />
+												<input type="checkbox" data-imgsrc="${i.pet_photo}"
+													class="petname" name="mb_pet_name" id="${i.pet_name}"
+													value="${i.pet_name}" />
 												<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
 											</c:forEach>
 										</c:if>
@@ -204,46 +206,50 @@
 										<div class="service_list" style="text-align: center">
 											<div>
 												<span class="services"> <input type="checkbox"
-													name="mb_service" id="service1" value=service1 class="chservi"/> <label
-													for="service1"> <i class="icofont-tasks-alt"></i>장기
-														예약
+													name="mb_service" id="service1" value=service1
+													class="chservi" /> <label for="service1"> <i
+														class="icofont-tasks-alt"></i>장기 예약
 												</label>
 												</span> <span class="services"> <input type="checkbox"
-													name="mb_service" id="service2" value=service2 class="chservi"/> <label
-													for="service2"> <i class="icofont-pills"></i> 약물 복용
+													name="mb_service" id="service2" value=service2
+													class="chservi" /> <label for="service2"> <i
+														class="icofont-pills"></i> 약물 복용
 												</label>
 												</span> <span class="services"> <input type="checkbox"
-													style="" name="mb_service" id="service3" value=service3 class="chservi"/>
-													<label for="service3"><i class='bx bx-bone'></i>실내
-														놀이</label>
+													style="" name="mb_service" id="service3" value=service3
+													class="chservi" /> <label for="service3"><i
+														class='bx bx-bone'></i>실내 놀이</label>
 												</span>
 											</div>
 
 											<div>
 												<span class="services"> <input type="checkbox"
-													name="mb_service" id="service4" value=service4 class="chservi"/> <label
-													for="service4"><i class="icofont-bathtub"></i>목욕 가능</label>
+													name="mb_service" id="service4" value=service4
+													class="chservi" /> <label for="service4"><i
+														class="icofont-bathtub"></i>목욕 가능</label>
 												</span> <span class="services"> <input type="checkbox"
-													name="mb_service" id="service5" value=service5 class="chservi" /> <label
-													for="service5"><i class="icofont-first-aid"></i>응급
-														처치</label>
+													name="mb_service" id="service5" value=service5
+													class="chservi" /> <label for="service5"><i
+														class="icofont-first-aid"></i>응급 처치</label>
 												</span> <span class="services"> <input type="checkbox"
-													name="mb_service" id="service6" value=service6 class="chservi"/> <label
-													for="service6"><i class='bx bx-walk'></i>야외 산책</label>
+													name="mb_service" id="service6" value=service6
+													class="chservi" /> <label for="service6"><i
+														class='bx bx-walk'></i>야외 산책</label>
 												</span>
 											</div>
 											<div>
 												<span class="services"> <input type="checkbox"
-													name="mb_service" id="service7" value=service7 class="chservi"/> <label
-													for="service7"><i class="icofont-tasks-alt"></i>발톱
-														관리</label>
+													name="mb_service" id="service7" value=service7
+													class="chservi" /> <label for="service7"><i
+														class="icofont-tasks-alt"></i>발톱 관리</label>
 												</span> <span class="services"> <input type="checkbox"
-													name="mb_service" id="service8" value=service8 class="chservi"/> <label
-													for="service8"><i class="icofont-ui-cut"></i>모발 관리</label>
+													name="mb_service" id="service8" value=service8
+													class="chservi" /> <label for="service8"><i
+														class="icofont-ui-cut"></i>모발 관리</label>
 												</span> <span class="services"> <input type="checkbox"
-													name="mb_service" id="service9" value=service9 class="chservi"/> <label
-													for="service9"><i class="icofont-car-alt-3"></i>집앞
-														픽업</label>
+													name="mb_service" id="service9" value=service9
+													class="chservi" /> <label for="service9"><i
+														class="icofont-car-alt-3"></i>집앞 픽업</label>
 												</span>
 											</div>
 										</div>
@@ -262,7 +268,7 @@
 							</div>
 							<div class="conb">
 								<a href="/mb/mb_board" class="text-white" id="modified">목록</a>
-							</div>	
+							</div>
 						</div>
 
 						<div class="col-lg-4 ml-5">
@@ -340,8 +346,8 @@
 											</div>
 
 										</div>
-										<input type="hidden" id="stime" name="mb_stime">
-										<input type="hidden" id="etime" name="mb_etime">
+										<input type="hidden" id="stime" name="mb_stime"> <input
+											type="hidden" id="etime" name="mb_etime">
 									</div>
 									<div class="mb-5">
 										<div class="custom-pagination">
@@ -642,6 +648,7 @@
 				$(".petname:checked").each(function(index, item) {
 					src.push($(this).data("imgsrc"));
 				})
+
 				$("#petphoto").val(src);
 			})
 
@@ -668,96 +675,112 @@
 		})
 	</script>
 	<script>
-        $(function(){
-            $(".stimelist").hide();
-            $(".etimelist").hide();
-            
-            $(".stime").on("click",function(){
-                $(".stimelist").show(100);
-            })
-            
-            $("li").on("click",function(){
-                $(this).parent().parent().hide();
-                var bu =  $(this).parent().parent().siblings().children();
-                var htmlV = $(this).html();
-                bu.html(htmlV);
-            })
-            var dataTime = '';
-            $(".stimelist  li").on("click",function(){
-            	dataTime = $(this).data("time");
-            	$(".stime").attr("data-time",dataTime)
-            });
-           
-            $(".etimelist  li").on("click",function(){
-                var edata = $(this).data("time");      	
-           		if(dataTime >= edata){
-           			alert("다시선택하세요");
-           			$(".etime").html("끝시간");
-           		}else{
-           			$("#stime").val($(".stime").html());
-           			$("#etime").val($(".etime").html());
-           			return true
-           		}
-            });
-          
-            
-            $(".etime").on("click",function(){
-            	$(".etimelist").show(100);       
-            })
-  
-        })
-    </script>
-    <script>
-			$("#uniqueness").on("keyup", function() {
-				var uniquetext = $("#uniqueness").html();
-				$("#mb_request").val(uniquetext);
+		$(function() {
+			$(".stimelist").hide();
+			$(".etimelist").hide();
+
+			$(".stime").on("click", function() {
+				$(".stimelist").show(100);
 			})
 
-			$("#title").on("keyup", function() {
-				var title = $("#title").html();
-				$("#mb_title").val(title);
+			$("li").on("click", function() {
+				$(this).parent().parent().hide();
+				var bu = $(this).parent().parent().siblings().children();
+				var htmlV = $(this).html();
+				bu.html(htmlV);
 			})
-			
+			var dataTime = '';
+			$(".stimelist  li").on("click", function() {
+				dataTime = $(this).data("time");
+				$(".stime").attr("data-time", dataTime)
+			});
+
+			$(".etimelist  li").on("click", function() {
+				var edata = $(this).data("time");
+				if (dataTime >= edata) {
+					alert("다시선택하세요");
+					$(".etime").html("끝시간");
+				} else {
+					$("#stime").val($(".stime").html());
+					$("#etime").val($(".etime").html());
+					return true
+				}
+			});
+
+			$(".etime").on("click", function() {
+				$(".etimelist").show(100);
+			})
+
+		})
 	</script>
-    <script>
-    		$("#send").on("submit",function(){
-    			var titleVal = $("#mb_title").val();
-    			var timeVal = $(".bu").data("time");
-    			var petVal = $(".petname:checked").val();
-    			var serviceVal = $(".chservi:checked").val();
-    			var startdayVal = $("#mb_startday").val();
-    			var requestVal = $("#mb_request").val();
-    			if(titleVal == ""){
-    				alert("제목을 입력 해주세요");
-    				return false;
-    			}
-    			
-    			if(timeVal == null){
-    				alert("시간을 선택 해주세요");
-    				return false;
-    			}
-    			
-    			if(petVal == null){
-    				alert("강아지를 선택 해주세요");
-    				return false;
-    			}
-    			
-    			if(serviceVal == null){
-    				alert("서비스를 선택 해주세요");
-    				return false;
-    			}
-    			
-    			if(startdayVal == ""){
-    				alert("날짜를 선택 해주세요");
-    				return false;
-    			}		
+	<script>
+		$("#uniqueness").on("keyup", function() {
+			var uniquetext = $("#uniqueness").html();
+			$("#mb_request").val(uniquetext);
+		})
 
-    			if(requestVal == ""){
-    				alert("특이 사항을 입력 해주세요");
-    				return false;
-    			}		
-    		})
-    </script>
+		$("#title").on("keyup", function() {
+			var title = $("#title").html();
+			$("#mb_title").val(title);
+		})
+	</script>
+	<script>
+		$("#send").on("submit", function() {
+			var titleVal = $("#mb_title").val();
+			var timeVal = $(".bu").data("time");
+			var petVal = $(".petname:checked").val();
+			var serviceVal = $(".chservi:checked").val();
+			var startdayVal = $("#mb_startday").val();
+			var requestVal = $("#mb_request").val();
+			if (titleVal == "") {
+				alert("제목을 입력 해주세요");
+				return false;
+			}
+
+			if (timeVal == null) {
+				alert("시간을 선택 해주세요");
+				return false;
+			}
+
+			if (petVal == null) {
+				alert("강아지를 선택 해주세요");
+				return false;
+			}
+
+			if (serviceVal == null) {
+				alert("서비스를 선택 해주세요");
+				return false;
+			}
+
+			if (startdayVal == "") {
+				alert("날짜를 선택 해주세요");
+				return false;
+			}
+
+			if (requestVal == "") {
+				alert("특이 사항을 입력 해주세요");
+				return false;
+			}
+		})
+	</script>
+	<script>
+		$("#send").on("submit", function() {
+			var count = 0;
+			<c:forEach var="i" items="${petname}">
+			$(".petname:checked").each(function(index, item) {
+				if ("${i}" == $(item).val()) {
+					count++
+				}
+			})
+			</c:forEach>
+			if (count > 0) {
+				alert("이미등록된 강아지가 있습니다.")
+				return false;
+			} else {
+				return true;
+			}
+		})
+	</script>
 </body>
 
 </html>
