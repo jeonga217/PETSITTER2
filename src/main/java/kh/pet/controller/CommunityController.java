@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import kh.pet.dto.CommentsDTO;
 import kh.pet.dto.CommunityDTO;
 import kh.pet.dto.CommunityListDTO;
-import kh.pet.dto.MemberDTO;
 import kh.pet.dto.ReportDTO;
 import kh.pet.service.CommentsService;
 import kh.pet.service.CommunityService;
@@ -35,24 +34,36 @@ public class CommunityController {
 	@Autowired
 	private CommentsService cm_service;
 
+	@RequestMapping("login")
+	public String login() {
+		return "community/login";
+	}
+
+	@RequestMapping("loginProc")
+	public String loginProc(String id, String pw) {
+
+		session.setAttribute("id", id);
+		return "community/main";
+	}
+
 	//게시글 작성 페이지
 	@RequestMapping("write")
 	public String write() {
 
-		String id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+		String id = (String)session.getAttribute("id");
 
 		if(id.contentEquals("admin")) {
-			return "/community/write_Admin";
+			return "community/write_Admin";
 		} else {
-			return "/community/write_Member";	
+			return "community/write_Member";	
 		}
 	}
 
 	//게시글 작성
 	@RequestMapping("writeProc")
 	public void writeProc(CommunityDTO cu_dto, HttpServletResponse res)throws Exception {
-		cu_dto.setCu_writer(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
-		cu_service.insert(cu_dto);
+		cu_dto.setCu_writer((String)session.getAttribute("id"));
+		int result = cu_service.insert(cu_dto);
 		res.sendRedirect("list");
 
 	}
@@ -74,7 +85,7 @@ public class CommunityController {
 		model.addAttribute("navi", navi);
 		session.setAttribute("cpage", cpage);
 
-		return "/community/list";
+		return "community/list";
 	}
 
 	//게시글 확인
@@ -86,7 +97,7 @@ public class CommunityController {
 
 		List<CommentsDTO> cm_list = cm_service.commentsAll(cu_seq);
 		model.addAttribute("cm_list", cm_list);
-		return "/community/view";
+		return "community/view";
 	}
 
 
@@ -94,7 +105,7 @@ public class CommunityController {
 	@RequestMapping("update")
 	public String update()throws Exception{
 
-		return "/community/update";
+		return "community/update";
 	}
 
 	//게시물 수정 _ 실행
@@ -134,7 +145,7 @@ public class CommunityController {
 		model.addAttribute("navi", navi);
 		session.setAttribute("cpage", cpage);
 		
-		return "/community/list";
+		return "community/list";
 	}
 
 	//댓글관련
@@ -145,8 +156,8 @@ public class CommunityController {
 
 		CommunityListDTO cu_dto = (CommunityListDTO)session.getAttribute("view");
 		int cm_parent_seq = cu_dto.getCu_seq();
-		String cm_writer = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
-		cm_service.insert(cm_dto, cm_parent_seq, cm_writer);
+		String cm_writer = (String)session.getAttribute("id");
+		int result = cm_service.insert(cm_dto, cm_parent_seq, cm_writer);
 
 		List<CommentsDTO> cm_list = cm_service.commentsAll(cm_parent_seq);
 		model.addAttribute("cm_list", cm_list);
@@ -200,7 +211,7 @@ public class CommunityController {
 		
 		CommunityListDTO cu_dto = (CommunityListDTO)session.getAttribute("view");
 		int r_parent_seq = cu_dto.getCu_seq();
-		String report_id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+		String report_id = (String)session.getAttribute("id");
 		
 		cu_service.insertReport(r_parent_seq, report_id, r_dto);
 	}
