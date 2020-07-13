@@ -1,5 +1,7 @@
 package kh.pet.dto;
 
+import java.sql.Date;
+
 public class TotboardDTO {
 	private String psb_seq;
 	private String psb_title;
@@ -12,15 +14,15 @@ public class TotboardDTO {
 	private String ps_resident_type;
 	private String psb_service;
 	private String psb_contents;
-	private String psb_start_day;
-	private String psb_end_day;
+	private Date psb_start_day;
+	private Date psb_end_day;
 	private String psb_time;
 	
-	public TotboardDTO() {}	
+	public TotboardDTO() {}
 
 	public TotboardDTO(String psb_seq, String psb_title, String psb_writer, String psb_thumb, Integer ps_age,
 			String ps_gender, String ps_address1, String psb_petType, String ps_resident_type, String psb_service,
-			String psb_contents, String psb_start_day, String psb_end_day, String psb_time) {
+			String psb_contents, Date psb_start_day, Date psb_end_day, String psb_time) {
 		super();
 		this.psb_seq = psb_seq;
 		this.psb_title = psb_title;
@@ -126,19 +128,19 @@ public class TotboardDTO {
 		this.psb_contents = psb_contents;
 	}
 
-	public String getPsb_start_day() {
+	public Date getPsb_start_day() {
 		return psb_start_day;
 	}
 
-	public void setPsb_start_day(String psb_start_day) {
+	public void setPsb_start_day(Date psb_start_day) {
 		this.psb_start_day = psb_start_day;
 	}
 
-	public String getPsb_end_day() {
+	public Date getPsb_end_day() {
 		return psb_end_day;
 	}
 
-	public void setPsb_end_day(String psb_end_day) {
+	public void setPsb_end_day(Date psb_end_day) {
 		this.psb_end_day = psb_end_day;
 	}
 
@@ -148,8 +150,7 @@ public class TotboardDTO {
 
 	public void setPsb_time(String psb_time) {
 		this.psb_time = psb_time;
-	}
+	}	
 
-	
 	
 }

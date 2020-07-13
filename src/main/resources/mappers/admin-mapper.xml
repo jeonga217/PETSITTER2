@@ -8,7 +8,7 @@
 	<update id="board_state">
 		update ${boardType} set <choose><when test="boardType == 'mem_board'"> mb_boardstatus = #{state} where mb_seq = #{seq}</when><when test="boardType == 'petsitter_board'">psb_boardstatus = #{state} where psb_seq = #{seq}</when></choose>
 	</update>
-	
+
 	<!-- petsitter management -->
 	<select id="petsitter" resultType="kh.pet.dto.PetsitterDTO">
 		select p.ps_id, p.ps_age from member m, petsitter p where mem_id=ps_id and m.mem_type=1
@@ -21,8 +21,7 @@
 	<delete id="petcencel">
 		delete from petsitter where ps_id=#{value}  
 	</delete>
-	
-	
+
 	<!-- memeber management  -->
 	<select id="memberlist" resultType="kh.pet.dto.MemberDTO">
 	 	select * from (select member.* , row_number() over(order by MEM_JOIN_DATE desc)rnum from member) where rnum between ${start} and ${end}

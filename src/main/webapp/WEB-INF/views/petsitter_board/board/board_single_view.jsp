@@ -127,320 +127,374 @@ ul>li, input {
 </style>
 
 <body>
-   <jsp:include page="/WEB-INF/views/petsitter_board/header.jsp" />
+	<jsp:include page="/WEB-INF/views/petsitter_board/header.jsp" />
 
-   <script>
-      $(function(){
-         
-         displayReview();
-         
-         
-         $(".comment-list").on("click",".delete_review",function(){
-            var result = confirm("리뷰를 삭제하시겠습니까?");
-            
-            var seq = $(this).attr("seq");
-            if(result){
-               //삭제로직
-               $(this).parent().parent().remove();
-               $.ajax({
-                  url:"/review/deleteProc?rw_seq="+seq+"&rw_parent_seq=${tot_Info.psb_seq}",
-                  type:"POST",
-                  success:function(){
-                     displayReview();
-                  },
-                  fail:function(){
-                     alert("deleteProc err");
-                  }
-               });
-               
-            }
-         });   
-         
-            var petType_list = "${tot_Info.psb_petType}";
-              var petType_listarr = petType_list.split(",");
-              $("input[name='psb_petType']").each(function(index,item){
-                 for(var i=0; i<petType_listarr.length;i++){
-                    if(petType_listarr[i] == $(item).val()){
-                       $(this).prop("checked",true);
-                       $("input[name='psb_petType']").prop('disabled',true);
-                    }
-                 }
-              });
-            
-              $("input[name='ps_resident_type']").each(function(index,item){
-                 if('${tot_Info.ps_resident_type}' == $(item).val()){
-                    $(this).prop("checked",true);
-                    $("input[name='ps_resident_type']").prop('disabled',true);
-                 }
-              });
-              
-              var service_list = "${tot_Info.psb_service}";
-              var service_listarr = service_list.split(",");
-              $("input[name='psb_service']").each(function(index,item){
-                 for(var i=0; i<service_listarr.length;i++){
-                    if(service_listarr[i] == $(item).val()){
-                       $(this).prop("checked",true);
-                       $("input[name='psb_service']").prop('disabled',true);
-                       }
-                    }
-                 });
-              
-              var time_list = "${tot_Info.psb_time}";
-              var time_listarr = time_list.split(",");
-              $("input[name='psb_time']").each(function(index,item){
-                 $(item).prop('checked',true);
-                 $("input[name='psb_time']:checked").prop('disabled',true);
-                 for(var i=0;i<time_listarr.length;i++){
-                    if($(item).val()==time_listarr[i]){
-                       $(this).prop('checked',false);
-                       $(this).prop('disabled',false);
-                    }
-                 }
-              });
-              
-               $(".star").on('click',function(){
-                   var idx = $(this).index();
-                   $(".star").removeClass("on");
-                   var count = 0;
-                   for(var i=0; i<=idx; i++){
-                      $(".star").eq(i).addClass("on");
-                         count+=0.5;
-                   }
-                     console.log(count);
-                     $("#rw_star").val(count);
-                   });
-               
-              $("#tolist").on("click",function(){
-               location.href="/board/outputList";
-            });
-            $("#delete").on("click",function(){
-               location.href="/board/delete";
-            });
-            $("#update").on("click",function(){
-               location.href="/board/update";
-            });
-            
-             $(".selectime").on("click",function(){
-                  if($(this).prop("checked") == true && $("#am").prop("checked") == true){
-                     $(".ba").prop("checked",false);
-                     $("#full").prop("checked",false);
-                  }
-                  if($(this).prop("checked") == true && $("#pm").prop("checked") == true){
-                     $(".ba").prop("checked",false);
-                     $("#full").prop("checked",false);
-                  }
-                  if($(this).prop("checked") == true && $("#full").prop("checked") == true){
-                     $(".ba").prop("checked",false);
-                     $("#am").prop("checked",false);
-                     $("#pm").prop("checked",false);
-                  }   
-               })
-         });
-      
-      //review 뿌려주는 함수
-      function displayReview(){
-         $.ajax({
-            url:"/review/selectReviewList?psb_seq=${tot_Info.psb_seq}",
-            type:"POST",
-            success:function(data){
-               var str = "";
-               $.each(data, function(key, val) {
-                     str += '<li class="comment">';
-                     str += '<div class="vcard bio">';
-                     str += '<i class="icofont-comment"></i>';
-                     str += '</div>';
-                     str += '<div class="comment-body">';
-                     str +='<h7>'+val.rw_writer+'</h7>';
-                     str +='<div class="meta"></div>';
-                     str +='<div class="'+val.rw_seq+'">';
-                     str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
-                     str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
-                     str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
-                     str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
-                     str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
-                     str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
-                     str += '<span class="'+val.rw_seq+'_star star1 star1_left"></span>';
-                     str += '<span class="'+val.rw_seq+'_star star1 star1_right"></span>';
-                     str += '<span class="'+val.rw_seq+'_star star1 star1_left"></span>';
-                     str += '<span class="'+val.rw_seq+'_star star1 star1_right"></span>';
-                     str += '</div>';
-                     str += '<script>';
-                     str += '$(function(){';
-                  str +='var idx='+val.rw_star+';';
-                  str +='for(var i=0; i<idx*2; i++){';
-                  str +='$(".'+val.rw_seq+'_star").eq(i).addClass("on");';
-                  str += '}';
-                  str += '})';
-                   str += '<\/script>';
-                       str += '<p>'+val.rw_contents+'</p>';
-                       str += '<c:if test="${sessionScope.loginInfo.mem_id == '+val.rw_writer+'}">';
-                       str += '<button class="delete_review" seq='+val.rw_seq+'>삭제</button>';
-                       str += '<button class="modify_review" >수정</button>';
-                       str += '</c:if>';
-                        str += '</div>';
-                      str += '</li>';
-                      $(".comment-list").html(str);
-                 });
-                   //$("#reviewCounts").html(data.length+" Comments");
-
-            },
-            error:function(){
-               alert("insertProc err");
-            }
-         });
-      }
+	<script>
+		$(function(){
+			
+			//화면 로딩과 동시에 리뷰 뿌려주기
+			displayReview();
+			
+			//리뷰 삭제 
+			$(".comment-list").on("click",".delete_review",function(){
+				var result = confirm("리뷰를 삭제하시겠습니까?");
+				
+				var seq = $(this).attr("seq");
+				if(result){
+					//삭제로직
+					$(this).parent().parent().remove();
+					$.ajax({
+						url:"/review/deleteProc?rw_seq="+seq+"&rw_parent_seq=${tot_Info.psb_seq}",
+						type:"POST",
+						success:function(){
+							displayReview();
+						},
+						fail:function(){
+							alert("deleteProc err");
+						}
+					});
+					
+				}
+			});	
+			
+			// 펫시터가 설정해놓은 기본 값들 체크
+				var petType_list = "${tot_Info.psb_petType}";
+	  			var petType_listarr = petType_list.split(",");
+		  		$("input[name='psb_petType']").each(function(index,item){
+		  			for(var i=0; i<petType_listarr.length;i++){
+		  				if(petType_listarr[i] == $(item).val()){
+			  				$(this).prop("checked",true);
+			  				$("input[name='psb_petType']").prop('disabled',true);
+		  				}
+	  				}
+	  			});
+		  	// 펫시터가 설정해놓은 기본 값들 체크
+		  		$("input[name='ps_resident_type']").each(function(index,item){
+		  			if('${tot_Info.ps_resident_type}' == $(item).val()){
+		  				$(this).prop("checked",true);
+		  				$("input[name='ps_resident_type']").prop('disabled',true);
+		  			}
+		  		});
+		  	// 펫시터가 설정해놓은 기본 값들 체크
+		  		var service_list = "${tot_Info.psb_service}";
+	  			var service_listarr = service_list.split(",");
+		  		$("input[name='psb_service']").each(function(index,item){
+		  			for(var i=0; i<service_listarr.length;i++){
+		  				if(service_listarr[i] == $(item).val()){
+			  				$(this).prop("checked",true);
+			  				$("input[name='psb_service']").prop('disabled',true);
+			  				}
+		  				}
+		  			});
+		  	// 펫시터가 설정해놓은 기본 값들 체크
+		  		var time_list = "${tot_Info.psb_time}";
+	  			var time_listarr = time_list.split(",");
+		  		$("input[name='psb_time']").each(function(index,item){
+		  			$(item).prop('checked',true);
+		  			$("input[name='psb_time']:checked").prop('disabled',true);
+		  			for(var i=0;i<time_listarr.length;i++){
+		  				if($(item).val()==time_listarr[i]){
+		  					$(this).prop('checked',false);
+		  					$(this).prop('disabled',false);
+		  				}
+		  			}
+		  		});
+		  		
+		  	// 별점 체크
+		  		 $(".star").on('click',function(){
+		             var idx = $(this).index();
+		             $(".star").removeClass("on");
+		             var count = 0;
+		             for(var i=0; i<=idx; i++){
+		             	$(".star").eq(i).addClass("on");
+		                	count+=0.5;
+		             }
+	                  console.log(count);
+	                  $("#rw_star").val(count);
+		             });
+		  		 
+		  	// 목록으로 버튼
+		  		$("#tolist").on("click",function(){
+					location.href="/board/outputList?cpage=1";
+				});
+		  	// 게시물 지우기 버튼
+				$("#delete").on("click",function(){
+					$.ajax({
+						url:"/board/checkExistReservation?psb_seq=${tot_Info.psb_seq}",
+						type:"POST",
+						success:function(data){
+							if(data > 0){
+								alert("해당 게시물에 대한 예약이 존재하여 삭제가 불가능합니다.");
+							} else {
+								var result = confirm("게시물을 삭제하시겠습니까?");
+								if(result){
+									location.href ="/board/deleteBoard?psb_seq=${tot_Info.psb_seq}";
+								} 
+							}
+						},
+						fail:function(){
+							alert("deleteProc err");
+						}
+					});	
+				});
+		  		
+		  	// 게시물 수정 버튼
+				$("#update").on("click",function(){
+					location.href="/petsitter_board/board/update";
+				});
+		         
+		  	// 펫타입 확인
+		        var petType_list = "${tot_Info.psb_petType}"; 
+	  			console.log(petType_list);
+		        var petType_listarr = petType_list.split(",");
+		         $("input[name='rsv_pet_name']").on("click",function(){
+		        	 console.log($(this).data("type"));
+		        		 if(!petType_list.includes($(this).data("type"))){
+		        			 alert($(this).data('type')+"형견은 선택이 불가합니다.");
+		        			 $(this).prop('checked',false);
+		        		 }
+		         })
+		         
+		        	$(".price_item").on("change",function(){
+		        		if(($("input[name='rsv_pet_name']:checked").val()&& $("#rsv_start_day").val()&&$("#rsv_end_day").val() && $("input[name='rsv_time']:checked").val())!=null){
+		        			var timearr = [];
+			        		$("input[name='rsv_time']:checked").each(function(index,item){
+			        			timearr.push($(item).val());
+			        		})
+			        		
+			        		var typearr=[];
+			        		$("input[name='rsv_pet_name']:checked").each(function(index,item){
+			        			typearr.push($(item).data("type"));
+			        		})
+			        	
+			        	 var form = {
+			        			 timearr : timearr,
+			        			 typearr : typearr        			 
+			        	 };
+			        	console.log(form);
+			        	 
+			        	 $.ajax({
+			        		 url:"/board/selectPrice",
+			        		 dataType:"json",
+			        		 type:"POST",
+			        		 data : form,
+			        		 success : function(result){
+			        			 var total=0;
+			        			 for(var i=0;i<result.length;i++){
+			        				total += result[i];
+			        			 }
+			        			 $("#rsv_point").val(total);
+			        		 }
+			        	 })
+			        		
+		        		}
+		        	});
+			});
+		
+		//review 뿌려주는 함수
+			function displayReview(){
+				$.ajax({
+					url:"/review/selectReviewList?psb_seq=${tot_Info.psb_seq}",
+					type:"POST",
+					success:function(data){
+						var str = "";
+						$.each(data, function(key, val) {
+						   	str += '<li class="comment">';
+						   	str += '<div class="vcard bio">';
+						   	str += '<i class="icofont-comment"></i>';
+						   	str += '</div>';
+						   	str += '<div class="comment-body">';
+						   	str +='<h7>'+val.rw_writer+'</h7>';
+						   	str +='<div class="meta"></div>';
+						   	str +='<div class="'+val.rw_seq+'">';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_left"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_right"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_left"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_right"></span>';
+						   	str += '</div>';
+						   	str += '<script>';
+						   	str += '$(function(){';
+							str +='var idx='+val.rw_star+';';
+							str +='for(var i=0; i<idx*2; i++){';
+							str +='$(".'+val.rw_seq+'_star").eq(i).addClass("on");';
+							str += '}';
+							str += '})';
+						    str += '<\/script>';
+		                    str += '<p>'+val.rw_contents+'</p>';
+		                    str += '<c:if test="${sessionScope.loginInfo.mem_id == '+val.rw_writer+'}">';
+		                    str += '<button class="delete_review" seq='+val.rw_seq+'>삭제</button>';
+		                    str += '<button class="modify_review" >수정</button>';
+		                    str += '</c:if>';
+		                  	str += '</div>';
+		                	str += '</li>';
+		                	$(".comment-list").html(str);
+						  });
+	                	//$("#reviewCounts").html(data.length+" Comments");
+	
+					},
+					error:function(){
+						alert("insertProc err");
+					}
+				});
+		}
     </script>
 
-   <div class="site-section">
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-11">
-               <p class="mb-4">
-                  <img src="/upload/${tot_Info.psb_thumb}" style="height: 300px; border-radius: 50%;" class="img-fluid rounded">
-               </p>
-            </div>
+	<div class="site-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-11">
+					<p class="mb-4">
+						<img src="/upload/${tot_Info.psb_thumb}" style="height: 300px; border-radius: 50%;" class="img-fluid rounded">
+					</p>
+				</div>
 
-            <div class="col-lg-7">
-               <div class="mb-3">
-                  <h2>${tot_Info.psb_title}</h2>
-               </div>
-            
-               <div class="d-block d-md-flex listing-horizontal">
-            <div class="lh-content">
-               <div class="mb-3">
-                  <h4 class="mb-3">PETSITTER INFORMATION</h4>
-                        <div class="mb-3">
-                           <ul>
-                              <li>아이디</li>
-                              <li>${tot_Info.psb_writer}</li>
-                           </ul>
-                           <ul>
-                              <li>나이</li>
-                              <li>${tot_Info.ps_age}</li>
-                           </ul>
-                           <ul>
-                              <li>성별</li>
-                              <c:if test="${tot_Info.ps_gender eq 'M'}"><li>남자<i class="icofont-male icofont-1x"></i></li></c:if>
-                              <c:if test="${tot_Info.ps_gender eq 'F'}"><li>여자<i class="icofont-female icofont-1x"></i></li></c:if>
-                           </ul>
-                           <ul>
-                              <li>주소</li>
-                              <li>${tot_Info.ps_address1}</li>
-                           </ul>
-                           <ul>
-                              <li><div id="map" style="width: 550px; height: 300px;"></div></li>
-                           </ul>
-                           <ul>
-                              <li>펫시터가 전하는 말</li>
-                              <li>${tot_Info.psb_contents}</li>
-                           </ul>
-                           
-                        </div>
-                        
-                        <hr class="mb-4">
-                        
-                        <h5 class="mb-3">가능한 강아지 타입</h5>
-                        <div class="psb_petType">
-                           <div>
-                              <ul>
-                                  <li><input type="checkbox" name="psb_petType" value="소" id="소형견">
-                                  <label for="소형견">&nbsp;&nbsp;소형견</label></li>
-                                  <li><input type="checkbox" name="psb_petType" value="중" id="중형견">
-                                  <label for="중형견">&nbsp;&nbsp;중형견</label></li>
-                                  <li><input type="checkbox" name="psb_petType" value="대" id="대형견">
-                                  <label for="대형견">&nbsp;&nbsp;대형견</label></li>
-                              </ul>
-                           </div>
-                        </div>
+				<div class="col-lg-7">
+					<div class="mb-3">
+						<h2>${tot_Info.psb_title}</h2>
+					</div>
+				
+					<div class="d-block d-md-flex listing-horizontal">
+				<div class="lh-content">
+					<div class="mb-3">
+						<h4 class="mb-3">PETSITTER INFORMATION</h4>
+								<div class="mb-3">
+									<ul>
+										<li>아이디</li>
+										<li>${tot_Info.psb_writer}</li>
+									</ul>
+									<ul>
+										<li>나이</li>
+										<li>${tot_Info.ps_age}</li>
+									</ul>
+									<ul>
+										<li>성별</li>
+										<c:if test="${tot_Info.ps_gender eq 'M'}"><li>남자<i class="icofont-male icofont-1x"></i></li></c:if>
+										<c:if test="${tot_Info.ps_gender eq 'F'}"><li>여자<i class="icofont-female icofont-1x"></i></li></c:if>
+									</ul>
+									<ul>
+										<li>주소</li>
+										<li>${tot_Info.ps_address1}</li>
+									</ul>
+									<ul>
+										<li><div id="map" style="width: 550px; height: 300px;"></div></li>
+									</ul>
+									<ul>
+										<li>펫시터가 전하는 말</li>
+										<li>${tot_Info.psb_contents}</li>
+									</ul>
+									
+								</div>
+								
+								<hr class="mb-4">
+								
+								<h5 class="mb-3">가능한 강아지 타입</h5>
+								<div class="psb_petType">
+									<div>
+										<ul>
+										 	<li><input type="checkbox" name="psb_petType" value="소" id="소형견">
+										 	<label for="소형견">&nbsp;&nbsp;소형견</label></li>
+										 	<li><input type="checkbox" name="psb_petType" value="중" id="중형견">
+										 	<label for="중형견">&nbsp;&nbsp;중형견</label></li>
+										 	<li><input type="checkbox" name="psb_petType" value="대" id="대형견">
+										 	<label for="대형견">&nbsp;&nbsp;대형견</label></li>
+										</ul>
+									</div>
+								</div>
 
-                        <hr class="mb-4">
+								<hr class="mb-4">
 
-                        <h5 class="mb-3">거주 유형</h5>
-                        <div class="resident_type_list">
-                              <ul>
-                                 <li><input type="radio" id="resident_type1" name="ps_resident_type" value=단독주택 required/>
-                                 <label for="resident_type1"><span></span>단독주택</label></li>
-                                 <li><input type="radio" id="resident_type2" name="ps_resident_type" value=아파트 required/>
-                                 <label for="resident_type2"><span></span>아파트</label></li>
-                                 <li><input type="radio" id="resident_type3" name="ps_resident_type" value=빌라 required/>
-                                 <label for="resident_type3"><span></span>빌라</label></li>
-                                 <li><input type="radio" id="resident_type4" name="ps_resident_type" value=원룸 required/>
-                                 <label for="resident_type4">원룸</label></li>
-                                 <li><input type="radio" id="resident_type5" name="ps_resident_type" value=오피스텔 required/>
-                                 <label for="resident_type5">오피스텔</label></li>
-                              </ul>
-                        </div>
+								<h5 class="mb-3">거주 유형</h5>
+								<div class="resident_type_list">
+										<ul>
+											<li><input type="radio" id="resident_type1" name="ps_resident_type" value=단독주택 required/>
+											<label for="resident_type1"><span></span>단독주택</label></li>
+											<li><input type="radio" id="resident_type2" name="ps_resident_type" value=아파트 required/>
+											<label for="resident_type2"><span></span>아파트</label></li>
+											<li><input type="radio" id="resident_type3" name="ps_resident_type" value=빌라 required/>
+											<label for="resident_type3"><span></span>빌라</label></li>
+											<li><input type="radio" id="resident_type4" name="ps_resident_type" value=원룸 required/>
+											<label for="resident_type4">원룸</label></li>
+											<li><input type="radio" id="resident_type5" name="ps_resident_type" value=오피스텔 required/>
+											<label for="resident_type5">오피스텔</label></li>
+										</ul>
+								</div>
 
-                        <hr class="mb-4">
+								<hr class="mb-4">
 
-                        <h5 class="mb-3">서비스</h5>
-                        <div class="d-block my-3">
-                           <div class="service_list" style="text-align:center">
-                              <div>
-                                 <span class="services">
-                                    <input type="checkbox" name="psb_service" id="service1" value=service1 />
-                                    <label for="service1" style="display:block">
-                                    <i class="icofont-tasks-alt"></i>장기예약 </label>
-                                 </span>
-                                 <span class="services">
-                                    <input type="checkbox" name="psb_service" id="service2" value=service2 />
-                                    <label for="service2" style="display:block"> 
-                                    <i class="icofont-pills"></i>약물 복용</label>
-                                 </span>
-                                 <span class="services">
-                                    <input type="checkbox" name="psb_service" id="service3" value=service3 />
-                                    <label for="service3" style="display:block">
-                                    <i class='bx bx-bone'></i>실내 놀이</label>
-                                 </span>
-                              </div>
+								<h5 class="mb-3">서비스</h5>
+								<div class="d-block my-3">
+									<div class="service_list" style="text-align:center">
+										<div>
+											<span class="services">
+												<input type="checkbox" name="psb_service" id="service1" value=service1 />
+												<label for="service1" style="display:block">
+												<i class="icofont-tasks-alt"></i>장기예약 </label>
+											</span>
+											<span class="services">
+												<input type="checkbox" name="psb_service" id="service2" value=service2 />
+												<label for="service2" style="display:block"> 
+												<i class="icofont-pills"></i>약물 복용</label>
+											</span>
+											<span class="services">
+												<input type="checkbox" name="psb_service" id="service3" value=service3 />
+												<label for="service3" style="display:block">
+												<i class='bx bx-bone'></i>실내 놀이</label>
+											</span>
+										</div>
 
-                              <div>
-                                 <span class="services">
-                                    <input type="checkbox" name="psb_service" id="service4" value=service4 />
-                                    <label for="service4" style="display:block">
-                                    <i class="icofont-bathtub"></i>목욕 가능</label>
-                                 </span> 
-                                 <span class="services"> 
-                                    <input type="checkbox" name="psb_service" id="service5" value=service5 /> 
-                                    <label for="service5" style="display:block">
-                                    <i class="icofont-first-aid"></i>응급 처치</label>
-                                 </span> 
-                                 <span class="services"> 
-                                    <input type="checkbox" name="psb_service" id="service6" value=service6 /> 
-                                    <label for="service6" style="display:block">
-                                    <i class='bx bx-walk'></i>야외 산책</label>
-                                 </span>
-                              </div>
-                              <div>
-                                 <span class="services">
-                                    <input type="checkbox" name="psb_service" id="service7" value=service7 />
-                                    <label for="service7" style="display:block">
-                                    <i class="icofont-tasks-alt"></i>발톱 관리</label>
-                                 </span>
-                                 <span class="services">
-                                    <input type="checkbox" name="psb_service" id="service8" value=service8 />
-                                    <label for="service8" style="display:block">
-                                    <i class="icofont-ui-cut"></i>모발 관리</label>
-                                 </span>
-                                 <span class="services">
-                                    <input type="checkbox" name="psb_service" id="service9" value=service9 />
-                                    <label for="service9" style="display:block">
-                                    <i class="icofont-car-alt-3"></i>집앞 픽업</label>
-                                 </span>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            
-         <div class="pt-5">
-              <h3 class="mb-5" id ="reviewCounts"></h3>
+										<div>
+											<span class="services">
+												<input type="checkbox" name="psb_service" id="service4" value=service4 />
+												<label for="service4" style="display:block">
+												<i class="icofont-bathtub"></i>목욕 가능</label>
+											</span> 
+											<span class="services"> 
+												<input type="checkbox" name="psb_service" id="service5" value=service5 /> 
+												<label for="service5" style="display:block">
+												<i class="icofont-first-aid"></i>응급 처치</label>
+											</span> 
+											<span class="services"> 
+												<input type="checkbox" name="psb_service" id="service6" value=service6 /> 
+												<label for="service6" style="display:block">
+												<i class='bx bx-walk'></i>야외 산책</label>
+											</span>
+										</div>
+										<div>
+											<span class="services">
+												<input type="checkbox" name="psb_service" id="service7" value=service7 />
+												<label for="service7" style="display:block">
+												<i class="icofont-tasks-alt"></i>발톱 관리</label>
+											</span>
+											<span class="services">
+												<input type="checkbox" name="psb_service" id="service8" value=service8 />
+												<label for="service8" style="display:block">
+												<i class="icofont-ui-cut"></i>모발 관리</label>
+											</span>
+											<span class="services">
+												<input type="checkbox" name="psb_service" id="service9" value=service9 />
+												<label for="service9" style="display:block">
+												<i class="icofont-car-alt-3"></i>집앞 픽업</label>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+			<div class="mb-5">
+
               <ul class="comment-list">
                  <!-- 리뷰 동적으로 생성되는 공간 -->   
               </ul>
  
-              <div class="comment-form-wrap pt-5">
+              <div class="comment-form-wrap mb-5">
                 <h7 class="mb-5">리뷰남기기</h7>
                   <div class="form-group">
                        <label for="rw_star">Score</label>
@@ -461,153 +515,174 @@ ul>li, input {
                  
                   <div class="form-group">
                     <label for="rw_contents">Review</label>
-                    <textarea id="rw_contents" cols="30" rows="5" class="form-control"></textarea>
+                    <textarea id="rw_contents" cols="60" rows="5" class="form-control"></textarea>
                   </div>
                   
-                  <div class="form-group">
+                  <div class="form-group" style="text-align:center">
                     <input type="button" id="submit_comment" value="Post Comment" class="btn btn-primary text-white btn-md">
                     <script>
-                       $(function(){
-                          $("#submit_comment").on("click",function(){
-                             var form ={
-                                   rw_contents:$("#rw_contents").val(),
-                                   rw_writer: "${ sessionScope.loginInfo.mem_id}",
-                                   rw_star:$("#rw_star").val(),
-                                   rw_petsitter_id:"${tot_Info.psb_writer}",
-                                   rw_parent_seq: "${tot_Info.psb_seq}"
-                             }
-                             $.ajax({
-                                url:"/review/insertProc",
-                                type:"POST",
-                                data:form,
-                                success:function(data){
-                                   
-                                   $(".star").removeClass("on");
-                                     $("#rw_contents").val("");
-                                     $("#contents").val("");
-                                     alert("댓글이 등록되었습니다.");
-                                     displayReview();
-                                },
-                                error:function(){
-                                   alert("insertProc err");
-                                }
-                             });
-                             
-                          });
-                       })
+                    	$(function(){
+                    		$("#submit_comment").on("click",function(){
+                    			var form ={
+                    					rw_contents:$("#rw_contents").val(),
+                    					rw_writer: "${ sessionScope.loginInfo.mem_id}",
+                    					rw_star:$("#rw_star").val(),
+                    					rw_petsitter_id:"${tot_Info.psb_writer}",
+                    					rw_parent_seq: "${tot_Info.psb_seq}"
+                    			}
+                    			$.ajax({
+                    				url:"/review/insertProc",
+                    				type:"POST",
+                    				data:form,
+                    				success:function(data){
+                    					
+                    					$(".star").removeClass("on");
+                            			$("#rw_contents").val("");
+                            			$("#contents").val("");
+                            			alert("댓글이 등록되었습니다.");
+                            			displayReview();
+                    				},
+                    				fail:function(){
+                    					alert("insertProc err");
+                    				}
+                    			});
+                    			
+                    		});
+                    	})
+
                     </script>
                   </div>
               </div>
             </div>
-            
-            </div>
-            
-            <div class="col-lg-4 ml-5">
-               <form action="/board/waitList">
-               <h3 class="h5 text-black mb-3 " style="text-align: center">
-                  날짜 선택<i class="icofont-calendar"></i>
-               </h3>
-               <input type="hidden" name="board_seq" value="${tot_Info.psb_seq}">
-               <input type="hidden" name="petsitter_id" value="${tot_Info.psb_writer}">
-               <input type="hidden" name="mem_id" value="${sessionScope.loginInfo.mem_id}">
-               <div class="reserve_calendar">
-                  <div id="datePicker" style="height:600px;width:100%;max-width: 600px;"></div>
-                  <div class="select_date">
-                     <ul class="head_date" style="text-align: center">
-                        <li style="width: 150px;"><b>시작일</b></li>
-                        <li style="width: 150px;"><b>종료일</b></li>
-                     </ul>
-                     <ul class="head_date" style="text-align: center">
-                        <li><input type="text" id="rsv_start_day" name="rsv_start_day" 
-                           style="width: 150px; text-align: center;" placeholder="시작일"></li>
-                        <li><input type="text" id="rsv_end_day" name="rsv_end_day"
-                           style="width: 150px; text-align: center;" placeholder="종료일"></li>
-                     </ul>
-                  </div>
-                   <script>
-                  var arr = [];
-                  var tmp = 0;
-                  var s_date = "${tot_Info.psb_start_day}".split('.');
-                  var starts = s_date[0]+'/'+s_date[1]+'/'+s_date[2];
-                  var e_date = "${tot_Info.psb_end_day}".split('.');
-                  var ends= e_date[0]+'/'+e_date[1]+'/'+e_date[2];
-                  
-                  
-                   $(function(){
-                      
-                      var now = new Date();
-                           var datePicker = new Datepickk1({
-                                 container:document.querySelector('#datePicker'),
-                                minDate : "${tot_Info.psb_start_day}", //문자열
-                                maxDate : "${tot_Info.psb_end_day}",
-                                inline:true,
-                                 range: true,
-                                 tooltips: 
-                                    [{date:new Date("2020-07-20"),text: '오전 : 예약 \t 오후: 예약'},
-                                       {date:new Date("2020-07-25"),text: '오전 : 예약 \t 오후: 예약'} ]
-                              
-                          }).onSelect = function(checked) {
-                           var state = (checked) ? 'selected' : 'unselected';
-                           if (checked) {
-                              var time = this.toLocaleDateString();
-                              arr.push(time);
 
-                              if (arr.length > 2) {
-                                 arr.shift();
-                              }
-                              if (arr.length > 1) {
-                                 var start = arr[0];
-                                 var end = arr[1];
-                                 var tmp = '';
+				</div>
+				
+				<div class="col-lg-4 ml-5">
+					<form action="/board/waitList">
+					<h3 class="h5 text-black mb-3 " style="text-align: center">
+						날짜 선택<i class="icofont-calendar"></i>
+					</h3>
+					<input type="hidden" name="board_seq" value="${tot_Info.psb_seq}">
+					<input type="hidden" name="petsitter_id" value="${tot_Info.psb_writer}">
+					<input type="hidden" name="mem_id" value="${sessionScope.loginInfo.mem_id}">
+					<div class="reserve_calendar">
+						<div id="datePicker" style="height:600px;width:100%;max-width: 600px;"></div>
+						<div class="select_date">
+							<ul class="head_date" style="text-align: center">
+								<li style="width: 150px;"><b>시작일</b></li>
+								<li style="width: 150px;"><b>종료일</b></li>
+							</ul>
+							<ul class="head_date" style="text-align: center">
+								<li><input type="text" id="rsv_start_day" name="rsv_start_day" class="price_item"
+									style="width: 150px; text-align: center;" placeholder="시작일" required></li>
+								<li><input type="text" id="rsv_end_day" name="rsv_end_day"
+									style="width: 150px; text-align: center;" placeholder="종료일"  required></li>
+							</ul>
+						</div>
+						 <script>
+						 $(function(){
+							 var arr = [];
+							 var now = new Date();
+							 var reserve_list = "${reserve_list}";
+							 var blacklist=[] ;
+							 <c:forEach items="${reserve_list}" var="item1">
+							 {
+								<c:if test="${item1.am ==0} && ${item1.pm ==0}">
+									blacklist.add("${item1.cur_date}");
+									
+								</c:if>
+							 }
+							 </c:forEach>
+				               var datePicker = new Datepickk1({
+				                  	container:document.querySelector('#datePicker'),
+				                    minDate : new Date("${tot_Info.psb_start_day}").setDate(new Date("${tot_Info.psb_start_day}").getDate()-1), //문자열
+				                    maxDate : "${tot_Info.psb_end_day}",
+				                    disabledDates : blacklist,
+				                    inline:true,
+				                    today : true,
+				                     range: true,
+				                     tooltips: 
+				                    	 [	
+				                    		 <c:forEach items="${reserve_list}" var="item1">
+				                    		 {
+				                    			 date:new Date("${item1.cur_date }"),
+				                    			 text: '오전  [${item1.am }마리] <br/> 오후  [${item1.pm }마리]'
+				                    			 },
+				                    		 </c:forEach>
+				                    		 ]
+						                  
+						              }).onSelect = function(checked) {
+											var state = (checked) ? 'selected' : 'unselected';
+											if (checked) {
+												var time = this.toLocaleDateString();
+												var timearr = time.split('. ');
+												var new_time = timearr[0]+'-'+timearr[1]+'-'+(timearr[2].split('.'))[0];
+												
+												arr.push(new_time);
+		
+												if (arr.length > 2) {
+													arr.shift();
+												}
+												if (arr.length > 1) {
+													var start = arr[0];
+													var end = arr[1];
+													var tmp = '';
+		
+													if (start >= end) {
+														tmp = start;
+														start = end;
+														end = tmp;
+													}
+													
+													$("#rsv_start_day").val(start);
+													$("#rsv_end_day").val(end);
+													console.log("날짜1:" + start + ", 날짜2:" + end);
+		
+												}
+											}
+										};
+								 })
+								</script>
+						</div>
+					<hr class="mb-4">
 
-                                 if (start >= end) {
-                                    tmp = start;
-                                    start = end;
-                                    end = tmp;
-                                 }
-                                 
-                                 $("#rsv_start_day").val(start);
-                                 $("#rsv_end_day").val(end);
-                                 console.log("날짜1:" + start + ", 날짜2:" + end);
-
-                              }
-                           }
-                        };
-                   })
-                  </script>
-               </div>
-               <hr class="mb-4">
-
-               <h3 class="h5 text-black mb-3 " style="text-align: center">
-                  시간 선택<i class="icofont-clock-time"></i>
-               </h3>
-               <div id="timelist" style="text-align: center">
-                  <div>
-                     <input type="checkbox" name="rsv_time" value="am" id="am">
-                     <label for="am">&nbsp;&nbsp;오전 09:00 ~ 14:00</label>
-                  </div>
-                  <div>
-                     <input type="checkbox" name="rsv_time" value="pm" id="pm">
-                     <label for="pm">&nbsp;&nbsp;오후 14:00 ~ 21:00</label>
-                  </div>
-               </div>
-               <hr class="mb-4">
-               <h3 class="h5 text-black mb-3 " style="text-align: center">
-                        마이펫 선택<i class="icofont-paw"></i>
-                     </h3>
-                  <div class="my_pet" style="text-align: center">
-                     <c:forEach var="i" items="${pet_list }">
-                        <span><input type="checkbox" id="${i.pet_name}" name="rsv_pet_name" value="${i.pet_name}"><label for="${i.pet_name}">${i.pet_name}(${i.pet_type} )</label></span>
-                     </c:forEach>
-                  </div>
-               
-               <hr class="mb-4">
-                     <h3 class="h5 text-black mb-3 " style="text-align: center">
-                        가격 안내<i class="icofont-money"></i>
-                     </h3>
-                     <div id="pricing" style="text-align: center">
-                     <input type="text" name="rsv_point">
-                     <div data-brackets-id='33'
+					<h3 class="h5 text-black mb-3 " style="text-align: center">
+						시간 선택<i class="icofont-clock-time"></i>
+					</h3>
+					<div id="timelist" style="text-align: center">
+						<div>
+							<input type="checkbox" name="rsv_time" value="am" id="am" class="price_item">
+							<label for="am">&nbsp;&nbsp;오전 09:00 ~ 14:00</label>
+						</div>
+						<div>
+							<input type="checkbox" name="rsv_time" value="pm" id="pm" class="price_item">
+							<label for="pm">&nbsp;&nbsp;오후 14:00 ~ 21:00</label>
+						</div>
+					</div>
+					<hr class="mb-4">
+					<h3 class="h5 text-black mb-3 " style="text-align: center">
+								마이펫 선택<i class="icofont-paw"></i>
+							</h3>
+						<div class="my_pet" style="text-align: center">
+							<c:if test="${empty pet_list }">
+								등록된 펫이 없습니다.
+							</c:if>
+						
+							<c:forEach var="i" items="${pet_list }">
+								<span>
+									<input type="checkbox" id="${i.pet_name}" class="price_item" data-type="${i.pet_type}" name="rsv_pet_name" value="${i.pet_name}"><label for="${i.pet_name}">${i.pet_name}(${i.pet_type} )</label>
+								</span>
+								
+							</c:forEach>
+						</div>
+					
+					<hr class="mb-4">
+							<h3 class="h5 text-black mb-3 " style="text-align: center">
+								예상 포인트<i class="icofont-money"></i>
+							</h3>
+							<div id="pricing" style="text-align: center">
+							<input type="text" name="rsv_point" id="rsv_point" value="">
+							<div data-brackets-id='33'
                               style="width: 100%; border-radius: 8px; border: 1px solid #DFE3EA; box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.07); padding: 15px 15px; margin-top: 38px; margin-bottom: 38px">
                               <div data-brackets-id='34'
                                  style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
@@ -715,68 +790,68 @@ ul>li, input {
                                  </div>
                               </div>
                            </div>
-                  </div>
-               <div class="mb-5">
-                  <c:choose>
-                     <c:when test="${sessionScope.loginInfo.mem_id == tot_Info.psb_writer}">
-                        <button id="update" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">수정하기</button>
-                        <button id="delete" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">삭제하기</button>
-                        <button id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
-                        
-                     </c:when>
-                     <c:otherwise>
-                        <button id="submit_frm" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block" type="submit">신청하기</button>
-                        <button id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
-                     </c:otherwise>
-                  </c:choose>
-               </div>
-            </form>   
-            </div>
-         </div>
-      </div>
-   
-   
-         <jsp:include page="/WEB-INF/views/petsitter_board/footer.jsp" />
-      
-   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=673fb72de94724a273da597b59cd588d&libraries=services"></script>
-   <script>
-      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-      mapOption = {
-         center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-         level : 3
-      };// 지도의 확대 레벨
+						</div>
+					<div class="mb-5">
+						<c:choose>
+							<c:when test="${sessionScope.loginInfo.mem_id == tot_Info.psb_writer}">
+								<button id="update" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">수정하기</button>
+								<button id="delete" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">삭제하기</button>
+								<button id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
+							</c:when>
+							<c:otherwise>
+								<button id="submit_frm" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block" type="submit">신청하기</button>
+								<button id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</form>	
+				</div>
+			</div>
+		</div>
+	
+	
+			<jsp:include page="/WEB-INF/views/petsitter_board/footer.jsp" />
+		
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=673fb72de94724a273da597b59cd588d&libraries=services"></script>
+	<script>
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+			center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			level : 3
+		};// 지도의 확대 레벨
 
-      // 지도를 생성합니다    
-      var map = new kakao.maps.Map(mapContainer, mapOption);
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption);
 
-      // 주소-좌표 변환 객체를 생성합니다
-      var geocoder = new kakao.maps.services.Geocoder();
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
 
-      // 주소로 좌표를 검색합니다
-      geocoder.addressSearch('${tot_Info.ps_address1}', function(result, status) {
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('${tot_Info.ps_address1}', function(result, status) {
 
-         // 정상적으로 검색이 완료됐으면 
-         if (status === kakao.maps.services.Status.OK) {
+			// 정상적으로 검색이 완료됐으면 
+			if (status === kakao.maps.services.Status.OK) {
 
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-            // 지도에 표시할 원을 생성합니다
-            var circle = new kakao.maps.Circle({
-               center : new kakao.maps.LatLng(result[0].y, result[0].x), // 원의 중심좌표 입니다 
-               radius : 50, // 미터 단위의 원의 반지름입니다 
-               strokeWeight : 1, // 선의 두께입니다 
-               strokeColor : '#75B8FA', // 선의 색깔입니다
-               strokeOpacity : 0.5, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-               fillColor : '#CFE7FF', // 채우기 색깔입니다
-               fillOpacity : 0.5
-            // 채우기 불투명도 입니다   
-            });
+				// 지도에 표시할 원을 생성합니다
+				var circle = new kakao.maps.Circle({
+					center : new kakao.maps.LatLng(result[0].y, result[0].x), // 원의 중심좌표 입니다 
+					radius : 50, // 미터 단위의 원의 반지름입니다 
+					strokeWeight : 1, // 선의 두께입니다 
+					strokeColor : '#75B8FA', // 선의 색깔입니다
+					strokeOpacity : 0.5, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+					fillColor : '#CFE7FF', // 채우기 색깔입니다
+					fillOpacity : 0.5
+				// 채우기 불투명도 입니다   
+				});
 
-            // 지도에 원을 표시합니다 
-            circle.setMap(map);
-            map.setCenter(coords);
-         }
-      });
-   </script>
+				// 지도에 원을 표시합니다 
+				circle.setMap(map);
+				map.setCenter(coords);
+			}
+		});
+	</script>
+
 </body>
 </html>

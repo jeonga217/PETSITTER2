@@ -472,6 +472,7 @@
   left: 50%;
   transform: translate(-50%, -5px);
   display: none;
+  width:100px;
 }
 #Datepickk1 .d-table input + label .d-tooltip:before {
   content: '';

@@ -65,10 +65,10 @@ public class PetsitterController {
 		}
 	
 	@RequestMapping("/outputSingle")
-	public String outputSingle(Model model,PetsitterDTO psdto) throws Exception{
+	public String outputSingle(Model model) throws Exception{
 		String ps_id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
 		
-		psdto = psservice.selectById(ps_id);
+		PetsitterDTO psdto = psservice.selectById(ps_id);
 
 		model.addAttribute("petsitterInfo",psdto);
 		return "/petsitter_board/petsitter/petsitter_register_view";

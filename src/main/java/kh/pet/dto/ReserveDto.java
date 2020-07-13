@@ -1,5 +1,7 @@
 package kh.pet.dto;
 
+import java.sql.Date;
+
 public class ReserveDto {
 	private int reserve_seq;
 	private int parent_seq;
@@ -7,18 +9,15 @@ public class ReserveDto {
 	private String mem_id;
 	private String pet_name; 
 	private int reserve_point; 
-	private String start_day;
-	private String end_day;
+	private Date start_day;
+	private Date end_day;
 	private String reserve_time;
 	
-	public ReserveDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public ReserveDto() {}
 
+	
 	public ReserveDto(int reserve_seq, int parent_seq, String petsitter_id, String mem_id, String pet_name,
-			int reserve_point, String start_day, String end_day, String reserve_time) {
-		super();
+			int reserve_point, Date start_day, Date end_day, String reserve_time) {
 		this.reserve_seq = reserve_seq;
 		this.parent_seq = parent_seq;
 		this.petsitter_id = petsitter_id;
@@ -29,6 +28,7 @@ public class ReserveDto {
 		this.end_day = end_day;
 		this.reserve_time = reserve_time;
 	}
+
 
 	public int getReserve_seq() {
 		return reserve_seq;
@@ -78,19 +78,19 @@ public class ReserveDto {
 		this.reserve_point = reserve_point;
 	}
 
-	public String getStart_day() {
+	public Date getStart_day() {
 		return start_day;
 	}
 
-	public void setStart_day(String start_day) {
+	public void setStart_day(Date start_day) {
 		this.start_day = start_day;
 	}
 
-	public String getEnd_day() {
+	public Date getEnd_day() {
 		return end_day;
 	}
 
-	public void setEnd_day(String end_day) {
+	public void setEnd_day(Date end_day) {
 		this.end_day = end_day;
 	}
 
@@ -101,7 +101,5 @@ public class ReserveDto {
 	public void setReserve_time(String reserve_time) {
 		this.reserve_time = reserve_time;
 	}
-
-	
 	
 }
