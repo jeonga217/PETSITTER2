@@ -716,6 +716,23 @@
 			}
 		})
 	</script>
+	<script>
+		$("#save").on("submit", function() {
+			var count = 0;
+			<c:forEach var="i" items="${petname}">
+			$(".petname:checked").each(function(index, item) {
+				if ("${i}" == $(item).val()) {
+					count++
+				}
+			})
+			</c:forEach>
+			if (count > 0) {
+				alert("이미등록된 강아지가 있습니다.")
+				return false;
+			} else {
+				return true;
+			}
+		})
+	</script>
 </body>
-
 </html>
