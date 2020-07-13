@@ -24,7 +24,7 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public String home(Locale locale, Model model) {
-		System.out.println(ClassLoader.getSystemClassLoader().getResource(".").getPath());
+		
 		return "main";
 	}
 	
