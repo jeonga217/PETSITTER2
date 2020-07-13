@@ -187,15 +187,17 @@
 								</div>
 								<div class="lh-content">
 									<div class="pet">
-										<c:if test="${!empty list}">
-											<c:forEach items="${list}" var="i">
-												<input type="hidden" name="mb_petphoto" id="petphoto">
-												<input type="checkbox" data-imgsrc="${i.pet_photo}"
-													class="petname" name="mb_pet_name" id="${i.pet_name}"
-													value="${i.pet_name}" />
-												<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
+										<c:forEach items="${list}" var="i">
+											<c:forEach items="${petname}" var="j">
+												<c:if test="${i.pet_name ne j}">
+													<input type="hidden" name="mb_petphoto" id="petphoto">
+													<input type="checkbox" data-imgsrc="${i.pet_photo}"
+														class="petname" name="mb_pet_name" id="${i.pet_name}"
+														value="${i.pet_name}" />
+													<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
+												</c:if>
 											</c:forEach>
-										</c:if>
+										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -763,7 +765,7 @@
 			}
 		})
 	</script>
-	<script>
+	<!-- <script>
 		$("#send").on("submit", function() {
 			var count = 0;
 			<c:forEach var="i" items="${petname}">
@@ -780,7 +782,7 @@
 				return true;
 			}
 		})
-	</script>
+	</script> -->
 </body>
 
 </html>

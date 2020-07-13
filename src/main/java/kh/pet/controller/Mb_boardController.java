@@ -38,13 +38,22 @@ public class Mb_boardController {
 		List<MemboardDto> plist = service.petselname(mdto.getMem_id());
 		List<String[]> petarr = new ArrayList<>();
 		List<String> petname = new ArrayList<>();
+		
 		for(MemboardDto petlist : plist) {
 			petarr.add(petlist.getMb_pet_name().split(","));
 		}
+		
 		for(String[] PetNameList : petarr) {
 			for(String PetNameArr : PetNameList) {
 				petname.add(PetNameArr);
 			}
+		}
+		
+		for(Mypet_regDTO a: list) {
+			System.out.println("a"+a.getPet_name());
+		}
+		for(String b: petname) {
+			System.out.println("b"+b);
 		}
 		m.addAttribute("petname",petname);
 		m.addAttribute("list", list);
@@ -167,7 +176,6 @@ public class Mb_boardController {
 				petname.add(PetNameArr);
 			}
 		}
-		
 		String add = service.addselec(modlist.getMb_writer());
 		m.addAttribute("petname",petname);
 		m.addAttribute("list", list);

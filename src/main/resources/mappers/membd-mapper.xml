@@ -7,7 +7,7 @@
 </select>
 
 <insert id="memboardinsert">
-	insert into mem_board values('mb_'||mb_seq.nextval,#{mb_title,jdbcType=VARCHAR},#{mb_writer,jdbcType=VARCHAR},#{mb_request},sysdate,#{mb_pet_name},#{mb_service},#{mb_startday},#{mb_endday},#{mb_stime},#{mb_etime},#{mb_point,jdbcType=VARCHAR},#{mb_petphoto,jdbcType=VARCHAR},default,default,default)
+	insert into mem_board values('mb_'||mb_seq.nextval,#{mb_title,jdbcType=VARCHAR},#{mb_writer,jdbcType=VARCHAR},#{mb_request},sysdate,#{mb_pet_name},#{mb_service},#{mb_startday},#{mb_endday},#{mb_stime},#{mb_etime},#{mb_point,jdbcType=VARCHAR},#{mb_petphoto,jdbcType=VARCHAR},default,default,default,default)
 </insert>
 
 <!-- mb_seq -> 아이디값으로 수정 -->

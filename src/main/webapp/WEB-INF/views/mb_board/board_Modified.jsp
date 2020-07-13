@@ -281,12 +281,13 @@
 								<div class="lh-content">
 									<h3>요구사항</h3>
 									<div contenteditable="true" id="uniqueness"></div>
-									<input type="hidden" name="mb_request" id="mb_request" value="${modlist.mb_request}">
+									<input type="hidden" name="mb_request" id="mb_request"
+										value="${modlist.mb_request}">
 								</div>
 							</div>
 							<div class="conb">
 								<a href="/mb/mb_board" class="text-white" id="modified">목록</a>
-							</div>	
+							</div>
 						</div>
 						<div class="col-lg-4 ml-5">
 							<div data-brackets-id='1'>
@@ -364,8 +365,8 @@
 												</div>
 											</div>
 										</div>
-										<input type="hidden" id="stime" name="mb_stime">
-										<input type="hidden" id="etime" name="mb_etime">
+										<input type="hidden" id="stime" name="mb_stime"> <input
+											type="hidden" id="etime" name="mb_etime">
 									</div>
 									<div class="mb-5">
 										<div class="custom-pagination">
@@ -713,24 +714,6 @@
 			if (requestVal == "") {
 				alert("특이 사항을 입력 해주세요");
 				return false;
-			}
-		})
-	</script>
-	<script>
-		$("#save").on("submit", function() {
-			var count = 0;
-			<c:forEach var="i" items="${petname}">
-			$(".petname:checked").each(function(index, item) {
-				if ("${i}" == $(item).val()) {
-					count++
-				}
-			})
-			</c:forEach>
-			if (count > 0) {
-				alert("이미등록된 강아지가 있습니다.")
-				return false;
-			} else {
-				return true;
 			}
 		})
 	</script>
