@@ -3,43 +3,67 @@
 <mapper namespace="Pet_reg">
 
 
- 	<resultMap type="kh.pet.dto.Mypet_regDTO" id="listview">
+	<resultMap type="kh.pet.dto.Mypet_regDTO" id="listview">
 		<result property="pet_photo" column="img" />
 	</resultMap>
 
+	<select id="pointcount" resultType="int">
+		select p_point from points
+		where p_id=#{id}
+	</select>
+
+	<select id="pointminus" resultType="int">
+		select p_point from points
+		where p_method=#{minus} or p_method=#{minus1} and
+		p_id=#{id}
+	</select>
+
+	<select id="pointlistall" resultType="kh.pet.dto.PointDTO">
+		select * from points where p_id=#{value}
+	</select>
 
 	<insert id="pet_insert">
 		insert into mypet
-		values(mypet_seq.nextval,#{master_id},#{pet_name},#{pet_photo},#{pet_gender},
-		#{pet_ox},${pet_age},#{pet_animal},#{pet_type},
-		#{pet_sort},#{pet_family},#{pet_character},#{pet_details})
+		values(mypet_seq.nextval,#{master_id},#{pet_name},#{pet_photo},#{pet_gender},#{pet_ox},${pet_age},#{pet_animal},#{pet_type},#{pet_sort},#{pet_family},#{pet_character},#{pet_details})
 	</insert>
 
-	<select id="list" resultType="kh.pet.dto.Mypet_regDTO" resultMap="listview">
-	select * from mypet where master_id=#{value}
+	<select id="list" resultType="kh.pet.dto.Mypet_regDTO"
+		resultMap="listview">
+		select * from mypet where master_id=#{value}
 	</select>
-	
-	<select id="petlist" resultType="kh.pet.dto.Mypet_regDTO" resultMap="listview">
-	select * from mypet where petseq=${value}
+
+	<select id="petlist" resultType="kh.pet.dto.Mypet_regDTO"
+		resultMap="listview">
+		select * from mypet where petseq=${value}
 	</select>
-	
+
 	<delete id="petdel">
-	delete from mypet where petseq=#{value}
+		delete from mypet where petseq=#{value}
 	</delete>
 
-	<select id="community" resultType="kh.pet.dto.MyPage_CommunityDTO">
-	select * from community where cu_writer=#{value}
+	<select id="community"
+		resultType="kh.pet.dto.MyPage_CommunityDTO">
+		select * from community where cu_writer=#{value}
 	</select>
-	
+
 	<select id="point" resultType="kh.pet.dto.PointDTO">
-	select * from memberpoint where id=#{value}
+		select * from memberpoint where
+		id=#{value}
 	</select>
-	
+
 	<insert id="pointinsert">
-	insert into memberpoint values(#{id},#{deltype},sysdate,${point},#{resnum})
+		insert into points
+		values(#{p_id},${p_point},#{mem_type},#{p_method},sysdate)
 	</insert>
-	
+
 	<select id="lookup" resultType="kh.pet.dto.RegLookupDTO">
-	select * from reservation where mem_id=#{value}
+		select * from reservation where
+		mem_id=#{value}
 	</select>
+
+	<select id="typecheck" resultType="String">
+		select mem_type from member
+		where mem_id=#{value}
+	</select>
+
 </mapper>

@@ -39,20 +39,21 @@
 						msg += '결제 금액 : ' + rsp.paid_amount;
 						msg += '카드 승인번호 : ' + rsp.apply_num;
 						alert("${pointnum/100}포인트 충전이 완료되었습니다.");
-						location.href = "listpoint";
+						location.href = "pointadd";
 					} else {
 						var msg = '결제에 실패하였습니다.';
 						msg += '에러내용 : ' + rsp.error_msg;
-						location.href = "/mypage/Introduction";
+						alert("취소");
+						location.href = "Introduction";
 					}
-					
+
 				})
 			</script>
 		</c:when>
 		<c:otherwise>
 			<script>
 				alert('잘못된 값입니다');
-				location.href = '/mypage/Introduction';
+				location.href = 'Introduction';
 			</script>
 		</c:otherwise>
 	</c:choose>

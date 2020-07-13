@@ -172,5 +172,6 @@ public class MessageController {
 		JSONObject jobj = new JSONObject();
 		jobj.put("url", "/summerimageup/"+sysName);
 		response.getWriter().append(jobj.toString());
+		
 	}
 }

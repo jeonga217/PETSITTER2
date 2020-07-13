@@ -11,12 +11,12 @@ public class Pet_listService {
 
 	@Autowired
 	private NaviDAO ndao;
-	// 네비 바
+	// �꽕鍮� 諛�
 	public List<Object> selectByPageNo(int cpage, String id, String name) throws Exception{
 		List<Object> dto = ndao.selectByPageNo(cpage, id, name);
 		return dto;
 	}
-	// 네비 바
+	// �꽕鍮� 諛�
 	public String getPageNavi(int cpage, String name)throws Exception{
 		String  navi = ndao.getPageNavi(cpage,name);
 		return navi;

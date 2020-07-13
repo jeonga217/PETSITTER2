@@ -54,7 +54,7 @@ div {
 				<h3>Login</h3>
 			</div>
 		</div>
-		<form action="loginProc" method="post">
+		<form action="/member/loginProc" method="post">
 		<div class="row">
 			<div class="col-7">
 				<div class="row">

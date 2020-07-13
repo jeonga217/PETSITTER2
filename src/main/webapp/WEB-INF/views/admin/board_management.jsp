@@ -110,7 +110,7 @@
 											<select name="boardtype" class="btn btn-info dropdown-toggle">
 												<option value="free">자유게시판</option>
 												<option value="mem_board">반려인게시판</option>
-												<option value="aaa">구직</option>
+												<option value="petsitter_board">펫시터게시판</option>
 											</select>
 											<button class="btn btn-outline-primary my-2 my-sm-0">검색</button>
 										</form>
@@ -131,34 +131,68 @@
 										<div class="col-4 col-lg">상태</div>
 										<div class="col-4 col-lg">상태 변경</div>
 									</div>
-									<c:forEach var="i" items="${list}">
+									<c:choose>
+										<c:when test="${boardtype eq 'free'}"></c:when>
+										<c:when test="${boardtype eq 'mem_board'}">
+											<c:forEach var="i" items="${list}">
+												<hr class="hr2">
+												<div class="row"> 
+													<div class="col-4 col-lg">${i.mb_seq}</div>
+													<div class="col-4 col-lg"><a href="/mb/redlist">${i.mb_title}</a></div>
+													<div class="col-4 col-lg">${i.mb_writer}</div>
+													<div class="col-4 col-lg">${i.mb_date}</div>
+													<div class="col-4 col-lg">
+														<c:choose>
+															<c:when test="${i.mb_boardstatus eq 'yes'}">통상</c:when>
+															<c:otherwise>정지</c:otherwise>
+														</c:choose>
+													</div>
+													<div class="col-4 col-lg">
+														<form action="/admin/boardblack">
+														<input type="text" value="${i.mb_seq}" name=seq style="display: none">
+															<select name="state"
+																class="btn btn-info dropdown-toggle btn-sm">	
+																<option value="yes">통상</option>
+																<option value="stop">정지</option>
+															</select>
+															<button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">변경</button>
+														</form>
+													</div>
+												</div>
+											</c:forEach>
+										</c:when>
+										<c:when test="${boardtype eq 'petsitter_board'}">
+											<c:forEach var="i" items="${list}">
+												<hr class="hr2">
+												<div class="row"> 
+													<div class="col-4 col-lg">${i.psb_seq}</div>
+													<div class="col-4 col-lg"><a href="/mb/redlist">${i.psb_title}</a></div>
+													<div class="col-4 col-lg">${i.psb_writer}</div>
+													<div class="col-4 col-lg">${i.psb_date}</div>
+													<div class="col-4 col-lg">
+														<c:choose>
+															<c:when test="${i.psb_boardstatus eq 'yes'}">통상</c:when>
+															<c:otherwise>정지</c:otherwise>
+														</c:choose>
+													</div>
+													<div class="col-4 col-lg">
+														<form action="/admin/boardblack">
+														<input type="text" value="${i.psb_seq}" name=seq style="display: none">
+															<select name="state"
+																class="btn btn-info dropdown-toggle btn-sm">	
+																<option value="yes">통상</option>
+																<option value="stop">정지</option>
+																<option value="delete">삭제</option>
+															</select>
+															<button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">변경</button>
+														</form>
+													</div>
+												</div>
+											</c:forEach>			
+										</c:when>
+									</c:choose>	
 									<hr class="hr2">
-									<div class="row"> 
-										<div class="col-4 col-lg">${i.mb_seq}</div>
-										<div class="col-4 col-lg"><a href="/mb/redlist">${i.mb_title}</a></div>
-										<div class="col-4 col-lg">${i.mb_writer}</div>
-										<div class="col-4 col-lg">${i.mb_date}</div>
-										<div class="col-4 col-lg">
-											<c:choose>
-												<c:when test="${i.mb_boardstatus eq 'yes'}">통상</c:when>
-												<c:otherwise>정지</c:otherwise>
-											</c:choose>
-										</div>
-										<div class="col-4 col-lg">
-											<form action="/admin/boardblack">
-											<input type="text" value="${i.mb_seq}" name=seq style="display: none">
-												<select name="state"
-													class="btn btn-info dropdown-toggle btn-sm">	
-													<option value="yes">통상</option>
-													<option value="stop">정지</option>
-													<option value="delete">삭제</option>
-												</select>
-												<button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">변경</button>
-											</form>
-										</div>
-									</div>
-									</c:forEach>
-									<hr class="hr2">
+									<div class="col-12">${navi}</div>
 								</div>	
 							</div>
 						</div>

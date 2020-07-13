@@ -2,29 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Navi">
 
-<resultMap type="kh.pet.dto.Mypet_regDTO" id="listview">
+	<resultMap type="kh.pet.dto.Mypet_regDTO" id="listview">
 		<result property="pet_photo" column="img" />
 	</resultMap>
 
 
 	<select id="bar" resultType="int">
-		select count(*) from mypet where master_id=#{value}
+		select count(*) from mypet where
+		master_id=#{value}
 	</select>
-	
+
 	<select id="pointcount" resultType="int">
-		select count(*) from memberpoint where id=#{value}
+		select count(*) from points
+		where p_id=#{value}
 	</select>
-	
-	
-	<select id="navibar" resultType="kh.pet.dto.Mypet_regDTO" resultMap="listview">
-		select * from (select mypet.*, row_number() over(order by petseq desc)rum from
-		mypet) where rum between #{start} and #{end} and master_id=#{id}
+
+
+	<select id="navibar" resultType="kh.pet.dto.Mypet_regDTO"
+		resultMap="listview">
+		select * from (select mypet.*, row_number() over(order by
+		petseq desc)rum from
+		mypet) where rum between #{start} and #{end} and
+		master_id=#{id}
 	</select>
-	
-	<select id="pointbar" resultType="kh.pet.dto.Mypet_regDTO">
-		select * from (select memberpoint.*, row_number() over(order by day desc)rum from
-		memberpoint) where rum between #{start} and #{end} and id=#{id}
+
+	<select id="pointbar" resultType="kh.pet.dto.PointDTO">
+		select * from (select points.*,
+		row_number() over(order by p_date desc)rum from
+		points) where rum
+		between #{start} and #{end} and p_id=#{id}
 	</select>
-	
-	
+
+	<select id="community" resultType="kh.pet.dto.MyPage_CommunityDTO">
+		select * from (select community.*, row_number()
+		over(order by cu_date desc)rum
+		from
+		community) where rum between
+		#{start} and #{end} and cu_writer=#{id}
+	</select>
+
+	<select id="communitycount" resultType="int">
+		select count(*) from community where
+		cu_writer=#{value}
+	</select>
+
+
 </mapper>

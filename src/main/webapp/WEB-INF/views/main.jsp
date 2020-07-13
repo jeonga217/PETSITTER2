@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,10 +91,10 @@
 
 							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
 								<li class="active"><a href="#"><span>Home</span></a></li>
-								<li class="active"><a href="tmp"><span>펫 시터</span></a>
-								</li>
-								<li><a href="adminindex"><span>관리자</span></a></li>
-								<li><a href="mb/mb_board?cpage=1"><span>반려인 게시판</span></a></li>
+								<li class="active"><a href="/petsitter/petsitter"><span>펫 시터</span></a>		</li>
+								<li class="active"><a href="/community/list"><span>자유게시판</span></a></li>
+								<li><a href="/admin/adminindex"><span>관리자</span></a></li>
+								<li><a href="/mb/mb_board?cpage=1"><span>반려인 게시판</span></a></li>
 								<li><a href="/mypage/mypage"><span>MyPage</span></a></li>
 								<li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
 								<li><a href="signup"><span>회원가입</span></a></li>

@@ -21,15 +21,17 @@
 <link rel="stylesheet" href="/resources/main/css/magnific-popup.css">
 <link rel="stylesheet" href="/resources/main/css/jquery-ui.css">
 <link rel="stylesheet" href="/resources/main/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/resources/main/css/owl.theme.default.min.css">
-<link rel="stylesheet" href="/resources/main/css/bootstrap-datepicker.css">
+<link rel="stylesheet"
+	href="/resources/main/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="/resources/main/css/bootstrap-datepicker.css">
 <link rel="stylesheet"
 	href="/resources/main/fonts/flaticon/font/flaticon.css">
 <link rel="stylesheet" href="/resources/main/css/aos.css">
 <link rel="stylesheet" href="/resources/main/css/rangeslider.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/mb/dist/tavo-calendar.css">
-<link rel="stylesheet" href="/resources/main/css/style.css">
+<link rel="stylesheet" href="/resources/mb/css/style.css">
 <link rel="stylesheet" href="/resources/mb/css/checkbox.css">
 <link rel="stylesheet" href="/resources/mb/css/calendar.css">
 
@@ -67,7 +69,7 @@
 }
 
 .services input[type="checkbox"]:checked+label {
-	color: #ff4301;
+	color: #17a2b8;
 }
 
 .services {
@@ -79,9 +81,19 @@
 	border-radius: 5px;
 	margin: 10px 10px;
 }
-#uniqueness{border: 1px solid #81DAD6; height:200px;}
-#title{border: 1px solid #81DAD6;}
-.services{display: inline-block;}	
+
+#uniqueness {
+	border: 1px solid #81DAD6;
+	height: 200px;
+}
+
+#title {
+	border: 1px solid #81DAD6;
+}
+
+.services {
+	display: inline-block;
+}
 </style>
 </head>
 
@@ -267,13 +279,14 @@
 							</div>
 							<div class="d-block d-md-flex listing-horizontal">
 								<div class="lh-content">
-									<h3>특이사항</h3>
+									<h3>요구사항</h3>
 									<div contenteditable="true" id="uniqueness"></div>
-									<input type="hidden" name="mb_unique" id="mb_unique"
-										value="${modlist.mb_unique}">
+									<input type="hidden" name="mb_request" id="mb_request" value="${modlist.mb_request}">
 								</div>
 							</div>
-							<div class="col-12 mt-5 text-center"></div>
+							<div class="conb">
+								<a href="/mb/mb_board" class="text-white" id="modified">목록</a>
+							</div>	
 						</div>
 						<div class="col-lg-4 ml-5">
 							<div data-brackets-id='1'>
@@ -298,52 +311,61 @@
 										style="display: flex; flex-direction: row; justify-content: space-between;">
 
 										<div id="timelist">
-											<div>
-												<input type="checkbox" class="selectime" value="first"
-													name="mb_time" id="first"><label for="first"><span></span>&nbsp;&nbsp;1부
-													09:00 ~ 11:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="second"
-													name="mb_time" id="second"><label for="second"><span></span>&nbsp;&nbsp;2부
-													11:00 ~ 13:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="third"
-													name="mb_time" id="third"><label for="third"><span></span>&nbsp;&nbsp;3부
-													13:00 ~ 15:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="fourth"
-													name="mb_time" id="fourth"><label for="fourth"><span></span>&nbsp;&nbsp;4부
-													15:00 ~ 17:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="fifth"
-													name="mb_time" id="fifth"><label for="fifth"><span></span>&nbsp;&nbsp;5부
-													17:00 ~ 19:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="sixth"
-													name="mb_time" id="sixth"><label for="sixth"><span></span>&nbsp;&nbsp;6부
-													19:00 ~ 21:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="am"
-													name="mb_time" id="am"><label for="am"><span></span>&nbsp;&nbsp;오전
-													09:00 ~ 14:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="pm"
-													name="mb_time" id="pm"><label for="pm"><span></span>&nbsp;&nbsp;오후
-													14:00 ~ 21:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="full"
-													name="mb_time" id="full"><label for="full"><span></span>&nbsp;&nbsp;풀타임
-													09:00 ~ 20:00</label>
+											<div class="timebox">
+												<div class="timestar">
+													<div>
+														<div class="stime bu">시작시간</div>
+													</div>
+													<div class="stimelist timestyle">
+														<ul>
+															<li data-time="1">09:00</li>
+															<li data-time="2">10:00</li>
+															<li data-time="3">11:00</li>
+															<li data-time="4">12:00</li>
+															<li data-time="5">13:00</li>
+															<li data-time="6">14:00</li>
+															<li data-time="7">15:00</li>
+															<li data-time="8">16:00</li>
+															<li data-time="9">17:00</li>
+															<li data-time="10">18:00</li>
+															<li data-time="11">19:00</li>
+															<li data-time="12">20:00</li>
+															<li data-time="13">21:00</li>
+															<li data-time="14">22:00</li>
+															<li data-time="15">23:00</li>
+															<li data-time="16">24:00</li>
+														</ul>
+													</div>
+												</div>
+												<div class="timeend">
+													<div>
+														<div class="etime bu">끝시간</div>
+													</div>
+													<div class="etimelist timestyle">
+														<ul>
+															<li data-time="1">09:00</li>
+															<li data-time="2">10:00</li>
+															<li data-time="3">11:00</li>
+															<li data-time="4">12:00</li>
+															<li data-time="5">13:00</li>
+															<li data-time="6">14:00</li>
+															<li data-time="7">15:00</li>
+															<li data-time="8">16:00</li>
+															<li data-time="9">17:00</li>
+															<li data-time="10">18:00</li>
+															<li data-time="11">19:00</li>
+															<li data-time="12">20:00</li>
+															<li data-time="13">21:00</li>
+															<li data-time="14">22:00</li>
+															<li data-time="15">23:00</li>
+															<li data-time="16">24:00</li>
+														</ul>
+													</div>
+												</div>
 											</div>
 										</div>
+										<input type="hidden" id="stime" name="mb_stime">
+										<input type="hidden" id="etime" name="mb_etime">
 									</div>
 									<div class="mb-5">
 										<div class="custom-pagination">
@@ -365,7 +387,7 @@
 			$("#uniqueness").on("keyup", function() {
 				var uniquetext = $("#uniqueness").html();
 				console.log(uniquetext);
-				$("#mb_unique").val(uniquetext);
+				$("#mb_request").val(uniquetext);
 			})
 
 			$("#title").on("keyup", function() {
@@ -548,7 +570,7 @@
 			var title = "${modlist.mb_title}";
 			$("#title").html(title);
 
-			var text = "${modlist.mb_unique}";
+			var text = "${modlist.mb_request}";
 			$("#uniqueness").html(text);
 
 			$(".mb_service").each(function(index, items) {
@@ -559,13 +581,11 @@
 				</c:forEach>
 			})
 
-			
-			
-			$(".petname").on("click",function(){	
+			$(".petname").on("click", function() {
 				var src = [];
-				$(".petname:checked").each(function(index,item){
+				$(".petname:checked").each(function(index, item) {
 					src.push($(this).data("imgsrc"));
-				})					
+				})
 				$("#petphoto").val(src);
 			})
 		})
@@ -595,24 +615,124 @@
 				$("#mb_endday").val(end_day);
 
 			});
-			$(".selectime").on("click",function(){
-				if($(this).prop("checked") == true && $("#am").prop("checked") == true){
-					$(".ba").prop("checked",false);
-					$("#full").prop("checked",false);
-				}
-				if($(this).prop("checked") == true && $("#pm").prop("checked") == true){
-					$(".ba").prop("checked",false);
-					$("#full").prop("checked",false);
-				}
-				if($(this).prop("checked") == true && $("#full").prop("checked") == true){
-					$(".ba").prop("checked",false);
-					$("#am").prop("checked",false);
-					$("#pm").prop("checked",false);
-				}	
-			})
+			$(".selectime").on(
+					"click",
+					function() {
+						if ($(this).prop("checked") == true
+								&& $("#am").prop("checked") == true) {
+							$(".ba").prop("checked", false);
+							$("#full").prop("checked", false);
+						}
+						if ($(this).prop("checked") == true
+								&& $("#pm").prop("checked") == true) {
+							$(".ba").prop("checked", false);
+							$("#full").prop("checked", false);
+						}
+						if ($(this).prop("checked") == true
+								&& $("#full").prop("checked") == true) {
+							$(".ba").prop("checked", false);
+							$("#am").prop("checked", false);
+							$("#pm").prop("checked", false);
+						}
+					})
 		})
 	</script>
+	<script>
+		$(function() {
+			$(".stimelist").hide();
+			$(".etimelist").hide();
 
+			$(".stime").on("click", function() {
+				$(".stimelist").show(100);
+			})
+
+			$("li").on("click", function() {
+				$(this).parent().parent().hide();
+				var bu = $(this).parent().parent().siblings().children();
+				var htmlV = $(this).html();
+				bu.html(htmlV);
+			})
+			var dataTime = '';
+			$(".stimelist  li").on("click", function() {
+				dataTime = $(this).data("time");
+				$(".stime").attr("data-time", dataTime)
+			});
+
+			$(".etimelist  li").on("click", function() {
+				var edata = $(this).data("time");
+				if (dataTime >= edata) {
+					alert("다시선택하세요");
+					$(".etime").html("끝시간");
+				} else {
+					$("#stime").val($(".stime").html());
+					$("#etime").val($(".etime").html());
+					return true
+				}
+			});
+
+			$(".etime").on("click", function() {
+				$(".etimelist").show(100);
+			})
+
+		})
+	</script>
+	<script>
+		$("#save").on("submit", function() {
+			var titleVal = $("#mb_title").val();
+			var timeVal = $(".bu").data("time");
+			var petVal = $(".petname:checked").val();
+			var serviceVal = $(".mb_service:checked").val();
+			var startdayVal = $("#mb_startday").val();
+			var requestVal = $("#mb_request").val();
+
+			if (titleVal == "") {
+				alert("제목을 입력 해주세요");
+				return false;
+			}
+
+			if (timeVal == null) {
+				alert("시간을 선택 해주세요");
+				return false;
+			}
+
+			if (petVal == null) {
+				alert("강아지를 선택 해주세요");
+				return false;
+			}
+
+			if (serviceVal == null) {
+				alert("서비스를 선택 해주세요");
+				return false;
+			}
+
+			if (startdayVal == "") {
+				alert("날짜를 선택 해주세요");
+				return false;
+			}
+
+			if (requestVal == "") {
+				alert("특이 사항을 입력 해주세요");
+				return false;
+			}
+		})
+	</script>
+	<script>
+		$("#save").on("submit", function() {
+			var count = 0;
+			<c:forEach var="i" items="${petname}">
+			$(".petname:checked").each(function(index, item) {
+				if ("${i}" == $(item).val()) {
+					count++
+				}
+			})
+			</c:forEach>
+			if (count > 0) {
+				alert("이미등록된 강아지가 있습니다.")
+				return false;
+			} else {
+				return true;
+			}
+		})
+	</script>
 </body>
-
 </html>

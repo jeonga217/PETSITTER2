@@ -125,27 +125,30 @@
 
 								</div>
 								<div class="col-12 bg-white">
-									<table style="width: 100%">
-										<tr>
-											<th>회원 명</th>
-											<th>회원 종류</th>
-											<th>가입 날짜</th>
-											<th>포인트 현황</th>
-										</tr>
-										<tr>
-											<td>바보</td>
-											<td>시터</td>
-											<td>20.11.30</td>
-											<td>1441</td>
-										</tr>
-										<tr>
-											<td>아무개</td>
-											<td>일반</td>
-											<td>20.12.11</td>
-											<td>1010</td>
-										</tr>
-									</table>
+									<div class="row">
+										<div class="col-3">회원명</div>
+										<div class="col-3">회원 종류</div>
+										<div class="col-3">가입 날짜</div>
+										<div class="col-3">포인트 현황</div>
+									</div>
+									
+									<hr style="width: 100%; margin: 10px;">
+									<c:forEach var="i" items="${memberlist}">
+									
+									<div class="row">
+										<div class="col-3">${i.mem_id}</div>
+										<div class="col-3">	<c:choose>
+		                                   	<c:when test="${i.mem_type eq 1}">일반회원</c:when>
+		                                   	<c:otherwise>펫 시터</c:otherwise>
+		                                   	</c:choose>
+		                                </div>		
+										<div class="col-3">${i.mem_join_date}</div>		
+										<div class="col-3">${i.mem_point}</div>
+									</div>
+									<hr style="width: 100%; margin: 10px;">
+									</c:forEach>
 								</div>
+								<div class="col-12" style="text-align: center">${navi}</div>
 							</div>
 						</div>
 					</div>

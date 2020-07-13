@@ -3,60 +3,62 @@ package kh.pet.dto;
 import java.sql.Timestamp;
 
 public class PointDTO {
-	private String id;
-	private String deltype;
-	private Timestamp day;
-	private int point;
-	private String resnum;
+	private String p_id;
+	private int p_point;
+	private String p_method;
+	private Timestamp p_date;
+	private String p_dates;
 
-	public PointDTO() {}
-	public PointDTO(String id, String deltype, Timestamp day, int point, String resnum) {
+	public PointDTO() {
+	}
+
+	public PointDTO(String p_id, int p_point, String p_method, Timestamp p_date, String p_dates) {
 		super();
-		this.id = id;
-		this.deltype = deltype;
-		this.day = day;
-		this.point = point;
-		this.resnum = resnum;
+		this.p_id = p_id;
+		this.p_point = p_point;
+		this.p_method = p_method;
+		this.p_date = p_date;
+		this.p_dates = p_dates;
 	}
 
-	public String getId() {
-		return id;
+	public String getP_id() {
+		return p_id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setP_id(String p_id) {
+		this.p_id = p_id;
 	}
 
-	public String getDeltype() {
-		return deltype;
+	public int getP_point() {
+		return p_point;
 	}
 
-	public void setDeltype(String deltype) {
-		this.deltype = deltype;
+	public void setP_point(int p_point) {
+		this.p_point = p_point;
 	}
 
-	public Timestamp getDay() {
-		return day;
+	public String getP_method() {
+		return p_method;
 	}
 
-	public void setDay(Timestamp day) {
-		this.day = day;
+	public void setP_method(String p_method) {
+		this.p_method = p_method;
 	}
 
-	public int getPoint() {
-		return point;
+	public Timestamp getP_date() {
+		return p_date;
 	}
 
-	public void setPoint(int point) {
-		this.point = point;
+	public void setP_date(Timestamp p_date) {
+		this.p_date = p_date;
 	}
 
-	public String getResnum() {
-		return resnum;
+	public String getP_dates() {
+		return p_dates;
 	}
 
-	public void setResnum(String resnum) {
-		this.resnum = resnum;
+	public void setP_dates(String p_dates) {
+		this.p_dates = p_dates;
 	}
 
 }

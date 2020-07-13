@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
 		<script src="/resources/admin/admin_js/navi.js"></script>
 		<link rel="stylesheet" href="/resources/admin/admin_css/case.css" type="text/css">
+		<script src="/resources/admin/admin_js/admin.js"></script>
     </head>
     <body>
         <div class="wrap row bg-light">
@@ -122,16 +123,10 @@
 	                                    	<div class= col-3><a href="#">내용 보기</a></div>
 	                                    	<div class= col-3>
 	                                    		<input type="button" value="수락" class="accept" id="${i.ps_id}">
-	                                    		<input type="button" value="거절" class="cencel" >
+	                                    		<input type="button" value="거절" class="cencel" id="${i.ps_id}">
 	                                    	</div> 
 	                                    </c:forEach>
 	                                    </div>
-	          							<script>
-	          								$(".accept").on("click",function(){
-	          									var id = $(this).attr("id");
-	          									location.href="/admin/petaccept?id="+id;
-	          								})
-	          							</script>
                                     </div>
                                 </div>
                             </div>

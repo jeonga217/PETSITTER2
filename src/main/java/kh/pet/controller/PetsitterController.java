@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.pet.dto.MemberDTO;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.service.PetsitterService;
 
@@ -24,6 +25,11 @@ public class PetsitterController {
 	
 	@Autowired
 	private HttpSession session;
+	
+	@RequestMapping("/petsitter")
+	public String tmp() {
+		return "petsitter_board/home";
+	}
 	
 	@RequestMapping("/petsitter_register_form")
 	public String petsitter_register_form() {
@@ -59,10 +65,10 @@ public class PetsitterController {
 		}
 	
 	@RequestMapping("/outputSingle")
-	public String outputSingle(Model model,PetsitterDTO psdto) throws Exception{
-		//String ps_id = ((MemberDTO)session.getAttribute("login_Info")).getMem_id();
-		String ps_id = "test02";
-		psdto = psservice.selectById(ps_id);
+	public String outputSingle(Model model) throws Exception{
+		String ps_id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+		
+		PetsitterDTO psdto = psservice.selectById(ps_id);
 
 		model.addAttribute("petsitterInfo",psdto);
 		return "/petsitter_board/petsitter/petsitter_register_view";

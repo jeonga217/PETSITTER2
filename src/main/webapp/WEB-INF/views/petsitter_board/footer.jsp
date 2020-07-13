@@ -84,7 +84,7 @@
     </footer>
    
 
-<script src="/resources/main/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/main/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/main/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="/resources/main/js/jquery-ui.js"></script>
 	<script src="/resources/main/js/popper.min.js"></script>
@@ -96,7 +96,6 @@
 	<script src="/resources/main/js/bootstrap-datepicker.min.js"></script>
 	<script src="/resources/main/js/rangeslider.min.js"></script>
 	<script src="/resources/main/js/aos.js"></script>
-	
 	<script src="/resources/main/js/main.js"></script>
 
 

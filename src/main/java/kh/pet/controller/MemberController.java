@@ -41,6 +41,12 @@ public class MemberController {
 		return "false";
 	}
 	
+	//로그인 페이지 연결
+	@RequestMapping("login")
+	public String login() {
+		return "/member/login";		
+	}
+	
 	@RequestMapping("/signup")
 	public String signup() throws Exception { //가입 페이지로 이동
 
@@ -97,12 +103,7 @@ public class MemberController {
 		return "/member/emailconfirm";
 	}
 	
-	//로그인 페이지 연결
-	@RequestMapping("/login")
-	public String login() {
-		return "/member/login";		
-	}
-	
+
 	
 	//로그인
 	@RequestMapping(value="/loginProc", method=RequestMethod.POST)

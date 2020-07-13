@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Communityboard">
+
+	<!-- 게시물 작성 -->
+	<insert id="insert">
+		insert into Community values(cu_seq.nextval,#{cu_category}, #{cu_title}, #{cu_writer}, sysdate, #{cu_contents}, 0, #{cu_thumb}, 'yes')
+	</insert>
+
+	<!-- 게시글 개수 구하기 -->
+	<select id="selectCount" resultType="int">
+		select count(*) from Community
+	</select>
+
+	<!-- 게시판 목록 -->
+	<select id="selectAll" resultType="kh.pet.dto.CommunityListDTO">
+		select cu.cu_seq cu_seq,ca.cu_category_type cu_category_type, cu.cu_title cu_title,	cu.cu_writer cu_writer, cu.cu_date cu_date, cu.cu_view_cnt cu_view_cnt, cu.cu_thumb cu_thumb from(select Community.*, row_number() over(order by cu_seq desc)rnum from Community) cu, cu_category ca where cu.cu_category = ca.cu_category_seq and rnum between ${start} and ${end} order by cu_seq desc
+	</select>
+
+	<!-- 검색 게시판 -->
+	<select id="selectSearch" resultType="kh.pet.dto.CommunityListDTO">
+		select cu.cu_seq cu_seq, ca.cu_category_type cu_category_type, cu.cu_title cu_title, cu.cu_writer cu_writer, cu.cu_date cu_date, cu.cu_view_cnt cu_view_cnt, cu.cu_thumb cu_thumb from(select Community.*, row_number() over(order by cu_seq desc)rnum from Community where <include refid="search" /> ) cu, cu_category ca where cu.cu_category = ca.cu_category_seq and rnum between ${start} and ${end} order by cu_seq desc
+	</select>
+
+	<!-- 게시글 조회수 증가 -->
+	<update id="viewcnt">
+		update Community set cu_view_cnt = #{cu_view_cnt} where cu_seq = #{cu_seq}
+	</update>
+
+	<!-- 게시글 보기 -->
+	<select id="selectOne" resultType="kh.pet.dto.CommunityListDTO">
+		select cu.cu_seq cu_seq, ca.cu_category_type cu_category_type, cu.cu_title cu_title, cu.cu_writer cu_writer, cu.cu_date cu_date, cu.cu_contents cu_contents, cu.cu_view_cnt cu_view_cnt from Community cu, cu_category ca where cu.cu_category = ca.cu_category_seq and cu_seq=#{cu_seq} 
+		</select>
+
+	<!-- 게시글 수정 -->
+	<update id="update">
+		update Community set cu_title = #{cu_title}, cu_contents = #{cu_contents} where cu_seq=#{cu_seq}
+	</update>
+
+	<!-- 게시글 삭제 -->
+	<delete id="delete">
+		delete from Community where cu_seq=#{cu_seq}
+	</delete>
+
+	<!-- 조건 검색 -->
+	<sql id="search">
+		<choose>
+			<when test="search_option == 'all'">
+				cu_title like '%'||#{keyword}||'%' or cu_contents like '%'||#{keyword}||'%'
+			</when>
+
+			<otherwise>
+				${search_option} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
+
+	<!-- 검색된 게시글 개수 구하기 -->
+	<select id="searchCount" resultType="int">
+		select count(*) from Community where <include refid="search" />
+	</select>
+	
+	
+	<!-- 신고기능 -->
+	<insert id="insert_report">
+		insert into reports values(report_seq.nextval, #{r_parent_seq}, #{report_contents}, #{report_id})
+	</insert>
+
+</mapper>

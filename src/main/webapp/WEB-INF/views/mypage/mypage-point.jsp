@@ -13,7 +13,7 @@
 <meta name="keywords" content="" />
 <meta name="author" content="Free-Template.co" />
 
-<link rel="shortcut icon" href="ftco-32x32.png">
+<link rel="shortcut icon" href="/resources/main/ftco-32x32.png">
 
 <link href="https://fonts.googleapis.com/css?family=Rubik:400,700"
 	rel="stylesheet">
@@ -24,11 +24,14 @@
 <link rel="stylesheet" href="/resources/main/css/magnific-popup.css">
 <link rel="stylesheet" href="/resources/main/css/jquery-ui.css">
 <link rel="stylesheet" href="/resources/main/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/resources/main/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="/resources/main/css/owl.theme.default.min.css">
 
-<link rel="stylesheet" href="/resources/main/css/bootstrap-datepicker.css">
+<link rel="stylesheet"
+	href="/resources/main/css/bootstrap-datepicker.css">
 
-<link rel="stylesheet" href="/resources/main/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet"
+	href="/resources/main/fonts/flaticon/font/flaticon.css">
 
 <link rel="stylesheet" href="/resources/main/css/aos.css">
 <link rel="stylesheet" href="/resources/main/css/rangeslider.css">
@@ -48,8 +51,10 @@
 	href="/resources/main/vendor1/select2/select2.min.css">
 <link rel="stylesheet" type="text/css"
 	href="/resources/main/vendor1/perfect-scrollbar/perfect-scrollbar.css">
-<link rel="stylesheet" type="text/css" href="/resources/main/css1/util.css">
-<link rel="stylesheet" type="text/css" href="/resources/main/css1/main.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/css1/util.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/css1/main.css">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <script
@@ -57,19 +62,58 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
 </head>
 <script type="text/javascript">
 	$(function() {
 		$("#back").on("click", function() {
-			location.href = '/mypage/mypage';
+			location.href = '/';
 		})
 		$("#add").on("click", function() {
-			location.href = "/mypage/Introduction";
+			location.href = "Introduction";
 		})
+
 	})
 </script>
 
+<style>
+#ex {
+	border-radius: 5px;
+	float: right;
+	position: relative;
+}
 
+#sum {
+	position: relative;
+	float: left;
+}
+
+.date {
+	text-align: center;
+}
+
+.method1 {
+	text-align: center;
+}
+
+.point {
+	text-align: center;
+}
+
+#drop {
+	position: relative;
+	float: right;
+}
+</style>
 <body>
 
 	<div class="site-wrap">
@@ -120,15 +164,14 @@
 				</div>
 
 			</div>
-				</header>
-			
 	</div>
 
+	</header>
 
 
 
 	<div class="site-blocks-cover inner-page-cover overlay"
-		style="background-image: url(/resources/main/images/dig.jpg);"
+		style="background-image: url(/resources/images/dig.jpg);"
 		data-aos="fade">
 		<div class="container">
 			<div
@@ -146,12 +189,39 @@
 							</p>
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+	<div id="contact-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="contactForm" name="contact" role="form">
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="btn-group">
+								<button type="button" class="btn btn-secondary dropdown-toggle"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">환전금액</button>
+								<div class="dropdown-menu dropdown-menu-right">
+									<button class="dropdown-item" type="button">10000</button>
+									<button class="dropdown-item" type="button">20000</button>
+									<button class="dropdown-item" type="button">50000</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<input type="submit" class="btn btn-success" id="submit">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 
 
 	<div class="site-section bg-light">
@@ -167,6 +237,7 @@
 									<canvas id="myChart"></canvas>
 								</div>
 								<br>
+								<div id="sum">현재 합계 : ${sum}</div>
 								<div class="container-table20">
 									<div class="wrap-table20">
 										<div class="table20">
@@ -175,34 +246,39 @@
 													<tr class="table100-head">
 														<th class="column1">날짜</th>
 														<th class="column2">거래타입</th>
-														<th class="column3">사용포인트</th>
-														<th class="column4">예약번호</th>
-
+														<th class="column3">포인트</th>
 													</tr>
 												</thead>
 												<tbody>
 													<c:forEach var="i" items="${bdto}">
 														<tr>
-															<td>${i.day}</td>
-															<td>${i.deltype}</td>
-															<td>${i.point}</td>
-															<td>${i.resnum}</td>
+															<td><div class="date">${i.p_date}</div></td>
+															<td><div class="method1">${i.p_method}</div></td>
+															<td><div class="point">${i.p_point}</div></td>
 														</tr>
 													</c:forEach>
 												</tbody>
 											</table>
 											<br>
+
 											<button type="button" class="btn btn-primary" id="add"
 												style="float: right;">충전하기</button>
 											<button type="button" class="btn btn-secondary" id="back">뒤로가기</button>
-											<div class="col-12 mt-5 text-center">
-												<div class="custom-pagination">${navi}</div>
-											</div>
+											<c:if test="${mem_type eq '2'}">
+												<div id="contact">
+													<button type="button" class="btn btn-primary"
+														data-toggle="modal" data-target="#contact-modal" id="ex">환전하기</button>
+												</div>
+												<c:set var="doneLoop" value="true" />
+											</c:if>
 										</div>
 									</div>
 								</div>
 							</div>
 
+							<div class="col-12 mt-5 text-center">
+								<div class="custom-pagination">${navi}</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -280,59 +356,154 @@
 			</div>
 		</div>
 	</footer>
+
 	<script>
-		let myChart = document.getElementById('myChart').getContext('2d');
+	
+		var arr = new Array();
+		var k;
+		for(var i = 0; i<${list.size()}; i++){
+		var point = ${list.get(i).getP_point()};
+		var methods = "${list.get(i).getP_method()}";
+		var dates = "${list.get(i).getP_dates()}";
+		var full = point+":"+methods+":"+dates;
+		arr.push(full);
+		k = arr[i].split(":");
+		}
+		console.log(k[0]); //포인트
+		console.log(k[1]); //유형
+		console.log(k[2]); //날짜
+		
+		/* var day = document.getElementsByClassName("date");
+		var methods = document.getElementsByClassName("method1");
+		var point = document.getElementsByClassName("point");
+		
+		var arr = new Array();
 
-		//Global Options
+		for (var i = 0; i < day.lensgth; i++) {
+			var day1 = day[i].innerHTML;
+			var day2 = day1.replace('<td class="date">', '');
+			day3 = day2.replace('</td>', '');
+			var year = day3.substr(0, 4);
+			var month = day3.substr(5, 2);
+			var days = day3.substr(8, 2);
+			var all = year + "년" + month + "월" + days + "일";//날짜
+			var points = point[i].innerHTML; //포인트
+			var me = methods[i].innerHTML; //유형
+			var full = month + " " + points + " " + me;//전체
+			arr.push(full);
+			var k = arr[i].split(" ");
+			console.log("값이다 : " + k);
+		} */
+		//월	console.log(k[0]); 
+		//포인트	console.log(k[1]);
+		//유형	console.log(k[2]);
 
-		let massPopChart = new Chart(myChart,
-				{
-					type : 'bar', //bar, horizontalBar, pie, line, doughnut, raddr
-					data : {
-						labels : [ '1월', '2월', '3월', '4월', '6월', '7월', '8월',
-								'9월', '10월', '11월', '12월' ],
-						datasets : [
-								{
-									label : '충전포인트',
-									data : [ 30, 25, 30, 40, 50, 60, 70, 60,
-											60, 80, 60 ],
-									backgroundColor : [
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)',
-											'rgba(255, 255, 100, 0.5)' ],
-									borderWidth : 1
-								},
-								{
-									label : '사용포인트',
-									data : [ 12, 50, 55, 60, 88, 100, 45, 60,
-											90, 52, 80 ],
-									backgroundColor : [
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)',
-											'rgba(100, 255, 255, 0.5)' ],
-									borderWidth : 1
-								} ]
-					},
-					options : {}
-				});
+		var myChart = document.getElementById('myChart').getContext('2d');
+		var massPopChart = new Chart(myChart, {
+			type : 'bar', //bar, horizontalBar, pie, line, doughnut, raddr
+			data : {
+				labels : [ '1월', '2월', '3월', '4월', '6월', '7월', '8월', '9월',
+						'10월', '11월', '12월' ],
+				datasets : [
+						{
+							label : '입금',
+							data : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+							backgroundColor : [ 'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)',
+									'rgba(255, 255, 100, 0.5)' ],
+							borderWidth : 1
+						},
+						{
+							label : '사용/환전',
+							data : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+							backgroundColor : [ 'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)',
+									'rgba(100, 255, 255, 0.5)' ],
+							borderWidth : 1
+						} ]
+			},
+			options : {},
+
+		});
+
+		for (var i = 0; i < ${list.size()}; i++) {
+			for (var j = 0; j < 12; j++) {
+				var mos = 0;
+				if (k[2] == "01" || "02" || "03" || "04" || "05" || "06"
+						|| "07" || "08" || "09") {
+					mos = k[2].replace('0', '');
+				} 
+				//월 맞추기
+				if (massPopChart.boxes[0].chart.config.data.labels[j] == mos
+						+ "월") {
+					//충전인지 판단
+
+					if (massPopChart.config.data.datasets[0].label == mo[2]) {
+						var nums = parseInt(massPopChart.config.data.datasets[0].data[i]);
+						var mo1 = parseInt(mo[1]);
+						console.log("1번 : " + nums)
+						console.log("2번 : " + mo1)
+						var k = 0;
+						if (j == i) {
+							nums = 0;
+							massPopChart.config.data.datasets[0].data[j] += mo1
+							console
+									.log("aab22 :   "
+											+ massPopChart.config.data.datasets[0].data[j])
+						} else {
+							massPopChart.config.data.datasets[0].data[j] += (nums + mo1);
+							console
+									.log("aab :   "
+											+ massPopChart.config.data.datasets[0].data[j])
+						}
+					}
+
+					//사용/환전위판단
+					else if (massPopChart.config.data.datasets[1].label.substr(
+							0, 2) == mo[2]
+							|| massPopChart.config.data.datasets[1].label
+									.substr(3, 4) == mo[2]) {
+						var nums = parseInt(massPopChart.config.data.datasets[1].data[i]);
+						var mo1 = parseInt(mo[1]);
+						massPopChart.config.data.datasets[1].data[j] += (nums + mo1);
+
+					}
+				}
+			}
+		}
+		
+
+		massPopChart.update({
+			duration : 800,
+			easing : 'easeOutBounce'
+		});
+
+		//충전포인트 찾는 코드
+		//	for (var i = 0; i <= 10; i++) {
+		//		console.log("충전포인트" + massPopChart.config.data.datasets[0].data[i]);
+		//	}
+		//사용포인트 찾는 코드
+		//	for (var i = 0; i <= 10; i++) {
+		//	console.log("사용포인트" + massPopChart.config.data.datasets[1].data[i]);
+		//	}
 	</script>
 
 	<script src="/resources/main/js/jquery-3.3.1.min.js"></script>

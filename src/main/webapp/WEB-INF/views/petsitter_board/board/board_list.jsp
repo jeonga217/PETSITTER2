@@ -6,6 +6,7 @@
 <html lang="en">
   <head>
   	<script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+  	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
   </head>
   <body>

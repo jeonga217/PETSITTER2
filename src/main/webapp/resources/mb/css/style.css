@@ -2533,12 +2533,82 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 	background: #e3e3e3;
 }
 
-.stime li button{
-	background-color: rgba(0,0,0,0);
-	color:#000 !important;
+.stime li button {
+	background-color: rgba(0, 0, 0, 0);
+	color: #000 !important;
 	width: 300px;
-	
 }
-#uniqueness{border: 1px solid #81DAD6; height:200px;}
-#title{border: 1px solid #81DAD6;}
-.services{display: inline-block;}
+
+#uniqueness {
+	border: 1px solid #81DAD6;
+	height: 200px;
+}
+
+#title {
+	border: 1px solid #81DAD6;
+}
+
+.services {
+	display: inline-block;
+}
+
+.bu {
+	border-color: #81DAD6;
+	background-color: #81DAD6;
+	color: aliceblue;
+	width: 150px;
+	height: 25px;
+	font-size: 20px;
+	text-align: center;
+	line-height: 25px;
+	border-radius: 30px;
+}
+
+.timestyle ul li {
+	list-style: none;
+}
+
+.timestar {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.timeend {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.timebox>div {
+	position: relative;
+}
+
+.timestyle ul {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.timebox {
+	margin-bottom: 30px;
+}
+
+.apply {
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+
+.conb a{
+	display: inline-block;
+	border-radius: 5px;
+	background-color: #81DAD6;
+	width: 100px;
+	text-align: center;
+}
+.conb a:hover{
+	display: inline-block;
+	border-radius: 5px;
+	background-color: #17a2b8;
+	width: 100px;
+	text-align: center;
+}

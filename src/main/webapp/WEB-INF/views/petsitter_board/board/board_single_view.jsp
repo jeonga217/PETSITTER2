@@ -1,112 +1,128 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
-	href="/resources/main/fonts/flaticon/font/flaticon.css">
+   href="/resources/main/fonts/flaticon/font/flaticon.css">
 <link rel="stylesheet" href="/resources/petsiter/css/tavo-calendar.css">
 <link href="/resources/mb/icofont/icofont.min.css" rel="stylesheet">
 <link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'
-	rel='stylesheet'>
+   rel='stylesheet'>
 <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+<link rel="stylesheet" href="/resources/main/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet" href="/resources/mb/icofont/icofont.min.css">
+<link rel="stylesheet" href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'>
+<!-- <link rel="stylesheet" href="/resources/petsiter/css/datepickk.min.css"> -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/zenburn.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,600">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script src="/resources/petsiter/js/datepickk.min.js"></script>
+<script src="/resources/petsiter/js/datepickk.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="/resources/petsiter/js/tavo-calendar.js"></script>
-<link href="/resources/mb/icofont/icofont.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/resources/petsiter/css/datepickk.min.css">
+<link rel="stylesheet" href="/resources/petsiter/css/datepickk.css">
+<link rel="stylesheet" href="/resources/petsiter/css/doc.css">
+
 </head>
 <style>
+#datePicker .d-table { display:flex !important; }
 #div_psb_contents {
-	border: 1px solid grey;
-	width: 100%;
-	overflow-y: auto;
-	float: left;
-	word-wrap: break-word;
-	word-break: break-all;
-	padding: 5px;
+   border: 1px solid grey;
+   width: 100%;
+   overflow-y: auto;
+   float: left;
+   word-wrap: break-word;
+   word-break: break-all;
+   padding: 5px;
 }
 .services input[type="checkbox"] {
-	display: none;
-	font-weight: bold;
+   display: none;
+   font-weight: bold;
 }
 .services input[type="checkbox"]:checked+label ,.resident_type_list input[type="radio"]:checked+label, .psb_petType input[type="checkbox"]:checked+label{
-	color: #ff4301;
+   color: #ff4301;
 }
 
 .services {
-	display: inline-block;
-	border: 1px solid grey;
-	width: 150px;
-	height: 60px;
-	line-height: 60px;
-	border-radius: 5px;
-	margin: 10px 10px;
-	font-weight: bold;
+   display: inline-block;
+   border: 1px solid grey;
+   width: 150px;
+   height: 60px;
+   line-height: 60px;
+   border-radius: 5px;
+   margin: 10px 10px;
+   font-weight: bold;
 }
 
 .filebox input[type="file"] {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	border: 0;
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   border: 0;
 }
 
 ul {
-	padding-inline-start: 5px;
+   padding-inline-start: 5px;
 }
 
 ul>li, input {
-	style: none;
-	display: inline-block;
-	padding-right: 20px;
+   style: none;
+   display: inline-block;
+   padding-right: 20px;
 }
 
 .comment-form-wrap {
-	clear: both;
+   clear: both;
 }
 
 .comment_title {
-	margin: 10px;
+   margin: 10px;
 }
 
 .star, .star1 {
-	display: inline-block;
-	width: 15px;
-	height: 30px;
-	cursor: pointer;
+   display: inline-block;
+   width: 15px;
+   height: 30px;
+   cursor: pointer;
 }
 
 .star_left {
-	background: url(/resources/images/star_off.png) no-repeat 0 0;
-	background-size: 30px;
-	margin-right: -2px;
+   background: url(/resources/images/star_off.png) no-repeat 0 0;
+   background-size: 30px;
+   margin-right: -2px;
 }
 
 .star1_left
 {
-	background: url(/resources/images/star_off.png) no-repeat 0 0;
-	background-size: 30px;
+   background: url(/resources/images/star_off.png) no-repeat 0 0;
+   background-size: 30px;
 }
 
 .star_right {
-	background: url(/resources/images/star_off.png) no-repeat -15px 0;
-	background-size: 30px;
-	margin-left: -2px;
+   background: url(/resources/images/star_off.png) no-repeat -15px 0;
+   background-size: 30px;
+   margin-left: -2px;
 }
 .star1_right {
-	background: url(/resources/images/star_off.png) no-repeat -15px 0;
-	background-size: 30px;
+   background: url(/resources/images/star_off.png) no-repeat -15px 0;
+   background-size: 30px;
 }
 
 .star.on , .star1.on {
-	background-image: url(/resources/images/star_on.png);
+   background-image: url(/resources/images/star_on.png);
 }
 </style>
 
@@ -116,9 +132,10 @@ ul>li, input {
 	<script>
 		$(function(){
 			
+			//화면 로딩과 동시에 리뷰 뿌려주기
 			displayReview();
 			
-			
+			//리뷰 삭제 
 			$(".comment-list").on("click",".delete_review",function(){
 				var result = confirm("리뷰를 삭제하시겠습니까?");
 				
@@ -140,6 +157,7 @@ ul>li, input {
 				}
 			});	
 			
+			// 펫시터가 설정해놓은 기본 값들 체크
 				var petType_list = "${tot_Info.psb_petType}";
 	  			var petType_listarr = petType_list.split(",");
 		  		$("input[name='psb_petType']").each(function(index,item){
@@ -150,14 +168,14 @@ ul>li, input {
 		  				}
 	  				}
 	  			});
-				
+		  	// 펫시터가 설정해놓은 기본 값들 체크
 		  		$("input[name='ps_resident_type']").each(function(index,item){
 		  			if('${tot_Info.ps_resident_type}' == $(item).val()){
 		  				$(this).prop("checked",true);
 		  				$("input[name='ps_resident_type']").prop('disabled',true);
 		  			}
 		  		});
-		  		
+		  	// 펫시터가 설정해놓은 기본 값들 체크
 		  		var service_list = "${tot_Info.psb_service}";
 	  			var service_listarr = service_list.split(",");
 		  		$("input[name='psb_service']").each(function(index,item){
@@ -168,7 +186,7 @@ ul>li, input {
 			  				}
 		  				}
 		  			});
-		  		
+		  	// 펫시터가 설정해놓은 기본 값들 체크
 		  		var time_list = "${tot_Info.psb_time}";
 	  			var time_listarr = time_list.split(",");
 		  		$("input[name='psb_time']").each(function(index,item){
@@ -182,6 +200,7 @@ ul>li, input {
 		  			}
 		  		});
 		  		
+		  	// 별점 체크
 		  		 $(".star").on('click',function(){
 		             var idx = $(this).index();
 		             $(".star").removeClass("on");
@@ -194,85 +213,135 @@ ul>li, input {
 	                  $("#rw_star").val(count);
 		             });
 		  		 
+		  	// 목록으로 버튼
 		  		$("#tolist").on("click",function(){
-					location.href="/board/outputList";
+					location.href="/board/outputList?cpage=1";
 				});
+		  	// 게시물 지우기 버튼
 				$("#delete").on("click",function(){
-					location.href="/board/delete";
+					$.ajax({
+						url:"/board/checkExistReservation?psb_seq=${tot_Info.psb_seq}",
+						type:"POST",
+						success:function(data){
+							if(data > 0){
+								alert("해당 게시물에 대한 예약이 존재하여 삭제가 불가능합니다.");
+							} else {
+								var result = confirm("게시물을 삭제하시겠습니까?");
+								if(result){
+									location.href ="/board/deleteBoard?psb_seq=${tot_Info.psb_seq}";
+								} 
+							}
+						},
+						fail:function(){
+							alert("deleteProc err");
+						}
+					});	
 				});
+		  		
+		  	// 게시물 수정 버튼
 				$("#update").on("click",function(){
-					location.href="/board/update";
+					location.href="/petsitter_board/board/update";
 				});
-				
-			    $(".selectime").on("click",function(){
-		            if($(this).prop("checked") == true && $("#am").prop("checked") == true){
-		               $(".ba").prop("checked",false);
-		               $("#full").prop("checked",false);
-		            }
-		            if($(this).prop("checked") == true && $("#pm").prop("checked") == true){
-		               $(".ba").prop("checked",false);
-		               $("#full").prop("checked",false);
-		            }
-		            if($(this).prop("checked") == true && $("#full").prop("checked") == true){
-		               $(".ba").prop("checked",false);
-		               $("#am").prop("checked",false);
-		               $("#pm").prop("checked",false);
-		            }   
+		         
+		  	// 펫타입 확인
+		        var petType_list = "${tot_Info.psb_petType}"; 
+	  			console.log(petType_list);
+		        var petType_listarr = petType_list.split(",");
+		         $("input[name='rsv_pet_name']").on("click",function(){
+		        	 console.log($(this).data("type"));
+		        		 if(!petType_list.includes($(this).data("type"))){
+		        			 alert($(this).data('type')+"형견은 선택이 불가합니다.");
+		        			 $(this).prop('checked',false);
+		        		 }
 		         })
+		         
+		        	$(".price_item").on("change",function(){
+		        		if(($("input[name='rsv_pet_name']:checked").val()&& $("#rsv_start_day").val()&&$("#rsv_end_day").val() && $("input[name='rsv_time']:checked").val())!=null){
+		        			var timearr = [];
+			        		$("input[name='rsv_time']:checked").each(function(index,item){
+			        			timearr.push($(item).val());
+			        		})
+			        		
+			        		var typearr=[];
+			        		$("input[name='rsv_pet_name']:checked").each(function(index,item){
+			        			typearr.push($(item).data("type"));
+			        		})
+			        	
+			        	 var form = {
+			        			 timearr : timearr,
+			        			 typearr : typearr        			 
+			        	 };
+			        	console.log(form);
+			        	 
+			        	 $.ajax({
+			        		 url:"/board/selectPrice",
+			        		 dataType:"json",
+			        		 type:"POST",
+			        		 data : form,
+			        		 success : function(result){
+			        			 var total=0;
+			        			 for(var i=0;i<result.length;i++){
+			        				total += result[i];
+			        			 }
+			        			 $("#rsv_point").val(total);
+			        		 }
+			        	 })
+			        		
+		        		}
+		        	});
 			});
 		
 		//review 뿌려주는 함수
-		function displayReview(){
-			$.ajax({
-				url:"/review/selectReviewList?psb_seq=${tot_Info.psb_seq}",
-				type:"POST",
-				success:function(data){
-					var str = "";
-					$.each(data, function(key, val) {
-					   	str += '<li class="comment">';
-					   	str += '<div class="vcard bio">';
-					   	str += '<i class="icofont-comment"></i>';
-					   	str += '</div>';
-					   	str += '<div class="comment-body">';
-					   	str +='<h7>'+val.rw_writer+'</h7>';
-					   	str +='<div class="meta"></div>';
-					   	str +='<div class="'+val.rw_seq+'">';
-					   	str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
-					   	str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
-					   	str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
-					   	str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
-					   	str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
-					   	str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
-					   	str += '<span class="'+val.rw_seq+'_star star1 star1_left"></span>';
-					   	str += '<span class="'+val.rw_seq+'_star star1 star1_right"></span>';
-					   	str += '<span class="'+val.rw_seq+'_star star1 star1_left"></span>';
-					   	str += '<span class="'+val.rw_seq+'_star star1 star1_right"></span>';
-					   	str += '</div>';
-					   	str += '<script>';
-					   	str += '$(function(){';
-						str +='var idx='+val.rw_star+';';
-						str +='for(var i=0; i<idx*2; i++){';
-						str +='$(".'+val.rw_seq+'_star").eq(i).addClass("on");';
-						str += '}';
-						str += '})';
-					    str += '<\/script>';
-	                    str += '<p>'+val.rw_contents+'</p>';
-	                    str += '<c:if test="${sessionScope.loginInfo.mem_id == '+val.rw_writer+'}">';
-	                    str += '<button class="delete_review" seq='+val.rw_seq+'>삭제</button>';
-	                    str += '<button class="modify_review" >수정</button>';
-	                    str += '</c:if>';
-	                  	str += '</div>';
-	                	str += '</li>';
-	                	$(".comment-list").html(str);
-					  });
-                	//$("#reviewCounts").html(data.length+" Comments");
-                	console.log(val.rw_writer);
-                	
-				},
-				error:function(){
-					alert("insertProc err");
-				}
-			});
+			function displayReview(){
+				$.ajax({
+					url:"/review/selectReviewList?psb_seq=${tot_Info.psb_seq}",
+					type:"POST",
+					success:function(data){
+						var str = "";
+						$.each(data, function(key, val) {
+						   	str += '<li class="comment">';
+						   	str += '<div class="vcard bio">';
+						   	str += '<i class="icofont-comment"></i>';
+						   	str += '</div>';
+						   	str += '<div class="comment-body">';
+						   	str +='<h7>'+val.rw_writer+'</h7>';
+						   	str +='<div class="meta"></div>';
+						   	str +='<div class="'+val.rw_seq+'">';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_left on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_right on"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_left"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_right"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_left"></span>';
+						   	str += '<span class="'+val.rw_seq+'_star star1 star1_right"></span>';
+						   	str += '</div>';
+						   	str += '<script>';
+						   	str += '$(function(){';
+							str +='var idx='+val.rw_star+';';
+							str +='for(var i=0; i<idx*2; i++){';
+							str +='$(".'+val.rw_seq+'_star").eq(i).addClass("on");';
+							str += '}';
+							str += '})';
+						    str += '<\/script>';
+		                    str += '<p>'+val.rw_contents+'</p>';
+		                    str += '<c:if test="${sessionScope.loginInfo.mem_id == '+val.rw_writer+'}">';
+		                    str += '<button class="delete_review" seq='+val.rw_seq+'>삭제</button>';
+		                    str += '<button class="modify_review" >수정</button>';
+		                    str += '</c:if>';
+		                  	str += '</div>';
+		                	str += '</li>';
+		                	$(".comment-list").html(str);
+						  });
+	                	//$("#reviewCounts").html(data.length+" Comments");
+	
+					},
+					error:function(){
+						alert("insertProc err");
+					}
+				});
 		}
     </script>
 
@@ -419,37 +488,37 @@ ul>li, input {
 						</div>
 					</div>
 				
-			<div class="pt-5">
-              <h3 class="mb-5" id ="reviewCounts"></h3>
+			<div class="mb-5">
+
               <ul class="comment-list">
                  <!-- 리뷰 동적으로 생성되는 공간 -->   
               </ul>
  
-              <div class="comment-form-wrap pt-5">
+              <div class="comment-form-wrap mb-5">
                 <h7 class="mb-5">리뷰남기기</h7>
                   <div class="form-group">
-	                    <label for="rw_star">Score</label>
-	                    <div>
-					      <span class="star star_left"></span>
-					      <span class="star star_right"></span>
-					      <span class="star star_left"></span>
-					      <span class="star star_right"></span>
-					      <span class="star star_left"></span>
-					      <span class="star star_right"></span>
-					     <span class="star star_left"></span>
-					     <span class="star star_right"></span>
-					     <span class="star star_left"></span>
-					     <span class="star star_right"></span>
-	                  </div>
-	                  <input type="hidden" id="rw_star" name="rw_star" value="">
+                       <label for="rw_star">Score</label>
+                       <div>
+                     <span class="star star_left"></span>
+                     <span class="star star_right"></span>
+                     <span class="star star_left"></span>
+                     <span class="star star_right"></span>
+                     <span class="star star_left"></span>
+                     <span class="star star_right"></span>
+                    <span class="star star_left"></span>
+                    <span class="star star_right"></span>
+                    <span class="star star_left"></span>
+                    <span class="star star_right"></span>
+                     </div>
+                     <input type="hidden" id="rw_star" name="rw_star" value="">
                  </div>
                  
                   <div class="form-group">
                     <label for="rw_contents">Review</label>
-                    <textarea id="rw_contents" cols="30" rows="5" class="form-control"></textarea>
+                    <textarea id="rw_contents" cols="60" rows="5" class="form-control"></textarea>
                   </div>
                   
-                  <div class="form-group">
+                  <div class="form-group" style="text-align:center">
                     <input type="button" id="submit_comment" value="Post Comment" class="btn btn-primary text-white btn-md">
                     <script>
                     	$(function(){
@@ -473,85 +542,121 @@ ul>li, input {
                             			alert("댓글이 등록되었습니다.");
                             			displayReview();
                     				},
-                    				error:function(){
+                    				fail:function(){
                     					alert("insertProc err");
                     				}
                     			});
                     			
                     		});
                     	})
+
                     </script>
                   </div>
               </div>
             </div>
-				
+
 				</div>
 				
-				<div class="col-lg-4 ml-4">
+				<div class="col-lg-4 ml-5">
 					<form action="/board/waitList">
 					<h3 class="h5 text-black mb-3 " style="text-align: center">
 						날짜 선택<i class="icofont-calendar"></i>
 					</h3>
 					<input type="hidden" name="board_seq" value="${tot_Info.psb_seq}">
 					<input type="hidden" name="petsitter_id" value="${tot_Info.psb_writer}">
+					<input type="hidden" name="mem_id" value="${sessionScope.loginInfo.mem_id}">
 					<div class="reserve_calendar">
-						<div id="my-calendar"></div>
+						<div id="datePicker" style="height:600px;width:100%;max-width: 600px;"></div>
 						<div class="select_date">
 							<ul class="head_date" style="text-align: center">
 								<li style="width: 150px;"><b>시작일</b></li>
 								<li style="width: 150px;"><b>종료일</b></li>
 							</ul>
 							<ul class="head_date" style="text-align: center">
-								<li><input type="text" id="rsv_start_day" name="rsv_start_day" value=""
-									style="width: 150px; text-align: center;" placeholder="시작일"></li>
+								<li><input type="text" id="rsv_start_day" name="rsv_start_day" class="price_item"
+									style="width: 150px; text-align: center;" placeholder="시작일" required></li>
 								<li><input type="text" id="rsv_end_day" name="rsv_end_day"
-									value="" style="width: 150px; text-align: center;" placeholder="종료일"></li>
+									style="width: 150px; text-align: center;" placeholder="종료일"  required></li>
 							</ul>
 						</div>
-					</div>
-
+						 <script>
+						 $(function(){
+							 var arr = [];
+							 var now = new Date();
+							 var reserve_list = "${reserve_list}";
+							 var blacklist=[] ;
+							 <c:forEach items="${reserve_list}" var="item1">
+							 {
+								<c:if test="${item1.am ==0} && ${item1.pm ==0}">
+									blacklist.add("${item1.cur_date}");
+									
+								</c:if>
+							 }
+							 </c:forEach>
+				               var datePicker = new Datepickk1({
+				                  	container:document.querySelector('#datePicker'),
+				                    minDate : new Date("${tot_Info.psb_start_day}").setDate(new Date("${tot_Info.psb_start_day}").getDate()-1), //문자열
+				                    maxDate : "${tot_Info.psb_end_day}",
+				                    disabledDates : blacklist,
+				                    inline:true,
+				                    today : true,
+				                     range: true,
+				                     tooltips: 
+				                    	 [	
+				                    		 <c:forEach items="${reserve_list}" var="item1">
+				                    		 {
+				                    			 date:new Date("${item1.cur_date }"),
+				                    			 text: '오전  [${item1.am }마리] <br/> 오후  [${item1.pm }마리]'
+				                    			 },
+				                    		 </c:forEach>
+				                    		 ]
+						                  
+						              }).onSelect = function(checked) {
+											var state = (checked) ? 'selected' : 'unselected';
+											if (checked) {
+												var time = this.toLocaleDateString();
+												var timearr = time.split('. ');
+												var new_time = timearr[0]+'-'+timearr[1]+'-'+(timearr[2].split('.'))[0];
+												
+												arr.push(new_time);
+		
+												if (arr.length > 2) {
+													arr.shift();
+												}
+												if (arr.length > 1) {
+													var start = arr[0];
+													var end = arr[1];
+													var tmp = '';
+		
+													if (start >= end) {
+														tmp = start;
+														start = end;
+														end = tmp;
+													}
+													
+													$("#rsv_start_day").val(start);
+													$("#rsv_end_day").val(end);
+													console.log("날짜1:" + start + ", 날짜2:" + end);
+		
+												}
+											}
+										};
+								 })
+								</script>
+						</div>
 					<hr class="mb-4">
 
 					<h3 class="h5 text-black mb-3 " style="text-align: center">
 						시간 선택<i class="icofont-clock-time"></i>
 					</h3>
 					<div id="timelist" style="text-align: center">
-						<div class="li">
-							<input type="checkbox" name="psb_time" value="first" id="first" data-val="first" >
-							<label for="first">&nbsp;&nbsp;1부 09:00 ~ 11:00</label>
-						</div>
 						<div>
-							<input type="checkbox" name="psb_time" value="second"
-								id="second">
-								<label for="second">&nbsp;&nbsp;2부 11:00 ~ 13:00</label>
-						</div>
-						<div>
-							<input type="checkbox" name="psb_time" value="third" id="third">
-							<label for="third">&nbsp;&nbsp;3부 13:00 ~ 15:00</label>
-						</div>
-						<div>
-							<input type="checkbox" name="psb_time" value="fourth" id="fourth">
-							<label for="fourth">&nbsp;&nbsp;4부 15:00 ~ 17:00</label>
-						</div>
-						<div>
-							<input type="checkbox" name="psb_time" value="fifth" id="fifth">
-							<label for="fifth">&nbsp;&nbsp;5부 17:00 ~ 19:00</label>
-						</div>
-						<div>
-							<input type="checkbox" name="psb_time" value="sixth" id="sixth">
-							<label for="sixth">&nbsp;&nbsp;6부 19:00 ~ 21:00</label>
-						</div>
-						<div>
-							<input type="checkbox" name="psb_time" value="am" id="am">
+							<input type="checkbox" name="rsv_time" value="am" id="am" class="price_item">
 							<label for="am">&nbsp;&nbsp;오전 09:00 ~ 14:00</label>
 						</div>
 						<div>
-							<input type="checkbox" name="psb_time" value="pm" id="pm">
+							<input type="checkbox" name="rsv_time" value="pm" id="pm" class="price_item">
 							<label for="pm">&nbsp;&nbsp;오후 14:00 ~ 21:00</label>
-						</div>
-						<div>
-							<input type="checkbox" name="psb_time" value="full" id="full">
-							<label for="full">&nbsp;&nbsp;풀타임 09:00 ~ 20:00</label>
 						</div>
 					</div>
 					<hr class="mb-4">
@@ -559,20 +664,24 @@ ul>li, input {
 								마이펫 선택<i class="icofont-paw"></i>
 							</h3>
 						<div class="my_pet" style="text-align: center">
-							<select name="pet_name">
+							<c:if test="${empty pet_list }">
+								등록된 펫이 없습니다.
+							</c:if>
+						
 							<c:forEach var="i" items="${pet_list }">
-								<option value="${i.pet_name}"></option>
-								<input type="hidden" id="mypet_type" value="${i.pet_type}">
+								<span>
+									<input type="checkbox" id="${i.pet_name}" class="price_item" data-type="${i.pet_type}" name="rsv_pet_name" value="${i.pet_name}"><label for="${i.pet_name}">${i.pet_name}(${i.pet_type} )</label>
+								</span>
+								
 							</c:forEach>
-							</select>
 						</div>
 					
 					<hr class="mb-4">
 							<h3 class="h5 text-black mb-3 " style="text-align: center">
-								가격 안내<i class="icofont-money"></i>
+								예상 포인트<i class="icofont-money"></i>
 							</h3>
 							<div id="pricing" style="text-align: center">
-							
+							<input type="text" name="rsv_point" id="rsv_point" value="">
 							<div data-brackets-id='33'
                               style="width: 100%; border-radius: 8px; border: 1px solid #DFE3EA; box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.07); padding: 15px 15px; margin-top: 38px; margin-bottom: 38px">
                               <div data-brackets-id='34'
@@ -688,7 +797,6 @@ ul>li, input {
 								<button id="update" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">수정하기</button>
 								<button id="delete" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">삭제하기</button>
 								<button id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
-								
 							</c:when>
 							<c:otherwise>
 								<button id="submit_frm" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block" type="submit">신청하기</button>
@@ -703,27 +811,7 @@ ul>li, input {
 	
 	
 			<jsp:include page="/WEB-INF/views/petsitter_board/footer.jsp" />
-			<script>
-				var today = new Date();
-				var my_calendar = new TavoCalendar('#my-calendar', {
-			            date: moment().format("YYYY-MM-DD"),
-			            date_start: "",
-			            date_end: "",
-			            format: "YYYY-MM-DD",
-			            range_select:true
-			        });
-				
-	            $("#my-calendar").on("calendar-range", function() {
-	            	var range = my_calendar.getRange();
-	                start_day = range.start;
-	                end_day = range.end;
-	                console.log("시작일:"+start_day);
-	                console.log("종료일:"+end_day);
-	                $("#rsv_start_day").val(start_day);
-	                $("#rsv_end_day").val(end_day);
-	            });
-	</script>
-
+		
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=673fb72de94724a273da597b59cd588d&libraries=services"></script>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -764,5 +852,6 @@ ul>li, input {
 			}
 		});
 	</script>
+
 </body>
 </html>

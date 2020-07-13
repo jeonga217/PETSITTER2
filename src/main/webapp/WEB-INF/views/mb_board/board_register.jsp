@@ -22,15 +22,17 @@
 <link rel="stylesheet" href="/resources/main/css/magnific-popup.css">
 <link rel="stylesheet" href="/resources/main/css/jquery-ui.css">
 <link rel="stylesheet" href="/resources/main/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/resources/main/css/owl.theme.default.min.css">
-<link rel="stylesheet" href="/resources/main/css/bootstrap-datepicker.css">
+<link rel="stylesheet"
+	href="/resources/main/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="/resources/main/css/bootstrap-datepicker.css">
 <link rel="stylesheet"
 	href="/resources/main/fonts/flaticon/font/flaticon.css">
 <link rel="stylesheet" href="/resources/main/css/aos.css">
 <link rel="stylesheet" href="/resources/main/css/rangeslider.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/mb/dist/tavo-calendar.css">
-<link rel="stylesheet" href="/resources/main/css/style.css">
+<link rel="stylesheet" href="/resources/mb/css/style.css">
 <link rel="stylesheet" href="/resources/mb/css/checkbox.css">
 <link rel="stylesheet" href="/resources/mb/css/calendar.css">
 
@@ -68,7 +70,7 @@
 }
 
 .services input[type="checkbox"]:checked+label {
-	color: #ff4301;
+	color: #17a2b8;
 }
 
 .services {
@@ -148,9 +150,7 @@
 			<div class="container">
 				<div
 					class="row align-items-center justify-content-center text-center">
-
 					<div class="col-md-10" data-aos="fade-up" data-aos-delay="400">
-
 
 						<div class="row justify-content-center">
 							<div class="col-md-8 text-center">
@@ -161,8 +161,6 @@
 								</p>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
 			</div>
@@ -170,7 +168,7 @@
 
 		<div class="site-section bg-light">
 			<div class="container">
-				<form action="/mb/index" method="post">
+				<form action="/mb/index" method="post" id="send">
 					<div class="row">
 						<div class="col-lg-7">
 							<div class="d-block d-md-flex listing-horizontal">
@@ -178,14 +176,14 @@
 									<div class="title">
 										<h3>제목</h3>
 										<div contenteditable="true" id="title"></div>
-										<input type="hidden" name="mb_title" id="mb_title" required>
+										<input type="hidden" name="mb_title" id="mb_title">
 									</div>
 								</div>
 							</div>
 
 							<div class="d-block d-md-flex listing-horizontal">
 								<div class="petselec">
-									<img src="/resources/mb/images/mypet.jpg">
+									<img id="photo" src="/resources/mb/images/mypet.jpg">
 								</div>
 								<div class="lh-content">
 									<div class="pet">
@@ -201,7 +199,6 @@
 									</div>
 								</div>
 							</div>
-					</div>
 							<div class="d-block d-md-flex listing-horizontal">
 								<div class="lh-content">
 									<h5 class="mb-3">서비스</h5>
@@ -209,61 +206,71 @@
 										<div class="service_list" style="text-align: center">
 											<div>
 												<span class="services"> <input type="checkbox"
-													name="mb_service" id="service1" value=service1 /> <label
-													for="service1"> <i class="icofont-tasks-alt"></i>장기
-														예약
+													name="mb_service" id="service1" value=service1
+													class="chservi" /> <label for="service1"> <i
+														class="icofont-tasks-alt"></i>장기 예약
 												</label>
 												</span> <span class="services"> <input type="checkbox"
-													name="mb_service" id="service2" value=service2 /> <label
-													for="service2"> <i class="icofont-pills"></i> 약물 복용
+													name="mb_service" id="service2" value=service2
+													class="chservi" /> <label for="service2"> <i
+														class="icofont-pills"></i> 약물 복용
 												</label>
 												</span> <span class="services"> <input type="checkbox"
-													style="" name="mb_service" id="service3" value=service3 />
-													<label for="service3"><i class='bx bx-bone'></i>실내
-														놀이</label>
+													style="" name="mb_service" id="service3" value=service3
+													class="chservi" /> <label for="service3"><i
+														class='bx bx-bone'></i>실내 놀이</label>
 												</span>
 											</div>
 
 											<div>
 												<span class="services"> <input type="checkbox"
-													name="mb_service" id="service4" value=service4 /> <label
-													for="service4"><i class="icofont-bathtub"></i>목욕 가능</label>
+													name="mb_service" id="service4" value=service4
+													class="chservi" /> <label for="service4"><i
+														class="icofont-bathtub"></i>목욕 가능</label>
 												</span> <span class="services"> <input type="checkbox"
-													name="mb_service" id="service5" value=service5 /> <label
-													for="service5"><i class="icofont-first-aid"></i>응급
-														처치</label>
+													name="mb_service" id="service5" value=service5
+													class="chservi" /> <label for="service5"><i
+														class="icofont-first-aid"></i>응급 처치</label>
 												</span> <span class="services"> <input type="checkbox"
-													name="mb_service" id="service6" value=service6 /> <label
-													for="service6"><i class='bx bx-walk'></i>야외 산책</label>
+													name="mb_service" id="service6" value=service6
+													class="chservi" /> <label for="service6"><i
+														class='bx bx-walk'></i>야외 산책</label>
 												</span>
 											</div>
 											<div>
 												<span class="services"> <input type="checkbox"
-													name="mb_service" id="service7" value=service7 /> <label
-													for="service7"><i class="icofont-tasks-alt"></i>발톱
-														관리</label>
+													name="mb_service" id="service7" value=service7
+													class="chservi" /> <label for="service7"><i
+														class="icofont-tasks-alt"></i>발톱 관리</label>
 												</span> <span class="services"> <input type="checkbox"
-													name="mb_service" id="service8" value=service8 /> <label
-													for="service8"><i class="icofont-ui-cut"></i>모발 관리</label>
+													name="mb_service" id="service8" value=service8
+													class="chservi" /> <label for="service8"><i
+														class="icofont-ui-cut"></i>모발 관리</label>
 												</span> <span class="services"> <input type="checkbox"
-													name="mb_service" id="service9" value=service9 /> <label
-													for="service9"><i class="icofont-car-alt-3"></i>집앞
-														픽업</label>
+													name="mb_service" id="service9" value=service9
+													class="chservi" /> <label for="service9"><i
+														class="icofont-car-alt-3"></i>집앞 픽업</label>
 												</span>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+
 							<div class="d-block d-md-flex listing-horizontal">
 								<div class="lh-content">
-									<h3>특이사항</h3>
-									<div contenteditable="true" id="uniqueness"></div>
-									<input type="hidden" name="mb_unique" id="mb_unique" required>
+									<div class="d-block my-3">
+										<h3>요구사항</h3>
+										<div contenteditable="true" id="uniqueness"></div>
+										<input type="hidden" name="mb_request" id="mb_request">
+									</div>
 								</div>
 							</div>
-							<div class="col-12 mt-5 text-center"></div>
+							<div class="conb">
+								<a href="/mb/mb_board" class="text-white" id="modified">목록</a>
+							</div>
 						</div>
+
 						<div class="col-lg-4 ml-5">
 							<div data-brackets-id='1'>
 								<div data-brackets-id='2'
@@ -285,198 +292,200 @@
 										style="display: flex; flex-direction: row; justify-content: space-between;">
 
 										<div id="timelist">
-											<div>
-												<input type="checkbox" class="selectime ba" value="first"
-													name="mb_time" id="first"><label for="first"><span></span>1부
-													09:00 ~ 11:00</label>
+											<div class="timebox">
+												<div class="timestar">
+													<div>
+														<div class="stime bu">시작시간</div>
+													</div>
+													<div class="stimelist timestyle">
+														<ul>
+															<li data-time="1">09:00</li>
+															<li data-time="2">10:00</li>
+															<li data-time="3">11:00</li>
+															<li data-time="4">12:00</li>
+															<li data-time="5">13:00</li>
+															<li data-time="6">14:00</li>
+															<li data-time="7">15:00</li>
+															<li data-time="8">16:00</li>
+															<li data-time="9">17:00</li>
+															<li data-time="10">18:00</li>
+															<li data-time="11">19:00</li>
+															<li data-time="12">20:00</li>
+															<li data-time="13">21:00</li>
+															<li data-time="14">22:00</li>
+															<li data-time="15">23:00</li>
+															<li data-time="16">24:00</li>
+														</ul>
+													</div>
+												</div>
+												<div class="timeend">
+													<div>
+														<div class="etime bu">끝시간</div>
+													</div>
+													<div class="etimelist timestyle">
+														<ul>
+															<li data-time="1">09:00</li>
+															<li data-time="2">10:00</li>
+															<li data-time="3">11:00</li>
+															<li data-time="4">12:00</li>
+															<li data-time="5">13:00</li>
+															<li data-time="6">14:00</li>
+															<li data-time="7">15:00</li>
+															<li data-time="8">16:00</li>
+															<li data-time="9">17:00</li>
+															<li data-time="10">18:00</li>
+															<li data-time="11">19:00</li>
+															<li data-time="12">20:00</li>
+															<li data-time="13">21:00</li>
+															<li data-time="14">22:00</li>
+															<li data-time="15">23:00</li>
+															<li data-time="16">24:00</li>
+														</ul>
+													</div>
+												</div>
 											</div>
-											<div>
-												<input type="checkbox" class="selectime ba" value="second"
-													name="mb_time" id="second"><label for="second"><span></span>2부
-													11:00 ~ 13:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime ba" value="third"
-													name="mb_time" id="third"><label for="third"><span></span>3부
-													13:00 ~ 15:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime ba" value="fourth"
-													name="mb_time" id="fourth"><label for="fourth"><span></span>4부
-													15:00 ~ 17:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime ba" value="fifth"
-													name="mb_time" id="fifth"><label for="fifth"><span></span>5부
-													17:00 ~ 19:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime ba" value="sixth"
-													name="mb_time" id="sixth"><label for="sixth"><span></span>6부
-													19:00 ~ 21:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="am"
-													name="mb_time" id="am"><label for="am"><span></span>오전
-													09:00 ~ 14:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="pm"
-													name="mb_time" id="pm"><label for="pm"><span></span>오후
-													14:00 ~ 21:00</label>
-											</div>
-											<div>
-												<input type="checkbox" class="selectime" value="full"
-													name="mb_time" id="full"><label for="full"><span></span>풀타임
-													09:00 ~ 20:00</label>
-											</div>
+
 										</div>
+										<input type="hidden" id="stime" name="mb_stime"> <input
+											type="hidden" id="etime" name="mb_etime">
 									</div>
 									<div class="mb-5">
 										<div class="custom-pagination">
 											<button class="btn btn-primary text-white save">등록하기</button>
 										</div>
 									</div>
-									
+
 									<hr class="mb-4">
-                     <h3 class="h5 text-black mb-3 " style="text-align: center">
-                        가격 안내<i class="icofont-money"></i>
-                     </h3>
-                     <div id="pricing" style="text-align: center">
-                     
-                     <div data-brackets-id='33'
-                              style="width: 100%; border-radius: 8px; border: 1px solid #DFE3EA; box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.07); padding: 15px 15px; margin-top: 38px; margin-bottom: 38px">
-                              <div data-brackets-id='34'
-                                 style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
-                                 <p data-brackets-id='35'
-                                    style="font-size: 17px; font-weight: 600; letter-spacing: -0.2px; line-height: 25px; color: #81DAD6">이용 요금</p>
-                                 <div data-brackets-id='36'
-                                    style="display: flex; align-items: center; flex-direction: row">
-                                    <div data-brackets-id='37'
-                                       style="display: flex; flex-direction: row; align-items: center; margin-right: 8px">
-                                       <p data-brackets-id='38'
-                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">2시간당</p>
+									<h3 class="h5 text-black mb-3 " style="text-align: center">
+										가격 안내<i class="icofont-money"></i>
+									</h3>
+									<div id="pricing" style="text-align: center">
 
-                                       <div data-brackets-id='39'
-                                          style="width: 1px; height: 15px; background-color: #ECEDF0; margin-left: 5px; margin-right: 5px">
-                                       </div>
+										<div data-brackets-id='33'
+											style="width: 100%; border-radius: 8px; border: 1px solid #DFE3EA; box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.07); padding: 15px 15px; margin-top: 38px; margin-bottom: 38px">
+											<div data-brackets-id='34'
+												style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
+												<p data-brackets-id='35'
+													style="font-size: 17px; font-weight: 600; letter-spacing: -0.2px; line-height: 25px; color: #81DAD6">이용
+													요금</p>
+												<div data-brackets-id='36'
+													style="display: flex; align-items: center; flex-direction: row">
+													<div data-brackets-id='37'
+														style="display: flex; flex-direction: row; align-items: center; margin-right: 8px">
+														<p data-brackets-id='38'
+															style="font-size: 13px; line-height: 18px; color: #81DAD6">2시간당</p>
 
-                                       <p data-brackets-id='40'
-                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">AM,PM</p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div data-brackets-id='43'
-                                 style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 31px; margin-bottom: 31px">
-                                 <div data-brackets-id='44'
-                                    style="display: flex; flex-direction: row; align-items: center; height: 24px">
-                                    <i class="icofont-dog-alt icofont-2x"></i>
-                                    <p data-brackets-id='46'
-                                       style="font-size: 15px; line-height: 19px; color: #81DAD6; margin-left: 10px">소</p>
-                                    <p data-brackets-id='47'
-                                       style="font-size: 12px; line-height: 17px; color: #999999; margin-left: 12px">7키로 미만</p>
-                                 </div>
-                                 <div data-brackets-id='48'
-                                    style="display: flex; flex-direction: row">
-                                    <div data-brackets-id='49'
-                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
-                                       <p data-brackets-id='50'
-                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">50포인트</p>
-                                    </div>
-                                    <div data-brackets-id='51'
-                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
-                                       <p data-brackets-id='52'
-                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">150포인트</p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div data-brackets-id='53'
-                                 style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 14px; margin-bottom: 31px">
-                                 <div data-brackets-id='54'
-                                    style="display: flex; flex-direction: row; align-items: center; height: 24px">
-                                    <i class="icofont-dog-alt icofont-3x"></i>
-                                    <p data-brackets-id='56'
-                                       style="font-size: 15px; line-height: 19px; color: #81DAD6; margin-left: 10px">중</p>
-                                    <p data-brackets-id='57'
-                                       style="font-size: 12px; line-height: 17px; color: #999999; margin-left: 12px">7~14.9키로</p>
-                                 </div>
-                                 <div data-brackets-id='58'
-                                    style="display: flex; flex-direction: row">
-                                    <div data-brackets-id='59'
-                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
-                                       <p data-brackets-id='60'
-                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">60포인트</p>
-                                    </div>
-                                    <div data-brackets-id='61'
-                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
-                                       <p data-brackets-id='62'
-                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">200포인트</p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div data-brackets-id='63'
-                                 style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-top: 14px">
-                                 <div data-brackets-id='64'
-                                    style="display: flex; flex-direction: row; align-items: center; height: 24px">
-                                    <i class="icofont-dog-alt icofont-4x"></i>
-                                    <p data-brackets-id='66'
-                                       style="font-size: 15px; line-height: 19px; color: #81DAD6; margin-left: 10px">대</p>
-                                    <p data-brackets-id='67'
-                                       style="font-size: 12px; line-height: 17px; color: #999999; margin-left: 12px">15키로  이상</p>
-                                 </div>
-                                 <div data-brackets-id='68'
-                                    style="display: flex; flex-direction: row">
-                                    <div data-brackets-id='69'
-                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
-                                       <p data-brackets-id='70'
-                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">65포인트</p>
-                                    </div>
-                                    <div data-brackets-id='71'
-                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
-                                       <p data-brackets-id='72'
-                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">250포인트</p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div data-brackets-id='73'
-                                 style="width: 310px; height: 1px; background-color: #EBEBEB; margin: 32px 0"></div>
-                              <div data-brackets-id='74'
-                                 style="display: flex; flex-direction: row; justify-content: space-between">
-                                 <p data-brackets-id='75'
-                                    style="font-family: Noto Sans KR, sans-serif; font-size: 14px; color: #81DAD6">풀타임
-                                    09:00~20:00</p>
-                                 <div data-brackets-id='76'
-                                    style="display: flex; flex-direction: column; justify-content: space-between">
-                                    <p data-brackets-id='77'
-                                       style="font-size: 13px; color: #81DAD6">400포인트</p>
-                                 </div>
-                              </div>
-                           </div>
-									
-									
-									<div class="mb-5">
-										<div id="map" style="width: 100%; height: 350px;"></div>
+														<div data-brackets-id='39'
+															style="width: 1px; height: 15px; background-color: #ECEDF0; margin-left: 5px; margin-right: 5px">
+														</div>
+
+														<p data-brackets-id='40'
+															style="font-size: 13px; line-height: 18px; color: #81DAD6">AM,PM</p>
+													</div>
+												</div>
+											</div>
+											<div data-brackets-id='43'
+												style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 31px; margin-bottom: 31px">
+												<div data-brackets-id='44'
+													style="display: flex; flex-direction: row; align-items: center; height: 24px">
+													<i class="icofont-dog-alt icofont-2x"></i>
+													<p data-brackets-id='46'
+														style="font-size: 15px; line-height: 19px; color: #81DAD6; margin-left: 10px">소</p>
+													<p data-brackets-id='47'
+														style="font-size: 12px; line-height: 17px; color: #999999; margin-left: 12px">7키로
+														미만</p>
+												</div>
+												<div data-brackets-id='48'
+													style="display: flex; flex-direction: row">
+													<div data-brackets-id='49'
+														style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
+														<p data-brackets-id='50'
+															style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">50포인트</p>
+													</div>
+													<div data-brackets-id='51'
+														style="display: flex; flex-direction: column; align-items: center; width: 62px">
+														<p data-brackets-id='52'
+															style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">150포인트</p>
+													</div>
+												</div>
+											</div>
+											<div data-brackets-id='53'
+												style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 14px; margin-bottom: 31px">
+												<div data-brackets-id='54'
+													style="display: flex; flex-direction: row; align-items: center; height: 24px">
+													<i class="icofont-dog-alt icofont-3x"></i>
+													<p data-brackets-id='56'
+														style="font-size: 15px; line-height: 19px; color: #81DAD6; margin-left: 10px">중</p>
+													<p data-brackets-id='57'
+														style="font-size: 12px; line-height: 17px; color: #999999; margin-left: 12px">7~14.9키로</p>
+												</div>
+												<div data-brackets-id='58'
+													style="display: flex; flex-direction: row">
+													<div data-brackets-id='59'
+														style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
+														<p data-brackets-id='60'
+															style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">60포인트</p>
+													</div>
+													<div data-brackets-id='61'
+														style="display: flex; flex-direction: column; align-items: center; width: 62px">
+														<p data-brackets-id='62'
+															style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">200포인트</p>
+													</div>
+												</div>
+											</div>
+											<div data-brackets-id='63'
+												style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-top: 14px">
+												<div data-brackets-id='64'
+													style="display: flex; flex-direction: row; align-items: center; height: 24px">
+													<i class="icofont-dog-alt icofont-4x"></i>
+													<p data-brackets-id='66'
+														style="font-size: 15px; line-height: 19px; color: #81DAD6; margin-left: 10px">대</p>
+													<p data-brackets-id='67'
+														style="font-size: 12px; line-height: 17px; color: #999999; margin-left: 12px">15키로
+														이상</p>
+												</div>
+												<div data-brackets-id='68'
+													style="display: flex; flex-direction: row">
+													<div data-brackets-id='69'
+														style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
+														<p data-brackets-id='70'
+															style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">65포인트</p>
+													</div>
+													<div data-brackets-id='71'
+														style="display: flex; flex-direction: column; align-items: center; width: 62px">
+														<p data-brackets-id='72'
+															style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">250포인트</p>
+													</div>
+												</div>
+											</div>
+											<div data-brackets-id='73'
+												style="width: 310px; height: 1px; background-color: #EBEBEB; margin: 32px 0"></div>
+											<div data-brackets-id='74'
+												style="display: flex; flex-direction: row; justify-content: space-between">
+												<p data-brackets-id='75'
+													style="font-family: Noto Sans KR, sans-serif; font-size: 14px; color: #81DAD6">풀타임
+													09:00~20:00</p>
+												<div data-brackets-id='76'
+													style="display: flex; flex-direction: column; justify-content: space-between">
+													<p data-brackets-id='77'
+														style="font-size: 13px; color: #81DAD6">400포인트</p>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="mb-5">
+											<div id="map" style="width: 100%; height: 350px;"></div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+
 					</div>
 				</form>
 			</div>
 		</div>
-
-		<script>
-			$("#uniqueness").on("keyup", function() {
-				var uniquetext = $("#uniqueness").html();
-				$("#mb_unique").val(uniquetext);
-			})
-			
-			$("#title").on("keyup", function() {
-				var title = $("#title").html();
-				$("#mb_title").val(title);
-			})
-		</script>
-
 
 		<div class="py-5 bg-primary">
 			<div class="container">
@@ -633,30 +642,143 @@
 		});
 	</script>
 	<script>
-		$(function(){
-			$(".petname").on("click",function(){	
+		$(function() {
+			$(".petname").on("click", function() {
 				var src = [];
-				$(".petname:checked").each(function(index,item){
+				$(".petname:checked").each(function(index, item) {
 					src.push($(this).data("imgsrc"));
-				})					
+				})
+
 				$("#petphoto").val(src);
 			})
-			
-			$(".selectime").on("click",function(){
-				if($(this).prop("checked") == true && $("#am").prop("checked") == true){
-					$(".ba").prop("checked",false);
-					$("#full").prop("checked",false);
-				}
-				if($(this).prop("checked") == true && $("#pm").prop("checked") == true){
-					$(".ba").prop("checked",false);
-					$("#full").prop("checked",false);
-				}
-				if($(this).prop("checked") == true && $("#full").prop("checked") == true){
-					$(".ba").prop("checked",false);
-					$("#am").prop("checked",false);
-					$("#pm").prop("checked",false);
-				}	
+
+			$(".selectime").on(
+					"click",
+					function() {
+						if ($(this).prop("checked") == true
+								&& $("#am").prop("checked") == true) {
+							$(".ba").prop("checked", false);
+							$("#full").prop("checked", false);
+						}
+						if ($(this).prop("checked") == true
+								&& $("#pm").prop("checked") == true) {
+							$(".ba").prop("checked", false);
+							$("#full").prop("checked", false);
+						}
+						if ($(this).prop("checked") == true
+								&& $("#full").prop("checked") == true) {
+							$(".ba").prop("checked", false);
+							$("#am").prop("checked", false);
+							$("#pm").prop("checked", false);
+						}
+					})
+		})
+	</script>
+	<script>
+		$(function() {
+			$(".stimelist").hide();
+			$(".etimelist").hide();
+
+			$(".stime").on("click", function() {
+				$(".stimelist").show(100);
 			})
+
+			$("li").on("click", function() {
+				$(this).parent().parent().hide();
+				var bu = $(this).parent().parent().siblings().children();
+				var htmlV = $(this).html();
+				bu.html(htmlV);
+			})
+			var dataTime = '';
+			$(".stimelist  li").on("click", function() {
+				dataTime = $(this).data("time");
+				$(".stime").attr("data-time", dataTime)
+			});
+
+			$(".etimelist  li").on("click", function() {
+				var edata = $(this).data("time");
+				if (dataTime >= edata) {
+					alert("다시선택하세요");
+					$(".etime").html("끝시간");
+				} else {
+					$("#stime").val($(".stime").html());
+					$("#etime").val($(".etime").html());
+					return true
+				}
+			});
+
+			$(".etime").on("click", function() {
+				$(".etimelist").show(100);
+			})
+
+		})
+	</script>
+	<script>
+		$("#uniqueness").on("keyup", function() {
+			var uniquetext = $("#uniqueness").html();
+			$("#mb_request").val(uniquetext);
+		})
+
+		$("#title").on("keyup", function() {
+			var title = $("#title").html();
+			$("#mb_title").val(title);
+		})
+	</script>
+	<script>
+		$("#send").on("submit", function() {
+			var titleVal = $("#mb_title").val();
+			var timeVal = $(".bu").data("time");
+			var petVal = $(".petname:checked").val();
+			var serviceVal = $(".chservi:checked").val();
+			var startdayVal = $("#mb_startday").val();
+			var requestVal = $("#mb_request").val();
+			if (titleVal == "") {
+				alert("제목을 입력 해주세요");
+				return false;
+			}
+
+			if (timeVal == null) {
+				alert("시간을 선택 해주세요");
+				return false;
+			}
+
+			if (petVal == null) {
+				alert("강아지를 선택 해주세요");
+				return false;
+			}
+
+			if (serviceVal == null) {
+				alert("서비스를 선택 해주세요");
+				return false;
+			}
+
+			if (startdayVal == "") {
+				alert("날짜를 선택 해주세요");
+				return false;
+			}
+
+			if (requestVal == "") {
+				alert("특이 사항을 입력 해주세요");
+				return false;
+			}
+		})
+	</script>
+	<script>
+		$("#send").on("submit", function() {
+			var count = 0;
+			<c:forEach var="i" items="${petname}">
+			$(".petname:checked").each(function(index, item) {
+				if ("${i}" == $(item).val()) {
+					count++
+				}
+			})
+			</c:forEach>
+			if (count > 0) {
+				alert("이미등록된 강아지가 있습니다.")
+				return false;
+			} else {
+				return true;
+			}
 		})
 	</script>
 </body>

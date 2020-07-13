@@ -282,11 +282,11 @@ input {
 								<label for="username">펫 크기</label>
 								<div>
 									<input type="radio" style="display: inline-block;"
-										id="castration" name="pet_type" value="F">&nbsp;소
+										id="castration" name="pet_type" value="소">&nbsp;소
 									<input type="radio" style="display: inline-block;"
-										id="castration" name="pet_type" value="F">&nbsp;중
+										id="castration" name="pet_type" value="중">&nbsp;중
 										<input type="radio" style="display: inline-block;"
-										id="castration" name="pet_type" value="F">&nbsp;대
+										id="castration" name="pet_type" value="대">&nbsp;대
 								</div>
 							</div>
 
