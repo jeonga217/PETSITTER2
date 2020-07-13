@@ -800,7 +800,7 @@ ul>li, input {
 							</c:when>
 							<c:otherwise>
 								<button id="submit_frm" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block" type="submit">신청하기</button>
-								<button id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
+								<button type="button" id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
 							</c:otherwise>
 						</c:choose>
 					</div>
