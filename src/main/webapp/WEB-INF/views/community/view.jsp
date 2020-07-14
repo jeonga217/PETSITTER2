@@ -246,8 +246,8 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 								</div>
 								<div class="modal-body">
 								<form name="report_mem">
-									<input type="text" id="r_seq" name="r_parent_seq" value=0>
-									<input type="text" id="r_target" name="report_target" value=""> 
+									<input type="text" id="r_seq" name="r_parent_seq" value=0 style="display: none;">
+									<input type="text" id="r_target" name="report_target" value="" style="display: none;"> 
 									<textarea name="report_contents" style="width: 100%" placeholder="신고내용을 간단히 기재해주세요" id="report_text"></textarea>
 								</form>
 								</div>
