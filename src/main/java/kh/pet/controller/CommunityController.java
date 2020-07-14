@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kh.pet.dto.CommentsDTO;
 import kh.pet.dto.CommunityDTO;
 import kh.pet.dto.CommunityListDTO;
+import kh.pet.dto.MemberDTO;
 import kh.pet.dto.ReportDTO;
 import kh.pet.service.CommentsService;
 import kh.pet.service.CommunityService;
@@ -144,7 +145,7 @@ public class CommunityController {
 
 		CommunityListDTO cu_dto = (CommunityListDTO)session.getAttribute("view");
 		int cm_parent_seq = cu_dto.getCu_seq();
-		String cm_writer = (String)session.getAttribute("id");
+		String cm_writer = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
 		int result = cm_service.insert(cm_dto, cm_parent_seq, cm_writer);
 
 		List<CommentsDTO> cm_list = cm_service.commentsAll(cm_parent_seq);
@@ -195,14 +196,28 @@ public class CommunityController {
 	
 	//신고기능
 	@RequestMapping("report")
-	public void report(ReportDTO r_dto) throws Exception {
-		
+	public void report(ReportDTO r_dto){
+		String report_id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+		r_dto.setReport_id(report_id);
 		CommunityListDTO cu_dto = (CommunityListDTO)session.getAttribute("view");
-		int r_parent_seq = cu_dto.getCu_seq();
-		String report_id = (String)session.getAttribute("id");
-		
-		cu_service.insertReport(r_parent_seq, report_id, r_dto);
-	}
 
+		if(r_dto.getReport_target().contentEquals("")) {
+			//게시글 신고 창 -- seq, target, id, conternt 들어가 있음 나머지 채워서 db 넣기
+			r_dto.setR_parent_seq(cu_dto.getCu_seq());
+			r_dto.setReport_target(cu_dto.getCu_contents());
+			System.out.println(r_dto.getR_parent_seq());
+			System.out.println(r_dto.getReport_target());
+			System.out.println(r_dto.getReport_contents());
+		}
+		else {
+			//댓글 신고 창 -- seq, target, id, conternt 들어가 있음 나머지 채워서 db 넣기
+			System.out.println(r_dto.getR_parent_seq());
+			System.out.println(r_dto.getReport_target());
+			System.out.println(r_dto.getReport_contents());
+		}
+
+		
+	
+	}
 
 }

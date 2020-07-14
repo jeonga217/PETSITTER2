@@ -13,6 +13,7 @@ import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.ReportDTO;
 import kh.pet.dto.ReserveDto;
 import kh.pet.dto.Stop_memberDTO;
+import kh.pet.dto.Visitor_countDTO;
 import kh.pet.dto.WaitlistDTO;
 
 @Repository
@@ -116,6 +117,16 @@ public class AdminDAO {
 	public int cancel_pettsiter(int seq) {
 		return mybatis.delete("Admin.del_rsv",seq);
 	}
+	
+	//차트 신고 관련 프로그램
+	public List<Visitor_countDTO> be_visiter(){
+		return mybatis.selectList("Admin.be_week");
+	}
+	
+	public List<Visitor_countDTO> to_visiter(){
+		return mybatis.selectList("Admin.to_week");
+	}
+	
 	
 	//신고 관련 테이블
 	public List<ReportDTO> reportlist(){

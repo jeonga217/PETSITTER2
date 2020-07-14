@@ -100,6 +100,15 @@
 	
 	
 	
+	<!--chart information  -->
+	<select id="be_week" resultType="kh.pet.dto.Visitor_countDTO">
+		select to_char(v_date,'day'),v_count from visitor_count where v_date between sysdate-14 and sysdate-7 order by v_date;
+	</select>
+	
+	<select id="to_week" resultType="kh.pet.dto.Visitor_countDTO">
+		select to_char(v_date,'day'),v_count from visitor_count where v_date between sysdate-7 and sysdate order by v_date;
+	</select>
+	
 	<!--report management -->
 	<select id="reportlist" resultType="kh.pet.dto.ReportDTO">
 		select * from report

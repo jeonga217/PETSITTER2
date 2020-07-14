@@ -18,6 +18,7 @@ import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.ReportDTO;
 import kh.pet.dto.ReserveDto;
 import kh.pet.dto.Stop_memberDTO;
+import kh.pet.dto.Visitor_countDTO;
 import kh.pet.dto.WaitlistDTO;
 import kh.pet.staticInfo.Admin_Configuration;
 
@@ -246,6 +247,14 @@ public class AdminService {
 	//게시글 신고 관리
 	public List<ReportDTO> reportlist(){
 		return dao.reportlist();
+	}
+	
+	//일일 방문자 체크
+	public List<Visitor_countDTO> be_visitor(){
+		return  dao.be_visiter();
+	}
+	public List<Visitor_countDTO> to_visitor(){
+		return  dao.to_visiter();
 	}
 	
 }
