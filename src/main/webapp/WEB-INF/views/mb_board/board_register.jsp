@@ -172,8 +172,8 @@
 					<div class="row">
 						<div class="col-lg-7">
 							<div class="d-block d-md-flex listing-horizontal">
-								<div class="lh-content">
 									<div class="title">
+								<div class="lh-content">
 										<h3>제목</h3>
 										<div contenteditable="true" id="title"></div>
 										<input type="hidden" name="mb_title" id="mb_title">
@@ -187,17 +187,17 @@
 								</div>
 								<div class="lh-content">
 									<div class="pet">
+									<c:forEach items="${petname}" var="j">
 										<c:forEach items="${list}" var="i">
-											<c:forEach items="${petname}" var="j">
-												<c:if test="${i.pet_name ne j}">
+											<c:if test="${i.pet_name ne j}">	
 													<input type="hidden" name="mb_petphoto" id="petphoto">
 													<input type="checkbox" data-imgsrc="${i.pet_photo}"
 														class="petname" name="mb_pet_name" id="${i.pet_name}"
 														value="${i.pet_name}" />
-													<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
-												</c:if>
-											</c:forEach>
+													<label for="${i.pet_name}"><span></span>${i.pet_name}</label>		
+											</c:if>
 										</c:forEach>
+									</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -765,24 +765,7 @@
 			}
 		})
 	</script>
-	<!-- <script>
-		$("#send").on("submit", function() {
-			var count = 0;
-			<c:forEach var="i" items="${petname}">
-			$(".petname:checked").each(function(index, item) {
-				if ("${i}" == $(item).val()) {
-					count++
-				}
-			})
-			</c:forEach>
-			if (count > 0) {
-				alert("이미등록된 강아지가 있습니다.")
-				return false;
-			} else {
-				return true;
-			}
-		})
-	</script> -->
+
 </body>
 
 </html>

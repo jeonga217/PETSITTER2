@@ -48,13 +48,6 @@ public class Mb_boardController {
 				petname.add(PetNameArr);
 			}
 		}
-		
-		for(Mypet_regDTO a: list) {
-			System.out.println("a"+a.getPet_name());
-		}
-		for(String b: petname) {
-			System.out.println("b"+b);
-		}
 		m.addAttribute("petname",petname);
 		m.addAttribute("list", list);
 		m.addAttribute("add", add);
@@ -158,26 +151,42 @@ public class Mb_boardController {
 		String[] servicearr = modlist.getMb_service().split(",");
 		List<String> petnames = new ArrayList<>();
 		List<String> services = new ArrayList<>();
+		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
 		List<MemboardDto> plist = service.petselname(mdto.getMem_id());
 		List<String[]> petarr = new ArrayList<>();
 		List<String> petname = new ArrayList<>();
-		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
 		for(String service : servicearr) {
 			services.add(service);
 		}
 		for(String pet : petnamearr) {
 			petnames.add(pet);
 		}		
+		
 		for(MemboardDto petlist : plist) {
 			petarr.add(petlist.getMb_pet_name().split(","));
 		}
+		
 		for(String[] PetNameList : petarr) {
 			for(String PetNameArr : PetNameList) {
 				petname.add(PetNameArr);
 			}
 		}
+		
+		List<String> petexc = new ArrayList<>();
+		for(String petbod : petnames) {
+			System.out.println("b"+petbod);
+			for(String petlib : petname) {
+				System.out.println("a"+petlib);
+				if(!petlib.contentEquals(petbod)) {
+					System.out.println("pet"+petlib);
+					petexc.add(petlib);		
+				}
+			}
+		}
+			
+		
 		String add = service.addselec(modlist.getMb_writer());
-		m.addAttribute("petname",petname);
+		m.addAttribute("petexc",petexc);
 		m.addAttribute("list", list);
 		m.addAttribute("add", add);	
 		m.addAttribute("modlist", modlist);	

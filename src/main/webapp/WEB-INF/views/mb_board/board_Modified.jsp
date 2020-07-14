@@ -206,15 +206,17 @@
 
 								<div class="lh-content">
 									<div class="pet">
-										<c:if test="${!empty list}">
+										<c:forEach var="j" items="${petexc}">
 											<c:forEach items="${list}" var="i">
+											<c:if test="${i.pet_name ne j}">
 												<input type="hidden" name="mb_petphoto" id="petphoto">
-												<input type="checkbox" data-imgSrc="${i.pet_photo}"
+												<input type="checkbox" data-imgsrc="${i.pet_photo}"
 													class="petname" name="mb_pet_name" id="${i.pet_name}"
 													value="${i.pet_name}" />
 												<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
+											</c:if>
 											</c:forEach>
-										</c:if>
+										</c:forEach>
 									</div>
 								</div>
 
@@ -717,5 +719,21 @@
 			}
 		})
 	</script>
+	<!-- <script>
+		$("#send").on("submit", function() {
+			var count=0;
+			<c:forEach var="i" items="${petexc}">
+				$(".petname:checked").each(function(index, item) {
+					console.log($(item).val());
+					if ("${i}" == $(item).val()) {
+						alert("이미 강아지가 존재 합니다.")
+						return false;
+					}
+				})
+			</c:forEach>
+				return false;
+		})
+	</script> -->
+
 </body>
 </html>

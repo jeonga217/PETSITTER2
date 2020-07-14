@@ -25,7 +25,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home(Locale locale, Model model) {
 		
-		return "main";
+		return "outmain";
 	}
 	
 	
