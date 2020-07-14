@@ -255,8 +255,18 @@ ul>li, input {
 		        		 }
 		         })
 		         
+		         
+		         // 포인트 계산
 		        	$(".price_item").on("change",function(){
 		        		if(($("input[name='rsv_pet_name']:checked").val()&& $("#rsv_start_day").val()&&$("#rsv_end_day").val() && $("input[name='rsv_time']:checked").val())!=null){
+		        			var diffDate_1 = new Date( $("#rsv_start_day").val());
+		        			var diffDate_2 = new Date($("#rsv_end_day").val());
+		        			diffDate_1 = new Date(diffDate_1.getFullYear(),diffDate_1.getMonth()+1, diffDate_1.getDate());
+		        			diffDate_2 = new Date(diffDate_2.getFullYear(),diffDate_2.getMonth()+1, diffDate_2.getDate());
+		        			 var diff=Math.abs(diffDate_2.getTime() - diffDate_1.getTime());
+		        			 diff = Math.ceil(diff/(1000*3600*24))+1;
+		        			
+		        			 
 		        			var timearr = [];
 			        		$("input[name='rsv_time']:checked").each(function(index,item){
 			        			timearr.push($(item).val());
@@ -277,13 +287,14 @@ ul>li, input {
 			        		 url:"/board/selectPrice",
 			        		 dataType:"json",
 			        		 type:"POST",
+			        		
 			        		 data : form,
 			        		 success : function(result){
 			        			 var total=0;
 			        			 for(var i=0;i<result.length;i++){
 			        				total += result[i];
 			        			 }
-			        			 $("#rsv_point").val(total);
+			        			 $("#rsv_point").val(diff*total);
 			        		 }
 			        	 })
 			        		
@@ -343,6 +354,21 @@ ul>li, input {
 					}
 				});
 		}
+		
+			function check() {
+				if(!$("input:checkbox[name='rsv_pet_name']").is(":checked")){
+					alert("돌봄 맡길 마이펫을 선택해주세요.");
+					$("input:checkbox[name='rsv_pet_name']").focus();
+					 return false;
+				}
+				if(!$("input:checkbox[name='rsv_time']").is(":checked")){
+					alert("예약 시간을 선택해주세요.");
+					$("input:checkbox[name='rsv_time']").focus();
+					 return false;
+				}
+				
+				
+			}
     </script>
 
 	<div class="site-section">
@@ -412,15 +438,15 @@ ul>li, input {
 								<h5 class="mb-3">거주 유형</h5>
 								<div class="resident_type_list">
 										<ul>
-											<li><input type="radio" id="resident_type1" name="ps_resident_type" value=단독주택 required/>
+											<li><input type="radio" id="resident_type1" name="ps_resident_type" value=단독주택 />
 											<label for="resident_type1"><span></span>단독주택</label></li>
-											<li><input type="radio" id="resident_type2" name="ps_resident_type" value=아파트 required/>
+											<li><input type="radio" id="resident_type2" name="ps_resident_type" value=아파트 />
 											<label for="resident_type2"><span></span>아파트</label></li>
-											<li><input type="radio" id="resident_type3" name="ps_resident_type" value=빌라 required/>
+											<li><input type="radio" id="resident_type3" name="ps_resident_type" value=빌라 />
 											<label for="resident_type3"><span></span>빌라</label></li>
-											<li><input type="radio" id="resident_type4" name="ps_resident_type" value=원룸 required/>
+											<li><input type="radio" id="resident_type4" name="ps_resident_type" value=원룸 />
 											<label for="resident_type4">원룸</label></li>
-											<li><input type="radio" id="resident_type5" name="ps_resident_type" value=오피스텔 required/>
+											<li><input type="radio" id="resident_type5" name="ps_resident_type" value=오피스텔 />
 											<label for="resident_type5">오피스텔</label></li>
 										</ul>
 								</div>
@@ -558,7 +584,7 @@ ul>li, input {
 				</div>
 				
 				<div class="col-lg-4 ml-5">
-					<form action="/board/waitList">
+					<form action="/board/waitList" onSubmit="return check()">
 					<h3 class="h5 text-black mb-3 " style="text-align: center">
 						날짜 선택<i class="icofont-calendar"></i>
 					</h3>
@@ -585,17 +611,17 @@ ul>li, input {
 							 var now = new Date();
 							 var reserve_list = "${reserve_list}";
 							 var blacklist=[] ;
-							 <c:forEach items="${reserve_list}" var="item1">
-							 {
-								<c:if test="${item1.am ==0} && ${item1.pm ==0}">
-									blacklist.add("${item1.cur_date}");
-									
-								</c:if>
-							 }
-							 </c:forEach>
+							 
+							 
+								 <c:forEach items="${reserve_list}" var="item1"> 
+									<c:if test="${item1.am == 0 && item1.pm == 0 }">
+										blacklist.push(new Date("${item1.cur_date}"));
+									</c:if>
+								 </c:forEach>
+							 
 				               var datePicker = new Datepickk1({
 				                  	container:document.querySelector('#datePicker'),
-				                    minDate : new Date("${tot_Info.psb_start_day}").setDate(new Date("${tot_Info.psb_start_day}").getDate()-1), //문자열
+				                    minDate : "${tot_Info.psb_start_day}", //문자열
 				                    maxDate : "${tot_Info.psb_end_day}",
 				                    disabledDates : blacklist,
 				                    inline:true,

@@ -1,6 +1,5 @@
 package kh.pet.dao;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +15,7 @@ import kh.pet.dto.CurrentReserveDTO;
 import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
+import kh.pet.dto.ReserveDto;
 import kh.pet.dto.TotboardDTO;
 import kh.pet.dto.WaitlistDTO;
 
@@ -92,7 +92,7 @@ public class PetsitterboardDAO {
 	}
 	
 	public int updateCurrentReserve(List<CurrentReserveDTO> reserve_list) throws Exception{
-		for(int i=1;i<reserve_list.size();i++) {
+		for(int i=0;i<reserve_list.size();i++) {
 			mybatis.update("Board.updateCurrentReserve",reserve_list.get(i));
 		}
 		return 1;
@@ -101,13 +101,16 @@ public class PetsitterboardDAO {
 	public List<Integer> selectPrice (List<Object> list)throws Exception{
 		ArrayList<Integer> pricelist = new ArrayList<>();
 		for(int i=0;i<list.size();i++) {
-			System.out.println("¿©±â:"+list.get(i));
 			pricelist.add(mybatis.selectOne("Board.selectPrice",list.get(i)));
 		}
 		return pricelist;
 	}
 	
-//	public List<Date> selectFullday(String board_seq) throws Exception{
-//		return mybatis.selectList("Board.selectFullday",board_seq);
-//	}
+	public int cancelReserve(String reserve_seq) throws Exception{
+		return mybatis.selectOne("Board.cancelReserve",reserve_seq);
+	}
+	
+	public ReserveDto selectReserve(String reserve_seq) throws Exception{
+		return mybatis.selectOne("Board.selectReserve",reserve_seq);
+	}
 }

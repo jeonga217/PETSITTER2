@@ -27,6 +27,7 @@ import kh.pet.dto.MemberDTO;
 import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
+import kh.pet.dto.ReserveDto;
 import kh.pet.dto.TotboardDTO;
 import kh.pet.dto.WaitlistDTO;
 import kh.pet.service.PetsitterService;
@@ -91,7 +92,6 @@ public class PetsitterboardController {
 	@RequestMapping("output")
 	public String output(Model model)throws Exception{
 		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
-		System.out.println(mem_id);
 		PetsitterDTO psdto = psservice.selectById(mem_id);
 		model.addAttribute("petsitter_Info", psdto);
 		return"petsitter_board/board/board_register";
@@ -133,9 +133,6 @@ public class PetsitterboardController {
 			}
 			daylist.add(day_list);
 		}
-//		for(int i=0;i<daylist.size();i++) {
-//			System.out.println(daylist.get(i));
-//		}
 		psbservice.createTb(daylist);
 		model.addAttribute("tot_Info",totdto);
 		model.addAttribute("psb_writer",totdto.getPsb_writer());
@@ -173,8 +170,6 @@ public class PetsitterboardController {
 	@ResponseBody
 	@RequestMapping(value="/selectPrice", method=RequestMethod.POST)
 	public List<Integer> selectPrice(@RequestParam(value="timearr[]") List<String> timearr,@RequestParam(value="typearr[]")List<String> typearr) throws Exception{
-		System.out.println(timearr);
-
 		ArrayList<Object> list = new ArrayList<>();
 		for(String time:timearr) {
 			for(String type:typearr) {
@@ -185,5 +180,12 @@ public class PetsitterboardController {
 			}
 		}
 	return psbservice.selectPrice(list);
+	}
+	
+	//예약취소 버튼 누르면  reserve_seq값 받아서 AJAX로 취소 창 띄워주기
+	@ResponseBody
+	@RequestMapping("/cancelReserve")
+	public int cancelReserve(String reserve_seq)throws Exception{
+		return psbservice.cancelReserve(reserve_seq);
 	}
 }

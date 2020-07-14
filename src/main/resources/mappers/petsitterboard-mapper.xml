@@ -20,6 +20,10 @@
 		delete from petsitter_board where psb_seq=#{psb_seq}
 	</delete>
 	
+	<delete id="cancelReserve">
+		delete from reservation where reserve_seq = #{reserve_seq}
+	</delete>
+	
 	<select id="selectBoard" resultType="kh.pet.dto.TotboardDTO">
 		select psb.psb_seq psb_seq, psb.psb_title psb_title, psb.psb_writer psb_writer, psb.psb_thumb psb_thumb, ps.ps_age ps_age, ps.ps_gender ps_gender, ps.ps_address1 ps_address1, psb.psb_petType psb_petType, ps.ps_resident_type ps_resident_type, psb.psb_service psb_service, psb.psb_contents psb_contents, psb.psb_start_day psb_start_day, psb.psb_end_day psb_end_day, psb.psb_time psb_time from petsitter_board psb, petsitter ps where ps.ps_id=#{writer} and psb.psb_seq=#{seq}
 	</select>
@@ -58,7 +62,7 @@
 	</select>
 	
 	<select id="checkExistReservation" resultType="int">
-		select count(*) from reservation where PETSITTER_PARENT_SEQ = #{psb_seq}
+		select count(*) from reservation where petsitter_board_seq = #{psb_seq}
 	</select>
 	
 	<update id="updateCurrentReserve">
@@ -69,7 +73,9 @@
 		select point from price where time = #{time} and pet_type = #{type} 
 	</select>
 	
-	<select id="selectFullday" resultType="list">
-		select cur_date from cur_reserve where parent_board_seq = #{board_seq}
+	<select id="selectReserve" resultType="kh.pet.dto.ReserveDto">
+		select * from reservation where reserve_seq  = #{reserve_seq}
 	</select>
+	
+
 </mapper>
