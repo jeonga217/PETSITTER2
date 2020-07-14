@@ -84,7 +84,7 @@ public class CommunityService {
 		int start = cpage*Community_Configuration.RECORD_COUNT_PER_PAGE - (Community_Configuration.RECORD_COUNT_PER_PAGE-1);
 		int end = start + (Community_Configuration.RECORD_COUNT_PER_PAGE-1);
 		
-		Map<String,Integer> number = new HashMap<>();
+		Map<String,Integer> number = new HashMap<String, Integer>();
 		number.put("start", start);
 		number.put("end", end);
 		
@@ -99,7 +99,7 @@ public class CommunityService {
 		
 		cu_view_cnt ++;
 		
-		Map<String,Integer> numcnt = new HashMap<>();
+		Map<String,Integer> numcnt = new HashMap<String, Integer>();
 		
 		numcnt.put("cu_seq", cu_seq);
 		numcnt.put("cu_view_cnt", cu_view_cnt);
@@ -129,7 +129,7 @@ public class CommunityService {
 		int start = cpage*Community_Configuration.RECORD_COUNT_PER_PAGE - (Community_Configuration.RECORD_COUNT_PER_PAGE-1);
 		int end = start + (Community_Configuration.RECORD_COUNT_PER_PAGE-1);
 		
-		Map<String, Object> searchOption = new HashMap<>();
+		Map<String, Object> searchOption = new HashMap<String, Object>();
 		searchOption.put("start", start);
 		searchOption.put("end", end);
 		searchOption.put("keyword", keyword);
@@ -141,7 +141,7 @@ public class CommunityService {
 	//검색 게시판 _ 페이지네비
 			public String getSearchPageNavi(int userCurrentPage,String keyword, String search_option) throws SQLException, Exception {
 				
-				Map<String, Object> searchOption = new HashMap<>();
+				Map<String, Object> searchOption = new HashMap<String, Object>();
 				searchOption.put("keyword", keyword);
 				searchOption.put("search_option",search_option);
 				int recordTotalCount = cu_dao.searchCount(searchOption); //총 게시물의 갯수. DB

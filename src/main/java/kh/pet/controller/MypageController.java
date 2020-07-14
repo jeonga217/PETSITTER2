@@ -1,7 +1,5 @@
 package kh.pet.controller;
 
-import java.security.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,11 +9,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import kh.pet.dao.MypageDAO;
 import kh.pet.dto.MemberDTO;
+import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PointDTO;
 import kh.pet.dto.RegLookupDTO;
+import kh.pet.service.Mypage_dateService;
+import kh.pet.service.Mypage_petmodfiyService;
 import kh.pet.service.Pet_listService;
 import kh.pet.service.PointService;
 
@@ -24,6 +26,9 @@ import kh.pet.service.PointService;
 public class MypageController {
 
 	int sum = 0;
+	
+	@Autowired
+	private Mypage_petmodfiyService petmodfiy;
 
 	@Autowired
 	private MypageDAO mdao;
@@ -37,7 +42,8 @@ public class MypageController {
 	@Autowired
 	private PointService pointservice;
 
-
+	@Autowired
+	private Mypage_dateService dateservice;
 	
 	
 	@RequestMapping("mypage")
@@ -61,8 +67,6 @@ public class MypageController {
 	@RequestMapping("community")
 	public String community(HttpServletRequest request) {
 		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
-//		List<MyPage_CommunityDTO> list = mdao.community(dto.getMem_id());
-//		request.setAttribute("list", list);
 		try {
 			int cpage = 1;
 			try {
@@ -107,18 +111,11 @@ public class MypageController {
 			} catch (Exception e) {
 			}
 			MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
-			
 			System.out.println("현재페이지:" + cpage);
 			List<Object> bdto = plistservice.selectByPageNo(cpage, dto.getMem_id(), "listpoint");
 			String navi = plistservice.getPageNavi(cpage, "listpoint");
 			List<PointDTO> list = mdao.pointall(dto.getMem_id());
-			SimpleDateFormat formats = new SimpleDateFormat("MM");
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println("원본 날짜  : "+list.get(i).getP_date());
-				String day = formats.format(list.get(i).getP_date());
-				System.out.println("날짜 : "+day);
-				list.get(i).setP_dates(day);
-			}
+			List<int[]> pm = dateservice.datesetting(list);
 			String mem_type = mdao.typecheck(dto.getMem_id());
 			int sum = mdao.pointcount(dto.getMem_id());
 			request.setAttribute("navi", navi);
@@ -126,7 +123,7 @@ public class MypageController {
 			request.setAttribute("mem_type", mem_type);
 			request.setAttribute("sum", sum);
 			request.setAttribute("list", list);
-			
+			request.setAttribute("pm", pm);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -163,7 +160,7 @@ public class MypageController {
 				cpage = Integer.parseInt(request.getParameter("cpage"));
 			} catch (Exception e) {
 			}
-			System.out.println("현재페이지 :" + cpage);
+			System.out.println("현재페이지:" + cpage);
 			List<Object> bdto = plistservice.selectByPageNo(cpage, dto.getMem_id(), "list");
 			String navi = plistservice.getPageNavi(cpage, "list");
 			request.setAttribute("navi", navi);
@@ -177,6 +174,22 @@ public class MypageController {
 	@RequestMapping("registration")
 	public String registration() {
 		return "mypage/mypet-registration";
+	}
+	
+	@RequestMapping("modfiy")
+	public String modfiy(HttpServletRequest request) {
+		int seq = Integer.parseInt(request.getParameter("seq"));
+		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		Mypet_regDTO modresult = mdao.modfiylist(dto.getMem_id(), seq);
+		request.setAttribute("modresult", modresult);
+		return "mypage/mypage-modfiy";
+	}
+	@RequestMapping("resultmodfiy")
+	public void resultmodfiy(Mypet_regDTO dto, MultipartFile img, HttpServletResponse response)throws Exception {
+		MemberDTO dtos = (MemberDTO)session.getAttribute("loginInfo");
+		dto.setMaster_id(dtos.getMem_id());
+		petmodfiy.modfiy(dto, img);
+		response.sendRedirect("list");
 	}
 
 }
