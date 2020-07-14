@@ -36,8 +36,8 @@ public class Mb_boardController {
 		String add = service.addselec(mdto.getMem_id());
 		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
 		List<MemboardDto> plist = service.petselname(mdto.getMem_id());
-		List<String[]> petarr = new ArrayList<>();
-		List<String> petname = new ArrayList<>();
+		List<String[]> petarr = new ArrayList<String[]>();
+		List<String> petname = new ArrayList<String>();
 		for(MemboardDto petlist : plist) {
 			petarr.add(petlist.getMb_pet_name().split(","));
 		}
@@ -74,8 +74,8 @@ public class Mb_boardController {
 		MemboardDto mlist = service.redlist(dtolist.get(0).getMb_seq());
 		String[] servicearr = mlist.getMb_service().split(",");
 		String[] petnamearr = mlist.getMb_pet_name().split(",");
-		List<String> pettype = new ArrayList<>();
-		List<String> services = new ArrayList<>();
+		List<String> pettype = new ArrayList<String>();
+		List<String> services = new ArrayList<String>();
 		for(String petname : petnamearr) {
 			pdto.setPet_name(petname);
 			pdto.setMaster_id(mdto.getMem_id());
@@ -112,8 +112,8 @@ public class Mb_boardController {
 		MemboardDto mlist = service.redlist(mbdto.getMb_seq());
 		String[] servicearr = mlist.getMb_service().split(",");
 		String[] petnamearr = mlist.getMb_pet_name().split(",");
-		List<String> pettype = new ArrayList<>();
-		List<String> services = new ArrayList<>();
+		List<String> pettype = new ArrayList<String>();
+		List<String> services = new ArrayList<String>();
 		for(String petname : petnamearr) {
 			pdto.setPet_name(petname);
 			pdto.setMaster_id(mdto.getMem_id());
@@ -147,11 +147,11 @@ public class Mb_boardController {
 		MemboardDto modlist = service.modlist(mb_seq);
 		String[] petnamearr = modlist.getMb_pet_name().split(",");
 		String[] servicearr = modlist.getMb_service().split(",");
-		List<String> petnames = new ArrayList<>();
-		List<String> services = new ArrayList<>();
+		List<String> petnames = new ArrayList<String>();
+		List<String> services = new ArrayList<String>();
 		List<MemboardDto> plist = service.petselname(mdto.getMem_id());
-		List<String[]> petarr = new ArrayList<>();
-		List<String> petname = new ArrayList<>();
+		List<String[]> petarr = new ArrayList<String[]>();
+		List<String> petname = new ArrayList<String>();
 		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
 		for(String service : servicearr) {
 			services.add(service);
