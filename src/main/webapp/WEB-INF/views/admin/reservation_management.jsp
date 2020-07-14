@@ -135,7 +135,7 @@
 													<div class="col point">${i.mb_point}</div>
 													<div class="col">
 														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_accept"> 
-														<input type="button" value="거절" class="btn btn-outline-primary my-2 my-sm-0 btn-sm cancle">
+														<input type="button" value="거절" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_cancel">
 													</div>
 												</div>
 												<hr style="width: 100%; margin: 15px;">
@@ -150,8 +150,8 @@
 													<div class="col">${i.mem_id}</div>
 													<div class="col">${i.rsv_point}</div>
 													<div class="col">
-														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm ok pet_accept"> 
-														<input type="button" value="거절" class="btn btn-outline-primary my-2 my-sm-0 btn-sm cancle">
+														<input type="button" value="수락" id="${i.wait_seq}" class="btn btn-outline-primary my-2 my-sm-0 btn-sm ok pet_accept"> 
+														<input type="button" value="거절" id="${i.wait_seq}" class="btn btn-outline-primary my-2 my-sm-0 btn-sm pet_cancel">
 													</div>
 												</div>
 												<hr style="width: 100%; margin: 15px;">

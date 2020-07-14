@@ -182,17 +182,33 @@ public class AdminService {
 		return dao.accept_memboard(seq_set);
 	}
 	
+	@Transactional("txManager")
+	public int cancel_memboard(MemboardDto bdto) {
+		
+		MessageDTO b_dto = new MessageDTO();
+		b_dto.setMsg_reciever(bdto.getMb_booker());
+		b_dto.setMsg_title("예약 관련 글입니다.");
+		b_dto.setMsg_contents("문의하신 예약이 거절 되었습니다. 자세한 사항은 개별 문의를 부탁드립니다.");
+		b_dto.setMsg_sender("관리자");
+		mdao.sendMessage(b_dto);
+		
+		return dao.cancel_memboard(bdto.getMb_seq());
+		
+	}
+	
+	
 	//petsitter_board 관련
 	public List<WaitlistDTO> re_psboard(){
 		return dao.re_psboard();
 	}
 	
 	@Transactional("txManager")
-	public int accept_petsitter(String p_seq) {
-		WaitlistDTO w_dto = dao.accept_pet_info(p_seq);
+	public int accept_petsitter(int wait_seq) {
+		
+		WaitlistDTO w_dto = dao.accept_pet_info(wait_seq);
 		UUID uuid = UUID.randomUUID();
 		ReserveDto dto = new ReserveDto(uuid.toString(),w_dto.getBoard_seq(),w_dto.getPetsitter_id(),w_dto.getMem_id(),w_dto.getRsv_pet_name(),w_dto.getRsv_point(),w_dto.getRsv_start_day(),w_dto.getRsv_end_day(),w_dto.getRsv_time());
-
+		
 		MessageDTO b_dto = new MessageDTO();
 		b_dto.setMsg_reciever(w_dto.getMem_id());
 		b_dto.setMsg_title("펫 시터 예약 관련 글입니다.");
@@ -206,9 +222,25 @@ public class AdminService {
 		p_dto.setMsg_contents("펫시터 서비스가 예약이 되었습니다. 예약 번호는 " +uuid.toString() +"이며,\n자세한 사항 예약 확인 란에서 확인을 하실 수 있습니다.");
 		p_dto.setMsg_sender("관리자");
 		mdao.sendMessage(p_dto);
-		
-		dao.accept_del_rsv(p_seq);
+
+		dao.accept_del_rsv(w_dto.getWait_seq());
 		return dao.accept_pet_rsv(dto);
+	}
+	
+	@Transactional("txManager")
+	public int cancel_petsitter (int wait_seq) {
+		WaitlistDTO w_dto = dao.accept_pet_info(wait_seq);
+		
+		MessageDTO b_dto = new MessageDTO();
+		
+		b_dto.setMsg_reciever(w_dto.getMem_id());
+		b_dto.setMsg_title("예약 관련 글입니다.");
+		b_dto.setMsg_contents("문의하신 예약이 거절 되었습니다. 자세한 사항은 개별 문의를 부탁드립니다.");
+		b_dto.setMsg_sender("관리자");
+		mdao.sendMessage(b_dto);
+		
+		return dao.cancel_pettsiter(w_dto.getWait_seq());
+		
 	}
 	
 	//게시글 신고 관리

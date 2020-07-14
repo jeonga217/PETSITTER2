@@ -97,17 +97,26 @@ public class AdminDAO {
 		return mybatis.selectList("Admin.repsboard");
 	}
 	
-	public WaitlistDTO accept_pet_info(String board_seq) {
-		return mybatis.selectOne("Admin.accept_pet_info",board_seq);
+	public int cancel_memboard(String seq) {
+		return mybatis.update("Admin.cancel_mem_board",seq);
+	}
+	
+	public WaitlistDTO accept_pet_info(int wait_seq) {
+		return mybatis.selectOne("Admin.accept_pet_info",wait_seq);
 	}
 	
 	public int accept_pet_rsv(ReserveDto dto) {
 		return mybatis.insert("Admin.accept_pet_rsv",dto);
 	}
 	
-	public void accept_del_rsv(String board_seq) {
-		mybatis.delete("Admin.accept_del_rsv",board_seq);
+	public void accept_del_rsv(int wait_seq) {
+		mybatis.delete("Admin.del_rsv",wait_seq);
 	}
+	
+	public int cancel_pettsiter(int seq) {
+		return mybatis.delete("Admin.del_rsv",seq);
+	}
+	
 	//신고 관련 테이블
 	public List<ReportDTO> reportlist(){
 		return mybatis.selectList("Admin.reportlist");
