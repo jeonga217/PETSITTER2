@@ -195,29 +195,25 @@ public class CommunityController {
 	}
 	
 	//신고기능
-	@RequestMapping("report")
-	public void report(ReportDTO r_dto){
-		String report_id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
-		r_dto.setReport_id(report_id);
-		CommunityListDTO cu_dto = (CommunityListDTO)session.getAttribute("view");
+			@RequestMapping("report")
+			public void report(ReportDTO r_dto){
+				String report_id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+				r_dto.setReport_id(report_id);
+				CommunityListDTO cu_dto = (CommunityListDTO)session.getAttribute("view");
 
-		if(r_dto.getReport_target().contentEquals("")) {
-			//게시글 신고 창 -- seq, target, id, conternt 들어가 있음 나머지 채워서 db 넣기
-			r_dto.setR_parent_seq(cu_dto.getCu_seq());
-			r_dto.setReport_target(cu_dto.getCu_contents());
-			System.out.println(r_dto.getR_parent_seq());
-			System.out.println(r_dto.getReport_target());
-			System.out.println(r_dto.getReport_contents());
-		}
-		else {
-			//댓글 신고 창 -- seq, target, id, conternt 들어가 있음 나머지 채워서 db 넣기
-			System.out.println(r_dto.getR_parent_seq());
-			System.out.println(r_dto.getReport_target());
-			System.out.println(r_dto.getReport_contents());
-		}
+				if(r_dto.getReport_target().contentEquals("")) {
+					//게시글 신고 창 -- seq, target, id, reason 들어가 있음 나머지 채워서 db 넣기
+					r_dto.setR_parent_seq(cu_dto.getCu_seq());
+					r_dto.setReport_target(cu_dto.getCu_writer());
+					r_dto.setReport_type(1);
+					
+				}
+				else {
+					//댓글 신고 창 -- seq, target, id, contents 들어가 있음 나머지 채워서 db 넣기
+					r_dto.setReport_type(2);
+				}
+				
 
-		
-	
-	}
+			}
 
 }
