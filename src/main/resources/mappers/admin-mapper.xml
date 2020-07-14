@@ -70,7 +70,7 @@
 	
 	<!--mem_board  -->
 	<select id="rememboard" resultType="kh.pet.dto.MemboardDto">
-		select * from mem_board where mb_restatus = 'yes' and mb_RESERVE_num = null
+		select * from mem_board where mb_restatus='yes' and mb_RESERVE_num ='null'
 	</select>
 	
 	<update id="accept_mem_board">
