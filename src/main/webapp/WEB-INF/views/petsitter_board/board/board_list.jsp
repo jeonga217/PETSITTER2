@@ -7,6 +7,7 @@
   <head>
   	<script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
   	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<link href="/resources/mb/icofont/icofont.min.css" rel="stylesheet">
 	<link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
   </head>
   <body>
@@ -26,13 +27,13 @@
          	<c:otherwise>
          		<c:forEach var="i" items="${list}">
          			<div class="d-block d-md-flex listing-horizontal">
-		              <a href="/board/outputSingle?psb_writer=${i.psb_writer }&psb_seq=${i.psb_seq}" class="img d-block" style="background-image: url(/upload/${i.psb_thumb})">
+		              <a href="/board/board_single_view?psb_writer=${i.psb_writer }&psb_seq=${i.psb_seq}" class="img d-block" style="background-image: url(/upload/${i.psb_thumb})">
 		                <c:if test="">
 		                <span class="category">우수펫시터벳지</span>
 		                </c:if>
 		              </a>
 		              <div class="lh-content">
-		                <h3><a href="/board/outputSingle?psb_writer=${i.psb_writer }&psb_seq=${i.psb_seq}">${i.psb_title }</a></h3>
+		                <h3><a href="/board/board_single_view?psb_writer=${i.psb_writer }&psb_seq=${i.psb_seq}">${i.psb_title }</a></h3>
 		                <p>${i.psb_writer }</p>
 		                <p>
 		                  <span class="icon-star text-warning"></span>
@@ -40,8 +41,10 @@
 		                  <span class="icon-star text-warning"></span>
 		                  <span class="icon-star text-warning"></span>
 		                  <span class="icon-star text-secondary"></span>
-		                  <span>(492 Reviews)</span>
 		                </p>
+		                 <div id="div_review_cnt" style="text-align:right">
+		                  	<span><i class="icofont-comment"></i> ${i.psb_review_cnt }</span>
+		                 </div>
 		              </div>
 		            </div>
          		</c:forEach>

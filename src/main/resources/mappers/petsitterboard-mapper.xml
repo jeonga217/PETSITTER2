@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
 
+	<resultMap type="kh.pet.dto.timeDTO" id="dailyresult">
+		<result column="am" property="am"/>
+		<result column="pm" property="pm"/>
+	</resultMap>
+
 	<insert id="insertBoard">
 		insert into petsitter_board
 		(psb_seq,psb_title,psb_writer,psb_contents,psb_thumb,psb_service,psb_start_day,psb_end_day,psb_time,psb_petType)
@@ -25,7 +30,7 @@
 	</delete>
 	
 	<select id="selectBoard" resultType="kh.pet.dto.TotboardDTO">
-		select psb.psb_seq psb_seq, psb.psb_title psb_title, psb.psb_writer psb_writer, psb.psb_thumb psb_thumb, ps.ps_age ps_age, ps.ps_gender ps_gender, ps.ps_address1 ps_address1, psb.psb_petType psb_petType, ps.ps_resident_type ps_resident_type, psb.psb_service psb_service, psb.psb_contents psb_contents, psb.psb_start_day psb_start_day, psb.psb_end_day psb_end_day, psb.psb_time psb_time from petsitter_board psb, petsitter ps where ps.ps_id=#{writer} and psb.psb_seq=#{seq}
+		select psb.psb_seq psb_seq, psb.psb_title psb_title, psb.psb_writer psb_writer, psb.psb_thumb psb_thumb, ps.ps_age ps_age, ps.ps_gender ps_gender, ps.ps_address1 ps_address1, psb.psb_petType psb_petType, ps.ps_resident_type ps_resident_type, psb.psb_service psb_service, psb.psb_contents psb_contents, psb.psb_start_day psb_start_day, psb.psb_end_day psb_end_day, psb.psb_time psb_time, psb.psb_boardstatus psb_boardstatus from petsitter_board psb, petsitter ps where ps.ps_id=#{writer} and psb.psb_seq=#{seq}
 	</select>
 	
 	<select id="selectNextSeq" resultType="String">
@@ -77,5 +82,17 @@
 		select * from reservation where reserve_seq  = #{reserve_seq}
 	</select>
 	
-
+	
+	<select id="selectDayReserve" resultMap="dailyresult">
+		select am, pm from cur_reserve where parent_board_seq=#{parent_board_seq} and cur_date between #{start_day} and #{end_day}
+	</select>
+	
+	<update id="updateMemPoint">
+		update member set mem_point = mem_point-#{rsv_point} where mem_id = #{mem_id}
+	</update>
+	
+	<update id="updateSysPoint">
+		insert into reservation_point (reservation_seq, reservation_point) values #{}, #{}
+	</update>
+	
 </mapper>

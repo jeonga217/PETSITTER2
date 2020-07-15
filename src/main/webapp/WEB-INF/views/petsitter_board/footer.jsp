@@ -82,7 +82,7 @@
         </div>
       </div>
     </footer>
-   
+  
 
 	<script src="/resources/main/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/main/js/jquery-migrate-3.0.1.min.js"></script>

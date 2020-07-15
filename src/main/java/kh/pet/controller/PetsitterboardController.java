@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.pet.dto.CurrentPickDTO;
 import kh.pet.dto.CurrentReserveDTO;
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
-import kh.pet.dto.ReserveDto;
 import kh.pet.dto.TotboardDTO;
 import kh.pet.dto.WaitlistDTO;
 import kh.pet.service.PetsitterService;
@@ -47,16 +47,16 @@ public class PetsitterboardController {
 	@Autowired
 	private ReviewService rwservice;
 	
-	@RequestMapping("outputSingle")
-	public String outputSingle(String psb_writer,String psb_seq,Model model ) throws Exception{
-		TotboardDTO totdto = psbservice.selectBoard(psb_writer,psb_seq);
-		List<CurrentReserveDTO> reserve_list = psbservice.selectCur_reserve(psb_seq);
-		model.addAttribute("reserve_list",reserve_list);
-		model.addAttribute("tot_Info",totdto);
-		List<Mypet_regDTO> pet_list = psbservice.selectMypet(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
-		model.addAttribute("pet_list",pet_list);
-		return "petsitter_board/board/board_single_view";
-	}
+//	@RequestMapping("outputSingle")
+//	public String outputSingle(String psb_writer,String psb_seq,TotboardDTO totdto,Model model ) throws Exception{
+//		//TotboardDTO totdto = psbservice.selectBoard(psb_writer,psb_seq);
+//		List<CurrentReserveDTO> reserve_list = psbservice.selectCur_reserve(psb_seq);
+//		List<Mypet_regDTO> pet_list = psbservice.selectMypet(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
+//		model.addAttribute("reserve_list",reserve_list);
+//		model.addAttribute("tot_Info",totdto);
+//		model.addAttribute("pet_list",pet_list);
+//		return "petsitter_board/board/board_single_view";
+//	}
 	
 	@RequestMapping("outputList")
 	public String outputList(HttpServletRequest req, Model model) throws Exception{
@@ -81,10 +81,13 @@ public class PetsitterboardController {
 
 	@RequestMapping("board_single_view")
 	public String board_single_view(String psb_writer,String psb_seq,Model model)throws Exception{
+		System.out.println(":"+psb_writer);
+		System.out.println(":"+psb_seq);
 		TotboardDTO totdto = psbservice.selectBoard(psb_writer,psb_seq);
-		//List<CurrentReserveDTO> reserve_list = psbservice.selectCur_reserve(psb_seq);
-		//model.addAttribute("reserve_list",reserve_list);
+		List<CurrentReserveDTO> reserve_list = psbservice.selectCur_reserve(psb_seq);
 		List<Mypet_regDTO> pet_list = psbservice.selectMypet(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
+		model.addAttribute("tot_Info",totdto);
+		model.addAttribute("reserve_list",reserve_list);
 		model.addAttribute("pet_list",pet_list);
 		return "petsitter_board/board/board_single_view";
 	}
@@ -94,7 +97,7 @@ public class PetsitterboardController {
 		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
 		PetsitterDTO psdto = psservice.selectById(mem_id);
 		model.addAttribute("petsitter_Info", psdto);
-		return"petsitter_board/board/board_register";
+		return "petsitter_board/board/board_register";
 	}
 	
 	//petsitter가 게시물 등록
@@ -134,13 +137,12 @@ public class PetsitterboardController {
 			daylist.add(day_list);
 		}
 		psbservice.createTb(daylist);
-		model.addAttribute("tot_Info",totdto);
-		model.addAttribute("psb_writer",totdto.getPsb_writer());
-		model.addAttribute("psb_seq",totdto.getPsb_seq());
+//		model.addAttribute("totdto",totdto);
+//		model.addAttribute("psb_writer",totdto.getPsb_writer());
+//		model.addAttribute("psb_seq",totdto.getPsb_seq());
 		file.transferTo(new File(realPath+"/"+totdto.getPsb_thumb()));
-		return "redirect:outputSingle";
+		return "redirect:outputList";
 	}
-	
 	
 	@ResponseBody
 	@RequestMapping(value="/selectCnt", method=RequestMethod.POST)
@@ -149,8 +151,14 @@ public class PetsitterboardController {
 	}
 	
 	//waitlist에 정보 올리기
-	@RequestMapping("waitList")
-	public int waitList(WaitlistDTO wldto)throws Exception{		
+	@ResponseBody
+	@RequestMapping(value="/waitList", method=RequestMethod.POST)
+	public int waitList(WaitlistDTO wldto)throws Exception{
+//		System.out.println(wldto.getBoard_seq());
+//		System.out.println(wldto.getMem_id());
+//		System.out.println(wldto.getRsv_pet_name());
+//		System.out.println(wldto.getRsv_time());
+//		System.out.println(wldto.getRsv_end_day());
 		return psbservice.insertwaitlist(wldto);
 	}
 	
@@ -167,6 +175,7 @@ public class PetsitterboardController {
 		return "redirect:outputList";
 	}
 	
+	// 실시간 포인트가격 보여주기
 	@ResponseBody
 	@RequestMapping(value="/selectPrice", method=RequestMethod.POST)
 	public List<Integer> selectPrice(@RequestParam(value="timearr[]") List<String> timearr,@RequestParam(value="typearr[]")List<String> typearr) throws Exception{
@@ -187,5 +196,21 @@ public class PetsitterboardController {
 	@RequestMapping("/cancelReserve")
 	public int cancelReserve(String reserve_seq)throws Exception{
 		return psbservice.cancelReserve(reserve_seq);
+	}
+	
+	//선택한 날짜에 예약이 가능한지  waitlist에  등록되기 전 확인
+	@ResponseBody
+	@RequestMapping(value="/checkAvailableReserve", method=RequestMethod.POST)
+	public boolean checkAvailableReserve (CurrentPickDTO pickdto)throws Exception{
+		boolean result = psbservice.checkAvailableReserve(pickdto);
+		//System.out.println("값"+result);
+		return result;
+	}
+	
+	@RequestMapping("/board_confirmReserve")
+	public String board_confirmReserve()throws Exception{
+		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+		psbservice.selectWaitlist(mem_id);
+		return "petsitter_board/board/board_confirmReserve";
 	}
 }

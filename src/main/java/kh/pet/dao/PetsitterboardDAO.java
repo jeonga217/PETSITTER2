@@ -11,6 +11,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.pet.dto.CurrentPickDTO;
 import kh.pet.dto.CurrentReserveDTO;
 import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PetsitterDTO;
@@ -18,6 +19,7 @@ import kh.pet.dto.PetsitterboardDTO;
 import kh.pet.dto.ReserveDto;
 import kh.pet.dto.TotboardDTO;
 import kh.pet.dto.WaitlistDTO;
+import kh.pet.dto.timeDTO;
 
 @Repository
 public class PetsitterboardDAO {
@@ -50,6 +52,8 @@ public class PetsitterboardDAO {
 	}
 	
 	public TotboardDTO selectBoard(String psb_writer,String psb_seq) throws Exception{
+		//System.out.println("writer:"+psb_writer);
+		//System.out.println("seq:"+psb_seq);
 		Map<String, String> param =new HashMap<String, String>();
 		param.put("writer",psb_writer);
 		param.put("seq",psb_seq);
@@ -112,5 +116,30 @@ public class PetsitterboardDAO {
 	
 	public ReserveDto selectReserve(String reserve_seq) throws Exception{
 		return mybatis.selectOne("Board.selectReserve",reserve_seq);
+	}
+	
+	public List<timeDTO> checkAvailableReserve(CurrentPickDTO pickdto) throws Exception{
+		List<timeDTO> list = mybatis.selectList("Board.selectDayReserve",pickdto);		
+		return list;
+	}
+	
+	public WaitlistDTO selectWaitlist(String mem_id) throws Exception{
+		return mybatis.selectOne("Board.selectWaitlist",mem_id);
+	}
+	
+	// 
+	public int updatePoint(WaitlistDTO wldto) throws Exception{
+		int rsv_point = wldto.getRsv_point();
+		String mem_id = wldto.getMem_id();
+		String reservation_seq = wldto.getBoard_seq();
+		Map<String, Object> param1 = new HashMap<String, Object>();
+		param1.put("mem_id",mem_id);
+		param1.put("rsv_point",rsv_point);
+		mybatis.update("Board.updateMemPoint",param1);
+		Map<String, Object> param2 = new HashMap<String, Object>();
+		param2.put("reservation_seq",reservation_seq);
+		param2.put("rsv_point",rsv_point);
+		return mybatis.update("Board.updateSysPoint",param2);
+		
 	}
 }
