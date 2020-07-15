@@ -187,15 +187,16 @@
 								</div>
 								<div class="lh-content">
 									<div class="pet">
-										<c:if test="${!empty list}">
-											<c:forEach items="${list}" var="i">
+
+										<c:forEach items="${list}" var="i" varStatus="status">
+											<c:if test="${i.pet_name != petname[status.index]}">
 												<input type="hidden" name="mb_petphoto" id="petphoto">
 												<input type="checkbox" data-imgsrc="${i.pet_photo}"
 													class="petname" name="mb_pet_name" id="${i.pet_name}"
 													value="${i.pet_name}" />
 												<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
-											</c:forEach>
-										</c:if>
+											</c:if>
+										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -270,6 +271,7 @@
 								<a href="/mb/mb_board" class="text-white" id="modified">목록</a>
 							</div>
 						</div>
+
 
 						<div class="col-lg-4 ml-5">
 							<div data-brackets-id='1'>
@@ -643,6 +645,8 @@
 	</script>
 	<script>
 		$(function() {
+			
+			
 			$(".petname").on("click", function() {
 				var src = [];
 				$(".petname:checked").each(function(index, item) {
@@ -676,9 +680,11 @@
 	</script>
 	<script>
 		$(function() {
+			
+			
 			$(".stimelist").hide();
 			$(".etimelist").hide();
-
+			
 			$(".stime").on("click", function() {
 				$(".stimelist").show(100);
 			})
@@ -763,24 +769,7 @@
 			}
 		})
 	</script>
-	<script>
-		$("#send").on("submit", function() {
-			var count = 0;
-			<c:forEach var="i" items="${petname}">
-			$(".petname:checked").each(function(index, item) {
-				if ("${i}" == $(item).val()) {
-					count++
-				}
-			})
-			</c:forEach>
-			if (count > 0) {
-				alert("이미등록된 강아지가 있습니다.")
-				return false;
-			} else {
-				return true;
-			}
-		})
-	</script>
+
 </body>
 
 </html>
