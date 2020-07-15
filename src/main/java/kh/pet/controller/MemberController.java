@@ -118,10 +118,10 @@ public class MemberController {
 	
 
 	@RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
-	public String emailConfirm(String authKey, String userid, HttpServletResponse response) throws IOException {
-
+	public void emailConfirm(String authKey, String userid, HttpServletResponse response) throws IOException {
+	
 		int verify = mservice.verify(userid);
-
+		
 		if(verify > 0) {		
 			
 			response.setContentType("text/html; charset=UTF-8");
@@ -154,8 +154,13 @@ public class MemberController {
 			
 //			model.addAttribute("msg", "잘못된 접근 입니다. 다시 인증해 주세요");
 //			return "/member/emailconfirm";
-		}		
-		return "/member/emailconfirm";
+		}
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script>alert('인증 완료되었습니다. 로그인 후 이용 가능합니다.'); location.href='/';</script>");
+		out.flush();	
+		
 	}
 
 
