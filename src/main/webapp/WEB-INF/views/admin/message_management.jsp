@@ -108,52 +108,24 @@
                                         </nav>
                                     </div>
                                     <div class="col-12">
-                                        <table style="width: 100%">
-                                            <tr>
-                                                <th>제목</th>
-                                                <th>회원명</th>
-                                                <th>보낸 날짜</th>
-                                                <th>확인 여부</th>
-                                                <th>답장/삭제</th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    사기
-                                                </td>
-                                                <td>
-                                                    아무개
-                                                </td>
-                                                <td>
-                                                    20.3.13
-                                                </td>
-                                                <td>
-                                                    읽음
-                                                </td>
-
-                                                <td>
-                                                    <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">삭제</button>
-                                                    <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">답장</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    파기
-                                                </td>
-                                                <td>
-                                                    바보
-                                                </td>
-                                                <td>
-                                                    20.3.13
-                                                </td>
-                                                <td>
-                                                    안 읽음
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">삭제</button>
-                                                    <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">답장</button>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                    	<div class="row">
+                                    		<div class="col">제목</div>
+                                    		<div class="col">회원명</div>
+                                    		<div class="col">보낸 날짜</div>
+                                    		<div class="col">답장/삭제</div>
+                                    	</div>
+                                    	<c:forEach var="i" items="${messagelist}">
+                                    	<div class="row">
+                                    		<div class="col">제목</div>
+                                    		<div class="col">회원명</div>
+                                    		<div class="col">보낸 날짜</div>
+                                    		<div class="col">
+                                    			<button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">삭제</button>
+                                                <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">답장</button>
+                                            </div>
+                                    	</div>
+                                    	</c:forEach>
+                                        
                                     </div>
                                 </div>
                             </div>

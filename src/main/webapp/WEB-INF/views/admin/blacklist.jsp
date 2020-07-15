@@ -12,8 +12,15 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+		<link
+			href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+			rel="stylesheet">
+		<script
+			src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 		<script src="/resources/admin/admin_js/navi.js"></script>
 		<link rel="stylesheet" href="/resources/admin/admin_css/case.css" type="text/css">
+		<script src="/resources/message/message_js/summer.js"></script>
+		<script src="/resources/admin/admin_js/admin.js"></script>
     </head>
     <body>
         <div class="wrap row bg-light">
@@ -108,82 +115,57 @@
                                         </nav>
                                     </div>
                                     <div class="col-12">
-                                        <table style="width: 100%">
-                                            <tr>
-                                                <th>회원 명</th>
-                                                <th>회원 종류</th>
-                                                <th>가입 날짜</th>
-                                                <th>포인트 현황</th>
-                                                <th>경고 횟수</th>
-                                                <th>현재 상태</th>
-                                                <th>메세지</th>
-                                                <th>상태 변경</th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    바보
-                                                </td>
-                                                <td>
-                                                    시터
-                                                </td>
-                                                <td>
-                                                    20.11.30
-                                                </td>
-                                                <td>
-                                                    1441
-                                                </td>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    통상
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">보내기</button>
-                                                </td>
-                                                <td>
-                                                    <form>
-                                                        <select name="state" class="btn btn-info dropdown-toggle btn-sm">
-                                                            <option value="통상">통상</option>
-                                                            <option value="통상">정지</option>
-                                                        </select>
-                                                        <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">변경</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    머저리
-                                                </td>
-                                                <td>
-                                                    일반
-                                                </td>
-                                                <td>
-                                                    20.10.30
-                                                </td>
-                                                <td>
-                                                    1420
-                                                </td>
-                                                <td>
-                                                    5
-                                                </td>
-                                                <td>
-                                                    정지
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">보내기</button>
-                                                </td>
-                                                <td>
-                                                    <form>
-                                                        <select name="state" class="btn btn-info dropdown-toggle btn-sm">
-                                                            <option value="통상">통상</option>
-                                                            <option value="통상">정지</option>
-                                                        </select>
-                                                        <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">변경</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                    	<div class="row">
+                                    		<div class="col-3">회원 명</div>
+                                    		<div class="col-3">회원 종류</div>
+                                    		<div class="col-3">가입 날짜</div>
+                                    		<div class="col-3">상태 변경</div>
+                                    	</div>
+                                    <c:forEach var="i" items="${memberlist}">
+                                    	<div class="row body">
+                                    		<div class="col-4 col-lg id">${i.mem_id}</div>
+		                                   	<div class="col-4 col-lg">
+		                                   	<c:choose>
+		                                   	<c:when test="${i.mem_type eq 1}">일반회원</c:when>
+		                                   	<c:otherwise>펫 시터</c:otherwise>
+		                                   	</c:choose>
+		                                   	</div> 
+		                                   	<div class="d-none d-lg-block col-lg">${i.mem_join_date}</div>
+		                                       	 <div class="col col-lg-3">
+                                                 <select name="state" class="btn btn-info dropdown-toggle btn-sm state">
+                                                     <option value="no">해제</option>
+                                                     <option value="f_stop">영구 정지</option>
+                                                 </select>
+                                                 <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm stop_btn" data-toggle="modal" data-target="#staticBackdrop2">변경</button>
+                                             </div>
+                                             <hr class="hr2">  
+                                        </div>  
+                                        </c:forEach>
+                                        <div class="col-12" style="text-align: center">${navi}</div> 
+                                        <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+										  <div class="modal-dialog modal-dialog-centered modal-lg">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <h5 class="modal-title" id="staticBackdropLabel">사유 작성</h5>	  
+										        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+										          <span aria-hidden="true">&times;</span>
+										      </div>
+										         <form name="stop_info">
+										      <div class="modal-body">
+									          <br>
+									          	<input type="text" style="display: none" id="stop_id" name="stop_id" value="">
+									          	<input type="text" style="display: none" id="s_stop_day" name="s_stop_day" value="">
+								      	 		<textarea id="summernote2" name="stop_reason"></textarea>
+								        	   <br>
+										      </div>	
+										       </form> 
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-secondary no" data-dismiss="modal">취소</button>
+										        <button type="button" class="btn btn-primary stopsend">완료</button>
+										      </div>
+										    </div>
+										  </div>
+										</div>
                                     </div>
                                 </div>
                             </div>

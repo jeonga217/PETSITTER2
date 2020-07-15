@@ -145,7 +145,7 @@ public class MessageService {
 		}
 		else if(currentPage > pageTotalCount) {
 			currentPage = pageTotalCount;
-		}//공격자가 currentPage를 공격할 때를 대비한 보안 코드
+		}
 
 		int startNavi = (currentPage -1) / Message_Configuration.NAVI_COUNT_PAGE *Message_Configuration.NAVI_COUNT_PAGE + 1;
 		int endNavi = startNavi +Message_Configuration.NAVI_COUNT_PAGE - 1;

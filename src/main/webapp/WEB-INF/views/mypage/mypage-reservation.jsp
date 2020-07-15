@@ -98,24 +98,24 @@
 		function bytesHandler(obj, k) {
 			var text = $(obj).val();
 			if (k == "character") {
-				if (getTextLength(text) > 3000) {
-					alert("반려견 성격에서 3000글자를 넘었습니다 내용을 줄여 주세요");
+				if (getTextLength(text) > 1000) {
+					alert("반려견 성격에서 1000글자를 넘었습니다 내용을 줄여 주세요");
 					return false;
 				} else {
 					$('label.bytes1').text(getTextLength(text));
 				}
 
 			} else if (k == "special") {
-				if (getTextLength(text) > 3000) {
-					alert("특이사항에서 3000글자를 넘었습니다 내용을 줄여 주세요");
+				if (getTextLength(text) > 1000) {
+					alert("특이사항에서 1000글자를 넘었습니다 내용을 줄여 주세요");
 					return false;
 				} else {
 					$('label.bytes2').text(getTextLength(text));
 				}
 
 			} else if (k == "name") {
-				if (getTextLength(text) > 300) {
-					alert("이름에서 300글자를 넘었습니다 내용을 줄여 주세요");
+				if (getTextLength(text) > 100) {
+					alert("이름에서 100글자를 넘었습니다 내용을 줄여 주세요");
 					var name = $("#name").val("");
 					return false;
 				} else {
@@ -224,7 +224,7 @@ input {
 									class="form-control name" id="name" name="pet_name"
 									aria-describedby="emailHelp">
 								<div style="position: relative; float: right;">
-									글자수 제한 : <label class="bytes3">0</label>/300
+									글자수 제한 : <label class="bytes3">0</label>/100
 								</div>
 							</div>
 
@@ -314,7 +314,7 @@ input {
 									style="width: 100%; height: 361px; resize: none;"
 									name="pet_character"></textarea>
 								<div style="position: relative; float: right;">
-									글자수 제한 : <label class="bytes1">0</label>/3000
+									글자수 제한 : <label class="bytes1">0</label>/1000
 								</div>
 							</div>
 
@@ -325,7 +325,7 @@ input {
 									style="width: 100%; height: 361px; resize: none;"
 									id="special" name="pet_details"></textarea>
 								<div style="position: relative; float: right;">
-									글자수 제한 : <label class="bytes2">0</label>/3000
+									글자수 제한 : <label class="bytes2">0</label>/1000
 								</div>
 							</div>
 					</div>

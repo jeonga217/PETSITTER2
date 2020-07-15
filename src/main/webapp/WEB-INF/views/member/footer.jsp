@@ -1,4 +1,5 @@
- <footer class="site-footer">
+
+    <footer class="site-footer">
       <div class="container">
         <div class="row">
           <div class="col-md-9">
@@ -56,26 +57,27 @@
           <div class="col-12 text-md-center text-left">
             <p>
               <!-- Link back to Free-Template.co can't be removed. Template is licensed under CC BY 3.0. -->
-          &copy; 2020 <strong class="text-black">Browse</strong> Free Template. All Rights Reserved. <br> Design by <a href="https://free-template.co/" target="_blank" class="text-black">Free-Template.co</a>
+          &copy; 2019 <strong class="text-black">Browse</strong> Free Template. All Rights Reserved. <br> Design by <a href="https://free-template.co/" target="_blank" class="text-black">Free-Template.co</a>
           </p>
           </div>
         </div>
       </div>
     </footer>
-  </div>
+   
+
+	<script src="/resources/main/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/main/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="/resources/main/js/jquery-ui.js"></script>
+	<script src="/resources/main/js/popper.min.js"></script>
+	<script src="/resources/main/js/bootstrap.min.js"></script>
+	<script src="/resources/main/js/owl.carousel.min.js"></script>
+	<script src="/resources/main/js/jquery.stellar.min.js"></script>
+	<script src="/resources/main/js/jquery.countdown.min.js"></script>
+	<script src="/resources/main/js/jquery.magnific-popup.min.js"></script>
+	<script src="/resources/main/js/bootstrap-datepicker.min.js"></script>
+	<script src="/resources/main/js/rangeslider.min.js"></script>
+	<script src="/resources/main/js/aos.js"></script>
+	<script src="/resources/main/js/main.js"></script>
+
+
   
-  
-  <script src="/resources/member/js/jquery-3.3.1.min.js"></script>
-  <script src="/resources/member/js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="/resources/member/js/jquery-ui.js"></script>
-  <script src="/resources/member/js/popper.min.js"></script>
-  <script src="/resources/member/js/bootstrap.min.js"></script>
-  <script src="/resources/member/js/owl.carousel.min.js"></script>
-  <script src="/resources/member/js/jquery.stellar.min.js"></script>
-  <script src="/resources/member/js/jquery.countdown.min.js"></script>
-  <script src="/resources/member/js/jquery.magnific-popup.min.js"></script>
-  <script src="/resources/member/js/bootstrap-datepicker.min.js"></script>
-  <script src="/resources/member/js/aos.js"></script>
-  <script src="/resources/member/js/rangeslider.min.js"></script>
-  
-  <script src="/resources/member/js/main.js"></script>

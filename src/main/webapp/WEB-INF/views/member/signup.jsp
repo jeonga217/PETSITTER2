@@ -16,81 +16,109 @@
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
+
 .wrap {
 	padding-right: 15px;
 	padding-left: 15px;
 	margin-right: auto;
 	margin-left: auto;
-	margin-top: 30px
-	width: 700px;
+	margin-top: 30px width: 700px;
+	box-shadow: 0 7px 25px 0 rgba(0,0,0,0.1);
+	padding-top: 50px; 
+    padding-bottom: 50px; 
+    padding-left: 30px; !important
 }
+
 * {
 	box-sizing: border-box;
 }
 
 .menu {
 	text-align: left;
+	padding: 0;
 }
 
 .ans {
 	text-align: left;
+	margin-bottom: 10px;
+	padding: 0;
 }
 
 input[type=text], input[type=password] {
-	width:70%;
+	width: 70%;
+	border: none;
+    border-bottom: 1px solid;
+    border-color: #17a2b8;
 }
-i{ color: #81DAD6;  }
+
+i {
+	color: #81DAD6;
+}
+
 .btns {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 10px; 
-    }
-    
-  .btns1{  
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 13px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 10px; 
-  
-  }  
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 6px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.btns1 {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 13px 25px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
 .btn1 {
-  background-color: #81DAD6; 
-  color: white; 
-   border-radius: 10px;
-   
+	background-color: #81DAD6;
+	color: white;
+	border-radius: 10px;
 }
 
 .btn1:hover {
-  background-color: turquoise;
-  color: white;
+	background-color: turquoise;
+	color: white;
 }
-@font-face { font-family: 'IBMPlexSansKR-Regular'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff'); font-weight: normal; font-style: normal; }
 
-.title, .menu, .menu1{
+@font-face {
+	font-family: 'IBMPlexSansKR-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.title, .menu, .menu1 {
 	font-family: 'IBMPlexSansKR-Regular';
 }
 
+.row{
+ margin-left: 30px !important;}
+
 </style>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> <!--CDN 링크 -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+	rel="stylesheet">
+<!--CDN 링크 -->
 
 </head>
 
@@ -99,101 +127,103 @@ i{ color: #81DAD6;  }
 	<jsp:include page="/WEB-INF/views/member/header.jsp" />
 	<div class="container">
 		<div class="wrap col-8" style="margin-top: 80px;">
-		<div class="row header">
-			<div class="col-12 title">
-				<h2><i class="fas fa-user"></i> 회원가입</h2>
+			<div class="row header">
+				<div class="col-12 title">
+					<h2>
+						<i class="fas fa-user"></i> 회원가입
+					</h2>
+				</div>
 			</div>
-		</div>
-		<form action="/member/signupProc" method="post">
-			<div class="row">
-				<div class="col-12 menu">ID</div>
-				<div class="col-12 ans">
-					<input type="text" id="id" name="mem_id"
-						placeholder="영문 대소문자, 숫자/최소 6글자~12글자"> 
-				</div>
-				<div class="col-12 menu">
-				<span id="idregx"
-						style="display: none;">사용 가능한 ID입니다.</span> <span id="idok"
-						style="display: none;">사용 가능한 ID입니다.</span> <span id="idfail"
-						style="display: none;">사용 중인 ID입니다. 새로운 ID를 입력하세요.</span>
-				</div>
+			<form action="/member/signupProc" name=signup method="post">
+				<div class="row">
+					<input type="hidden" name="mem_join_type" value="1">
+					<div class="col-12 menu">ID</div>
+					<div class="col-12 ans">
+						<input type="text" id="id" name="mem_id"
+							placeholder="영문 대소문자, 숫자/최소 6글자~12글자">
+					</div>
+					<div class="col-12 menu">
+						<span id="idregx" style="display: none;">사용 가능한 ID입니다.</span> <span
+							id="idok" style="display: none;">사용 가능한 ID입니다.</span> <span
+							id="idfail" style="display: none;">사용 중인 ID입니다. 새로운 ID를
+							입력하세요.</span>
+					</div>
 
-			</div>
-			<div class="row">
-				<div class="col-12 menu">비밀번호</div>
-				<div class="col-12 ans">
-					<input type="password" id="pw" name="mem_pw"
-						placeholder="영문 대소문자, 숫자, 특수문자 하나 이상/최소 8~16자">
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-12 menu">비밀번호 확인</div>
-				<div class="col-12 ans">
-					<input type="password" id="pwcheck"> 
+				<div class="row">
+					<div class="col-12 menu">비밀번호</div>
+					<div class="col-12 ans">
+						<input type="password" id="pw" name="mem_pw"
+							placeholder="영문 대소문자, 숫자, 특수문자 하나 이상/최소 8~16자">
+					</div>
 				</div>
-				<div class="col-12 menu">
-				<span id="pwok"
-						style="display: none; color: green;">비밀번호가 일치합니다.</span> <span
-						id="pwfail"
-						style="display: none; color: #d92742; font-weight: bold;">비밀번호가
-						일치하지 않습니다.</span>				
+				<div class="row">
+					<div class="col-12 menu">비밀번호 확인</div>
+					<div class="col-12 ans">
+						<input type="password" id="pwcheck">
+					</div>
+					<div class="col-12 menu">
+						<span id="pwok" style="display: none; color: green;">비밀번호가
+							일치합니다.</span> <span id="pwfail"
+							style="display: none; color: #d92742; font-weight: bold;">비밀번호가
+							일치하지 않습니다.</span>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-12 menu">이름</div>
-				<div class="col-12 ans">
-					<input type="text" id="name" name="mem_name">
+				<div class="row">
+					<div class="col-12 menu">이름</div>
+					<div class="col-12 ans">
+						<input type="text" id="name" name="mem_name">
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-12 menu">Email</div>
-				<div class="col-12 ans">
-					<input type="text" id="email" name="mem_email"
-						placeholder="abcd@kh.com 형식으로 입력">
-				</div>
-				
-				<div class="col-12 menu">				
-				 <span id="emok"
-						style="display: none;">사용 가능한 Email입니다.</span> <span id="emfail"
-						style="display: none;">사용 중인 Email입니다. 새로운 Email을 입력하세요.</span>							
-				</div>
+				<div class="row">
+					<div class="col-12 menu">Email</div>
+					<div class="col-12 ans">
+						<input type="text" id="email" name="mem_email"
+							placeholder="abcd@kh.com 형식으로 입력">
+					</div>
 
-			</div>
-			<div class="row">
-				<div class="col-12 menu">연락처</div>
-				<div class="col-12 ans">
-					<input type="text" id="phone" name="mem_phone"
-						placeholder="-를 제외한 숫자 입력">
+					<div class="col-12 menu">
+						<span id="emok" style="display: none;">사용 가능한 Email입니다.</span> <span
+							id="emfail" style="display: none;">사용 중인 Email입니다. 새로운
+							Email을 입력하세요.</span>
+					</div>
+
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-12 menu">우편번호</div>
-				<div class="col-12 ans">
-					<input type="text" id="zipcode" name="mem_zipcode" readonly>
-					<button type="button" class="btns btn1" onclick="sample4_execDaumPostcode()">우편번호
-						찾기</button>
+				<div class="row">
+					<div class="col-12 menu">연락처</div>
+					<div class="col-12 ans">
+						<input type="text" id="phone" name="mem_phone"
+							placeholder="-를 제외한 숫자 입력">
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-12 menu">주소</div>
-				<div class="col-12 ans">
-					<input type="text" id="add1" name="mem_address1" readonly>
+				<div class="row">
+					<div class="col-12 menu">우편번호</div>
+					<div class="col-12 ans">
+						<input type="text" id="zipcode" name="mem_zipcode" readonly>
+						<button type="button" class="btns btn1"
+							onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-12 menu">상세주소</div>
-				<div class="col-12 ans">
-					<input type="text" id="add2" name="mem_address2">
+				<div class="row">
+					<div class="col-12 menu">주소</div>
+					<div class="col-12 ans">
+						<input type="text" id="add1" name="mem_address1" readonly>
+					</div>
 				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-12 menu1">
-					<button type="submit" id="signup"  class="btns1 btn1">회원가입</button>
-					<button type="reset"  class="btns1 btn1">취소</button>
+				<div class="row">
+					<div class="col-12 menu">상세주소</div>
+					<div class="col-12 ans">
+						<input type="text" id="add2" name="mem_address2">
+					</div>
 				</div>
-			</div>
-		</form>
+				<br>
+				<div class="row">
+					<div class="col-12 menu1">
+						<button type="button" id="signup" class="btns1 btn1">회원가입</button>
+						<button type="button" id="back" class="btns1 btn1">취소</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/member/footer.jsp" />
@@ -204,7 +234,6 @@ i{ color: #81DAD6;  }
 					var roadAddr = data.roadAddress; // 도로명 주소 변수
 					document.getElementById('zipcode').value = data.zonecode;
 					document.getElementById("add1").value = roadAddr;
-					document.getElementById("add2").value = data.jibunAddress;
 				}
 			}).open();
 		}
@@ -265,6 +294,7 @@ i{ color: #81DAD6;  }
 									if (!passwdCheck.test(pw)) {
 										alert("비밀번호는 영문 대소문자, 숫자, 특수문자 하나 이상 포함/최소 8~16자로 입력해야합니다.")
 										$("#pw").val("");
+										$("#pw").focus();
 									}
 								}
 
@@ -304,7 +334,8 @@ i{ color: #81DAD6;  }
 
 									} else {
 										alert("Email 양식은 ****@***.*** 입니다.")
-										$("#email").val("")
+										$("#email").val("");
+										$("#email").focus();
 									}
 								}
 
@@ -354,5 +385,81 @@ i{ color: #81DAD6;  }
 
 		}) //function 끝
 	</script>
+	<script>
+		$('input[type="text"]').keydown(function() {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+			}
+		});
+		$('input[type="password"]').keydown(function() {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+			}
+		});
+	</script>
+	<script>
+		document.getElementById("signup").onclick = function() {
+
+			if ($("#idok").css("display") == "none") {
+				alert("아이디를 확인해주세요.");
+
+			} else if ($("#pw").val() != $("#pwcheck").val()) {
+				alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
+				$("#pwok").css('display', 'none');
+				$("#pwfail").css('display', 'inline-block');
+				$("#pwcheck").val("");
+
+			} else if ($("#pwok").css("display") == "none") {
+				alert("비밀번호를 확인해주십시오.");
+
+			} else if ($("#name").val() == "") {
+				alert("이름이 없습니다.");
+				$("#name").focus();
+
+			} else if ($("#phone").val() == "") {
+				alert("연락처가 없습니다.");
+				$("#phone").focus();
+
+			} else if ($("#zipcode").val() == "") {
+				alert("주소가 없습니다.");
+				$("#zipcode").focus();
+			} else if ($("#add1").val() == "") {
+				alert("주소가 없습니다.");
+				$("#add1").focus();
+			} else if ($("#add2").val() == "") {
+				alert("상세주소가 없습니다.\n주소가 없다면 없음 이라고 적어주세요.");
+				$("#add2").focus();
+			} else {
+
+				var queryString = $("form[name=signup]").serialize();
+
+				$.ajax({
+					type : "POST",
+					url : "/member/signupProc",
+					cache : false,
+					data : queryString,
+					dataType : "json",
+					success : function(data) {
+						var check = data.result;
+
+						if (check == 0) {
+							alert('입력 정보를 확인하세요.');
+						} else
+							(check == 1)
+						{
+							alert('회원가입이 완료되었습니다. 이메일 인증 후 로그인 부탁드립니다.');
+							location.href = "/";
+						}
+					}
+				})
+
+			}
+
+		}
+	</script>
+
+
+
+
 </body>
 </html>
