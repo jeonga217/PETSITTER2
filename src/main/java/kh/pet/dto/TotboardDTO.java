@@ -17,12 +17,13 @@ public class TotboardDTO {
 	private Date psb_start_day;
 	private Date psb_end_day;
 	private String psb_time;
+	private String psb_boardstatus;
 	
 	public TotboardDTO() {}
 
 	public TotboardDTO(String psb_seq, String psb_title, String psb_writer, String psb_thumb, Integer ps_age,
 			String ps_gender, String ps_address1, String psb_petType, String ps_resident_type, String psb_service,
-			String psb_contents, Date psb_start_day, Date psb_end_day, String psb_time) {
+			String psb_contents, Date psb_start_day, Date psb_end_day, String psb_time, String psb_boardstatus) {
 		super();
 		this.psb_seq = psb_seq;
 		this.psb_title = psb_title;
@@ -38,6 +39,7 @@ public class TotboardDTO {
 		this.psb_start_day = psb_start_day;
 		this.psb_end_day = psb_end_day;
 		this.psb_time = psb_time;
+		this.psb_boardstatus = psb_boardstatus;
 	}
 
 	public String getPsb_seq() {
@@ -150,7 +152,15 @@ public class TotboardDTO {
 
 	public void setPsb_time(String psb_time) {
 		this.psb_time = psb_time;
-	}	
+	}
+
+	public String getPsb_boardstatus() {
+		return psb_boardstatus;
+	}
+
+	public void setPsb_boardstatus(String psb_boardstatus) {
+		this.psb_boardstatus = psb_boardstatus;
+	}
 
 	
 }
