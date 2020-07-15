@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sun.mail.handlers.message_rfc822;
 
+import kh.pet.dto.CommunityDTO;
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.MemboardDto;
 import kh.pet.dto.MessageDTO;
@@ -26,6 +27,7 @@ import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
 import kh.pet.dto.ReportDTO;
 import kh.pet.dto.Stop_memberDTO;
+import kh.pet.dto.Visitor_countDTO;
 import kh.pet.dto.WaitlistDTO;
 import kh.pet.service.AdminService;
 import kh.pet.service.MemberService;
@@ -54,22 +56,26 @@ public class AdminController {
 	
 	@Autowired
 	private MemberService member_service;
+		
 	
 	@RequestMapping("adminindex")
-	public String admin() {
-		return "admin/index";
-	}
-	
-	
-	@RequestMapping("main")
 	public String go_admin_main(Model m,Integer cpage) {
 		if(cpage == null) {
 			cpage = 1;
 		}
+		//간편 회원 페이지
 		List<MemberDTO> mdto = admin_service.member(cpage);
-		String navi = admin_service.memberPagNavi(cpage);
-		m.addAttribute("navi",navi);
+		String navi = admin_service.PagNavi(cpage,"main");
 		m.addAttribute("memberlist",mdto);	
+		m.addAttribute("navi",navi);
+		
+		//일일 방문자 차트
+		List<Visitor_countDTO> be_visiter = admin_service.be_visitor();
+		List<Visitor_countDTO> to_visiter = admin_service.to_visitor();
+		m.addAttribute("to_visitor",to_visiter);
+		m.addAttribute("be_visitor",be_visiter);
+		
+		
 		return "admin/index";
 	}
 
@@ -199,8 +205,9 @@ public class AdminController {
 		if(cpage == null) {
 			cpage = 1;
 		}
+		String boardType = "member";
 		List<MemberDTO> mdto = admin_service.member(cpage);
-		String navi = admin_service.memberPagNavi(cpage);
+		String navi = admin_service.PagNavi(cpage,boardType);
 		m.addAttribute("navi",navi);
 		m.addAttribute("memberlist",mdto);
 		return "admin/member_management";
@@ -243,16 +250,23 @@ public class AdminController {
 		}
 		String navi = "";
 		if(boardtype.contentEquals("mem_board")) {
-			List<MemboardDto> boardlist = pet_service.mb_boardList(cpage);
-			navi = pet_service.getPageNavi(cpage);
+			List<MemboardDto> boardlist = admin_service.m_board(boardtype, cpage);
+			navi = admin_service.PagNavi(cpage, boardtype);
 			m.addAttribute("list", boardlist);
 			
 		}else if(boardtype.contentEquals("petsitter_board")) {
-			List<PetsitterboardDTO> boardlist = sitter_service.outputList(cpage);
-			navi = sitter_service.getPageNavi(cpage);
+			List<PetsitterboardDTO> boardlist = admin_service.p_board(boardtype, cpage);
+			navi = admin_service.PagNavi(cpage, boardtype);
 			m.addAttribute("list", boardlist);
-			boardlist.get(0).getPsb_boardstatus();
 		}
+		else if(boardtype.contentEquals("free")) {
+			List<CommunityDTO> boardlist = admin_service.c_board(boardtype, cpage);
+			System.out.println(boardlist.get(0).getCu_seq());
+			navi = admin_service.PagNavi(cpage, boardtype);
+
+			m.addAttribute("list", boardlist);
+		}
+		
 		m.addAttribute("navi",navi);
 		session.setAttribute("boardtype", boardtype);
 		return "admin/board_management";

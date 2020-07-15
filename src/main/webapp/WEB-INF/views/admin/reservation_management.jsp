@@ -117,11 +117,11 @@
 								</div>
 								<div class="col-12">
 									<div class="row">
-										<div class="col">게시글 번호</div>
-										<div class="col">등록자</div>
-										<div class="col">신청자</div>
-										<div class="col">포인트</div>
-										<div class="col">수락/거절</div>
+										<div class="col-4 col-md">게시글 번호</div>
+										<div class="col-4 col-md">등록자</div>
+										<div class="col-4 col-md">신청자</div>
+										<div class="col-6 col-md">포인트</div>
+										<div class="col-6 col-md">수락/거절</div>
 									</div>
 									<hr style="width: 100%; margin: 15px;">
 									<c:choose>
@@ -129,11 +129,11 @@
 											<c:forEach var="i" items="${list}">										
 											<div class="row">
 													<div class="mb" style="display: none;"></div>
-													<div class="col p_seq">${i.mb_seq}</div>
-													<div class="col writer">${i.mb_writer}</div>
-													<div class="col booker">${i.mb_booker}</div>
-													<div class="col point">${i.mb_point}</div>
-													<div class="col">
+													<div class="col-4 col-md p_seq">${i.mb_seq}</div>
+													<div class="col-4 col-md writer">${i.mb_writer}</div>
+													<div class="col-4 col-md booker">${i.mb_booker}</div>
+													<div class="col-6 col-md point">${i.mb_point}</div>
+													<div class="col-6 col-md">
 														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_accept"> 
 														<input type="button" value="거절" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_cancel">
 													</div>
@@ -145,11 +145,11 @@
 											<c:forEach var="i" items="${list}">
 												<div class="row">
 													<div class="ps" style="display: none;"></div>
-													<div class="col p_seq">${i.board_seq}</div>
-													<div class="col">${i.petsitter_id}</div>
-													<div class="col">${i.mem_id}</div>
-													<div class="col">${i.rsv_point}</div>
-													<div class="col">
+													<div class="col-4 col-md p_seq">${i.board_seq}</div>
+													<div class="col-4 col-md">${i.petsitter_id}</div>
+													<div class="col-4 col-md">${i.mem_id}</div>
+													<div class="col-6 col-md">${i.rsv_point}</div>
+													<div class="col-6 col-md">
 														<input type="button" value="수락" id="${i.wait_seq}" class="btn btn-outline-primary my-2 my-sm-0 btn-sm ok pet_accept"> 
 														<input type="button" value="거절" id="${i.wait_seq}" class="btn btn-outline-primary my-2 my-sm-0 btn-sm pet_cancel">
 													</div>

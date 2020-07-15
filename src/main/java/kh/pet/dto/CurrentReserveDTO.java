@@ -60,7 +60,5 @@ public class CurrentReserveDTO {
 	public void setPm(int pm) {
 		this.pm = pm;
 	}
-
-	
 	
 }
