@@ -35,7 +35,7 @@
 
 <link rel="stylesheet" href="resources/main/css/style.css">
 
-
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <!--===============================================================================================-->
 <link rel="stylesheet" 	href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
@@ -62,7 +62,6 @@
 }
 </style>
 <body>
-
 	<div class="site-wrap">
 
 		<div class="site-mobile-menu">
@@ -96,13 +95,13 @@
 								<li><a href="/admin/adminindex"><span>관리자</span></a></li>
 								<li><a href="/mb/mb_board?cpage=1"><span>반려인 게시판</span></a></li>
 								<li><a href="/mypage/mypage"><span>MyPage</span></a></li>
-								<li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
+								<li><a data-toggle="modal" href="#loginmodal"><span>로그인</span></a></li>
 								<li><a href="signup"><span>회원가입</span></a></li>
 							</ul>
 						</nav>
 					</div>
 					<!-- 로그인-->
-					<div class="modal fade" id="login" data-keyboard="false"
+					<div class="modal fade" id="loginmodal" data-keyboard="false"
                   tabindex="-1" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
@@ -114,7 +113,7 @@
                                        aria-label="Close">
                                        <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <form class="login100-form validate-form" action="/member/loginProc" method="post">
+                                    <form class="login100-form validate-form" name="loginProc" action="/member/loginProc" method="post">
                                        <span class="logo100 p-10">
                                           <p class="logo">
                                              <span class="lnr lnr-paw"></span>뭐하냥 도와주개
@@ -144,7 +143,7 @@
 
 
                                        <div class="container-login100-form-btn">
-                                          <button class="login100-form-btn" type="submit">Login</button>
+                                          <button class="login100-form-btn" type="button" id="login">Login</button>
                                        </div>
                                        <div class="text-center p-t-46 p-b-20">
                                           <span class="txt2"> OR SNS LOGIN </span>
@@ -810,7 +809,7 @@
 	</footer>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
 	<script src="resources/main/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="resources/main/js/jquery-ui.js"></script>
 	<script src="resources/main/js/popper.min.js"></script>
@@ -825,7 +824,7 @@
 
 	<!-- 로그인 -->
 	<!--===============================================================================================-->
-	<script src="/resources/member/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--	<script src="/resources/member/vendor/jquery/jquery-3.2.1.min.js"></script>-->
 	<!--===============================================================================================-->
 	<script src="/resources/member/vendor/animsition/js/animsition.min.js"></script>
 	<!--===============================================================================================-->
@@ -844,7 +843,33 @@
 
 
 	<script src="resources/main/js/typed.js"></script>
-	<script>
+ <script>
+	$("#login").on("click",function(){	
+		
+		var queryString = $("form[name=loginProc]").serialize();
+		$.ajax({
+			type: "POST",
+			url: "/member/loginProc",
+			cache: false,
+			data : queryString,
+			dataType : "json",
+			success: function(data){
+				var check = data.result;
+				console.log(check);
+				if(check == 0 ){
+					alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');					
+				}
+				else if(check == 1){
+					alert('ID 또는 비밀번호를 확인하세요.');
+				
+				}else{
+					location.reload();
+				}		
+			}	
+		})
+	})
+	
+	
 		var typed = new Typed('.typed-words', {
 			strings : [ "Attractions", " Events", " Hotels", " Restaurants" ],
 			typeSpeed : 80,
