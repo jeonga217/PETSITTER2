@@ -179,10 +179,12 @@ public class PetsitterboardController {
 	@ResponseBody
 	@RequestMapping(value="/selectPrice", method=RequestMethod.POST)
 	public List<Integer> selectPrice(@RequestParam(value="timearr[]") List<String> timearr,@RequestParam(value="typearr[]")List<String> typearr) throws Exception{
+
 		ArrayList<Object> list = new ArrayList<>();
+
 		for(String time:timearr) {
 			for(String type:typearr) {
-				Map<String, String> info = new HashMap<>();
+				Map<String, String> info = new HashMap<String, String>();
 				info.put("time",time);
 				info.put("type",type);
 				list.add(info);

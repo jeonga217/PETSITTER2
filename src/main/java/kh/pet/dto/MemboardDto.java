@@ -15,7 +15,7 @@ public class MemboardDto {
 	private String mb_stime;
 	private String mb_etime;
 	private String mb_request;
-	private String mb_point;
+	private int mb_point;
 	private String mb_petphoto;
 	private String mb_boardstatus;
 	private String mb_restatus;
@@ -30,7 +30,7 @@ public class MemboardDto {
 
 	public MemboardDto(String mb_seq, String mb_title, String mb_writer, Timestamp mb_date, String mb_pet_name,
 			String mb_service, String mb_startday, String mb_endday, String mb_stime, String mb_etime, String mb_request,
-			String mb_point, String mb_petphoto, String mb_boardstatus, String mb_restatus, String mb_booker,
+			int mb_point, String mb_petphoto, String mb_boardstatus, String mb_restatus, String mb_booker,
 			String[] photo, String date) {
 		super();
 		this.mb_seq = mb_seq;
@@ -141,11 +141,11 @@ public class MemboardDto {
 		this.mb_request = mb_request;
 	}
 
-	public String getMb_point() {
+	public int getMb_point() {
 		return mb_point;
 	}
 
-	public void setMb_point(String mb_point) {
+	public void setMb_point(int mb_point) {
 		this.mb_point = mb_point;
 	}
 

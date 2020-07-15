@@ -92,7 +92,7 @@
 	</update>
 	
 	<update id="updateSysPoint">
-		insert into reservation_point (reservation_seq, reservation_point) values #{}, #{}
+		insert into reservation_point (reservation_seq, reservation_point) values #{reservation_seq}, #{rsv_point}
 	</update>
 	
 </mapper>

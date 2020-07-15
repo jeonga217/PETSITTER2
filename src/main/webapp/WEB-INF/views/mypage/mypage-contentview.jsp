@@ -23,11 +23,14 @@
 <link rel="stylesheet" href="/resources/main/css/magnific-popup.css">
 <link rel="stylesheet" href="/resources/main/css/jquery-ui.css">
 <link rel="stylesheet" href="/resources/main/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/resources/main/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="/resources/main/css/owl.theme.default.min.css">
 
-<link rel="stylesheet" href="/resources/main/css/bootstrap-datepicker.css">
+<link rel="stylesheet"
+	href="/resources/main/css/bootstrap-datepicker.css">
 
-<link rel="stylesheet" href="/resources/main/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet"
+	href="/resources/main/fonts/flaticon/font/flaticon.css">
 
 <link rel="stylesheet" href="/resources/main/css/aos.css">
 <link rel="stylesheet" href="/resources/main/css/rangeslider.css">
@@ -44,8 +47,10 @@
 	href="/resources/main/vendor1/select2/select2.min.css">
 <link rel="stylesheet" type="text/css"
 	href="/resources/main/vendor1/perfect-scrollbar/perfect-scrollbar.css">
-<link rel="stylesheet" type="text/css" href="/resources/main/css1/util.css">
-<link rel="stylesheet" type="text/css" href="/resources/main/css1/main.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/css1/util.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/css1/main.css">
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="/resources/main/js/pet_reg.js"></script>
@@ -111,6 +116,16 @@ input {
 				return false;
 			}
 		})
+
+		$("#mod").on(
+				"click",
+				function() {
+
+					location.href='/mypage/modfiy?seq=${dto.petseq}'
+					
+
+				})
+
 	})
 </script>
 <body>
@@ -203,55 +218,49 @@ input {
 								<div class="d-block d-md-flex listing-horizontal">
 									<div class="lh-content">
 
-
 										<div class="border p-3 rounded mb-2">
-											<div style="display: inline-block;">
-												<a data-toggle="collapse" href="#collapse-1" role="button"
-													aria-expanded="false" aria-controls="collapse-1"
-													class="accordion-item h5 d-block mb-0"><img
-													src="/upload/${dto.pet_photo}"
-													style="width: 300px; height: 300px;"></a>
+											<div>펫 소개</div>
+											<div style="position: relative; float: left;">
+												<img src="/upload/${dto.pet_photo}"
+													style="width: 300px; height: 300px;">
 											</div>
-											<div style="display: inline-block;">
+											<div style="display: inline-block; padding: 30px;">
 												<p class="mb-0">
-													펫 이름 :
-													<label>${dto.pet_name}</label>
+													펫 이름 : <label>${dto.pet_name}</label>
 												</p>
 												<p class="mb-0">
-													성별 :
-													<label>${dto.pet_gender}</label>
+													성별 : <label>${dto.pet_gender}</label>
 												</p>
 												<p class="mb-0">
-													중성호 여부 :
-													<label>${dto.pet_ox}</label>
+													중성호 여부 : <label>${dto.pet_ox}</label>
 												</p>
 												<p class="mb-0">
-													펫 나이 :
-													<label>${dto.pet_age}</label>
+													펫 나이 : <label>${dto.pet_age}</label>
 												</p>
 												<p class="mb-0">
-													견종 :
-													<label>${dto.pet_animal}</label>
+													견종 : <label>${dto.pet_sort}</label>
 												</p>
 												<p class="mb-0">
-													동거여부 :
-													<label>${dto.pet_family}</label>
+													펫 크기 : <label>${dto.pet_type}</label>
 												</p>
 												<p class="mb-0">
-													 종류(개인지 고양이 인지) :
-													<label>${dto.pet_sort}</label>
+													동거여부 : <label>${dto.pet_family}</label>
 												</p>
 												<p class="mb-0">
-													반려견 성격 :
-													<label>${dto.pet_character}</label>
+													종류(개인지 고양이 인지) : <label>${dto.pet_animal}</label>
 												</p>
 												<p class="mb-0">
-													특이사항 :
-													<label>${dto.pet_details}</label>
+													반려견 성격 : <label>${dto.pet_character}</label>
 												</p>
+												<p class="mb-0">
+													특이사항 : <label>${dto.pet_details}</label>
+												</p>
+
 											</div>
+
 
 										</div>
+
 									</div>
 
 								</div>
@@ -393,8 +402,6 @@ input {
 		<div class="row pt-5 mt-5">
 			<div class="col-12 text-md-center text-left">
 				<p>
-					<!-- Link back to Free-Template.co can't be removed. Template is licensed under
-                                                                                                                                                CC BY 3.0. -->
 					&copy; 2020 <strong class="text-black">Browse</strong> Free
 					Template. All Rights Reserved. <br> Design by <a
 						href="https://free-template.co/" target="_blank"

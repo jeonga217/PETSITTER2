@@ -1,7 +1,5 @@
 package kh.pet.dao;
 
-import java.security.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +23,8 @@ public class MypageDAO {
 		int counts = 0;
 		int minus = 0;
 		Map<String, String> list = new HashMap<String, String>();
-		list.put("minus", "사용");
-		list.put("minus1", "환전");
+		list.put("minus", "�궗�슜");
+		list.put("minus1", "�솚�쟾");
 		list.put("id", id);
 		List<Integer> count = mybatis.selectList("Pet_reg.pointcount", id);
 		for (int i = 0; i < count.size(); i++) {
@@ -36,8 +34,8 @@ public class MypageDAO {
 		for (int i = 0; i < pointminus.size(); i++) {
 			minus += pointminus.get(i);
 		}
-		System.out.println("전체 : " + counts);
-		System.out.println("마이스너스 : " + minus);
+		System.out.println("�쟾泥� : " + counts);
+		System.out.println("留덉씠�뒪�꼫�뒪 : " + minus);
 		return counts - minus;
 	}
 
@@ -70,13 +68,21 @@ public class MypageDAO {
 	}
 
 	public List<RegLookupDTO> reglookup(String id) {
-
+		
 		List<RegLookupDTO> list = mybatis.selectList("Pet_reg.lookup", id);
 		return list;
 	}
 
 	public List<MyPage_CommunityDTO> community(String id) {
 		List<MyPage_CommunityDTO> list = mybatis.selectList("Pet_reg.community", id);
+		return list;
+	}
+	
+	public Mypet_regDTO modfiylist(String id, int seq) {
+		Map<String, Object> modlist = new HashMap<String, Object>();
+		modlist.put("id", id);
+		modlist.put("seq", seq);
+		Mypet_regDTO list = mybatis.selectOne("Pet_reg.modfiylist",modlist);
 		return list;
 	}
 
@@ -92,6 +98,15 @@ public class MypageDAO {
 		list.put("p_method", add);
 		list.put("mem_type", "2");
 		mybatis.insert("Pet_reg.pointinsert", list);
+	}
+	
+	public void petmodfiy(Mypet_regDTO dto) {
+		mybatis.update("Pet_reg.petmodfiy",dto);
+	}
+	
+	public String searchseq(int seq) {
+		String imgname = mybatis.selectOne("Pet_reg.seq",seq);
+		return imgname;
 	}
 
 }

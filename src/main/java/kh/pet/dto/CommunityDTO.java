@@ -10,11 +10,13 @@ public class CommunityDTO {
 	private String cu_contents;
 	private int cu_view_cnt;
 	private String cu_thumb;
+	private String board_status;
+	public CommunityDTO() {}
 	
-	public CommunityDTO() {}	
+	
 	
 	public CommunityDTO(int cu_seq, int cu_category, String cu_title, String cu_writer, String cu_date,
-			String cu_contents, int cu_view_cnt, String cu_thumb) {
+			String cu_contents, int cu_view_cnt, String cu_thumb, String board_status) {
 		super();
 		this.cu_seq = cu_seq;
 		this.cu_category = cu_category;
@@ -24,10 +26,15 @@ public class CommunityDTO {
 		this.cu_contents = cu_contents;
 		this.cu_view_cnt = cu_view_cnt;
 		this.cu_thumb = cu_thumb;
+		this.board_status = board_status;
 	}
+
+
+
 	public int getCu_seq() {
 		return cu_seq;
 	}
+
 	public void setCu_seq(int cu_seq) {
 		this.cu_seq = cu_seq;
 	}
@@ -73,6 +80,14 @@ public class CommunityDTO {
 	public void setCu_thumb(String cu_thumb) {
 		this.cu_thumb = cu_thumb;
 	}
+	public String getBoard_status() {
+		return board_status;
+	}
+	public void setBoard_status(String board_status) {
+		this.board_status = board_status;
+	}
+	
+	
 	
 
 }

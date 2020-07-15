@@ -103,9 +103,12 @@ public class PetsitterboardDAO {
 	}
 	
 	public List<Integer> selectPrice (List<Object> list)throws Exception{
-		ArrayList<Integer> pricelist = new ArrayList<>();
+		ArrayList<Integer> pricelist = new ArrayList<Integer>();
 		for(int i=0;i<list.size();i++) {
+
 			pricelist.add(mybatis.selectOne("Board.selectPrice",list.get(i)));
+
+
 		}
 		return pricelist;
 	}
