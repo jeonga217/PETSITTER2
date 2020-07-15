@@ -43,8 +43,9 @@ public class MemberDAO {
 		 
 		public void signup(MemberDTO dto) throws Exception {	 //가입
 			
-			dto.setMem_pw(mservice.getSHA512(dto.getMem_pw()));
-			System.out.println(dto.getMem_authkey());
+			if(dto.getMem_pw() != null) {
+				dto.setMem_pw(mservice.getSHA512(dto.getMem_pw()));
+			}
 			
 			mybatis.insert("Member.signup", dto);
 
@@ -96,4 +97,13 @@ public class MemberDAO {
 					
 			return mybatis.update("Member.replacepw", map);
 		}
+		
+		public int withdraw(String id) {
+			
+			return mybatis.delete("Member.withdraw", id);			
+		}
+		
+		
+		
+		
 }
