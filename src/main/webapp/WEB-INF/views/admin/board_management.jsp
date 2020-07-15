@@ -138,7 +138,7 @@
 												<hr class="hr2">
 												<div class="row"> 
 													<div class="col-4 col-lg">${i.mb_seq}</div>
-													<div class="col-4 col-lg"><a href="/mb/redlist">${i.mb_title}</a></div>
+													<div class="col-4 col-lg"><a href="/mb/modfilist?mb_seq=${i.mb_seq}" target="_blank">${i.mb_title}</a></div>
 													<div class="col-4 col-lg">${i.mb_writer}</div>
 													<div class="col-4 col-lg">${i.mb_date}</div>
 													<div class="col-4 col-lg">
@@ -166,7 +166,7 @@
 												<hr class="hr2">
 												<div class="row"> 
 													<div class="col-4 col-lg">${i.psb_seq}</div>
-													<div class="col-4 col-lg"><a href="/mb/redlist">${i.psb_title}</a></div>
+													<div class="col-4 col-lg"><a href="/board/outputSingle?psb_writer=${i.psb_writer }&psb_seq=${i.psb_seq}" target="_blank">${i.psb_title}</a></div>
 													<div class="col-4 col-lg">${i.psb_writer}</div>
 													<div class="col-4 col-lg">${i.psb_date}</div>
 													<div class="col-4 col-lg">
@@ -194,7 +194,7 @@
 												<hr class="hr2">
 												<div class="row"> 
 													<div class="col-4 col-lg">${i.cu_seq}</div>
-													<div class="col-4 col-lg"><a href="/mb/redlist">${i.cu_title}</a></div>
+													<div class="col-4 col-lg"><a href="/community/view?cu_seq=${i.cu_seq}&cu_view_cnt=${i.cu_view_cnt}" target="_blank">${i.cu_title}</a></div>
 													<div class="col-4 col-lg">${i.cu_writer}</div>
 													<div class="col-4 col-lg">${i.cu_date}</div>
 													<div class="col-4 col-lg">
