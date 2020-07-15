@@ -58,6 +58,12 @@ public class MypageController {
 		request.setAttribute("list", list);
 		return "mypage/Mypage-Use";
 	}
+	
+	
+	@RequestMapping("usecontent")
+	public String usecontent() {
+		return "mypage/mypage-usecontent";
+	}
 
 	@RequestMapping("mypet")
 	public String mypet() {

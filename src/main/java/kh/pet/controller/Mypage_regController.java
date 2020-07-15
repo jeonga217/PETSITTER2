@@ -1,12 +1,15 @@
 package kh.pet.controller;
 
+
+
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,10 +45,12 @@ public class Mypage_regController {
 	
 	@RequestMapping("contentview")
 	public String contentview(HttpServletRequest request) {
+		MemberDTO dtos = (MemberDTO)session.getAttribute("loginInfo");
 		int seq = Integer.parseInt(request.getParameter("seq"));
-		System.out.println("�떆���뒪 媛� : "+seq);
 		Mypet_regDTO dto = mdao.petlist(seq);
+		List<Mypet_regDTO> restlist = mdao.petrest(dtos.getMem_id(), seq);
 		request.setAttribute("dto", dto);
+		request.setAttribute("restlist", restlist);
 		return "/mypage/mypage-contentview";
 	}
 	

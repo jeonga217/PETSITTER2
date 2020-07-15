@@ -108,5 +108,13 @@ public class MypageDAO {
 		String imgname = mybatis.selectOne("Pet_reg.seq",seq);
 		return imgname;
 	}
+	
+	public List<Mypet_regDTO> petrest(String id, int seq) {
+		Map<String, Object>  list = new HashMap<String, Object>();
+		list.put("id", id);
+		list.put("seq", seq);
+		List<Mypet_regDTO> restlist = mybatis.selectList("Pet_reg.rest", list);
+		return restlist;
+	}
 
 }

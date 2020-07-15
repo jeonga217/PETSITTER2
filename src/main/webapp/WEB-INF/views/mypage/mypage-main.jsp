@@ -75,7 +75,7 @@
 								<li class="active"><a href="#"><span>Home</span></a></li>
 								<li class="active"><a href="/point"><span>AboutUs</span></a></li>
 								<li><a href="/mypage/list?cpage=1"><span>PetService</span></a></li>
-								<li><a href="#"><span>About</span></a></li>
+								<li><a href="/mypage/usecontent"><span>About</span></a></li>
 								<li><a href="/mypage/community"><span>MyPage</span></a></li>
 								<li><a href="/mypage/registration"><span>Sing Up</span></a></li>
 								<li><a href="/mypage/Introduction"><span>Login</span></a></li>
