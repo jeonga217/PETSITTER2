@@ -43,49 +43,60 @@ public class MemberService {
 		return toReturn;
 	}
 
+	public int idDuplCheck(String id) throws Exception{
+
+		int result = mdao.idDuplCheck(id);
+		return result;
+	}
+	
 	public int emailCheck(String email) throws Exception {
 		
 		int result = mdao.emailCheck(email);
 		return result;
 	}
-	public int idDuplCheck(String id) throws Exception{
-		int result = mdao.idDuplCheck(id);
-		return result;
-	}
-
 	
 
-	public void signup(MemberDTO mdto) throws Exception{ //�쉶�썝媛��엯.
-		String key = new Tempkey().getKey(20, false);		
-		System.out.println("key: "+key);
+	public void signup(MemberDTO mdto) throws Exception{ //회원가입.
+		String key = new Tempkey().getKey(20, false);	
+		System.out.println("가입타입: "+mdto.getMem_join_type());
 		mdto.setMem_authkey(key);
 			
 		mdao.signup(mdto);
 		String id = mdto.getMem_id();
 		
-		//硫붿씪 �쟾�넚
+		//메일 전송
         MailHandler sendMail = new MailHandler(mailSender);
-        sendMail.setSubject("萸먰븯�깷�룄��二쇨컻 �씠硫붿씪 �씤利�");
+        sendMail.setSubject("뭐하냥도와주개 이메일 인증");
         sendMail.setText(
                 new StringBuffer()
                 .append(id)
-                .append("�떂, 媛��엯�쓣 �솚�쁺�빀�땲�떎. �븘�옒 留곹겕瑜� �늻瑜대㈃ �씤利앹씠 �셿猷뚮맗�땲�떎.")
+                .append("님, 가입을 환영합니다. 아래 링크를 누르면 인증이 완료됩니다.")
                 .append("<br>")
-                .append("(�샊�떆 �옒紐� �쟾�떖�릺�뿀�떎硫�, �씠 �씠硫붿씪�쓣 臾댁떆�븯�뀛�룄 �맗�땲�떎)")
+                .append("(혹시 잘못 전달되었다면, 이 이메일을 무시하셔도 됩니다)")
                 .append("<br>")
                 .append("<br>")
-                .append("<a href='http://localhost/member/emailConfirm?authKey=")
+                .append("<a href='http://192.168.60.13/member/emailConfirm?authKey=")
                 .append(key)
                 .append("&userid=")
                 .append(id)
-                .append("' target='_blank'>�씠硫붿씪 �씤利� �솗�씤</a>")
+                .append("' target='_blank'>이메일 인증 확인</a>")
                 .toString());
         
-        sendMail.setFrom("whatcathelpdog@gmail.com", "萸먰븯�깷�룄��二쇨컻");
+        sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
         sendMail.setTo(mdto.getMem_email());
         sendMail.send();
 
 	}
+	
+	public void sns_signup(MemberDTO mdto) throws Exception{
+		
+		mdao.signup(mdto);
+		
+	}
+	
+	
+	
+	
 	
 	public int emailConfirm(String authKey, String userid) {
 		int result = 0;		
@@ -102,7 +113,7 @@ public class MemberService {
 		
 	}
 	
-	public int verify(String id) { //�씠硫붿씪 �씤利앺솗�씤
+	public int verify(String id) { //이메일 인증확인
 		
 		int result = mdao.verify(id);
 		return result;
@@ -110,7 +121,7 @@ public class MemberService {
 	
 	public boolean login(Map<String, String> map)throws Exception{
 		
-		boolean result = mdao.login(map);		
+		boolean result = mdao.login(map);			
 		return result;		
 	}
 		
@@ -121,49 +132,49 @@ public class MemberService {
 		
 	}
 	
-	public String findID(String email) { //ID李얘린
+	public String findID(String email) { //ID찾기
 				
 		return mdao.findID(email);
 		
 	}
 	
-	public int findPw(Map<String, String> map) { //�씪移� 鍮꾨쾲�솗�씤
+	public int findPw(Map<String, String> map) { //일치 비번확인
 		
 		return mdao.findPw(map);		
 		
 	}
 	
-	public int replacepw(String id, String email) throws Exception { //鍮꾨�踰덊샇 �옱�꽕�젙
+	public int replacepw(String id, String email) throws Exception { //비밀번호 재설정
 				
 		String key = new Tempkey().getKey(8, false);		
-		System.out.println("�옱�꽕�젙 key: "+key);
+		System.out.println("재설정 key: "+key);
 				
-		//硫붿씪 �쟾�넚
+		//메일 전송
         MailHandler sendMail = new MailHandler(mailSender);
-        sendMail.setSubject("[萸먰븯�깷�룄��二쇨컻] �엫�떆 鍮꾨� 踰덊샇 �븞�궡�뱶由쎈땲�떎. ");
+        sendMail.setSubject("[뭐하냥도와주개] 임시 비밀 번호 안내드립니다. ");
         sendMail.setText(
                 new StringBuffer()
                 .append(id)
-                .append("�떂�쓽 �엫�떆 鍮꾨�踰덊샇�뒗")
+                .append("님의 임시 비밀번호는")
                 .append("&nbsp;<strong>") 
                 .append(key)
                 .append("</strong>&nbsp;")
-                .append("�엯�땲�떎.") 
+                .append("입니다.") 
                 .append("<br>")
-                .append("(�샊�떆 �옒紐� �쟾�떖�릺�뿀�떎硫�, �씠 �씠硫붿씪�� 臾댁떆�븯�뀛�룄 �맗�땲�떎)")
+                .append("(혹시 잘못 전달되었다면, 이 이메일은 무시하셔도 됩니다)")
                 .append("<br>")
-                .append("�엫�떆 鍮꾨�踰덊샇濡� 濡쒓렇�씤 �썑, 留덉씠�럹�씠吏��뿉�꽌 �썝�븯�뒗 鍮꾨�踰덊샇濡� �닔�젙�빐二쇱꽭�슂.")
+                .append("임시 비밀번호로 로그인 후, 마이페이지에서 원하는 비밀번호로 수정해주세요.")
                 .append("<br>")
                 .append("<a href='http://192.168.60.13/'")
-                .append("' target='_blank'>萸먰븯�깷 �룄��二쇨컻</a>")
+                .append("' target='_blank'>뭐하냥 도와주개</a>")
                 .toString());
         
-        sendMail.setFrom("whatcathelpdog@gmail.com", "萸먰븯�깷�룄��二쇨컻");
+        sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
         sendMail.setTo(email);
         sendMail.send();
 		
 				
-		String pw = this.getSHA512(key); //�븫�샇�솕
+		String pw = this.getSHA512(key); //암호화
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
@@ -171,4 +182,17 @@ public class MemberService {
 		
 		return mdao.replacepw(map);	
 	}
+	
+	public int findSNS(Map<String, String> map) { //카카오 아이디 조회
+		
+		return mdao.findPw(map);
+	}
+	
+	public int withdraw(String id) { //회원탈퇴
+		
+		return mdao.withdraw(id);		
+	}
+	
+	
+
 }

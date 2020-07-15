@@ -1,7 +1,6 @@
-z<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,42 +18,53 @@ z<%@ page language="java" contentType="text/html; charset=EUC-KR"
 <link href="https://fonts.googleapis.com/css?family=Rubik:400,700"
 	rel="stylesheet">
 
-<link rel="stylesheet" href="/resources/main/fonts/icomoon/style.css">
+<link rel="stylesheet" href="resources/main/fonts/icomoon/style.css">
 
 <link rel="stylesheet" href="/resources/main/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/main/css/magnific-popup.css">
 <link rel="stylesheet" href="/resources/main/css/jquery-ui.css">
 <link rel="stylesheet" href="/resources/main/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/resources/main/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="/resources/main/css/owl.theme.default.min.css">
 
-<link rel="stylesheet" href="/resources/main/css/bootstrap-datepicker.css">
+<link rel="stylesheet"
+	href="/resources/main/css/bootstrap-datepicker.css">
 
-<link rel="stylesheet" href="/resources/main/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet"
+	href="/resources/main/fonts/flaticon/font/flaticon.css">
 
 <link rel="stylesheet" href="/resources/main/css/aos.css">
 <link rel="stylesheet" href="/resources/main/css/rangeslider.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@700&display=swap"
-	rel="stylesheet">
+
 <link rel="stylesheet" href="/resources/main/css/style.css">
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-</head>
-<script>
-	$(function() {
-		$("#pet").on("click", function() {
-			location.href = "mypet";
-		})
-		$("#back").on("click", function() {
-			location.href = '/';
-		})
 
-	})
-</script>
+
+
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/vendor1/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/fonts1/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/vendor1/animate/animate.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/vendor1/select2/select2.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/vendor1/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/css1/util.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/main/css1/main.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
 <style>
-label {
-	style ="font-family: 'Hind Siliguri', sans-serif;
-	"
+td {
+	text-align: center;
 }
 </style>
 <body>
@@ -75,11 +85,9 @@ label {
 			<div class="container">
 				<div class="row align-items-center">
 
-					<div class="col-12 col-xl-2">
-						<h1 class="mb-2 site-logo">
-							<a href="/mypage/mypage"><img src="/resources/main/images/dogss.png"
-								style="width: 250px; height: 60px;"
-								style="board: 1px soild black;"></a>
+					<div class="col-11 col-xl-2">
+						<h1 class="mb-0 site-logo">
+							<a href="index.html" class="text-white h2 mb-0">Browse</a>
 						</h1>
 					</div>
 					<div class="col-12 col-md-10 d-none d-xl-block">
@@ -87,12 +95,12 @@ label {
 							role="navigation">
 
 							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-								<li class="active"><a href="/mypage/mypage"><span>Home</span></a></li>
+								<li class="active"><a href="#"><span>Home</span></a></li>
 								<li class="active"><a href="#"><span>AboutUs</span></a></li>
-								<li><a href="/mypage/registration"><span>PetService</span></a></li>
-								<li><a href="warning"><span>About</span></a></li>
-								<li><a href="/mypage/modfiy"><span>MyPage</span></a></li>
-								<li><a href="/mypage/reservation"><span>Sing Up</span></a></li>
+								<li><a href="#"><span>PetService</span></a></li>
+								<li><a href="#"><span>About</span></a></li>
+								<li><a href="mypage"><span>MyPage</span></a></li>
+								<li><a href="#"><span>Sing Up</span></a></li>
 								<li><a href="#"><span>Login</span></a></li>
 							</ul>
 						</nav>
@@ -103,23 +111,22 @@ label {
 					<div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3"
 						style="position: relative; top: 3px;">
 						<a href="#" class="site-menu-toggle js-menu-toggle text-white"><span
-							class="icon-menu h3"> </span></a>
+							class="icon-menu h3"></span></a>
 					</div>
 
 				</div>
 
 			</div>
 		</header>
-			
+
 	</div>
 
 
 
 
-
 	<div class="site-blocks-cover inner-page-cover overlay"
-		style="background-image: url(/resources/main/images/sleep.jpg);"
-		data-aos="fade" data-stellar-background-ratio="0.5">
+		style="background-image: url(/resources/main/images/dig.jpg);"
+		data-aos="fade">
 		<div class="container">
 			<div
 				class="row align-items-center justify-content-center text-center">
@@ -129,9 +136,11 @@ label {
 
 					<div class="row justify-content-center">
 						<div class="col-md-8 text-center">
-							<h1>
-								ë§ˆì´í˜ì´ì§€(í«ë“±ë¡í˜ì´ì§€)
-								</h1>
+							<h1>¸¶ÀÌÆäÀÌÁö Ä¿¹Â´ÏÆ¼</h1>
+							<p data-aos="fade-up" data-aos-delay="100">
+								Handcrafted free templates by <a
+									href="https://free-template.co/" target="_blank">Free-Template.co</a>
+							</p>
 						</div>
 					</div>
 
@@ -140,86 +149,86 @@ label {
 			</div>
 		</div>
 	</div>
-	
-	
-	
-	
-	
-	<div class="site-section" data-aos="fade">
+
+
+	<div class="site-section bg-light">
 		<div class="container">
 
 
-			<div class="row">
-				<c:forEach var="i" items="${bdto}">
-					<div class="col-md-6 mb-4 mb-lg-4 col-lg-4">
+			<div class="limiter">
+				<div class="container-table20">
+					<div class="wrap-table20">
+						<div class="table100 ver1 m-b-110">
+							<div class="limiter">
 
-						<div class="listing-item">
-							<div class="listing-image" >
-								<a href="contentview"><img src="/upload/${i.pet_photo}"
-									alt="Free Website Template by Free-Template.co"
-									class="img-fluid" style="height: 283.38px;"></a>
-							</div>
+								¿¹¾à³»¿ª Å×ÀÌºí
+								<table>
+									<thead>
+										<tr class="table100-head">
+											<th class="column1">¼­ºñ½º½ÅÃ»³¯Â¥</th>
+											<th class="column2">¼­ºñ½ºÀÌ¿ë³¯Â¥</th>
+											<th class="column3">»ç¿ëÆ÷ÀÎÆ®</th>
+											<th class="column3">¿¹¾à¹øÈ£</th>
+											<th class="column3">¼­ºñ½ºÀÌ¿ë»óÅÂ</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="i" items="${bdto}" varStatus="status">
+											<c:if test="${list.get(status.index) ne '¼­ºñ½ºÁ¾·á'}">
+												<tr>
+													<td>${i.reserve_day}
+													<td>${i.start_day}~${i.end_day}
+													<td>${i.reserve_point}
+													<td>${i.reserve_seq}
+													<td>${list.get(status.index)}
+												</tr>
+											</c:if>
+										</c:forEach>
+									</tbody>
+								</table>
+								<div class="col-12 mt-5 text-center">
+									<div class="custom-pagination">${navi}</div>
+								</div>
 
-							<div class="listing-item-content">
-								 <a class="px-3 mb-3 category"
-									href="contentview?seq=${i.petseq}">ë‚´ìš©ë³´ê¸°</a>
-								<h2 class="mb-1">
-									<a href="listings-single.html">${i.pet_name}</a>
-								</h2>
-								<span class="address">ì„±ë³„:${i.pet_gender}</span>
+
+								<br> <br> <br> <br> <br> <br> <br>
+
+								ÀÌ¿ë³»¿ªÅ×ÀÌºí
+								<table>
+									<thead>
+										<tr class="table100-head">
+											<th class="column1">¼­ºñ½º½ÅÃ»³¯Â¥</th>
+											<th class="column2">¿¹¾à¹øÈ£</th>
+											<th class="column3">¼­ºñ½ºÀÌ¿ë»óÅÂ</th>
+											<th class="column3">½Å°íÇÏ±â</th>
+											<th class="column3">ÄªÂùÇÏ±â</th>
+											<th class="column3">Æê½ÃÅÍÀÏÁöº¸±â</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="i" items="${bdto}" varStatus="status">
+											<c:if test="${list.get(status.index) eq '¼­ºñ½ºÁ¾·á'}">
+												<tr>
+													<td>${i.reserve_day}
+													<td>${i.reserve_seq}
+													<td>${list.get(status.index)}
+													<td>
+													<td>
+													<td>
+												</tr>
+											</c:if>
+										</c:forEach>
+									</tbody>
+								</table>
+
+
 							</div>
 						</div>
-
 					</div>
-				</c:forEach>
-
-				<div style="position: relative; float: right;">
-					<button type="button" id="back" class="btn btn-secondary"
-						style="border-radius: 5px;">ë’¤ë¡œê°€ê¸°</button>
-					<button type="button" id="pet" class="btn btn-info"
-						style="border-radius: 5px;">í«ë“±ë¡í•˜ê¸°</button>
-					
-				</div>
-
-
-				<div class="col-12 mt-5 text-center">
-					<div class="custom-pagination">${navi}</div>
 				</div>
 			</div>
 		</div>
-		
-	</div>
-
-</body>
-
-
-
-
-<div class="py-5 bg-info">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-7 mr-auto mb-4 mb-lg-0">
-				<h2 class="mb-3 mt-0 text-white">Let's get started. Create your
-					account</h2>
-				<p class="mb-0 text-white">Far far away, behind the word
-					mountains, far from the countries Vokalia and Consonantia, there
-					live the blind texts.</p>
-			</div>
-			<div class="col-lg-4">
-				<p class="mb-0">
-					<a href="signup.html"
-						class="btn btn-outline-white text-white btn-md px-5 font-weight-bold btn-md-block">Sign
-						Up</a>
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
-
-<footer class="site-footer">
+		<footer class="site-footer">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-9">
@@ -281,7 +290,7 @@ label {
 					<div class="col-12 text-md-center text-left">
 						<p>
 							<!-- Link back to Free-Template.co can't be removed. Template is licensed under CC BY 3.0. -->
-							&copy; 2019 <strong class="text-black">Browse</strong> Free
+							&copy; 2020 <strong class="text-black">Browse</strong> Free
 							Template. All Rights Reserved. <br> Design by <a
 								href="https://free-template.co/" target="_blank"
 								class="text-black">Free-Template.co</a>
@@ -290,23 +299,22 @@ label {
 				</div>
 			</div>
 		</footer>
+	</div>
 
 
+	<script src="/resources/main/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/main/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="/resources/main/js/jquery-ui.js"></script>
+	<script src="/resources/main/js/popper.min.js"></script>
+	<script src="/resources/main/js/bootstrap.min.js"></script>
+	<script src="/resources/main/js/owl.carousel.min.js"></script>
+	<script src="/resources/main/js/jquery.stellar.min.js"></script>
+	<script src="/resources/main/js/jquery.countdown.min.js"></script>
+	<script src="/resources/main/js/jquery.magnific-popup.min.js"></script>
+	<script src="/resources/main/js/bootstrap-datepicker.min.js"></script>
+	<script src="/resources/main/js/aos.js"></script>
+	<script src="/resources/main/js/rangeslider.min.js"></script>
 
-<script src="/resources/main/js/jquery-3.3.1.min.js"></script>
-<script src="/resources/main/js/jquery-migrate-3.0.1.min.js"></script>
-<script src="/resources/main/js/jquery-ui.js"></script>
-<script src="/resources/main/js/popper.min.js"></script>
-<script src="/resources/main/js/bootstrap.min.js"></script>
-<script src="/resources/main/js/owl.carousel.min.js"></script>
-<script src="/resources/main/js/jquery.stellar.min.js"></script>
-<script src="/resources/main/js/jquery.countdown.min.js"></script>
-<script src="/resources/main/js/jquery.magnific-popup.min.js"></script>
-<script src="/resources/main/js/bootstrap-datepicker.min.js"></script>
-<script src="/resources/main/js/aos.js"></script>
-<script src="/resources/main/js/rangeslider.min.js"></script>
-
-<script src="/resources/main/js/main.js"></script>
-
+	<script src="/resources/main/js/main.js"></script>
 </body>
 </html>

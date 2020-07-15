@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.pet.dao.PetsitterboardDAO;
+import kh.pet.dto.CurrentPickDTO;
 import kh.pet.dto.CurrentReserveDTO;
 import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PetsitterboardDTO;
+import kh.pet.dto.ReserveDto;
 import kh.pet.dto.TotboardDTO;
 import kh.pet.dto.WaitlistDTO;
+import kh.pet.dto.timeDTO;
 import kh.pet.staticInfo.PetSitterConfiguration;
 
 @Service
@@ -30,12 +33,11 @@ public class PetsitterboardService {
 	}
 	
 	public int selectCnt(String psb_writer) throws Exception{
-		System.out.println("service:"+psb_writer);
+		//System.out.println("service:"+psb_writer);
 		return psbdao.selectCnt(psb_writer);
 	}
 	
 	public List<Mypet_regDTO> selectMypet(String mem_id)throws Exception{
-		//System.out.println("마이펫:"+psbdao.selectMypet(mem_id).size());
 		return psbdao.selectMypet(mem_id);
 	}
 	
@@ -46,21 +48,19 @@ public class PetsitterboardService {
 	public int insertwaitlist(WaitlistDTO wldto)throws Exception{
 		Date start_day = wldto.getRsv_start_day();
 		Date end_day = wldto.getRsv_end_day();
-		//System.out.println("s:"+start_day);
-		//System.out.println("e:"+end_day);
-		
 		List<CurrentReserveDTO> reserve_list = new ArrayList<CurrentReserveDTO>();
 		
 		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(wldto.getRsv_start_day());
+		cal.setTime(start_day);
 		
 		long diff = Math.abs((end_day.getTime()-start_day.getTime())/(24*60*60*1000));
-		System.out.println("diff:"+diff);
 		
 		for(int i=0;i<diff+1;i++) {
 			CurrentReserveDTO cdto = new CurrentReserveDTO();
 			cdto.setParent_board_seq(wldto.getBoard_seq());
+			String pet_list[] = (wldto.getRsv_pet_name()).split(",");
+			System.out.println("list길이:"+pet_list.length);
 			if(i==0) {
 				cdto.setS_cur_date(df.format(cal.getTime()));
 			} else {
@@ -68,24 +68,24 @@ public class PetsitterboardService {
 				cdto.setS_cur_date(df.format(cal.getTime()));
 			}
 			if(wldto.getRsv_time().contentEquals("am")) {
-				cdto.setAm(wldto.getRsv_pet_name().length());
+				cdto.setAm(pet_list.length);
 				cdto.setPm(0);
 			}
 			else if(wldto.getRsv_time().contentEquals("pm")) {
-				cdto.setPm(wldto.getRsv_pet_name().length());
+				cdto.setPm(pet_list.length);
 				cdto.setAm(0);
 			}
 			else {
-				cdto.setAm(wldto.getRsv_pet_name().length());
-				cdto.setPm(wldto.getRsv_pet_name().length());
+				cdto.setAm(pet_list.length);
+				cdto.setPm(pet_list.length);
 			}	
-	
 			reserve_list.add(cdto);
 		}
 		
 		psbdao.insertwaitlist(wldto);
-		//psbdao.selectFullday(wldto.getBoard_seq());
-		return psbdao.updateCurrentReserve(reserve_list);
+		psbdao.updateCurrentReserve(reserve_list);
+		return psbdao.updatePoint(wldto);
+		
 	}
 	
 	public List<PetsitterboardDTO> outputList(int cpage)throws Exception{
@@ -152,5 +152,91 @@ public class PetsitterboardService {
 	
 	public List<Integer> selectPrice(List<Object> list) throws Exception{
 		 return psbdao.selectPrice(list);
+	}
+	
+	public int cancelReserve(String reserve_seq) throws Exception{
+		ReserveDto rsvdto = psbdao.selectReserve(reserve_seq);
+		Date start=rsvdto.getStart_day();
+		Date end=rsvdto.getEnd_day();
+		String pet_list[] = (rsvdto.getPet_name()).split(",");
+		int pets =(-1)*pet_list.length;
+		//System.out.println("펫마리수:"+pets);
+		
+		List<CurrentReserveDTO> reserve_list = new ArrayList<CurrentReserveDTO>();
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(start);
+		
+		long diff = Math.abs((end.getTime()-start.getTime())/(24*60*60*1000));
+
+		for(int i=0;i<diff+1;i++) {
+			CurrentReserveDTO cdto = new CurrentReserveDTO();
+			cdto.setParent_board_seq(rsvdto.getPetsitter_board_seq());
+			
+			if(i==0) {
+				cdto.setS_cur_date(df.format(cal.getTime()));
+				//System.out.println(df.format(cal.getTime()));
+			} else {
+				cal.add(Calendar.DATE,1);
+				cdto.setS_cur_date(df.format(cal.getTime()));
+				//System.out.println(df.format(cal.getTime()));
+			}
+			if(rsvdto.getReserve_time().contentEquals("am")) {
+				cdto.setAm(pets);
+				cdto.setPm(0);
+			}
+			else if(rsvdto.getReserve_time().contentEquals("pm")) {
+				cdto.setPm(pets);
+				cdto.setAm(0);
+			}
+			else {
+				cdto.setAm(pets);
+				cdto.setPm(pets);
+			}	
+	
+			reserve_list.add(cdto);
+		}
+		
+		psbdao.cancelReserve(reserve_seq);
+		return psbdao.updateCurrentReserve(reserve_list);
+	}
+	
+	public boolean checkAvailableReserve(CurrentPickDTO pickdto)throws Exception{
+		List<timeDTO> list = psbdao.checkAvailableReserve(pickdto);
+		String[] timearr = pickdto.getTime().split(",");
+		int count =0;
+		if(timearr.length==2) {
+			for(int i=0;i<list.size();i++) {
+				if(list.get(i).getPm()>=pickdto.getPets() && list.get(i).getAm()>=pickdto.getPets()) {
+					count++;
+				}
+			}
+		
+		} else if(timearr.length==1) {
+			if(timearr[0].contentEquals("am")) {
+				for(int i=0;i<list.size();i++) {
+					if(list.get(i).getAm()>=pickdto.getPets()) {
+						count++;
+					}
+				}
+			} else if(timearr[0].contentEquals("pm")) {
+				for(int i=0;i<list.size();i++) {
+					if(list.get(i).getPm()>=pickdto.getPets()) {
+						count++;
+					}
+				}
+				}
+			} 			
+			if(count==list.size()) {
+				System.out.println("true"+count);
+				return true;
+						
+			} else 
+				return false;
+		}
+	
+	public WaitlistDTO selectWaitlist(String mem_id) throws Exception{
+		
+		return psbdao.selectWaitlist(mem_id);
 	}
 }

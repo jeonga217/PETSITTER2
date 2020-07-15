@@ -117,14 +117,11 @@ input {
 			}
 		})
 
-		$("#mod").on(
-				"click",
-				function() {
+		$("#mod").on("click", function() {
 
-					location.href='/mypage/modfiy?seq=${dto.petseq}'
-					
+			location.href = '/mypage/modfiy?seq=${dto.petseq}'
 
-				})
+		})
 
 	})
 </script>
@@ -212,9 +209,9 @@ input {
 				<div class="row">
 					<div class="col-lg-12">
 
-						<div class="mb-5 border-bottom pb-5">
+						<div class="mb-5  pb-5">
 
-							<div class="mb-5 border-bottom pb-5">
+							<div class="mb-5  pb-5">
 								<div class="d-block d-md-flex listing-horizontal">
 									<div class="lh-content">
 
@@ -222,7 +219,7 @@ input {
 											<div>펫 소개</div>
 											<div style="position: relative; float: left;">
 												<img src="/upload/${dto.pet_photo}"
-													style="width: 300px; height: 300px;">
+													style="width: 400px; height: 300px;">
 											</div>
 											<div style="display: inline-block; padding: 30px;">
 												<p class="mb-0">
@@ -274,29 +271,22 @@ input {
 
 							<h2 class="mb-5 text-primary">자신의 나머지 펫</h2>
 
-							<div class="d-block d-md-flex listing-horizontal">
+							<c:forEach var="i" items="${restlist}">
+								<div class="d-block d-md-flex listing-horizontal">
 
-								<a href="#" class="img d-block"
-									style="background-image: url('images/img_2.jpg')"> <span
-									class="category">Restaurants</span>
-								</a>
+									<a href="contentview?seq=${i.petseq}" class="img d-block"> 
+										<img src="/upload/${i.pet_photo}" style="width: 200px; height: 200px;">
+									</a>
 
-								<div class="lh-content">
-									<a href="#" class="bookmark"><span class="icon-heart"></span></a>
-									<h3>
-										<a href="#">Jones Grill &amp; Restaurants</a>
-									</h3>
-									<p>Don St, Brooklyn, New York</p>
-									<p>
-										<span class="icon-star text-warning"></span> <span
-											class="icon-star text-warning"></span> <span
-											class="icon-star text-warning"></span> <span
-											class="icon-star text-warning"></span> <span
-											class="icon-star text-secondary"></span> <span>(492
-											Reviews)</span>
-									</p>
+									<div class="lh-content">
+										<h3>
+											<a href="contentview?seq=${i.petseq}">${i.pet_name}</a>
+										</h3>
+										<p>${i.pet_gender}</p>
+										<p>${i.pet_character}</p>
+									</div>
 								</div>
-							</div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
