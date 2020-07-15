@@ -55,9 +55,11 @@ public class PointController {
 		if(mpoint>mbdto.getMb_point()) {
 			int vpoint = mpoint - mbdto.getMb_point();
 			if(!mdto.getMem_id().contentEquals(mbdto.getMb_writer())) {
+				mbdto.setMb_booker(mdto.getMem_id());
 				service.applyup(mbdto);
 				service.reserv_point(mbdto);
 				mbdto.setMb_point(vpoint);
+				System.out.println(mbdto.getMb_point());
 				service.mpointup(mbdto);
 				re = "true";
 			}

@@ -280,7 +280,7 @@
 										<span></span> 포인트
 									</div>
 								</div>
-								<c:if test="${petResult==2}">
+								<c:if test="${petResult==2 and mlist.mb_writer != id}">
 									<div class="custom-pagination">
 										<button class="btn btn-primary text-white apply">신청하기</button>
 									</div>
