@@ -117,7 +117,7 @@
                                        aria-label="Close">
                                        <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <form class="login100-form validate-form" action="/member/loginProc" method="post">
+                                    <form class="login100-form validate-form" action="/member/loginProc" name="loginProc" method="post">
                                        <span class="logo100 p-10">
                                           <p class="logo">
                                              <span class="lnr lnr-paw"></span>뭐하냥 도와주개
@@ -497,6 +497,32 @@
 
 	<script src="resources/main/js/typed.js"></script>
 	<script>
+$("#login").on("click",function(){	
+		
+		var queryString = $("form[name=loginProc]").serialize();
+		$.ajax({
+			type: "POST",
+			url: "/member/loginProc",
+			cache: false,
+			data : queryString,
+			dataType : "json",
+			success: function(data){
+				var check = data.result;
+				console.log(check);
+				if(check == 0 ){
+					alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');					
+				}
+				else if(check == 1){
+					alert('ID 또는 비밀번호를 확인하세요.');
+				
+				}else{
+					location.reload();
+				}		
+			}	
+		})
+	})
+	
+	
 		var typed = new Typed('.typed-words', {
 			strings : [ "방문돌봄서비스 ", " 위탁돌봄서비스 ", " 펫시터매칭"],
 			typeSpeed : 80,

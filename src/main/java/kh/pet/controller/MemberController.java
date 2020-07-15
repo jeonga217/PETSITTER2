@@ -203,7 +203,6 @@ public class MemberController {
 			jobj.put("result", 1);
 			rep.getWriter().append(jobj.toString());
 		}
-
 	}
 
 	//아이디 찾기 페이지 연결
