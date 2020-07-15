@@ -63,8 +63,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <style>
-td{
-text-align: center;
+td {
+	text-align: center;
 }
 </style>
 <body>
@@ -161,32 +161,67 @@ text-align: center;
 						<div class="table100 ver1 m-b-110">
 							<div class="limiter">
 
+								예약내역 테이블
 								<table>
 									<thead>
 										<tr class="table100-head">
 											<th class="column1">서비스신청날짜</th>
 											<th class="column2">서비스이용날짜</th>
+											<th class="column3">사용포인트</th>
 											<th class="column3">예약번호</th>
-											<th class="column3">예약번호</th>
-											<th class="column3">서비스이용상황</th>
+											<th class="column3">서비스이용상태</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="i" items="${bdto}">
-											<tr>
-												<td>
-												<td>
-												<td>
-												<td>
-												<td>
-											</tr>
+										<c:forEach var="i" items="${bdto}" varStatus="status">
+											<c:if test="${list.get(status.index) ne '서비스종료'}">
+												<tr>
+													<td>${i.reserve_day}
+													<td>${i.start_day}~${i.end_day}
+													<td>${i.reserve_point}
+													<td>${i.reserve_seq}
+													<td>${list.get(status.index)}
+												</tr>
+											</c:if>
+										</c:forEach>
+									</tbody>
+								</table>
+								<div class="col-12 mt-5 text-center">
+									<div class="custom-pagination">${navi}</div>
+								</div>
+
+
+								<br> <br> <br> <br> <br> <br> <br>
+
+								이용내역테이블
+								<table>
+									<thead>
+										<tr class="table100-head">
+											<th class="column1">서비스신청날짜</th>
+											<th class="column2">예약번호</th>
+											<th class="column3">서비스이용상태</th>
+											<th class="column3">신고하기</th>
+											<th class="column3">칭찬하기</th>
+											<th class="column3">펫시터일지보기</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="i" items="${bdto}" varStatus="status">
+											<c:if test="${list.get(status.index) eq '서비스종료'}">
+												<tr>
+													<td>${i.reserve_day}
+													<td>${i.reserve_seq}
+													<td>${list.get(status.index)}
+													<td>
+													<td>
+													<td>
+												</tr>
+											</c:if>
 										</c:forEach>
 									</tbody>
 								</table>
 
-								<div class="col-12 mt-5 text-center">
-									<div class="custom-pagination">${navi}</div>
-								</div>
+
 							</div>
 						</div>
 					</div>
