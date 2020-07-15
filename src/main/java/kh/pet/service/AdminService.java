@@ -73,11 +73,19 @@ public class AdminService {
 		return dao.board_state(edit_date);
 	}
 
-	public List<PetsitterDTO> petsitter(){
-		return dao.petsitter();
+	
+	//펫 시터 신청서 관리
+	
+	public List<PetsitterDTO> petsitter(int cpage){
+		int start = cpage*Admin_Configuration.board_RECORD_COUNT_PER_PAGE - (Admin_Configuration.board_RECORD_COUNT_PER_PAGE-1);
+		int end = start + (Admin_Configuration.board_RECORD_COUNT_PER_PAGE-1);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start",start);
+		map.put("end", end);
+		return dao.petsitter(map);
 	}
 
-	//펫 시터 신청서 관리
+
 
 	@Transactional("txManager")
 	public int petaccept(String id) {
@@ -254,8 +262,13 @@ public class AdminService {
 	}
 
 	//게시글 신고 관리
-	public List<ReportDTO> reportlist(){
-		return dao.reportlist();
+	public List<ReportDTO> reportlist(int cpage){
+		int start = cpage*Admin_Configuration.member_RECORD_COUNT_PER_PAGE - (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
+		int end = start + (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start",start);
+		map.put("end", end);
+		return dao.reportlist(map);
 	}
 
 	//일일 방문자 체크
@@ -266,7 +279,11 @@ public class AdminService {
 		return  dao.to_visiter();
 	}
 
-
+	//관리자 패스워드 변경
+	public int admin_password(String pw) {
+		
+		return dao.admin_pass(pw);
+	}
 
 	//전체 네비 관리
 
@@ -279,7 +296,18 @@ public class AdminService {
 			recordTotalCount = this.dao.membercount(); //총 게시물의 갯수.
 			record_count = Admin_Configuration.member_RECORD_COUNT_PER_PAGE;
 			navi_count = Admin_Configuration.member_NAVI_COUNT_PAGE;
-		}else {
+		}
+		else if(boardType.contentEquals("petsiter")) {
+			recordTotalCount = this.dao.pet_count(); //총 게시물의 갯수.
+			record_count = Admin_Configuration.member_RECORD_COUNT_PER_PAGE;
+			navi_count = Admin_Configuration.member_NAVI_COUNT_PAGE;
+		}
+		else if(boardType.contentEquals("black")) {
+			recordTotalCount = this.dao.black_membercount(); //총 게시물의 갯수.
+			record_count = Admin_Configuration.member_RECORD_COUNT_PER_PAGE;
+			navi_count = Admin_Configuration.member_NAVI_COUNT_PAGE;
+		}
+		else {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("board_type",boardType);
 			recordTotalCount = this.dao.boardcount(map);
@@ -319,59 +347,31 @@ public class AdminService {
 		if(endNavi==pageTotalCount) {
 			needNext = false;
 		}
-		if(boardType.contentEquals("member")) {
+		
+		if(boardType.contentEquals("main")) {
+			boardType = "adminindex";
+		}
+		
+		if(boardType.contentEquals("member")||boardType.contentEquals("black")||boardType.contentEquals("adminindex")||boardType.contentEquals("petsiter")) {
 			if(needPrev) {
-				sb.append("<a href=\"/admin/member?cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
+				sb.append("<a href=\"/admin/"+boardType+"?cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
 			}
 			for(int i = startNavi; i<=endNavi; i++) {
-				sb.append("<a href=\"/admin/member?cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
+				sb.append("<a href=\"/admin/"+boardType+"?cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
 			}
 			if(needNext) {
-				sb.append("<a href=\"/admin/member?cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
+				sb.append("<a href=\"/admin/"+boardType+"?cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
 			}
 		}
-		else if(boardType.contentEquals("main")) {
+		else if(boardType.contentEquals("mem_board")||boardType.contentEquals("petsitter_board")||boardType.contentEquals("free")) {
 			if(needPrev) {
-				sb.append("<a href=\"/admin/adminindex?cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
+				sb.append("<a href=\"/admin/boardselect?boardtype="+boardType+"&cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
 			}
 			for(int i = startNavi; i<=endNavi; i++) {
-				sb.append("<a href=\"/admin/adminindex?cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
+				sb.append("<a href=\"/admin/boardselect?boardtype="+boardType+"&cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
 			}
 			if(needNext) {
-				sb.append("<a href=\"/admin/adminindex?cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
-			}
-		}
-		else if(boardType.contentEquals("mem_board")) {
-			if(needPrev) {
-				sb.append("<a href=\"/admin/boardselect?boardtype=mem_board&cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
-			}
-			for(int i = startNavi; i<=endNavi; i++) {
-				sb.append("<a href=\"/admin/boardselect?boardtype=mem_board&cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
-			}
-			if(needNext) {
-				sb.append("<a href=\"/admin/boardselect?boardtype=mem_board&cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
-			}
-		}
-		else if(boardType.contentEquals("petsitter_board")) {
-			if(needPrev) {
-				sb.append("<a href=\"/admin/boardselect?boardtype=petsitter_board&cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
-			}
-			for(int i = startNavi; i<=endNavi; i++) {
-				sb.append("<a href=\"/admin/boardselect?boardtype=petsitter_board&cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
-			}
-			if(needNext) {
-				sb.append("<a href=\"/admin/boardselect?boardtype=petsitter_board&cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
-			}
-		}
-		else if(boardType.contentEquals("free")) {
-			if(needPrev) {
-				sb.append("<a href=\"/admin/boardselect?boardtype=free&cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
-			}
-			for(int i = startNavi; i<=endNavi; i++) {
-				sb.append("<a href=\"/admin/boardselect?boardtype=free&cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
-			}
-			if(needNext) {
-				sb.append("<a href=\"/admin/boardselect?boardtype=free&cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
+				sb.append("<a href=\"/admin/boardselect?boardtype="+boardType+"&cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
 			}
 		}
 		return sb.toString();

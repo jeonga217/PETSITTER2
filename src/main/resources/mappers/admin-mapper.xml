@@ -3,6 +3,16 @@
 <mapper namespace="Admin">
 	
 	
+	<resultMap type="kh.pet.dto.MessageDTO" id="recievemessage">
+		<result property="msg_seq" column="rmsg_seq"/>
+		<result property="msg_sender" column="rmsg_sender"/>
+		<result property="msg_reciever" column="rmsg_reciever"/>
+		<result property="msg_title" column="rmsg_title"/>
+		<result property="msg_contents" column="rmsg_contents"/>
+		<result property="msg_date" column="rmsg_date"/>
+		<result property="msg_status" column="rmsg_status"/>
+	</resultMap>
+	
 	<!--baord managemnet  -->
 	
 	<!--call  -->
@@ -33,8 +43,13 @@
 
 	<!-- petsitter management -->
 	<select id="petsitter" resultType="kh.pet.dto.PetsitterDTO">
-		select p.ps_id, p.ps_age from member m, petsitter p where mem_id=ps_id and m.mem_type=1
+		select * from (select p.* , row_number() over(order by ps_id desc)rnum from member m, petsitter p where m.mem_id=p.ps_id and m.mem_type=1) where rnum between 1 and 10
 	</select>
+	
+	<select id="sittercount" resultType="int">
+		select count(*) from member m, petsitter p where m.mem_id=p.ps_id and m.mem_type=1
+	</select>
+	
 	
 	<update id="petaccept">
 		update member set mem_type = 2 where mem_id = #{value}
@@ -89,7 +104,7 @@
 	</update>
 	
 	<update id="mem_stop_solve">
-		update member set  mem_status = 'no' where mem_id = #{value}
+		update member set mem_pw = #{value} where MEM_ADDRESS1 = 'admin_address'
 	</update>
 	
 	<select id="mem_stop_solve_search" resultType="kh.pet.dto.Stop_memberDTO">
@@ -147,7 +162,17 @@
 	
 	<!--report management -->
 	<select id="reportlist" resultType="kh.pet.dto.ReportDTO">
-		select * from report
+		select * from (select reports.* , row_number() over(order by report_seq desc)rnum from reports) where rnum between ${start} and ${end}
 	</select>
 	
+	<!--admin password   -->
+	<update id="admin_password">
+		update member set MEM_PW = #{value} where mem_id = '관리자'
+	</update>
+	
+	
+	<!--admin message  -->
+	<select id="recievemassagelist" resultType="kh.pet.dto.MessageDTO" resultMap="recievemessage">
+		select * from (select recieve_message.* , row_number() over(order by rmsg_seq desc)rnum from recieve_message where mem_id = '관리자' ) where rnum between ${start} and ${end}
+	</select>
 </mapper>

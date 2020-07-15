@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
 		<script src="/resources/admin/admin_js/navi.js"></script>
 		<link rel="stylesheet" href="/resources/admin/admin_css/case.css" type="text/css">
+		<script src="/resources/admin/admin_js/admin.js"></script>
     </head>
     <body>
         <div class="wrap row bg-light">
@@ -99,9 +100,9 @@
                                 <div class="row">
                                     <div class="col-12 col-md-9">
                                         <h3>관리자 비밀번호</h3>
-                                         <form class="form-inline">
-                                                <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
-                                                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Change</button>
+                                         <form action="/admin/admin_password" class="form-inline" id="admin_change">
+                                                <input class="form-control mr-sm-2" name="pass" type="password" placeholder="" aria-label="Search">
+                                                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">변경</button>
                                         </form>
                                     </div>    
                                 </div>

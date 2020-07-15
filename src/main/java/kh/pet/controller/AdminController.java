@@ -152,8 +152,13 @@ public class AdminController {
 
 	//펫 시터 신청서 관리
 	@RequestMapping("petsiter")
-	public String go_admin_petsiter(Model m) {
-		List<PetsitterDTO> pet =  admin_service.petsitter();
+	public String go_admin_petsiter(Model m, Integer cpage) {
+		if(cpage == null) {
+			cpage = 1;
+		}
+		List<PetsitterDTO> pet =  admin_service.petsitter(cpage);
+		String navi = admin_service.PagNavi(cpage,"petsiter");
+		m.addAttribute("navi",navi);
 		m.addAttribute("petsitter", pet);
 		return "admin/pet_siter_management";
 	}
@@ -205,9 +210,8 @@ public class AdminController {
 		if(cpage == null) {
 			cpage = 1;
 		}
-		String boardType = "member";
 		List<MemberDTO> mdto = admin_service.member(cpage);
-		String navi = admin_service.PagNavi(cpage,boardType);
+		String navi = admin_service.PagNavi(cpage,"member");
 		m.addAttribute("navi",navi);
 		m.addAttribute("memberlist",mdto);
 		return "admin/member_management";
@@ -237,8 +241,9 @@ public class AdminController {
 			cpage = 1;
 		}
 		//간편 회원 페이지
-		List<MemberDTO> mdto = admin_service.member(cpage);
-		String navi = admin_service.PagNavi(cpage,"main");
+		List<MemberDTO> mdto = admin_service.black_member(cpage);
+		System.out.println(mdto.get(0).getMem_id());
+		String navi = admin_service.PagNavi(cpage,"black");
 		m.addAttribute("memberlist",mdto);	
 		m.addAttribute("navi",navi);
 		
@@ -296,8 +301,11 @@ public class AdminController {
 	}
 
 	@RequestMapping("declaration")
-	public String go_admin_declaration(Model m) {
-		List<ReportDTO> list = admin_service.reportlist();
+	public String go_admin_declaration(Model m,Integer cpage) {
+		if(cpage == null) {
+			cpage = 1;
+		}
+		List<ReportDTO> list = admin_service.reportlist(cpage);
 		m.addAttribute("reportlist", list);
 		return "admin/Declaration_management";
 	}
@@ -306,14 +314,24 @@ public class AdminController {
 	public String go_admin_cash() {
 		return "admin/cash_management";
 	}
-
+	
+	//관리자 패스워드 변경
 	@RequestMapping("pass")
 	public String go_admin_pass() {
 		return "admin/admin_pasword";
 	}
+	
+	@RequestMapping("admin_password")
+	public String admin_password(String pass){
+		String pw = member_service.getSHA512(pass);
+		admin_service.admin_password(pw);
+		return "admin/admin_pasword";
+	}
+	
 
 	@RequestMapping("mess")
-	public String go_admin_mess() {
+	public String go_admin_mess(Integer cpage) {
+		
 		return "admin/message_management";
 	}
 

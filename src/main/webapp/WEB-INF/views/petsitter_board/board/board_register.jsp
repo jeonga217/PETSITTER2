@@ -198,9 +198,7 @@ function check() {
 	}
 	if($("#div_psb_contents").html()==""){
 		var result = confirm("반려인들에게 더 남기고 싶은 말이 없으신가요?");
-		if(result){
-			retrun true;
-		} else{
+		if(!result){
 			$("#div_psb_contents").html("").focus();
 			return false;
 		}

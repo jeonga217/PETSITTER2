@@ -12,6 +12,7 @@ import kh.pet.dto.MyPage_CommunityDTO;
 import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PointDTO;
 import kh.pet.dto.RegLookupDTO;
+import kh.pet.dto.Mypage_UseTableDTO;
 
 @Repository
 public class MypageDAO {
@@ -23,8 +24,8 @@ public class MypageDAO {
 		int counts = 0;
 		int minus = 0;
 		Map<String, String> list = new HashMap<String, String>();
-		list.put("minus", "�궗�슜");
-		list.put("minus1", "�솚�쟾");
+		list.put("minus", "사용");
+		list.put("minus1", "환전");
 		list.put("id", id);
 		List<Integer> count = mybatis.selectList("Pet_reg.pointcount", id);
 		for (int i = 0; i < count.size(); i++) {
@@ -34,8 +35,6 @@ public class MypageDAO {
 		for (int i = 0; i < pointminus.size(); i++) {
 			minus += pointminus.get(i);
 		}
-		System.out.println("�쟾泥� : " + counts);
-		System.out.println("留덉씠�뒪�꼫�뒪 : " + minus);
 		return counts - minus;
 	}
 
@@ -107,6 +106,19 @@ public class MypageDAO {
 	public String searchseq(int seq) {
 		String imgname = mybatis.selectOne("Pet_reg.seq",seq);
 		return imgname;
+	}
+	
+	public List<Mypet_regDTO> petrest(String id, int seq) {
+		Map<String, Object>  list = new HashMap<String, Object>();
+		list.put("id", id);
+		list.put("seq", seq);
+		List<Mypet_regDTO> restlist = mybatis.selectList("Pet_reg.rest", list);
+		return restlist;
+	}
+	
+	public List<Mypage_UseTableDTO> usecontenttable(String id) {
+		List<Mypage_UseTableDTO> use =  mybatis.selectList("Navi.usecontenttable", id);
+		return use;
 	}
 
 }

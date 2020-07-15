@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.pet.dao.MypageDAO;
+import kh.pet.dao.MypageUseDAO;
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PointDTO;
@@ -20,6 +21,7 @@ import kh.pet.service.Mypage_dateService;
 import kh.pet.service.Mypage_petmodfiyService;
 import kh.pet.service.Pet_listService;
 import kh.pet.service.PointService;
+import kh.pet.service.UseService;
 
 @Controller
 @RequestMapping("/mypage/")
@@ -36,6 +38,9 @@ public class MypageController {
 	@Autowired
 	HttpSession session;
 
+	@Autowired
+	private UseService useservice;
+	
 	@Autowired
 	private Pet_listService plistservice;
 
@@ -58,6 +63,9 @@ public class MypageController {
 		request.setAttribute("list", list);
 		return "mypage/Mypage-Use";
 	}
+	
+	
+	
 
 	@RequestMapping("mypet")
 	public String mypet() {
@@ -129,6 +137,38 @@ public class MypageController {
 		}
 		return "mypage/mypage-point";
 	}
+	
+	
+	@RequestMapping("usecontent")
+	public String usecontent(HttpServletRequest request) {
+		try {
+			int cpage = 1;
+			try {
+				cpage = Integer.parseInt(request.getParameter("cpage"));
+			} catch (Exception e) {
+			}
+			MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+			System.out.println("현재페이지:" + cpage);
+			List<Object> bdto = useservice.selectByPageNo(cpage, dto.getMem_id(), "usecontent");
+			String navi = useservice.getPageNavi(cpage, "usecontent");
+			MemberDTO dtos = (MemberDTO)session.getAttribute("loginInfo");
+			List<String> list = useservice.usestate(dtos.getMem_id());
+			request.setAttribute("navi", navi);
+			request.setAttribute("bdto", bdto);
+			request.setAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "mypage/mypage-usecontent";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	int pointnum = 0;
 

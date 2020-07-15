@@ -29,6 +29,12 @@ $(function(){
 		$("#stop_id").val($(this).parent().parent().children('.id').html());
 	})
 	
+	$("#admin_change").on("submit",function(){
+		if(confirm('변경하시겠습니까?')){
+			return true;
+		}
+		return false;
+	})	
 	$(".messagesend").on("click",function(){
 	
 		var id = $("#summernote").attr("class");	
