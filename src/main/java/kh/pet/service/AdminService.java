@@ -105,7 +105,7 @@ public class AdminService {
 		return dao.memberlist(map);
 	}
 	
-	public String memberPagNavi(int currentPage){
+	public String memberPagNavi(int currentPage,String boardType){
 		int recordTotalCount = this.dao.membercount(); //총 게시물의 갯수.
 		int pageTotalCount = 0; //전체 페이지의 갯수
 
@@ -140,15 +140,27 @@ public class AdminService {
 		if(endNavi==pageTotalCount) {
 			needNext = false;
 		}
-
-		if(needPrev) {
-			sb.append("<a href=\"/admin/member?cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
+		if(boardType.contentEquals("member")) {
+			if(needPrev) {
+				sb.append("<a href=\"/admin/member?cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
+			}
+			for(int i = startNavi; i<=endNavi; i++) {
+				sb.append("<a href=\"/admin/member?cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
+			}
+			if(needNext) {
+				sb.append("<a href=\"/admin/member?cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
+			}
 		}
-		for(int i = startNavi; i<=endNavi; i++) {
-			sb.append("<a href=\"/admin/member?cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
-		}
-		if(needNext) {
-			sb.append("<a href=\"/admin/member?cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
+		else {
+			if(needPrev) {
+				sb.append("<a href=\"/admin/adminindex?cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
+			}
+			for(int i = startNavi; i<=endNavi; i++) {
+				sb.append("<a href=\"/admin/adminindex?cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
+			}
+			if(needNext) {
+				sb.append("<a href=\"/admin/adminindex?cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
+			}
 		}
 		return sb.toString();
 	}
