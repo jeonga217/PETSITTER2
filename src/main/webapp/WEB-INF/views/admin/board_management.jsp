@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -132,7 +133,6 @@
 										<div class="col-4 col-lg">상태 변경</div>
 									</div>
 									<c:choose>
-										<c:when test="${boardtype eq 'free'}"></c:when>
 										<c:when test="${boardtype eq 'mem_board'}">
 											<c:forEach var="i" items="${list}">
 												<hr class="hr2">
@@ -182,7 +182,34 @@
 																class="btn btn-info dropdown-toggle btn-sm">	
 																<option value="yes">통상</option>
 																<option value="stop">정지</option>
-																<option value="delete">삭제</option>
+															</select>
+															<button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">변경</button>
+														</form>
+													</div>
+												</div>
+											</c:forEach>			
+										</c:when>
+										<c:when test="${boardtype eq 'free'}">
+											<c:forEach var="i" items="${list}">
+												<hr class="hr2">
+												<div class="row"> 
+													<div class="col-4 col-lg">${i.cu_seq}</div>
+													<div class="col-4 col-lg"><a href="/mb/redlist">${i.cu_title}</a></div>
+													<div class="col-4 col-lg">${i.cu_writer}</div>
+													<div class="col-4 col-lg">${i.cu_date}</div>
+													<div class="col-4 col-lg">
+														<c:choose>
+															<c:when test="${i.board_status eq 'yes'}">통상</c:when>
+															<c:otherwise>정지</c:otherwise>
+														</c:choose>
+													</div>
+													<div class="col-4 col-lg">
+														<form action="/admin/boardblack">
+														<input type="text" value="${i.cu_seq}" name=seq style="display: none">
+															<select name="state"
+																class="btn btn-info dropdown-toggle btn-sm">	
+																<option value="yes">통상</option>
+																<option value="stop">정지</option>
 															</select>
 															<button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">변경</button>
 														</form>
