@@ -192,10 +192,7 @@ public class CommunityService {
 	
 	
 			//신고 기능
-			public int insertReport(int r_parent_seq, String report_id, ReportDTO r_dto) {
-				
-				r_dto.setR_parent_seq(r_parent_seq);
-				r_dto.setReport_id(report_id);
+			public int insertReport(ReportDTO r_dto) {
 				
 				return cu_dao.insertReport(r_dto);
 			}

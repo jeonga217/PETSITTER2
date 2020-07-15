@@ -63,7 +63,7 @@
 	
 	<!-- 신고기능 -->
 	<insert id="insert_report">
-		insert into reports values(report_seq.nextval, #{r_parent_seq}, #{report_contents}, #{report_id})
+		insert into reports values(report_seq.nextval, #{r_parent_seq}, #{report_contents}, #{report_id}, #{report_target}, #{report_type})
 	</insert>
 
 </mapper>

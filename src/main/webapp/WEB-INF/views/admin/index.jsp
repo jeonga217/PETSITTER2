@@ -155,8 +155,56 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>
 	<script>
+	var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['일','월', '화', '수', '목', '금', '토'],
+            datasets: [{
+                label: '이번 주',
+                data: [
+                	<c:forEach var="i" items="${to_visitor}">
+    				${i.v_count},
+    				</c:forEach>
+    			],
+                backgroundColor: [
+                    'rgba(255, 255, 100, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 255, 100, 1)'
+                ],
+                borderWidth: 1
+            },
+            {
+                label: '저번 주',
+                data: [
+                	<c:forEach var="i" items="${be_visitor}">
+				${i.v_count},
+				</c:forEach>
+				],
+                backgroundColor: [
+                    'rgba(100, 255, 255, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(100, 255, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+        }
+    });
 
     </script>
 </body>

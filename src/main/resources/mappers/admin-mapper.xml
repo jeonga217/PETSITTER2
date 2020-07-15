@@ -70,7 +70,7 @@
 	
 	<!--mem_board  -->
 	<select id="rememboard" resultType="kh.pet.dto.MemboardDto">
-		select * from mem_board where mb_restatus = 'yes' and mb_RESERVE_num = null
+		select * from mem_board where mb_restatus='yes' and mb_RESERVE_num ='null'
 	</select>
 	
 	<update id="accept_mem_board">
@@ -99,6 +99,15 @@
 	</delete>
 	
 	
+	
+	<!--chart information  -->
+	<select id="be_week" resultType="kh.pet.dto.Visitor_countDTO">
+		select to_char(v_date,'day'),v_count from visitor_count where v_date between sysdate-13 and sysdate-6 order by to_char(v_date,'d')
+	</select>
+	
+	<select id="to_week" resultType="kh.pet.dto.Visitor_countDTO">
+		select to_char(v_date,'day'),v_count from visitor_count where v_date between sysdate-6 and sysdate order by to_char(v_date,'d')
+	</select>
 	
 	<!--report management -->
 	<select id="reportlist" resultType="kh.pet.dto.ReportDTO">

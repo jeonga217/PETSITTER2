@@ -18,6 +18,7 @@ import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.ReportDTO;
 import kh.pet.dto.ReserveDto;
 import kh.pet.dto.Stop_memberDTO;
+import kh.pet.dto.Visitor_countDTO;
 import kh.pet.dto.WaitlistDTO;
 import kh.pet.staticInfo.Admin_Configuration;
 
@@ -104,7 +105,7 @@ public class AdminService {
 		return dao.memberlist(map);
 	}
 	
-	public String memberPagNavi(int currentPage){
+	public String memberPagNavi(int currentPage,String boardType){
 		int recordTotalCount = this.dao.membercount(); //총 게시물의 갯수.
 		int pageTotalCount = 0; //전체 페이지의 갯수
 
@@ -139,15 +140,27 @@ public class AdminService {
 		if(endNavi==pageTotalCount) {
 			needNext = false;
 		}
-
-		if(needPrev) {
-			sb.append("<a href=\"/admin/member?cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
+		if(boardType.contentEquals("member")) {
+			if(needPrev) {
+				sb.append("<a href=\"/admin/member?cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
+			}
+			for(int i = startNavi; i<=endNavi; i++) {
+				sb.append("<a href=\"/admin/member?cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
+			}
+			if(needNext) {
+				sb.append("<a href=\"/admin/member?cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
+			}
 		}
-		for(int i = startNavi; i<=endNavi; i++) {
-			sb.append("<a href=\"/admin/member?cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
-		}
-		if(needNext) {
-			sb.append("<a href=\"/admin/member?cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
+		else {
+			if(needPrev) {
+				sb.append("<a href=\"/admin/adminindex?cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
+			}
+			for(int i = startNavi; i<=endNavi; i++) {
+				sb.append("<a href=\"/admin/adminindex?cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
+			}
+			if(needNext) {
+				sb.append("<a href=\"/admin/adminindex?cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
+			}
 		}
 		return sb.toString();
 	}
@@ -246,6 +259,14 @@ public class AdminService {
 	//게시글 신고 관리
 	public List<ReportDTO> reportlist(){
 		return dao.reportlist();
+	}
+	
+	//일일 방문자 체크
+	public List<Visitor_countDTO> be_visitor(){
+		return  dao.be_visiter();
+	}
+	public List<Visitor_countDTO> to_visitor(){
+		return  dao.to_visiter();
 	}
 	
 }
