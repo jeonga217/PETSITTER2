@@ -85,5 +85,11 @@
 	<select id="seq" resultType="String">
 		select pet_photo from mypet where petseq=${value}
 	</select>
+	
+	<select id="rest" resultType="kh.pet.dto.Mypet_regDTO">
+		select * from mypet where not petseq in (${seq}) and master_id=#{id}
+	</select>
+	
+	
 
 </mapper>
