@@ -77,27 +77,32 @@
 		update mem_board set mb_RESERVE_num = #{seq} where mb_seq = #{p_seq}
 	</update>
 	
+	<update id="cancel_mem_board">
+		update mem_board set MB_RESTATUS = 'no' where mb_seq = #{value}
+	</update>
 	
 	<!--petsitter_board  -->
 	<select id="repsboard" resultType="kh.pet.dto.WaitlistDTO">
 		select * from waitlist
 	</select>
 	
-	<select id="accept_pet_info">
-		select * from waitlist where BOARD_SEQ = #{value}
+	<select id="accept_pet_info" resultType="kh.pet.dto.WaitlistDTO">
+		select * from waitlist where wait_seq = #{value}
 	</select>
 	
 	<insert id="accept_pet_rsv">
-		insert into RESERVATION values(RESERVE_SEQ,nextval,#{petsitter_board_seq},#{petsitter_id},#{mem_id},#{pet_name},${reserve_point},#{start_day},#{end_day},#{reserve_time})
+		insert into reservation values(#{reserve_seq},#{petsitter_board_seq},#{petsitter_id},#{mem_id},#{pet_name},${reserve_point},#{start_day},#{end_day},#{reserve_time})
 	</insert>
 	
-	<delete id="accept_del_rsv">
-		delete from stop_mem where BOARD_SEQ = #{value}
+	<delete id="del_rsv">
+		delete from waitlist where wait_seq = #{value}
 	</delete>
+	
+	
 	
 	<!--report management -->
 	<select id="reportlist" resultType="kh.pet.dto.ReportDTO">
-		select * from reports
+		select * from report
 	</select>
 	
 </mapper>

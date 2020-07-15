@@ -34,18 +34,6 @@ public class CommunityController {
 	@Autowired
 	private CommentsService cm_service;
 
-	@RequestMapping("login")
-	public String login() {
-		return "community/login";
-	}
-
-	@RequestMapping("loginProc")
-	public String loginProc(String id, String pw) {
-
-		session.setAttribute("id", id);
-		return "community/main";
-	}
-
 	//게시글 작성 페이지
 	@RequestMapping("write")
 	public String write() {

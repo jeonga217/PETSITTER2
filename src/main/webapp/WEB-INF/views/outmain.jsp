@@ -207,16 +207,9 @@
 							<div
 								style="border-top: 1.5px dashed rgb(235, 235, 235); width: 215px; height: 1px; margin: 25px 0px;"></div>
 							<div
-								style="flex-direction: row; align-items: center; margin-bottom: 33px;">
-								<p
-									style="font-weight: 600; font-size: 12px; color: #81DAD6; letter-spacing: 0.7px; line-height: 34px;">소형
-									50포인트</p>
-								<p
-									style="font-weight: 600; font-size: 12px; color: #81DAD6; letter-spacing: 0.7px; line-height: 34px;">중형
-									60포인트</p>
-								<p
-									style="font-weight: 600; font-size: 12px; color: #81DAD6; letter-spacing: 0.7px; line-height: 34px;">대형
-									65포인트</p>
+								style="flex-direction: row; align-items: center; margin-bottom: 33px;margin-top: 33px;">
+								<p style="display: flex; font-weight: 600; font-size: 25px; color: #81DAD6; letter-spacing: 0.7px; line-height: 34px;">
+									50 point 부터 ~</p>
 							</div>
 						</div>
 					</div>
@@ -229,16 +222,12 @@
 							style="display: flex; flex-direction: column; align-items: center;">
 							<p
 								style="margin-top: 50px; margin-bottom: 12px; font-size: 21px; font-weight: 600;">반려인방문</p>
-							<p style="font-size: 15px; color: rgb(94, 99, 109);">12시간 이내
-								장시간 외출시</p>
+							<p style="font-size: 15px; color: rgb(94, 99, 109);">오전 / 오후</p>
 							<div
 								style="border-top: 1.5px dashed rgb(235, 235, 235); width: 215px; height: 1px; margin: 38px 0px;"></div>
-							<div
-								style="display: flex; flex-direction: row; align-items: center; margin-bottom: 33px;">
-								<p
-									style="font-weight: 600; font-size: 23px; color: #81DAD6; letter-spacing: 0.7px; line-height: 34px;">₩20,000</p>
-								<p
-									style="font-size: 15px; color: #81DAD6; margin-left: 3px; line-height: 22px;">부터</p>
+							<div style="display: flex; flex-direction: row; align-items: center; margin-bottom: 33px;margin-top: 33px;">
+								<p style="display: flex; font-weight: 600; font-size: 25px; color: #81DAD6; letter-spacing: 0.7px; line-height: 34px;">
+									200 point 부터 ~</p>
 							</div>
 						</div>
 					</div>

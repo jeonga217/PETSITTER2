@@ -19,13 +19,16 @@ public class PetDao {
 	public List<Mypet_regDTO> Petselect(String id){
 		return mybatis.selectList("membd.petselect",id);
 	}
+
+	public MemboardDto bopet(String seq){
+		return mybatis.selectOne("membd.bopet",seq);
+	}
 	
 	public int Memboardinsert(MemboardDto mdto) {
 		return mybatis.insert("membd.memboardinsert", mdto);
 	}
 	
 	public MemboardDto redlist(String seq){
-		System.out.println(seq);
 		return mybatis.selectOne("membd.redlist",seq);
 	}
 	
@@ -37,8 +40,8 @@ public class PetDao {
 		return mybatis.selectOne("membd.gettime", time);
 	}
 	
-	public String getpettype(Mypet_regDTO pdto) {
-		return mybatis.selectOne("membd.getpettype",pdto);
+	public String getpettype(String petname) {
+		return mybatis.selectOne("membd.getpettype",petname);
 	}
 	
 	public MemboardDto modlist(String mb_seq) {
@@ -51,6 +54,30 @@ public class PetDao {
 	
 	public int applyup(MemboardDto mbdto) {
 		return mybatis.update("membd.applyup",mbdto);
+	}
+	
+	public int applydown(String seq) {
+		return mybatis.update("membd.applydown",seq);
+	}
+	
+	public int reservdel(String seq) {
+		return mybatis.delete("membd.reservdel",seq);
+	}
+	
+	public int mpointup(MemboardDto mbdto) {
+		return mybatis.update("membd.mpointup",mbdto);
+	}
+	
+	public int ppointup(MemboardDto mbdto) {
+		return mybatis.update("membd.ppointup",mbdto);
+	}
+	
+	public int reserv_point(MemboardDto mbdto) {
+		return mybatis.insert("membd.reserv_point",mbdto);
+	}
+
+	public int mpoint(String id) {
+		return mybatis.selectOne("membd.mpoint",id);
 	}
 	
 	public List<MemboardDto> mb_boardList(Map<String,Integer> con){

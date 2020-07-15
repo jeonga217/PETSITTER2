@@ -25,7 +25,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home(Locale locale, Model model) {
 		
-		return "outmain";
+		return "main";
 	}
 	
 	
@@ -63,6 +63,9 @@ public class HomeController {
 		return "member/signup";
 	}
 	
+	
+	
+	//예아 ㅇ0ㅇ
 	
 	
 }

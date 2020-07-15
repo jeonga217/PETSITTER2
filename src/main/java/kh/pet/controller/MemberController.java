@@ -139,9 +139,9 @@ public class MemberController {
 	}
 	
 	//아이디 찾기 페이지 연결
-	@RequestMapping("/findid")
+	@RequestMapping("/findInfo")
 	public String findid() {
-		return "/member/findid";		
+		return "/member/findinfo";		
 	}
 	
 	//아이디 찾기 ajax
@@ -160,12 +160,6 @@ public class MemberController {
 		 
 		return result;
 			
-	}
-
-	//비번 찾기 페이지 연결
-	@RequestMapping("/findPw")
-	public String findpw() {
-		return "/member/findpw";		
 	}
 	
 	@RequestMapping(value = "/findPwProc", method = RequestMethod.POST)

@@ -461,11 +461,11 @@
            	var endcon = moment(range.end);
             var duration = moment.duration(endcon.diff(startcon)).asDays();
 			           
-			var point = 0;
 			<c:forEach var = "j" items="${services}">
 				$("#"+"${j}").css("color","#17a2b8");
 			</c:forEach>	
 			<c:forEach var="i" items="${pettype}">
+			var point = 0;
 				if ("${i}" == "소") {
 					point += 50;
 				} else if ("${i}" == "중") {
@@ -477,17 +477,17 @@
 			var  time = "${alltime}";
 			$(".price span").html((point*(duration+1))*time);
 			
+			
 			$(".apply").on("click",function(){
 				$.ajax({
-					url: "/mb/apply",
+					url: "/point/apply",
 					type: "post",
 					dataType: "json",
 					data:{mb_seq:"${mlist.mb_seq}",
 						mb_writer:"${mlist.mb_writer}",
-						mb_point : point*(duration+1)
+						mb_point : (point*(duration+1))*time
 						}
 				}).done(function(resp){
-					console.log(resp.re);
 					if(resp.re == 'false'){
 						alert("다시 확인하세요.");
 					}

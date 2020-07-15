@@ -175,10 +175,10 @@ public class PetsitterboardController {
 	public List<Integer> selectPrice(@RequestParam(value="timearr[]") List<String> timearr,@RequestParam(value="typearr[]")List<String> typearr) throws Exception{
 		System.out.println(timearr);
 
-		ArrayList<Object> list = new ArrayList<>();
+		ArrayList<Object> list = new ArrayList<Object>();
 		for(String time:timearr) {
 			for(String type:typearr) {
-				Map<String, String> info = new HashMap<>();
+				Map<String, String> info = new HashMap<String, String>();
 				info.put("time",time);
 				info.put("type",type);
 				list.add(info);

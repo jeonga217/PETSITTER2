@@ -231,7 +231,7 @@ input {
 							<div class="form-group">
 								<label for="exampleFormControlFile1">파일업로드</label> <input
 									type="file" class="form-control-file"
-									accept="image/gif,image/jpg,image/png" id="upload" name="img">
+									accept="image/gif,image/jpeg,image/png" id="upload" name="img">
 								<div id='preview'>
 									<!-- 미리보기 공간 -->
 								</div>
@@ -254,9 +254,9 @@ input {
 								<label for="username">중성화 여부</label>
 								<div>
 									<input type="radio" style="display: inline-block;"
-										id="castration" name="pet_ox" value="F">&nbsp;유
+										id="castration" name="pet_ox" value="y">&nbsp;유
 									<input type="radio" style="display: inline-block;"
-										id="castration" name="pet_ox" value="F">&nbsp;무
+										id="castration" name="pet_ox" value="n">&nbsp;무
 								</div>
 							</div>
 							
@@ -272,9 +272,9 @@ input {
 								<label for="username">개인지 고양이 인지</label>
 								<div>
 									<input type="radio" style="display: inline-block;"
-										id="castration" name="pet_animal" value="F">&nbsp;개
+										id="castration" name="pet_animal" value="dog">&nbsp;개
 									<input type="radio" style="display: inline-block;"
-										id="castration" name="pet_animal" value="F">&nbsp;고양이
+										id="castration" name="pet_animal" value="cat">&nbsp;고양이
 								</div>
 							</div>
 							
@@ -302,7 +302,7 @@ input {
 								<label for="username">동거여부</label>
 								<div>
 									<input type="radio" style="display: inline-block;" id="living"
-										name="pet_family" value="F">&nbsp;유 <input type="radio"
+										name="pet_family" value="M">&nbsp;유 <input type="radio"
 										style="display: inline-block;" id="living" name="pet_family"
 										value="F">&nbsp;무
 								</div>
@@ -311,7 +311,7 @@ input {
 							<div class="form-group">
 								<label for="exampleFormControlTextarea1">반려견성격</label>
 								<textarea class="form-control texts" id="Person" rows="3"
-									style="width: 1110px; height: 361px; resize: none;"
+									style="width: 100%; height: 361px; resize: none;"
 									name="pet_character"></textarea>
 								<div style="position: relative; float: right;">
 									글자수 제한 : <label class="bytes1">0</label>/3000
@@ -322,7 +322,7 @@ input {
 								<label for="exampleFormControlTextarea1">특이사항</label><br>
 
 								<textarea class="form-control texts1" id="special" rows="3"
-									style="width: 1110px; height: 361px; resize: none;"
+									style="width: 100%; height: 361px; resize: none;"
 									id="special" name="pet_details"></textarea>
 								<div style="position: relative; float: right;">
 									글자수 제한 : <label class="bytes2">0</label>/3000
