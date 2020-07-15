@@ -67,11 +67,11 @@ $(function(){
 			success: function(data){
 				check = data.re;
 				if(check > 0 ){
-					alert('해당 아이디를 정지 시켰습니다.');
+					alert('해당 아이디를 상태를 변경시켰습니다..');
 					location.reload();
 				}
 				else{
-					alert('정지 시키는 것을 실패했습니다.');
+					alert('상태를 시키는 것을 실패했습니다.');
 				}		
 			}	
 		})

@@ -5,9 +5,31 @@
 	
 	<!--baord managemnet  -->
 	
+	<!--call  -->
+	<select id="m_board_call" resultType="kh.pet.dto.MemboardDto">
+		select * from (select mem_board.* , row_number() over(order by mb_seq desc)rnum from mem_board) where rnum between ${start} and ${end}
+	</select>
+	
+	<select id="p_board_call" resultType="kh.pet.dto.PetsitterboardDTO">
+		select * from (select petsitter_board.*, row_number () over (order by psb_seq desc) rnum from petsitter_board)where rnum between #{start} and #{end}
+	</select>
+	<select id="c_board_call" resultType="kh.pet.dto.CommunityDTO">
+		select * from (select Community.* , row_number() over(order by cu_seq desc)rnum from Community) where rnum between ${start} and ${end}
+	</select>
+	
+	<sql id="board_call">
+		<choose><when test="board_type == 'mem_board'">mem_board</when><when test="board_type == 'petsitter_board'">petsitter_board</when><when test="board_type == 'free'">Community</when></choose>
+	</sql>
+	
+	<select id="boardcount" resultType="int">
+		select count(*) from <include refid="board_call"/>
+	</select>
+	
+	
 	<update id="board_state">
-		update ${boardType} set <choose><when test="boardType == 'mem_board'"> mb_boardstatus = #{state} where mb_seq = #{seq}</when><when test="boardType == 'petsitter_board'">psb_boardstatus = #{state} where psb_seq = #{seq}</when></choose>
+		update <include refid="board_call"/>  set <choose><when test="board_type == 'mem_board'"> mb_boardstatus = #{state} where mb_seq = #{seq}</when><when test="board_type == 'petsitter_board'">psb_boardstatus = #{state} where psb_seq = #{seq}</when><when test="board_type == 'free'">BOARD_STATUS = #{state} where cu_seq = #{seq}</when></choose>
 	</update>
+
 
 	<!-- petsitter management -->
 	<select id="petsitter" resultType="kh.pet.dto.PetsitterDTO">
@@ -21,6 +43,17 @@
 	<delete id="petcencel">
 		delete from petsitter where ps_id=#{value}  
 	</delete>
+	
+	
+	<!-- black member  -->
+	<select id="blackmem" resultType="kh.pet.dto.MemberDTO">
+	 	select * from (select member.* , row_number() over(order by MEM_JOIN_DATE desc)rnum from member where mem_status = 'black') where rnum between ${start} and ${end}
+	</select>
+	
+	<select id="black_membercount" resultType="int">
+		select count(*) from member where mem_status = 'black'
+	</select>
+	
 
 	<!-- memeber management  -->
 	<select id="memberlist" resultType="kh.pet.dto.MemberDTO">
@@ -28,7 +61,7 @@
 	</select>
 	
 	<update id="mem_state">
-		update member set  mem_status = <choose><when test="s_stop_day == 'no'">'no'</when><otherwise>'stop'</otherwise></choose> where mem_id = #{stop_id}
+		update member set  mem_status = <choose><when test="s_stop_day == 'no'">'no'</when><when test="s_stop_day == 'f_stop'">'black'</when><otherwise>'stop'</otherwise></choose> where mem_id = #{stop_id}
 	</update>
 	
 	<select id="membercount" resultType="int">
@@ -69,6 +102,9 @@
 	
 	
 	<!--mem_board  -->
+	
+	<!--status  -->
+	
 	<select id="rememboard" resultType="kh.pet.dto.MemboardDto">
 		select * from mem_board where mb_restatus='yes' and mb_RESERVE_num ='null'
 	</select>

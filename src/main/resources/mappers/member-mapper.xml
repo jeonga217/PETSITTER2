@@ -3,79 +3,54 @@
 <mapper namespace="Member">
 
 	<select id="existId" resultType="int">
-		select count(*) from member
-		where mem_id=#{ps_id}
+		select count(*) from member where mem_id=#{ps_id}		
 	</select>
-	<select resultType="int" id="dupleCheck">select count(*) from member where
-		mem_id = #{value} </select>
-
-	<select resultType="int" id="emailCheck">select count(*) from member where
-		mem_email = #{value} </select>
-
-	<insert id="signup">insert into member
-		values(#{mem_id},#{mem_pw},#{mem_name},#{mem_email},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},1,1,sysdate, 0, 0, 'N',#{mem_authkey}, 'YES') </insert>
-
-	<select resultType="int" id="authkey">
-		<!-- 이메일 인증체크 -->
+	<!-- ID 중복체크 -->
+	<select resultType="int" id="dupleCheck">select count(*) from member where mem_id = #{value} </select>
+	<!-- 이메일 중복체크 -->
+	<select resultType="int" id="emailCheck">select count(*) from member where mem_email = #{value} </select>
+	<!-- 회원가입(SnS포함) -->
+	<insert id="signup">		
+		insert into member values
+		<choose>
+		<when test="mem_join_type == 1">
+		(#{mem_id},#{mem_pw},#{mem_name},#{mem_email},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},1,#{mem_join_type},sysdate, 0, 0, 'N',#{mem_authkey}, 'YES')
+		</when>
+		<when test="mem_join_type == 2">
+		(#{mem_id},'Kakao',#{mem_name},#{mem_email},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},1,#{mem_join_type},sysdate, 0, 0, 'N','Kakao', 'YES')
+		</when>
+		<when test="mem_join_type == 3">
+		(#{mem_id},'Naver',#{mem_name},#{mem_email},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},1,#{mem_join_type},sysdate, 0, 0, 'N','Naver', 'YES')
+		</when>
+		</choose>
+	</insert>
+	<select id="authkey" resultType="int"> <!-- 이메일 인증체크 -->
 		select count(*) from member where mem_authkey = #{value}
 	</select>
-
-
-	<update id="successAuthkey">
-
-		<!-- DB인증여부 바뀜 -->
-
+	<update id="successAuthkey"> <!-- DB인증여부 바뀜 -->
 		update member set mem_verify = 'Y' where mem_id = #{value}
 	</update>
-
-
-	<select resultType="int" id="verify">
-
-		<!-- 이메일 인증 여부 확인 -->
-
-		select count(*) from member where mem_id = #{value} and mem_verify
-		='Y'
+	<select id="verify" resultType="int">	<!-- 이메일 인증 여부 확인 -->
+		select count(*) from member where mem_id = #{value} and mem_verify ='Y'
 	</select>
-
-
-	<select resultType="int" id="login">
-
-		<!-- 로그인 -->
-
+	<select id="login" resultType="int"><!-- 로그인 -->
 		select count(*) from member where mem_id = #{id} and mem_pw = #{pw}
 	</select>
-
-
-	<select resultType="kh.pet.dto.MemberDTO" id="myinfo">
-
-		<!-- 로그인 후 정보 세션 저장용 -->
-
-		select * from member where mem_id = #{value}
+	<select id="myinfo" resultType="kh.pet.dto.MemberDTO"> <!-- 로그인 후 정보 세션 저장용 -->
+		select * from member where mem_id = #{value}		
 	</select>
-
-
-	<select resultType="String" id="findid">
-
-		<!-- 아이디 찾기 -->
-
+	<select id="findid" resultType="String"><!-- 아이디 찾기 -->
 		select mem_id from member where mem_email = #{value}
 	</select>
-
-
-	<select resultType="int" id="findpw">
-
-		<!-- 비번 찾기 전 해당 멤버 있는지 확인 -->
-
-		select count(*) from member where mem_id = #{id} and mem_email =
-		#{email}
+	<select id="findpw" resultType="int"><!-- 비번 찾기 전 해당 멤버 있는지 확인 --><!--kakao 아이디 확인도 이걸로 해도 된다-->
+		select count(*) from member where mem_id = #{id} and mem_email = #{email} 	
 	</select>
-
-
-	<update id="replacepw">
-
-		<!-- 비밀번호 재설정 -->
-
+	<update id="replacepw"><!-- 비밀번호 재설정 -->
 		update member set mem_pw = #{pw} where mem_id = #{id}
 	</update>
+	<delete id="withdraw"><!-- 회원탈퇴 -->	
+		delete from member where mem_id = {value};
+	
+	</delete>
 
 </mapper>

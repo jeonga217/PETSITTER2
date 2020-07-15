@@ -39,8 +39,12 @@ public class Petservice {
 		return dao.gettime(time);
 	}
 	
-	public String getpettype(Mypet_regDTO pdto) {
-		return dao.getpettype(pdto);
+	public String getpettype(String petname) {
+		return dao.getpettype(petname);
+	}
+
+	public MemboardDto bopet(String seq){
+		return dao.bopet(seq);
 	}
 	
 	public MemboardDto modlist(String mb_seq) {
@@ -64,9 +68,34 @@ public class Petservice {
 		return dao.addselec(id);
 	}
 	
+	public int reserv_point(MemboardDto mbdto) {
+		return dao.reserv_point(mbdto);
+	}
+
+	public int reservdel(String seq) {
+		return dao.reservdel(seq);
+	}
+
+	public int mpoint(String id) {
+		return dao.mpoint(id);
+	}
+
 	public int applyup(MemboardDto mbdto) {
 		return dao.applyup(mbdto);
 	}
+	
+	public int applydown(String seq) {
+		return dao.applydown(seq);
+	}
+
+	public int mpointup(MemboardDto mbdto) {
+		return dao.mpointup(mbdto);
+	}
+	
+	public int ppointup(MemboardDto mbdto) {
+		return dao.ppointup(mbdto);
+	}
+
 	
 	public int petsitter(String id) {
 		return dao.petsitter(id);
