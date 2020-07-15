@@ -28,6 +28,7 @@ public class AdminDAO {
 	
 	//게시판 관리
 	
+	
 	//게시글 콜
 	public List<MemboardDto> m_board_list(Map<String, Object> map){
 		return mybatis.selectList("Admin.m_board_call",map);
