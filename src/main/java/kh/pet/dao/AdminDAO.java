@@ -51,8 +51,12 @@ public class AdminDAO {
 	}
 	
 	//펫 시터 신청서 관리
-	public List<PetsitterDTO> petsitter(){
-		return mybatis.selectList("Admin.petsitter");
+	public List<PetsitterDTO> petsitter(Map<String,Object> map){
+		return mybatis.selectList("Admin.petsitter",map);
+	}
+	
+	public int pet_count() {
+		return mybatis.selectOne("Admin.sittercount");
 	}
 	
 	public int petaccept(String id) {
@@ -67,6 +71,10 @@ public class AdminDAO {
 	//블랙 맴버 콜
 	public List<MemberDTO> black_memberlist(Map<String, Integer> map){
 		return mybatis.selectList("Admin.blackmem",map);
+	}
+	
+	public int black_membercount() {
+		return mybatis.selectOne("Admin.black_membercount");
 	}
 	
 	//회원 관리
@@ -161,7 +169,12 @@ public class AdminDAO {
 	
 	
 	//신고 관련 테이블
-	public List<ReportDTO> reportlist(){
-		return mybatis.selectList("Admin.reportlist");
+	public List<ReportDTO> reportlist(Map<String, Integer> map){
+		return mybatis.selectList("Admin.reportlist",map);
+	}
+	
+	//관리자 패스워드 변경
+	public int admin_pass(String pw) {
+		return mybatis.update("Admin.admin_password",pw);
 	}
 }
