@@ -39,17 +39,17 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 <link rel="shortcut icon" href="ftco-32x32.png">
 <link href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
-<link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/css/magnific-popup.css">
-<link rel="stylesheet" href="/resources/css/jquery-ui.css">
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-<link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
-<link rel="stylesheet" href="/resources/css/aos.css">
-<link rel="stylesheet" href="/resources/css/rangeslider.css">
-<link rel="stylesheet" href="/resources/css/style.css">
+<link rel="stylesheet" href="/resources/community/fonts/icomoon/style.css">
+<link rel="stylesheet" href="/resources/community/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/community/css/magnific-popup.css">
+<link rel="stylesheet" href="/resources/community/css/jquery-ui.css">
+<link rel="stylesheet" href="/resources/community/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/resources/community/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/resources/community/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/resources/community/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet" href="/resources/community/css/aos.css">
+<link rel="stylesheet" href="/resources/community/css/rangeslider.css">
+<link rel="stylesheet" href="/resources/community/css/style.css">
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
@@ -118,7 +118,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 
 
-	<div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/resources/images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+	<div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/resources/community/images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div class="row align-items-center justify-content-center text-center">
 
@@ -205,7 +205,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 
 					<c:forEach var="i" items="${cm_list}">
 						<div class="d-block d-md-flex listing-horizontal">
-							<span class="comments">${i.cm_writer}</span>
+							<div class="comments">${i.cm_writer}</div>
 							<div class="lh-content">
 								<div class="contents" id="cm_contents">
 									<p>${i.cm_contents}</p>
@@ -223,7 +223,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 									<c:otherwise>
 										<div class="col-md-4">
 											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-primary btn-md text-white" data-toggle="modal" data-target="#staticBackdrop">신고하기</button>
+											<button type="button" class="btn btn-primary btn-md text-white report" id="${i.cm_seq}" data-toggle="modal" data-target="#staticBackdrop">신고하기</button>
 										</div>
 									</c:otherwise>
 								</c:choose>
@@ -245,8 +245,13 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 									</button>
 								</div>
 								<div class="modal-body">
+								<form name="report_mem">
+									<input type="text" id="r_seq" name="r_parent_seq" value=0 style="display: none;">
+									<input type="text" id="r_target" name="report_target" value="" style="display: none;"> 
 									<textarea name="report_contents" style="width: 100%" placeholder="신고내용을 간단히 기재해주세요" id="report_text"></textarea>
+								</form>
 								</div>
+								
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">취소하기</button>
@@ -258,20 +263,42 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 					
 					<!-- 신고하기 -->
 					<script>
+						$(".report").on("click",function(){
+							$("#r_seq").val($(this).attr("id"));
+							$("#r_target").val($(this).parent().parent().parent().children(".comments").html());
+						})
+						
+					
+					
 						$('#myModal').on('shown.bs.modal', function() {
 							$('#myInput').trigger('focus')
 						})
+						
+						
 						$("#report_bt").on("click",function(){
-							var report_contents = $("#report_text").val();
-								$.ajax({
-										url : "/community/report",
-										type : "POST",
-										data : {
-										report_contents : report_contents
-											}
-										})
-										window.location.reload();
+							var queryString = $("form[name=report_mem]").serialize();
+							$.ajax({
+								type: "POST",
+								url: "/community/report",
+								data : queryString,
+								cache: false,
+								dataType : "json",
+								processData : false,
+								success: function(data){
+									check = data.re;
+									if(check > 0 ){
+										alert('성공적으로 메세지를 전송하였습니다.');
+										location.reload();
+									}
+									else{
+										alert('메세지 전송에 실패했습니다.');
+									}		
+								}	
+							})
+
 						})
+				
+						
 					</script>
 					
 					<!-- 댓글 수정 -->
@@ -426,20 +453,20 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
 	</footer>
 	</div>
 
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="/resources/js/jquery-ui.js"></script>
-	<script src="/resources/js/popper.min.js"></script>
-	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/owl.carousel.min.js"></script>
-	<script src="/resources/js/jquery.stellar.min.js"></script>
-	<script src="/resources/js/jquery.countdown.min.js"></script>
-	<script src="/resources/js/jquery.magnific-popup.min.js"></script>
-	<script src="/resources/js/bootstrap-datepicker.min.js"></script>
-	<script src="/resources/js/aos.js"></script>
-	<script src="/resources/js/rangeslider.min.js"></script>
+	<script src="/resources/community/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/community/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="/resources/community/js/jquery-ui.js"></script>
+	<script src="/resources/community/js/popper.min.js"></script>
+	<script src="/resources/community/js/bootstrap.min.js"></script>
+	<script src="/resources/community/js/owl.carousel.min.js"></script>
+	<script src="/resources/community/js/jquery.stellar.min.js"></script>
+	<script src="/resources/community/js/jquery.countdown.min.js"></script>
+	<script src="/resources/community/js/jquery.magnific-popup.min.js"></script>
+	<script src="/resources/community/js/bootstrap-datepicker.min.js"></script>
+	<script src="/resources/community/js/aos.js"></script>
+	<script src="/resources/community/js/rangeslider.min.js"></script>
 
-	<script src="/resources/js/main.js"></script>
+	<script src="/resources/community/js/main.js"></script>
 
 
 </body>

@@ -206,15 +206,17 @@
 
 								<div class="lh-content">
 									<div class="pet">
-										<c:if test="${!empty list}">
+										<c:forEach var="j" items="${petexc}">
 											<c:forEach items="${list}" var="i">
+											<c:if test="${i.pet_name ne j}">
 												<input type="hidden" name="mb_petphoto" id="petphoto">
-												<input type="checkbox" data-imgSrc="${i.pet_photo}"
+												<input type="checkbox" data-imgsrc="${i.pet_photo}"
 													class="petname" name="mb_pet_name" id="${i.pet_name}"
 													value="${i.pet_name}" />
 												<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
+											</c:if>
 											</c:forEach>
-										</c:if>
+										</c:forEach>
 									</div>
 								</div>
 
@@ -281,12 +283,13 @@
 								<div class="lh-content">
 									<h3>요구사항</h3>
 									<div contenteditable="true" id="uniqueness"></div>
-									<input type="hidden" name="mb_request" id="mb_request" value="${modlist.mb_request}">
+									<input type="hidden" name="mb_request" id="mb_request"
+										value="${modlist.mb_request}">
 								</div>
 							</div>
 							<div class="conb">
 								<a href="/mb/mb_board" class="text-white" id="modified">목록</a>
-							</div>	
+							</div>
 						</div>
 						<div class="col-lg-4 ml-5">
 							<div data-brackets-id='1'>
@@ -364,8 +367,8 @@
 												</div>
 											</div>
 										</div>
-										<input type="hidden" id="stime" name="mb_stime">
-										<input type="hidden" id="etime" name="mb_etime">
+										<input type="hidden" id="stime" name="mb_stime"> <input
+											type="hidden" id="etime" name="mb_etime">
 									</div>
 									<div class="mb-5">
 										<div class="custom-pagination">
@@ -716,23 +719,21 @@
 			}
 		})
 	</script>
-	<script>
-		$("#save").on("submit", function() {
-			var count = 0;
-			<c:forEach var="i" items="${petname}">
-			$(".petname:checked").each(function(index, item) {
-				if ("${i}" == $(item).val()) {
-					count++
-				}
-			})
+	<!-- <script>
+		$("#send").on("submit", function() {
+			var count=0;
+			<c:forEach var="i" items="${petexc}">
+				$(".petname:checked").each(function(index, item) {
+					console.log($(item).val());
+					if ("${i}" == $(item).val()) {
+						alert("이미 강아지가 존재 합니다.")
+						return false;
+					}
+				})
 			</c:forEach>
-			if (count > 0) {
-				alert("이미등록된 강아지가 있습니다.")
 				return false;
-			} else {
-				return true;
-			}
 		})
-	</script>
+	</script> -->
+
 </body>
 </html>

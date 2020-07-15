@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Pet_reg">
-
-
 	<resultMap type="kh.pet.dto.Mypet_regDTO" id="listview">
 		<result property="pet_photo" column="img" />
 	</resultMap>
@@ -19,7 +17,8 @@
 	</select>
 
 	<select id="pointlistall" resultType="kh.pet.dto.PointDTO">
-		select * from points where p_id=#{value}
+		select * from points where
+		p_id=#{value}
 	</select>
 
 	<insert id="pet_insert">
@@ -35,6 +34,11 @@
 	<select id="petlist" resultType="kh.pet.dto.Mypet_regDTO"
 		resultMap="listview">
 		select * from mypet where petseq=${value}
+	</select>
+
+	<select id="modfiylist" resultType="kh.pet.dto.Mypet_regDTO">
+		select * from mypet where
+		master_id=#{id} and petseq=${seq}
 	</select>
 
 	<delete id="petdel">
@@ -64,6 +68,22 @@
 	<select id="typecheck" resultType="String">
 		select mem_type from member
 		where mem_id=#{value}
+	</select>
+
+	<update id="petmodfiy">
+		update mypet set pet_name=#{pet_name}, 
+		pet_photo=#{pet_photo}, pet_gender=#{pet_gender},
+		pet_ox=#{pet_ox},pet_age=${pet_age},
+		pet_animal=#{pet_animal},pet_type=#{pet_type},
+		pet_sort=#{pet_sort},pet_family=#{pet_family},
+		pet_character=#{pet_character},pet_details=#{pet_details}
+		where petseq=${petseq} and master_id=#{master_id}
+		
+		
+	</update>
+
+	<select id="seq" resultType="String">
+		select pet_photo from mypet where petseq=${value}
 	</select>
 
 </mapper>

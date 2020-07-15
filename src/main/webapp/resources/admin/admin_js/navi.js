@@ -41,7 +41,7 @@ $(function(){
     });
     
     $(".main").on("click",function(){
-    	location.href="/admin/main";
+    	location.href="/admin/adminindex";
     })
     
     $(".member").on("click",function(){

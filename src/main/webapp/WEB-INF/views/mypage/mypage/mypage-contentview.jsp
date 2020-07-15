@@ -402,6 +402,8 @@ input {
 		<div class="row pt-5 mt-5">
 			<div class="col-12 text-md-center text-left">
 				<p>
+					<!-- Link back to Free-Template.co can't be removed. Template is licensed under
+                                                                                                                                                CC BY 3.0. -->
 					&copy; 2020 <strong class="text-black">Browse</strong> Free
 					Template. All Rights Reserved. <br> Design by <a
 						href="https://free-template.co/" target="_blank"

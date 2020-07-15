@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,7 +30,8 @@ public class Mb_boardController {
 	private Petservice service; 
 	@Autowired
 	private HttpSession session;	
-	
+
+
 	@RequestMapping("home")
 	public String home(Model m) {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
@@ -38,13 +40,22 @@ public class Mb_boardController {
 		List<MemboardDto> plist = service.petselname(mdto.getMem_id());
 		List<String[]> petarr = new ArrayList<>();
 		List<String> petname = new ArrayList<>();
+
 		for(MemboardDto petlist : plist) {
 			petarr.add(petlist.getMb_pet_name().split(","));
 		}
+
 		for(String[] PetNameList : petarr) {
 			for(String PetNameArr : PetNameList) {
 				petname.add(PetNameArr);
 			}
+		}
+
+		for(Mypet_regDTO a: list) {
+			System.out.println("a"+a.getPet_name());
+		}
+		for(String b: petname) {
+			System.out.println("b"+b);
 		}
 		m.addAttribute("petname",petname);
 		m.addAttribute("list", list);
@@ -52,7 +63,7 @@ public class Mb_boardController {
 		return "mb_board/board_register";
 	}
 
-	
+
 	@RequestMapping("index")
 	public String index(MemboardDto mbdto) {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
@@ -68,19 +79,21 @@ public class Mb_boardController {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		pdto.setMaster_id(mdto.getMem_id());
 		int petResult = service.petsitter(mdto.getMem_id());
-		System.out.println(petResult);
 		String add = service.addselec(mdto.getMem_id());
 		List<MemboardDto> dtolist = service.seqid(mdto.getMem_id());
-		MemboardDto mlist = service.redlist(dtolist.get(0).getMb_seq());
+		MemboardDto mlist = service.redlist(dtolist.get(0).getMb_seq());	
 		String[] servicearr = mlist.getMb_service().split(",");
 		String[] petnamearr = mlist.getMb_pet_name().split(",");
-		List<String> pettype = new ArrayList<>();
-		List<String> services = new ArrayList<>();
+		List<String> pettype = new ArrayList<String>();
+		List<String> services = new ArrayList<String>();
+
+
 		for(String petname : petnamearr) {
 			pdto.setPet_name(petname);
 			pdto.setMaster_id(mdto.getMem_id());
-			pettype.add(service.getpettype(pdto));
-		}	
+			pettype.add(service.getpettype(petname));	
+		}
+
 		if(mlist.getMb_petphoto() != null) {
 			String[] photoarr = mlist.getMb_petphoto().split(",",-1);
 			mlist.setPhoto(photoarr);
@@ -99,25 +112,30 @@ public class Mb_boardController {
 		m.addAttribute("services", services);
 		m.addAttribute("pettype", pettype);
 		m.addAttribute("id", mdto.getMem_id());
+		m.addAttribute("alltime",alltime);
 		return "mb_board/board";
 	}
-	
+
 	@RequestMapping("modfilist")
 	public String modfilist(Model m,MemboardDto mbdto,Mypet_regDTO pdto) {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		int petResult = service.petsitter(mdto.getMem_id());
-		System.out.println(petResult);
 		pdto.setMaster_id(mdto.getMem_id());
 		String add = service.addselec(mdto.getMem_id());
 		MemboardDto mlist = service.redlist(mbdto.getMb_seq());
+		MemboardDto bopet = service.bopet(mbdto.getMb_seq());		
+		String[] bopetarr = bopet.getMb_pet_name().split(",");
 		String[] servicearr = mlist.getMb_service().split(",");
 		String[] petnamearr = mlist.getMb_pet_name().split(",");
-		List<String> pettype = new ArrayList<>();
-		List<String> services = new ArrayList<>();
+		List<String> pettype = new ArrayList<String>();
+		List<String> services = new ArrayList<String>();
+		for(String boptype : bopetarr) {
+			pettype.add(service.getpettype(boptype));			
+		}
+
 		for(String petname : petnamearr) {
 			pdto.setPet_name(petname);
 			pdto.setMaster_id(mdto.getMem_id());
-			pettype.add(service.getpettype(pdto));
 		}	
 		if(mlist.getMb_petphoto() != null) {
 			String[] photoarr = mlist.getMb_petphoto().split(",",-1);
@@ -149,27 +167,39 @@ public class Mb_boardController {
 		String[] servicearr = modlist.getMb_service().split(",");
 		List<String> petnames = new ArrayList<>();
 		List<String> services = new ArrayList<>();
+		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
 		List<MemboardDto> plist = service.petselname(mdto.getMem_id());
 		List<String[]> petarr = new ArrayList<>();
 		List<String> petname = new ArrayList<>();
-		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
 		for(String service : servicearr) {
 			services.add(service);
 		}
 		for(String pet : petnamearr) {
 			petnames.add(pet);
 		}		
+
 		for(MemboardDto petlist : plist) {
 			petarr.add(petlist.getMb_pet_name().split(","));
 		}
+
 		for(String[] PetNameList : petarr) {
 			for(String PetNameArr : PetNameList) {
 				petname.add(PetNameArr);
 			}
 		}
-		
+
+		List<String> petexc = new ArrayList<>();
+		for(String petbod : petnames) {
+			for(String petlib : petname) {
+				if(!petlib.contentEquals(petbod)) {
+					petexc.add(petlib);		
+				}
+			}
+		}
+
+
 		String add = service.addselec(modlist.getMb_writer());
-		m.addAttribute("petname",petname);
+		m.addAttribute("petexc",petexc);
 		m.addAttribute("list", list);
 		m.addAttribute("add", add);	
 		m.addAttribute("modlist", modlist);	
@@ -215,23 +245,7 @@ public class Mb_boardController {
 		return "redirect:mb_board";
 	}
 
-	@RequestMapping("apply")
-	public void apply(MemboardDto mbdto,HttpServletResponse response) {
-		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
-		JSONObject jobj = new JSONObject();
-	  
-       String re = "false";
-		if(!mdto.getMem_id().contentEquals(mbdto.getMb_writer())) {
-			mbdto.setMb_booker(mdto.getMem_id());
-			service.applyup(mbdto);
-			re = "true";
-		}
-		jobj.put("re", re) ;
-		try {
-			response.getWriter().append(jobj.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	
 
+	
 }
