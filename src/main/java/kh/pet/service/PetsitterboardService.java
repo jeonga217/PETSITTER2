@@ -210,6 +210,7 @@ public class PetsitterboardService {
 				if(list.get(i).getPm()>=pickdto.getPets() && list.get(i).getAm()>=pickdto.getPets()) {
 					count++;
 				}
+				
 			}
 		
 		} else if(timearr.length==1) {
