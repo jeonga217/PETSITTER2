@@ -33,17 +33,40 @@
 		between #{start} and #{end} and p_id=#{id}
 	</select>
 
-	<select id="community" resultType="kh.pet.dto.MyPage_CommunityDTO">
+	<select id="community"
+		resultType="kh.pet.dto.MyPage_CommunityDTO">
 		select * from (select community.*, row_number()
-		over(order by cu_date desc)rum
+		over(order
+		by cu_date desc)rum
 		from
 		community) where rum between
-		#{start} and #{end} and cu_writer=#{id}
+		#{start} and #{end}
+		and cu_writer=#{id}
 	</select>
 
 	<select id="communitycount" resultType="int">
-		select count(*) from community where
+		select count(*) from
+		community where
 		cu_writer=#{value}
+	</select>
+
+	<select id="usecontenttable"
+		resultType="kh.pet.dto.Mypage_UseTableDTO">
+		select * from (select reservation.*, row_number()
+		over(order by reserve_day desc)rum
+		from
+		reservation) where rum between
+		#{start} and #{end} and mem_id=#{id}
+	</select>
+
+	<select id="statuday" resultType="kh.pet.dto.Mypage_UseTableDTO">
+		select start_day, end_day, reserve_day from reservation where mem_id=#{value} order by reserve_day desc
+	</select>
+
+	<select id="usecount" resultType="int">
+		select count(*) from
+		reservation where
+		mem_id=#{value}
 	</select>
 
 
