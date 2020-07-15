@@ -24,7 +24,7 @@ public class PointController {
 	private HttpSession session;	
 
 	@RequestMapping("cancel")
-	public void cancel(String seq,MemboardDto mbdto) {
+	public void cancel(String seq,MemboardDto mbdto) throws Exception {
 		MemboardDto mdto = service.modlist(seq);
 		service.reservdel(seq);
 		int mpoint = service.mpoint(mdto.getMb_writer());
@@ -36,7 +36,7 @@ public class PointController {
 	}
 	
 	@RequestMapping("scpoint")
-	public void petsitter_pointup(String seq) {
+	public void petsitter_pointup(String seq) throws Exception {
 		MemboardDto mdto = service.modlist(seq);
 		int ppoint = service.mpoint(mdto.getMb_booker());
 		int apoint = mdto.getMb_point();
@@ -47,7 +47,7 @@ public class PointController {
 
 	//	soju point
 	@RequestMapping("apply")
-	public void apply(MemboardDto mbdto,HttpServletResponse response) {
+	public void apply(MemboardDto mbdto,HttpServletResponse response) throws Exception {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		JSONObject jobj = new JSONObject();
 		int mpoint = service.mpoint(mbdto.getMb_writer());

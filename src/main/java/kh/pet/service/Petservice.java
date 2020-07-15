@@ -19,93 +19,93 @@ public class Petservice {
 	@Autowired
 	private PetDao dao;
 	
-	public List<Mypet_regDTO> Petselect(String id){
+	public List<Mypet_regDTO> Petselect(String id) throws Exception {
 		return dao.Petselect(id);
 	}
 	
-	public int Memboardinsert(MemboardDto mdto) {
+	public int Memboardinsert(MemboardDto mdto) throws Exception {
 		return dao.Memboardinsert(mdto);
 	}
 	
-	public MemboardDto redlist(String mb_seq){
+	public MemboardDto redlist(String mb_seq) throws Exception {
 		return dao.redlist(mb_seq);
 	}
 	
-	public String petphoto(Mypet_regDTO pdto) {
+	public String petphoto(Mypet_regDTO pdto) throws Exception {
 		return dao.petphoto(pdto);
 	}
 	
-	public String gettime(String time) {
+	public String gettime(String time) throws Exception {
 		return dao.gettime(time);
 	}
 	
-	public String getpettype(String petname) {
+	public String getpettype(String petname) throws Exception {
 		return dao.getpettype(petname);
 	}
 
-	public MemboardDto bopet(String seq){
+	public MemboardDto bopet(String seq) throws Exception {
 		return dao.bopet(seq);
 	}
 	
-	public MemboardDto modlist(String mb_seq) {
+	public MemboardDto modlist(String mb_seq) throws Exception {
 		return dao.modlist(mb_seq);
 	}
 	
-	public int Memboardupdate(MemboardDto mdto) {
+	public int Memboardupdate(MemboardDto mdto) throws Exception {
 		return dao.Memboardupdate(mdto);
 	}
 	
-	public int deleteboard(MemboardDto mdto) {
+	public int deleteboard(MemboardDto mdto) throws Exception {
 		System.out.println("삭제 페이지 번호 : "+mdto.getMb_seq());
 		return dao.deleteboard(mdto);
 	}
 	
-	public List<MemboardDto> seqid(String id) {
+	public List<MemboardDto> seqid(String id) throws Exception {
 		return dao.seqid(id);
 	}
 	
-	public String addselec(String id) {
+	public String addselec(String id) throws Exception {
 		return dao.addselec(id);
 	}
 	
-	public int reserv_point(MemboardDto mbdto) {
+	public int reserv_point(MemboardDto mbdto) throws Exception {
 		return dao.reserv_point(mbdto);
 	}
 
-	public int reservdel(String seq) {
+	public int reservdel(String seq) throws Exception {
 		return dao.reservdel(seq);
 	}
 
-	public int mpoint(String id) {
+	public int mpoint(String id) throws Exception {
 		return dao.mpoint(id);
 	}
 
-	public int applyup(MemboardDto mbdto) {
+	public int applyup(MemboardDto mbdto) throws Exception {
 		return dao.applyup(mbdto);
 	}
 	
-	public int applydown(String seq) {
+	public int applydown(String seq) throws Exception {
 		return dao.applydown(seq);
 	}
 
-	public int mpointup(MemboardDto mbdto) {
+	public int mpointup(MemboardDto mbdto) throws Exception {
 		return dao.mpointup(mbdto);
 	}
 	
-	public int ppointup(MemboardDto mbdto) {
+	public int ppointup(MemboardDto mbdto) throws Exception {
 		return dao.ppointup(mbdto);
 	}
 
 	
-	public int petsitter(String id) {
+	public int petsitter(String id) throws Exception {
 		return dao.petsitter(id);
 	}
 
-	public List<MemboardDto> petselname(String id){
+	public List<MemboardDto> petselname(String id) throws Exception {
 		return dao.petselname(id);
 	}
 	
-	public List<MemboardDto> mb_boardList(int cpage){
+	public List<MemboardDto> mb_boardList(int cpage) throws Exception {
 		int start =  cpage*Mb_Configuration.recordCountPerPage-(Mb_Configuration.recordCountPerPage-1);
 		int end = start + (Mb_Configuration.recordCountPerPage-1);
 		

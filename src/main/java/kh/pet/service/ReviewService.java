@@ -30,4 +30,9 @@ public class ReviewService {
 	public List<ReviewDTO> selectByParent(String rw_parent_seq) throws Exception{
 		return rwdao.selectByParent(rw_parent_seq);
 	}
+	
+	public List<ReviewDTO> review() throws Exception{
+		return rwdao.review();
+	}
+	
 }

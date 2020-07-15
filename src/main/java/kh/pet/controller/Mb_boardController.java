@@ -33,7 +33,7 @@ public class Mb_boardController {
 
 
 	@RequestMapping("home")
-	public String home(Model m) {
+	public String home(Model m) throws Exception {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		String add = service.addselec(mdto.getMem_id());
 		List<Mypet_regDTO> list = service.Petselect(mdto.getMem_id());
@@ -65,7 +65,7 @@ public class Mb_boardController {
 
 
 	@RequestMapping("index")
-	public String index(MemboardDto mbdto) {
+	public String index(MemboardDto mbdto) throws Exception {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		mbdto.setMb_writer(mdto.getMem_id());
 		service.Memboardinsert(mbdto);
@@ -75,7 +75,7 @@ public class Mb_boardController {
 
 
 	@RequestMapping("mbinset")
-	public String redlist(Model m,MemboardDto mbdto,Mypet_regDTO pdto) {
+	public String redlist(Model m,MemboardDto mbdto,Mypet_regDTO pdto) throws Exception {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		pdto.setMaster_id(mdto.getMem_id());
 		int petResult = service.petsitter(mdto.getMem_id());
@@ -117,7 +117,7 @@ public class Mb_boardController {
 	}
 
 	@RequestMapping("modfilist")
-	public String modfilist(Model m,MemboardDto mbdto,Mypet_regDTO pdto) {
+	public String modfilist(Model m,MemboardDto mbdto,Mypet_regDTO pdto) throws Exception {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		int petResult = service.petsitter(mdto.getMem_id());
 		pdto.setMaster_id(mdto.getMem_id());
@@ -160,7 +160,7 @@ public class Mb_boardController {
 	}
 
 	@RequestMapping("modified")
-	public String redlist_modified(Model m,String mb_seq) {
+	public String redlist_modified(Model m,String mb_seq) throws Exception {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		MemboardDto modlist = service.modlist(mb_seq);
 		String[] petnamearr = modlist.getMb_pet_name().split(",");
@@ -210,14 +210,14 @@ public class Mb_boardController {
 	}
 
 	@RequestMapping("modified_con")
-	public String modified_con(MemboardDto mbdto,Model m) {
+	public String modified_con(MemboardDto mbdto,Model m) throws Exception {
 		service.Memboardupdate(mbdto);	
 		m.addAttribute("mb_seq", mbdto.getMb_seq());
 		return "redirect:modfilist";
 	}
 
 	@RequestMapping("mb_board")
-	public String mb_board(Model m,HttpServletRequest req) throws Exception{
+	public String mb_board(Model m,HttpServletRequest req) throws Exception {
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		int cpage = 1;
 		try {
@@ -240,7 +240,7 @@ public class Mb_boardController {
 	}
 
 	@RequestMapping("deleteboard")
-	public String deleteboard(MemboardDto mbdto) {
+	public String deleteboard(MemboardDto mbdto) throws Exception {
 		service.deleteboard(mbdto);
 		return "redirect:mb_board";
 	}

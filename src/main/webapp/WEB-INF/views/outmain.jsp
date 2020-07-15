@@ -37,6 +37,30 @@
 <link rel="stylesheet" href="resources/main/css/rangeslider.css">
 
 <link rel="stylesheet" href="resources/main/css/style.css">
+<link href="/resources/mb/icofont/icofont.min.css" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'
+	rel='stylesheet'>
+<script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="/resources/member/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" 	href="/resources/member/css/util.css">
+<link rel="stylesheet" 	href="/resources/member/css/main.css">
+<!--===============================================================================================-->
 
 </head>
 <style>
@@ -61,26 +85,116 @@
 
 			<div class="container">
 				<div class="row align-items-center">
-
 					<div class="col-12 col-xl-2">
 						<h1 class="mb-2 site-logo">
 							<a href="index.html"><img src="resources/images/dogss.png"
 								style="width: 250px; height: 60px;"></a>
 						</h1>
 					</div>
-					<div class="col-12 col-md-10 d-none d-xl-block">
-						<nav class="site-navigation position-relative text-right"
-							role="navigation">
-							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-								<li><a href="/admin/adminindex"><span>팀소개</span></a></li>
-								<li><a href="/mb/mb_board?cpage=1"><span>서비스소개</span></a></li>
-								<li><a href="/member/login"><span>로그인</span></a></li>
-								<li><a href="/member/login"><span>회원가입</span></a></li>
-							</ul>
-						</nav>
-					</div>
+					<c:choose>
+						<c:when test="${empty loginInfo}">
+							<div class="col-12 col-md-10 d-none d-xl-block">
+								<nav class="site-navigation position-relative text-right"
+									role="navigation">
+									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+										<li><a href="/admin/adminindex"><span>팀소개</span></a></li>
+										<li><a href="#introduce"><span>서비스소개</span></a></li>
+										<li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
+										<li><a href="/member/login"><span>회원가입</span></a></li>
+									</ul>
+								</nav>
+							</div>
+								<!-- 로그인-->
+					<div class="modal fade" id="login" data-keyboard="false"
+                  tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-body">
+                           <div class="limiter">
+                              <div class="container-login100">
+                                 <div class="wrap-login100">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                       aria-label="Close">
+                                       <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <form class="login100-form validate-form" action="/member/loginProc" method="post">
+                                       <span class="logo100 p-10">
+                                          <p class="logo">
+                                             <span class="lnr lnr-paw"></span>뭐하냥 도와주개
+                                          </p>
+                                       </span> <span class="login100-form-title p-b-23"> LOGIN </span>
+                                       <div class="wrap-input100 validate-input"
+                                          data-validate="ID를 입력하세요.">
+                                          <input class="input100" type="text" name="mem_id">
+                                          <span class="focus-input100"></span> <span
+                                             class="label-input100">ID</span>
+                                       </div>
+
+                                       <div class="wrap-input100 validate-input"
+                                          data-validate="비밀번호를 입력하세요.">
+                                          <input class="input100" type="password" name="mem_pw">
+                                          <span class="focus-input100"></span> <span
+                                             class="label-input100">Password</span>
+                                       </div>
+                                       <div class="flex-sb-m w-full p-t-3 p-b-32">
+                                          <div class="contact100-form-checkbox">
+                                             <a href="/member/findInfo" class="txt1"> Forgot ID/Password? </a>
+                                          </div>
+                                          <div>
+                                             <a href="/member/signup" class="txt1"> Sign Up </a>
+                                          </div>
+                                       </div>
 
 
+                                       <div class="container-login100-form-btn">
+                                          <button class="login100-form-btn" type="submit">Login</button>
+                                       </div>
+                                       <div class="text-center p-t-46 p-b-20">
+                                          <span class="txt2"> OR SNS LOGIN </span>
+                                       </div>
+
+                                       <div class="login100-form-social flex-c-m bg2 m-r-5">
+                                          <a class="btns" href="https://kauth.kakao.com/oauth/authorize?client_id=4dd67a91f5b80223eb0934cae5fa4c50&redirect_uri=http://192.168.60.13/member/kakao&response_type=code"> <span><img
+                                                src="/resources/member/images/kakao_icon.png"></span> <span class="txt3">Kakao
+                                                Login</span>
+                                          </a> <a class="btns" href="/member/naver"> <span><img
+                                                src="/resources/member/images/naver_icon.PNG" width="34px" height="35px"></span>
+                                             <span class="txt3">Naver Login</span>
+                                          </a>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+						</c:when>
+						<c:otherwise>
+							<div class="col-12 col-md-10 d-none d-xl-block">
+								<nav class="site-navigation position-relative text-right"
+									role="navigation">
+									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+										<li><a href="/member/login"><p>MY PAGE</p></a></li>
+										<li><a href="/member/login"><i class="icofont-envelope icofont-1x" style="color: #81DAD6"></i></a></li>
+										<li><a href="/admin/adminindex"><span>LOGOUT</span></a></li>
+									</ul>
+								</nav>
+							</div>
+							<div class="col-12 col-md-12 d-none d-xl-block">
+								<nav class="site-navigation position-relative text-right"
+									role="navigation">
+									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+										<li><a href="/admin/adminindex"><span style="font-size: 20px">팀 소개</span></a></li>
+										<li><a href="/mb/mb_board?cpage=1"><span style="font-size: 20px">방문 돌봄</span></a></li>
+										<li><a href="/board/outputList"><span style="font-size: 20px">위탁 돌봄</span></a></li>
+										<li><a href="/member/login"><span style="font-size: 20px">게시판</span></a></li>
+									</ul>
+								</nav>
+							</div>
+						</c:otherwise>
+					</c:choose>
 					<div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3"
 						style="position: relative; top: 3px;">
 						<a href="#" class="site-menu-toggle js-menu-toggle text-white"><span
@@ -93,90 +207,124 @@
 		</header>
 
 
+
 		<div class="site-blocks-cover overlay"
 			style="background-image: url(resources/main/images/outmain_img.jpg);"
 			data-aos="fade" data-stellar-background-ratio="0.5">
 			<div class="container">
 				<div
 					class="row align-items-center justify-content-center text-center">
-
 					<div class="col-md-10">
-
-
 						<div class="row justify-content-center mb-4">
 							<div class="col-md-10 text-center">
 								<h1 data-aos="fade-up">
-									펫사이트 <span class="typed-words"></span>
+									뭐하냥 도와주개 
+								</h1>
+								<h1 data-aos="fade-up">
+									 <span class="typed-words"></span>
 								</h1>
 							</div>
+							<c:if test="${!empty loginInfo}">
+							<button id="register_btn"
+								class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">펫시터
+								지원하기</button>
+							</c:if>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
+		<div class="site-section" id="introduce">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-md-6">
+						<img src="/resources/main/images/outmain_m1.jpg"
+							alt="Free website template by Free-Template.co"
+							class="img-fluid rounded">
+					</div>
+					<div class="col-md-5 ml-auto">
+						<h2 class="text-primary mb-3">#맞춤 펫시터가 집으로 방문</h2>
+						<p>검증된 방문펫시터가 깨끗한 환경과 안전한 산책을 책임집니다.</p>
+						<ul class="ul-check list-unstyled success">
+							<li>검증된 펫시터</li>
+							<li>최고 전문진과 교육 협업</li>
+							<li>안전 보상 프로그램</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="site-section " data-aos="fade">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-md-8">
+						<h3 style="color: #81DAD6;">즐겁고 행복한 방문돌봄</h3>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-md-4 mx-auto">
+						<h3>장시간 혼자있을 우리 아이를 위해 자주가던 공원을 펫시터와 함께 산책해요.</h3>
+					</div>
+				</div>
+				<div class="row mb-5">
+					<div class="col-md-4 ml-auto">
+						<p>전문 펫시터가 방문하여 익숙한 환경에서 돌봄을 진행하기 때문에 낮선 장소에 예민한 반려견도 안심하고 맡길
+							수 있습니다.</p>
+					</div>
+					<div class="col-md-4">
+						<p>혼자 남겨진 반려동물을 생각하며, 외출을 망설인 적이 있으신가요? 이제는 펫시터에게 맡기고, 여러분의
+							소중한 일상을 마음 편히 보내세요</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="site-section">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <img src="/resources/main/images/outmain_m1.jpg" alt="Free website template by Free-Template.co" class="img-fluid rounded">
-          </div>
-          <div class="col-md-5 ml-auto">
-            <h2 class="text-primary mb-3">#집으로 펫시터 부르기</h2>
-            <p>검증된 방문펫시터가 깨끗한 환경과 안전한 산책을 책임집니다.</p>
-            <ul class="ul-check list-unstyled success">
-              <li>검증된 펫시터</li>
-              <li>최고 전문진과 교육 협업</li>
-              <li>안전 보상 프로그램</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-        <div class="site-section "  data-aos="fade">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md-8" >
-            <h3 style="color: #81DAD6;">즐겁고 안전한 산책시간</h3>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-4 mx-auto">
-            <h3>장시간 혼자있을 우리 아이를 위해 자주가던 공원을 펫시터와 함께 산책해요.</h3>
-          </div>
-        </div>
-        <div class="row mb-5">
-          <div class="col-md-4 ml-auto">
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-          </div>
-          <div class="col-md-4">
-            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="site-section">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <img src="/resources/main/images/outmain_p1.jpg" alt="Free website template by Free-Template.co" class="img-fluid rounded">
-          </div>
-          <div class="col-md-5 ml-auto">
-            <h2 class="text-primary mb-3">#펫시터 가정집으로 돌봄</h2>
-            <p>전문적인 교욱을 받은 펫시터의 가정집 돌봄 </p>
-            <ul class="ul-check list-unstyled success">
-              <li>전문 펫시터의 맞춤돌봄</li>
-              <li>신원검증이 완료된 펫시터</li>
-              <li>강아지 상태가 적힌 돌봄일지</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-		
-		
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-md-6">
+						<img src="/resources/main/images/outmain_p1.jpg"
+							alt="Free website template by Free-Template.co"
+							class="img-fluid rounded">
+					</div>
+					<div class="col-md-5 ml-auto">
+						<h2 class="text-primary mb-3">#펫시터 가정집으로 돌봄</h2>
+						<p>전문적인 교욱을 받은 펫시터의 가정집 돌봄</p>
+						<ul class="ul-check list-unstyled success">
+							<li>전문 펫시터의 맞춤돌봄</li>
+							<li>신원검증이 완료된 펫시터</li>
+							<li>강아지 상태가 적힌 돌봄일지</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="site-section " data-aos="fade">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-md-8">
+						<h3 style="color: #81DAD6;">우리 아기 안심 위탁돌봄</h3>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-md-4 mx-auto">
+						<h3>맞춤 펫시터의 집에서 강아지를 케어헤드립니다.</h3>
+					</div>
+				</div>
+				<div class="row mb-5">
+					<div class="col-md-4 ml-auto">
+						<p>원하는 일정동안 펫시터가 맞춤돌봄을 하기 때문에 안심하고 맡기실 수 있습니다.</p>
+					</div>
+					<div class="col-md-4">
+						<p>전문 펫시터의 산책과 놀이,훈련을 통해 반려견의 운동을 충족 시키고 스트레스를 줄여줍니다.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<div
 			style="width: 1800px; display: flex; justify-content: space-between; align-items: center; align-self: center;">
@@ -207,8 +355,9 @@
 							<div
 								style="border-top: 1.5px dashed rgb(235, 235, 235); width: 215px; height: 1px; margin: 25px 0px;"></div>
 							<div
-								style="flex-direction: row; align-items: center; margin-bottom: 33px;margin-top: 33px;">
-								<p style="display: flex; font-weight: 600; font-size: 25px; color: #81DAD6; letter-spacing: 0.7px; line-height: 34px;">
+								style="flex-direction: row; align-items: center; margin-bottom: 33px; margin-top: 33px;">
+								<p
+									style="display: flex; font-weight: 600; font-size: 25px; color: #81DAD6; letter-spacing: 0.7px; line-height: 34px;">
 									50 point 부터 ~</p>
 							</div>
 						</div>
@@ -225,8 +374,10 @@
 							<p style="font-size: 15px; color: rgb(94, 99, 109);">오전 / 오후</p>
 							<div
 								style="border-top: 1.5px dashed rgb(235, 235, 235); width: 215px; height: 1px; margin: 38px 0px;"></div>
-							<div style="display: flex; flex-direction: row; align-items: center; margin-bottom: 33px;margin-top: 33px;">
-								<p style="display: flex; font-weight: 600; font-size: 25px; color: #81DAD6; letter-spacing: 0.7px; line-height: 34px;">
+							<div
+								style="display: flex; flex-direction: row; align-items: center; margin-bottom: 33px; margin-top: 33px;">
+								<p
+									style="display: flex; font-weight: 600; font-size: 25px; color: #81DAD6; letter-spacing: 0.7px; line-height: 34px;">
 									200 point 부터 ~</p>
 							</div>
 						</div>
@@ -242,9 +393,7 @@
 				<div class="row">
 					<div class="col-lg-12 mr-auto mb-4 mb-lg-0">
 						<h4 class="mb-3 mt-0 text-white">우리강아지 전담 매니저,</h4>
-						<h1 class="mb-3 mt-0 text-white">방문펫시터</h1>
-						<h2 class="mb-3 mt-0 text-white"></h2>
-						<h2 class="mb-3 mt-0 text-white"></h2>
+						<h1 class="mb-3 mt-0 text-white">전문 펫시터</h1>
 					</div>
 				</div>
 			</div>
@@ -254,70 +403,25 @@
 
 		<div class="site-section bg-light">
 			<div class="container">
-
 				<div class="row justify-content-center mb-5">
 					<div class="col-md-7 text-center border-primary">
-						<h2 class="font-weight-light text-info">사이트 후기 댓글</h2>
+						<h2 class="font-weight-light text-info">사이트 후기 리뷰</h2>
 					</div>
 				</div>
 
 				<div class="slide-one-item home-slider owl-carousel">
-					<div>
-						<div class="testimonial">
-							<figure class="mb-4">
-								<img src="/resources/images/iu.jpg"
-									alt="Free Website Template by Free-Template.co"
-									class="img-fluid mb-3">
-								<p>아이유</p>
-							</figure>
-							<blockquote>
-								<p>&ldquo;처음 사용해 봤는데 정말 편하고 펫시터님이 정말 친절하게 보살펴 주셨어요 강추입니다
-									&rdquo;</p>
-							</blockquote>
+					<c:forEach var="i" items="${reviewD}">
+						<div>
+							<div class="testimonial">
+								<figure class="mb-4">
+									<p>${i.rw_petsitter_id}</p>
+								</figure>
+								<blockquote>
+									<p>&ldquo;${i.rw_contents}&rdquo;</p>
+								</blockquote>
+							</div>
 						</div>
-					</div>
-					<div>
-						<div class="testimonial">
-							<figure class="mb-4">
-								<img src="/resources/images/se.jpg"
-									alt="Free Website Template by Free-Template.co"
-									class="img-fluid mb-3">
-								<p>신세경</p>
-							</figure>
-							<blockquote>
-								<p>&ldquo;저는 고양이를 키우고 있는데 예민해서 스트레스 받을 줄 알았는데 섬세한 부분까지
-									신경써주셔서 저희 냐옹이가 저보다 펫시터님을 더 좋아해요 &rdquo;</p>
-							</blockquote>
-						</div>
-					</div>
-
-					<div>
-						<div class="testimonial">
-							<figure class="mb-4">
-								<img src="/resources/images/nan1.jpg"
-									alt="Free Website Template by Free-Template.co"
-									class="img-fluid mb-3">
-								<p>사나</p>
-							</figure>
-							<blockquote>
-								<p>&ldquo;더이상은 생각 안남 계속 지어서 말할려니 생각안남 &rdquo;</p>
-							</blockquote>
-						</div>
-					</div>
-
-					<div>
-						<div class="testimonial">
-							<figure class="mb-4">
-								<img src="resources/images/ko.jpg"
-									alt="Free Website Template by Free-Template.co"
-									class="img-fluid mb-3">
-								<p>강동원</p>
-							</figure>
-							<blockquote>
-								<p>&ldquo;뭔말이 필요함 그냥 사용해라&rdquo;</p>
-							</blockquote>
-						</div>
-					</div>
+					</c:forEach>
 
 				</div>
 			</div>
@@ -346,18 +450,8 @@
 			</div>
 		</div>
 
-		<footer class="site-footer">
+		<footer style="padding-bottom: 80px;">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-md-6 mb-5 mb-lg-0 col-lg-3">서울시 어딘가</div>
-							<div class="col-md-6 mb-5 mb-lg-0 col-lg-3">ㅌ</div>
-							<div class="col-md-6 mb-5 mb-lg-0 col-lg-3">ㄹ</div>
-							<div class="col-md-6 mb-5 mb-lg-0 col-lg-3">ㅌ</div>
-						</div>
-					</div>
-				</div>
 				<div class="row pt-5 mt-5">
 					<div class="col-12 text-md-center text-left">
 						<p>
@@ -372,7 +466,7 @@
 		</footer>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	
 	<script src="resources/main/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="resources/main/js/jquery-ui.js"></script>
 	<script src="resources/main/js/popper.min.js"></script>
@@ -384,12 +478,27 @@
 	<script src="resources/main/js/bootstrap-datepicker.min.js"></script>
 	<script src="resources/main/js/aos.js"></script>
 	<script src="resources/main/js/rangeslider.min.js"></script>
+	
+	<!-- 로그인 -->
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/bootstrap/js/popper.js"></script>
+	<script src="/resources/member/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/daterangepicker/moment.min.js"></script>
+	<script	src="/resources/member/vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/js/main.js"></script>
+	<!--===============================================================================================-->
 
 
 	<script src="resources/main/js/typed.js"></script>
 	<script>
 		var typed = new Typed('.typed-words', {
-			strings : [ "Attractions", " Events", " Hotels", " Restaurants" ],
+			strings : [ "방문돌봄서비스 ", " 위탁돌봄서비스 ", " 펫시터매칭"],
 			typeSpeed : 80,
 			backSpeed : 80,
 			backDelay : 4000,

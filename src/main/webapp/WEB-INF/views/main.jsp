@@ -88,7 +88,6 @@
 					<div class="col-12 col-md-10 d-none d-xl-block">
 						<nav class="site-navigation position-relative text-right"
 							role="navigation">
-
 							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
 								<li class="active"><a href="#"><span>Home</span></a></li>
 								<li class="active"><a href="/petsitter/petsitter"><span>펫 시터</span></a>		</li>

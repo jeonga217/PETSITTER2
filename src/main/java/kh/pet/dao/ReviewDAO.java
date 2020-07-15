@@ -40,4 +40,8 @@ public class ReviewDAO {
 	public List<ReviewDTO> selectByParent(String rw_parent_seq) throws Exception{
 		return mybatis.selectList("Review.selectByParentSeq", rw_parent_seq); 
 	}
+	
+	public List<ReviewDTO> review() throws Exception{
+		return mybatis.selectList("Review.review"); 
+	}
 }
