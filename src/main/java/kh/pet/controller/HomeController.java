@@ -1,33 +1,34 @@
 package kh.pet.controller;
 
 
-import java.util.Locale;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import kh.pet.dto.ReviewDTO;
+import kh.pet.service.ReviewService;
 import kh.pet.staticInfo.Log_Count;
 
 @Controller
 public class HomeController {
-
+	
+	@Autowired
+	private ReviewService service; 
 	@Autowired
 	private HttpSession session;
 	
-	
 	@RequestMapping("/")
-	public String home(Locale locale, Model model) {
-		
-		return "main";
+	public String home(Model m) throws Exception {
+		List<ReviewDTO> reviewD = service.review();
+		session.getAttribute("loginInfo");
+		m.addAttribute("reviewD", reviewD);
+		return "outmain";
 	}
-	
 	
 	@RequestMapping("login2")
 	public String login(String id) {

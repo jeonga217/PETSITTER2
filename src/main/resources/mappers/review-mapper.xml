@@ -12,6 +12,10 @@
 	<select id="selectByParentSeq" resultType="kh.pet.dto.ReviewDTO">
 		select * from review where rw_parent_seq=#{rw_parent_seq}
 	</select>
+
+	<select id="review" resultType="kh.pet.dto.ReviewDTO">
+		select * from review where rownum <![CDATA[<=]]> 5 order by 5 desc
+	</select>
 	
 	<delete id="delete">
 		delete from review where rw_parent_seq = #{rw_parent_seq} and rw_seq = #{rw_seq}
