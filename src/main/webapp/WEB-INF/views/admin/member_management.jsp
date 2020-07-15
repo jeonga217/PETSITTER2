@@ -167,6 +167,9 @@
 		                                   			<c:when test="${i.mem_status eq 'no'}">
 		                                   				통상
 		                                   			</c:when>
+		                                   			<c:when test="${i.mem_status eq 'black'}">
+		                                   				블랙
+		                                   			</c:when>
 		                                   			<c:otherwise>
 		                                   				정지
 		                                   			</c:otherwise>

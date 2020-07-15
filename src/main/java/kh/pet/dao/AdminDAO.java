@@ -64,6 +64,11 @@ public class AdminDAO {
 	}
 	
 	
+	//블랙 맴버 콜
+	public List<MemberDTO> black_memberlist(Map<String, Integer> map){
+		return mybatis.selectList("Admin.blackmem",map);
+	}
+	
 	//회원 관리
 	public List<MemberDTO> memberlist(Map<String, Integer> map){
 		return mybatis.selectList("Admin.memberlist",map);

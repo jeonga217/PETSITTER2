@@ -232,7 +232,16 @@ public class AdminController {
 	//블랙 회원 관리
 
 	@RequestMapping("black")
-	public String go_admin_black() {
+	public String go_admin_black(Integer cpage,Model m) {
+		if(cpage == null) {
+			cpage = 1;
+		}
+		//간편 회원 페이지
+		List<MemberDTO> mdto = admin_service.member(cpage);
+		String navi = admin_service.PagNavi(cpage,"main");
+		m.addAttribute("memberlist",mdto);	
+		m.addAttribute("navi",navi);
+		
 		return "admin/blacklist";
 	}
 

@@ -44,6 +44,16 @@
 		delete from petsitter where ps_id=#{value}  
 	</delete>
 	
+	
+	<!-- black member  -->
+	<select id="blackmem" resultType="kh.pet.dto.MemberDTO">
+	 	select * from (select member.* , row_number() over(order by MEM_JOIN_DATE desc)rnum from member where mem_status = 'black') where rnum between ${start} and ${end}
+	</select>
+	
+	<select id="black_membercount" resultType="int">
+		select count(*) from member where mem_status = 'black'
+	</select>
+	
 
 	<!-- memeber management  -->
 	<select id="memberlist" resultType="kh.pet.dto.MemberDTO">
@@ -51,7 +61,7 @@
 	</select>
 	
 	<update id="mem_state">
-		update member set  mem_status = <choose><when test="s_stop_day == 'no'">'no'</when><otherwise>'stop'</otherwise></choose> where mem_id = #{stop_id}
+		update member set  mem_status = <choose><when test="s_stop_day == 'no'">'no'</when><when test="s_stop_day == 'f_stop'">'black'</when><otherwise>'stop'</otherwise></choose> where mem_id = #{stop_id}
 	</update>
 	
 	<select id="membercount" resultType="int">

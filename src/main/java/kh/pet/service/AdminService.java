@@ -101,7 +101,19 @@ public class AdminService {
 		System.out.println(id);
 		return dao.petcencel(id);
 	}
-
+	
+	//블랙 명단 호출
+	public List<MemberDTO> black_member(int cpage){
+		int start = cpage*Admin_Configuration.member_RECORD_COUNT_PER_PAGE - (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
+		int end = start + (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start",start);
+		map.put("end", end);
+		return dao.black_memberlist(map);
+	}
+	
+	
+	
 	//회원 관리
 
 	public int stop_mem(Stop_memberDTO dto){
@@ -137,7 +149,9 @@ public class AdminService {
 		List<Stop_memberDTO> list = dao.mem_stop_solve_search();
 		dao.mem_stop_solve(list);
 	}
-
+	
+	
+	//맴버 호출
 	public List<MemberDTO> member(int cpage){
 		int start = cpage*Admin_Configuration.member_RECORD_COUNT_PER_PAGE - (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
 		int end = start + (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
