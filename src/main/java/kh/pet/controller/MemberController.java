@@ -203,6 +203,7 @@ public class MemberController {
 			jobj.put("result", 1);
 			rep.getWriter().append(jobj.toString());
 		}
+		
 	}
 
 	//아이디 찾기 페이지 연결
@@ -347,7 +348,7 @@ public class MemberController {
 	public String logout() {
 		
 		session.invalidate();
-		return "/";
+		return "redirect:/";
 		
 	}
 	
@@ -357,26 +358,7 @@ public class MemberController {
 		
 		mservice.withdraw(id);
 		
-		return "/";
+		return "redirect:/";
 	
-	}
-	
-
-	//예외오류처리.
-	@ExceptionHandler
-	public String exceptionHandler(Exception e) {		
-		System.out.println("Exception Handler : 에러가 발생했습니다.");
-		return "error";
-	}
-
-	@ExceptionHandler
-	public String exceptionHandler(NumberFormatException e) {		
-		System.out.println("NFException Handler : 에러가 발생했습니다.");
-		return "error";
-	}
-	@ExceptionHandler
-	public String exceptionHandler(NullPointerException e) {		
-		System.out.println("NULLException Handler : 에러가 발생했습니다.");
-		return "error";
 	}
 }
