@@ -109,42 +109,45 @@
 			<div class="site-mobile-menu-body"></div>
 		</div>
 
+		<!-- 통합헤더 -->
 		<header class="site-navbar" role="banner">
-
-			<div class="container">
+			<div class="container-fluid" style="padding:0 100px;">
 				<div class="row align-items-center">
 
-					<div class="col-11 col-xl-2">
-						<h1 class="mb-0 site-logo">
-							<a href="index.jsp" class="text-white h2 mb-0">Browse</a>
+					<div class="col-12 col-xl-2">
+						<h1 class="mb-2 site-logo">
+							<a href="/"><img src="/resources/images/dogss.png"
+								style="width: 250px; height: 60px;"></a>
 						</h1>
 					</div>
+					
 					<div class="col-12 col-md-10 d-none d-xl-block">
-						<nav class="site-navigation position-relative text-right"
-							role="navigation">
-
-							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-								<li><a href="index.html"><span>Home</span></a></li>
-								<li class="has-children"><a href="about.html"><span>Dropdown</span></a>
-									<ul class="dropdown arrow-top">
-										<li><a href="#">Menu One</a></li>
-										<li><a href="#">Menu Two</a></li>
-										<li><a href="#">Menu Three</a></li>
-										<li class="has-children"><a href="#">Dropdown</a>
-											<ul class="dropdown">
-												<li><a href="#">Menu One</a></li>
-												<li><a href="#">Menu Two</a></li>
-												<li><a href="#">Menu Three</a></li>
-												<li><a href="#">Menu Four</a></li>
-											</ul></li>
-									</ul></li>
-								<li class="active"><a href="listings.html"><span>Listings</span></a></li>
-								<li><a href="about.html"><span>About</span></a></li>
-								<li><a href="blog.html"><span>Blog</span></a></li>
-								<li><a href="contact.html"><span>Contact</span></a></li>
-							</ul>
-						</nav>
-					</div>
+								<nav class="site-navigation position-relative text-right"
+									role="navigation">
+									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+										<li><a href="/member/login"><span>포인트 충전소<i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
+										<li><a href="/member/login"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
+										<li><a href="/member/login"><span>메시지<i class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></span></a></li>
+										<li><a href="/member/logout"><span>LOGOUT</span></a></li>
+									</ul>
+								</nav>
+							</div>
+							<div class="col-12 col-md-12 d-none d-xl-block">
+								<nav class="site-navigation position-relative text-right"
+									role="navigation">
+									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+										<li><a href="/admin/adminindex"><span
+												style="font-size: 20px">팀 소개</span></a></li>
+										<li><a href="/mb/mb_board?cpage=1"><span
+												style="font-size: 20px">방문 돌봄</span></a></li>
+										<li><a href="/board/outputList"><span
+												style="font-size: 20px">위탁 돌봄</span></a></li>
+										<li><a href="/member/login"><span
+												style="font-size: 20px">게시판</span></a></li>
+									</ul>
+								</nav>
+							</div>
+					<!-- 끝 -->
 					<div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3"
 						style="position: relative; top: 3px;">
 						<a href="#" class="site-menu-toggle js-menu-toggle text-white"><span
@@ -168,15 +171,9 @@
 
 						<div class="row justify-content-center">
 							<div class="col-md-8 text-center">
-								<h1>Listings</h1>
-								<p data-aos="fade-up" data-aos-delay="100">
-									Handcrafted free templates by <a
-										href="https://free-template.co/" target="_blank">Free-Template.co</a>
-								</p>
+								<h1>방문돌봄 수정</h1>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
 			</div>
@@ -398,104 +395,37 @@
 				$("#mb_title").val(title);
 			})
 		</script>
-		<div class="py-5 bg-primary">
+	<div class="py-5 bg-info">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-7 mr-auto mb-4 mb-lg-0">
-						<h2 class="mb-3 mt-0 text-white">Let's get started. Create
-							your account</h2>
-						<p class="mb-0 text-white">Far far away, behind the word
-							mountains, far from the countries Vokalia and Consonantia, there
-							live the blind texts.</p>
+						<h2 class="mb-3 mt-0 text-white">전문적인 펫시터가 될 수 있습니다.</h2>
 					</div>
 					<div class="col-lg-4">
 						<p class="mb-0">
 							<a href="signup.html"
-								class="btn btn-outline-white text-white btn-md px-5 font-weight-bold btn-md-block">Sign
-								Up</a>
+								class="btn btn-outline-white text-white btn-md px-5 font-weight-bold btn-md-block">펫시터 지원하기</a>
 						</p>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<footer class="site-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-9">
-					<div class="row">
 
-						<div class="col-md-6 mb-5 mb-lg-0 col-lg-3">
-							<h2 class="footer-heading mb-4">Quick Links</h2>
-							<ul class="list-unstyled">
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Testimonials</a></li>
-								<li><a href="#">Contact Us</a></li>
-							</ul>
-						</div>
-
-						<div class="col-md-6 mb-5 mb-lg-0 col-lg-3">
-							<h2 class="footer-heading mb-4">Products</h2>
-							<ul class="list-unstyled">
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Testimonials</a></li>
-								<li><a href="#">Contact Us</a></li>
-							</ul>
-						</div>
-
-						<div class="col-md-6 mb-5 mb-lg-0 col-lg-3">
-							<h2 class="footer-heading mb-4">Features</h2>
-							<ul class="list-unstyled">
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Testimonials</a></li>
-								<li><a href="#">Contact Us</a></li>
-							</ul>
-						</div>
-
-						<div class="col-md-6 mb-5 mb-lg-0 col-lg-3">
-							<h2 class="footer-heading mb-4">Follow Us</h2>
-							<a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-							<a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-							<a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-							<a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
-						</div>
+		<footer style="padding-bottom: 80px;">
+			<div class="container">
+				<div class="row pt-5 mt-5">
+					<div class="col-12 text-md-center text-left">
+						<p>
+							<!-- Link back to Free-Template.co can't be removed. Template is licensed under CC BY 3.0. -->
+							&copy; 2020 <strong class="text-black">Petsitter</strong>MohaNangdowajulge<br>
+							Design by <a href="https://free-template.co/" target="_blank"
+								class="text-black">mohanangdowajulge.co</a>
+						</p>
 					</div>
 				</div>
-
-				<div class="col-lg-3">
-					<h2 class="footer-heading mb-4">Subscribe Newsletter</h2>
-					<p>Far far away, behind the word mountains, far from the
-						countries Vokalia and Consonantia, there live the blind texts.</p>
-					<form action="#" method="post">
-						<div class="input-group mb-3">
-							<input type="text" class="form-control bg-transparent"
-								placeholder="Enter Email" aria-label="Enter Email"
-								aria-describedby="button-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary text-white" type="button"
-									id="button-addon2">Send</button>
-							</div>
-						</div>
-					</form>
-				</div>
 			</div>
-
-			<div class="row pt-5 mt-5">
-				<div class="col-12 text-md-center text-left">
-					<p>
-						<!-- Link back to Free-Template.co can't be removed. Template is licensed under CC BY 3.0. -->
-						&copy; 2019 <strong class="text-black">Browse</strong> Free
-						Template. All Rights Reserved. <br> Design by <a
-							href="https://free-template.co/" target="_blank"
-							class="text-black">Free-Template.co</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
+		</footer>
+	</div>
 	<script src="/resources/main/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="/resources/main/js/jquery-ui.js"></script>
 	<script src="/resources/main/js/popper.min.js"></script>
