@@ -149,6 +149,10 @@
 		delete from waitlist where wait_seq = #{value}
 	</delete>
 	
+	<update id="petsitter_time">
+		update petsitter_board set psb_boardstatus = 'stop' where psb_start_day <![CDATA[<]]> sysdate;
+	</update>
+	
 	
 	
 	<!--chart information  -->
@@ -172,7 +176,14 @@
 	
 	
 	<!--admin message  -->
-	<select id="recievemassagelist" resultType="kh.pet.dto.MessageDTO" resultMap="recievemessage">
-		select * from (select recieve_message.* , row_number() over(order by rmsg_seq desc)rnum from recieve_message where mem_id = '관리자' ) where rnum between ${start} and ${end}
+	<select id="admin_messagelist" resultType="kh.pet.dto.MessageDTO" resultMap="recievemessage">
+		select * from (select recieve_message.* , row_number() over(order by rmsg_seq desc)rnum from recieve_message where rmsg_reciever = '관리자' ) where rnum between ${start} and ${end}
 	</select>
+	
+	<select id="message_count" resultType="int">
+		select count(*) from recieve_message where rmsg_reciever = '관리자'
+	</select>
+	
+	
+	
 </mapper>

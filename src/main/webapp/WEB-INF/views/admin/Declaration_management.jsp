@@ -108,19 +108,25 @@
                                     </div>
                                     <div class="col-12">
 	                                    <div class="row">
-	                                    	<div class="col">신고 번호</div>
 	                                    	<div class="col">신고글 번호</div>
 	                                    	<div class="col">사유</div>
 	                                    	<div class="col">신고자</div>
+	                                    	<div class="col">피신고</div>
+	                                    	<div class="col">글 종류</div>
 	                                    	<div class="col">수락/거절</div>
 	                                    </div>
 	                                   <hr class="hr2">
 	                                    <c:forEach var="i" items="${reportlist}">
 	                                    <div class="row">
-	                                    	<div class="col">${i.report_seq}</div>
-	                                    	<div class="col">${i.parents_seq}</div>
+	                                    	<div class="col"><a href="/community/view?cu_seq=${i.r_parent_seq}&cu_view_cnt=0" onclick="window.open(this.href,'_blank','width=600, height=720, scrollbars=yes'); return false;">${i.r_parent_seq}</a></div>
 	                                    	<div class="col">${i.report_contents}</div>
 	                                    	<div class="col">${i.report_id}</div>
+	                                    	<div class="col">${i.report_target}</div>
+	                                    	<div class="col"><c:choose>
+	                                    		<c:when test="${i.report_type eq '1'}">게시글</c:when>
+	                                    		<c:when test="${i.report_type eq '2'}">댓글</c:when>
+	                                    	</c:choose>
+	                                    	</div>
 	                                    	<div class="col">
 	                                    		<button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">수락</button>
 	                                            <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">거절</button>

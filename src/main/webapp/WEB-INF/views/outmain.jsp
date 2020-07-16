@@ -189,7 +189,7 @@
 										<li><a href="/admin/adminindex"><span style="font-size: 20px">팀 소개</span></a></li>
 										<li><a href="/mb/mb_board?cpage=1"><span style="font-size: 20px">방문 돌봄</span></a></li>
 										<li><a href="/board/outputList"><span style="font-size: 20px">위탁 돌봄</span></a></li>
-										<li><a href="/member/login"><span style="font-size: 20px">게시판</span></a></li>
+										<li><a href="/community/list"><span style="font-size: 20px">게시판</span></a></li>
 									</ul>
 								</nav>
 							</div>
@@ -532,6 +532,21 @@ $("#login").on("click",function(){
 			loop : true,
 			showCursor : true
 		});
+		
+		$(function(){
+		    $("#register_btn").on("click",function(){
+		       if(${sessionScope.loginInfo.mem_type == '2'}){
+		          alert("이미 펫시터로 활동 중입니다. 마이페이지로 이동합니다.");
+		          location.href="/petsitter/outputSingle";
+		       } else if(${sessionScope.loginInfo.mem_type == '1'}){
+		          location.href="/petsitter/petsitter_register_form";
+		       } else if(${empty sessionScope.loginInfo.mem_type}){
+		          alert("로그인 / 회원가입 후 지원해주세요.");
+		          location.href="/member/login";
+		       }
+		       });
+		    })
+		
 	</script>
 
 	<script src="resources/main/js/main.js"></script>

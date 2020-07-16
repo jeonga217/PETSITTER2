@@ -65,9 +65,10 @@ public class PetsitterController {
 		}
 	
 	@RequestMapping("/outputSingle")
-	public String outputSingle(Model model) throws Exception{
-		String ps_id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
-		
+	public String outputSingle(Model model, String ps_id) throws Exception{
+		if(ps_id == null) {
+			ps_id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+		}
 		PetsitterDTO psdto = psservice.selectById(ps_id);
 
 		model.addAttribute("petsitterInfo",psdto);

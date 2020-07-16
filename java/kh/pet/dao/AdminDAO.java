@@ -11,6 +11,7 @@ import kh.pet.dto.CommunityDTO;
 import kh.pet.dto.CommunityListDTO;
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.MemboardDto;
+import kh.pet.dto.MessageDTO;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
 import kh.pet.dto.ReportDTO;
@@ -49,6 +50,10 @@ public class AdminDAO {
 	//게시글 상태
 	public int board_state(Map<String, Object> edit_date) {
 		return mybatis.update("Admin.board_state",edit_date);
+	}
+	
+	public void petsitter_time() {
+		mybatis.update("Admin.petsitter_time");
 	}
 	
 	//펫 시터 신청서 관리
@@ -177,5 +182,13 @@ public class AdminDAO {
 	//관리자 패스워드 변경
 	public int admin_pass(String pw) {
 		return mybatis.update("Admin.admin_password",pw);
+	}
+	
+	//관리자 메세지 관리
+	public List<MessageDTO> message(Map<String, Integer> map){
+		return mybatis.selectList("Admin.admin_messagelist",map);
+	} 
+	public int message_count() {
+		return mybatis.selectOne("Admin.message_count");
 	}
 }

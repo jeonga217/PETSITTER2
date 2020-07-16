@@ -120,7 +120,7 @@
 	                                    <c:forEach var="i" items="${petsitter}">        
 	                                    	<div class= col-3>${i.ps_id}</div>
 	                                    	<div class= col-3>${i.ps_age}</div>
-	                                    	<div class= col-3><a href="#">내용 보기</a></div>
+	                                    	<div class= col-3><a href="/petsitter/outputSingle?ps_id=${i.ps_id}" onclick="window.open(this.href,'_blank','width=600, height=720, scrollbars=yes'); return false;">내용 보기</a></div>
 	                                    	<div class= col-3>
 	                                    		<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm accept" id="${i.ps_id}">
 	                                    		<input type="button" value="거절" class="btn btn-outline-primary my-2 my-sm-0 btn-sm cencel" id="${i.ps_id}">

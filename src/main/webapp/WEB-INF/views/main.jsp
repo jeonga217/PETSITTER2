@@ -80,7 +80,7 @@
 
 					<div class="col-12 col-xl-2">
 						<h1 class="mb-2 site-logo">
-							<a href="index.html"><img src="resources/images/dogss.png"
+							<a href="#"><img src="resources/images/dogss.png"
 								style="width: 250px; height: 60px;"></a>
 						</h1>
 					</div>

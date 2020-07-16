@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sun.mail.handlers.message_rfc822;
 
+import kh.pet.dao.NaviDAO;
 import kh.pet.dto.CommunityDTO;
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.MemboardDto;
@@ -328,10 +329,16 @@ public class AdminController {
 		return "admin/admin_pasword";
 	}
 	
-
+	//관리자 메세지 관리
 	@RequestMapping("mess")
-	public String go_admin_mess(Integer cpage) {
-		
+	public String go_admin_mess(Integer cpage,Model m) {
+		if(cpage == null) {
+			cpage = 1;
+		}
+		List<MessageDTO> list = admin_service.message_list(cpage);
+		String navi = admin_service.PagNavi(cpage, "mess");
+		m.addAttribute("list", list);
+		m.addAttribute("navi",navi);
 		return "admin/message_management";
 	}
 

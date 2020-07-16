@@ -72,7 +72,10 @@ public class AdminService {
 		edit_date.put("state", state);
 		return dao.board_state(edit_date);
 	}
-
+	
+	public void petsitter_time() {
+		dao.petsitter_time();
+	}
 	
 	//펫 시터 신청서 관리
 	
@@ -284,6 +287,16 @@ public class AdminService {
 		
 		return dao.admin_pass(pw);
 	}
+	
+	//관리자 메세지 관리
+	public List<MessageDTO> message_list(int cpage){
+		int start = cpage*Admin_Configuration.member_RECORD_COUNT_PER_PAGE - (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
+		int end = start + (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start",start);
+		map.put("end", end);
+		return dao.message(map);
+	}
 
 	//전체 네비 관리
 
@@ -304,6 +317,11 @@ public class AdminService {
 		}
 		else if(boardType.contentEquals("black")) {
 			recordTotalCount = this.dao.black_membercount(); //총 게시물의 갯수.
+			record_count = Admin_Configuration.member_RECORD_COUNT_PER_PAGE;
+			navi_count = Admin_Configuration.member_NAVI_COUNT_PAGE;
+		}
+		else if(boardType.contentEquals("mess")) {
+			recordTotalCount = this.dao.message_count(); //총 게시물의 갯수.
 			record_count = Admin_Configuration.member_RECORD_COUNT_PER_PAGE;
 			navi_count = Admin_Configuration.member_NAVI_COUNT_PAGE;
 		}
@@ -352,7 +370,7 @@ public class AdminService {
 			boardType = "adminindex";
 		}
 		
-		if(boardType.contentEquals("member")||boardType.contentEquals("black")||boardType.contentEquals("adminindex")||boardType.contentEquals("petsiter")) {
+		if(boardType.contentEquals("member")||boardType.contentEquals("black")||boardType.contentEquals("adminindex")||boardType.contentEquals("petsiter")||boardType.contentEquals("mess")) {
 			if(needPrev) {
 				sb.append("<a href=\"/admin/"+boardType+"?cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
 			}
@@ -374,6 +392,7 @@ public class AdminService {
 				sb.append("<a href=\"/admin/boardselect?boardtype="+boardType+"&cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
 			}
 		}
+		
 		return sb.toString();
 	}
 

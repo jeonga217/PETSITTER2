@@ -138,11 +138,13 @@ public class PetsitterboardDAO {
 		Map<String, Object> param1 = new HashMap<String, Object>();
 		param1.put("mem_id",mem_id);
 		param1.put("rsv_point",rsv_point);
-		mybatis.update("Board.updateMemPoint",param1);
-		Map<String, Object> param2 = new HashMap<String, Object>();
-		param2.put("reservation_seq",reservation_seq);
-		param2.put("rsv_point",rsv_point);
-		return mybatis.update("Board.updateSysPoint",param2);
+		return mybatis.update("Board.updateMemPoint",param1);
+		/*
+		 * param2.put("reservation_seq",reservation_seq);
+		 * param2.put("rsv_point",rsv_point); return
+		 * mybatis.update("Board.updateSysPoint",param2); return Map<String, Object>
+		 * param2 = new HashMap<String, Object>();
+		 */
 		
 	}
 }
