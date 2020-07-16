@@ -94,7 +94,7 @@
 				<div class="row align-items-center">
 					<div class="col-12 col-xl-2">
 						<h1 class="mb-2 site-logo">
-							<a href="index.html"><img src="resources/images/dogss.png"
+							<a href="/"><img src="resources/images/dogss.png"
 								style="width: 250px; height: 60px;"></a>
 						</h1>
 					</div>
@@ -188,10 +188,9 @@
 								<nav class="site-navigation position-relative text-right"
 									role="navigation">
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-									<li><a href="/member/login"><p>포인트 충전소</p></a></li>
-										<li><a href="/member/login"><i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></a></li>
-										<li><a href="/member/login"><p>MY PAGE</p></a></li>
-										<li><a href="/member/login"><i class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></a></li>
+										<li><a href="/member/login"><span>포인트 충전소<i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
+										<li><a href="/member/login"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
+										<li><a href="/member/login"><span>메시지<i class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></span></a></li>
 										<li><a href="/member/logout"><span>LOGOUT</span></a></li>
 									</ul>
 								</nav>
@@ -401,6 +400,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="site-section bg-light">
 			<div class="container">
 				<div class="row justify-content-center mb-5">
@@ -422,16 +422,10 @@
 							</div>
 						</div>
 					</c:forEach>
-
 				</div>
 			</div>
 		</div>
-
-
-
-
-
-
+		
 		<div class="py-5 bg-info">
 			<div class="container">
 				<div class="row">
