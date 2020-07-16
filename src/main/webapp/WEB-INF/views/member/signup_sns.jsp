@@ -109,7 +109,7 @@ i {
 
 <body>
 
-	<jsp:include page="/WEB-INF/views/member/header.jsp" />
+	<jsp:include page="/WEB-INF/views/member/signup_head.jsp" />
 	<div class="container">
 		<div class="wrap col-8" style="margin-top: 80px;">
 			<div class="row header">
