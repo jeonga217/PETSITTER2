@@ -78,8 +78,6 @@
 		pet_sort=#{pet_sort},pet_family=#{pet_family},
 		pet_character=#{pet_character},pet_details=#{pet_details}
 		where petseq=${petseq} and master_id=#{master_id}
-		
-		
 	</update>
 
 	<select id="seq" resultType="String">

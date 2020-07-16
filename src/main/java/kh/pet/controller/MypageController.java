@@ -151,6 +151,7 @@ public class MypageController {
 			System.out.println("현재페이지:" + cpage);
 			List<Object> bdto = useservice.selectByPageNo(cpage, dto.getMem_id(), "usecontent");
 			String navi = useservice.getPageNavi(cpage, "usecontent");
+			System.out.println("네비 바 : "+navi);
 			MemberDTO dtos = (MemberDTO)session.getAttribute("loginInfo");
 			List<String> list = useservice.usestate(dtos.getMem_id());
 			request.setAttribute("navi", navi);

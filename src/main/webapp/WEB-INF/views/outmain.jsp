@@ -176,7 +176,7 @@
 								<nav class="site-navigation position-relative text-right"
 									role="navigation">
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-										<li><a href="/member/login"><p>MY PAGE</p></a></li>
+										<li><a href="mypage/mypage"><p>MY PAGE</p></a></li>
 										<li><a href="/member/login"><i class="icofont-envelope icofont-1x" style="color: #81DAD6"></i></a></li>
 										<li><a href="/admin/adminindex"><span>LOGOUT</span></a></li>
 									</ul>
