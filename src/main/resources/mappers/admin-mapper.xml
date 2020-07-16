@@ -62,7 +62,7 @@
 	
 	<!-- black member  -->
 	<select id="blackmem" resultType="kh.pet.dto.MemberDTO">
-	 	select * from (select member.* , row_number() over(order by MEM_JOIN_DATE desc)rnum from member where mem_status = 'black') where rnum between ${start} and ${end}
+	 	select * from (select member.* , row_number() over(order by MEM_JOIN_DATE desc)rnum  from member where mem_status = 'black') where rnum between ${start} and ${end}
 	</select>
 	
 	<select id="black_membercount" resultType="int">
