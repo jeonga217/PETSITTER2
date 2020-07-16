@@ -163,8 +163,13 @@
 						alert("자격증 이미지 파일을 첨부해주세요.");
 						return false;
 				}
+				if($("#ps_myself").val()==''){
+					alert("소개글을 작성해주세요.");
+					return false;
+			}
 			});
 		})
+
 	</script>
   </head>
   <body>
@@ -172,7 +177,7 @@
 
 	    <div class="site-section">
 	      <div class="container">
-				<form action="/petsitter/insertProc" enctype="multipart/form-data" method="post" id="register_frm">
+				<form action="/petsitter/insertProc" enctype="multipart/form-data" method="post" id="register_frm" onSubmit="return check()">
 					<div class="row">
 						<div class="col-lg-11">
 							<div class="d-block d-md-flex listing-horizontal">
@@ -195,6 +200,18 @@
 								<div class="mb-3">
 									<label for="ps_age">나 이</label>
 									<input type="text" class="form-control" id="ps_age" name="ps_age" placeholder="만 나이" required>
+									<script>
+										$(function(){
+											$("#ps_age").on("keyup",function(){
+												var regexp = /^[0-9]*$/
+												var age = $(this).val();
+												if( !regexp.test(age) ) {
+												alert("숫자만 입력하세요");
+												$(this).val(v.replace(regexp,''));
+												}
+											})
+										})
+									</script>
 								</div>
 								<div class="mb-3">
 									<label for="ps_gender_F">성 별</label>
