@@ -88,10 +88,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping("re_select")
-	public String re_board_select(String boardtype,Model m) {
+	public String re_board_select(String boardtype,Model m,Integer cpage) {
+		if(cpage == null) {
+			cpage = 1;
+		}
 		if(boardtype.contentEquals("mb")) {
-			List<MemboardDto> list = admin_service.re_memboard();
+			List<MemboardDto> list = admin_service.re_memboard(cpage);
+			String navi = admin_service.PagNavi(cpage, boardtype);
 			m.addAttribute("list", list);
+			m.addAttribute("navi", navi);
 		}else if(boardtype.contentEquals("ps")) {
 			List<WaitlistDTO> list = admin_service.re_psboard();
 			m.addAttribute("list", list);

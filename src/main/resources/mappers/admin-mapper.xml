@@ -121,8 +121,12 @@
 	<!--status  -->
 	
 	<select id="rememboard" resultType="kh.pet.dto.MemboardDto">
-		select * from mem_board where mb_restatus='yes' and mb_RESERVE_num ='null'
+		select * from (select mem_board.* , row_number() over(order by mb_seq desc)rnum from mem_board where mb_restatus='yes' and mb_RESERVE_num ='null' ) where rnum between ${start} and ${end}
 	</select>
+	
+	<select id="re_memboardCount" resultType="int">
+		select count(*) from mem_board where mb_restatus='yes' and mb_RESERVE_num ='null'
+ 	</select>
 	
 	<update id="accept_mem_board">
 		update mem_board set mb_RESERVE_num = #{seq} where mb_seq = #{p_seq}

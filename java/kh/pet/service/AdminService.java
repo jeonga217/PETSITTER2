@@ -175,8 +175,13 @@ public class AdminService {
 
 	//예약 관리 페이지
 	//mem_board 관련 
-	public List<MemboardDto> re_memboard(){
-		return dao.re_memboard();
+	public List<MemboardDto> re_memboard(int cpage){
+		int start = cpage*Admin_Configuration.member_RECORD_COUNT_PER_PAGE - (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
+		int end = start + (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start",start);
+		map.put("end", end);
+		return dao.re_memboard(map);
 	}
 
 	@Transactional("txManager")
@@ -305,25 +310,23 @@ public class AdminService {
 		int pageTotalCount = 0; //전체 페이지의 갯수
 		int record_count = 0;
 		int navi_count = 0;
+		
+		record_count = Admin_Configuration.member_RECORD_COUNT_PER_PAGE;
+		navi_count = Admin_Configuration.member_NAVI_COUNT_PAGE;
 		if(boardType.contentEquals("member")||boardType.contentEquals("main")) {
-			recordTotalCount = this.dao.membercount(); //총 게시물의 갯수.
-			record_count = Admin_Configuration.member_RECORD_COUNT_PER_PAGE;
-			navi_count = Admin_Configuration.member_NAVI_COUNT_PAGE;
+			recordTotalCount = this.dao.membercount(); //총 게시물의 갯수.	
 		}
 		else if(boardType.contentEquals("petsiter")) {
-			recordTotalCount = this.dao.pet_count(); //총 게시물의 갯수.
-			record_count = Admin_Configuration.member_RECORD_COUNT_PER_PAGE;
-			navi_count = Admin_Configuration.member_NAVI_COUNT_PAGE;
+			recordTotalCount = this.dao.pet_count(); //총 게시물의 갯수.	
 		}
 		else if(boardType.contentEquals("black")) {
 			recordTotalCount = this.dao.black_membercount(); //총 게시물의 갯수.
-			record_count = Admin_Configuration.member_RECORD_COUNT_PER_PAGE;
-			navi_count = Admin_Configuration.member_NAVI_COUNT_PAGE;
 		}
 		else if(boardType.contentEquals("mess")) {
 			recordTotalCount = this.dao.message_count(); //총 게시물의 갯수.
-			record_count = Admin_Configuration.member_RECORD_COUNT_PER_PAGE;
-			navi_count = Admin_Configuration.member_NAVI_COUNT_PAGE;
+		}
+		else if(boardType.contentEquals("mb")) {
+			recordTotalCount = this.dao.re_memberCount();
 		}
 		else {
 			Map<String, String> map = new HashMap<String, String>();
@@ -332,6 +335,7 @@ public class AdminService {
 			record_count = Admin_Configuration.board_RECORD_COUNT_PER_PAGE;
 			navi_count = Admin_Configuration.board_NAVI_COUNT_PAGE;
 		}
+		
 
 
 		if(recordTotalCount%record_count == 0) {

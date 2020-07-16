@@ -132,8 +132,12 @@ public class AdminDAO {
 	}
 	
 	//예약 관리  테이블
-	public List<MemboardDto> re_memboard(){
-		return mybatis.selectList("Admin.rememboard");		
+	public List<MemboardDto> re_memboard(Map<String, Integer> map){
+		return mybatis.selectList("Admin.rememboard",map);		
+	}
+	
+	public int re_memberCount() {
+		return mybatis.selectOne("Admin.re_memboardCount");
 	}
 	
 	public int accept_memboard(Map<String, String> seq) {
@@ -164,7 +168,7 @@ public class AdminDAO {
 		return mybatis.delete("Admin.del_rsv",seq);
 	}
 	
-	//차트 신고 관련 프로그램
+	//차트 관련 프로그램
 	public List<Visitor_countDTO> be_visiter(){
 		return mybatis.selectList("Admin.be_week");
 	}
