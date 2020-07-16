@@ -516,7 +516,7 @@
 						alert('ID 또는 비밀번호를 확인하세요.');
 
 					} else {
-						location.reload();
+						location.href='/';
 					}
 				}
 			});
