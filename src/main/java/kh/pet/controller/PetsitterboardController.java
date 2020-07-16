@@ -86,12 +86,22 @@ public class PetsitterboardController {
 		TotboardDTO totdto = psbservice.selectBoard(psb_writer,psb_seq);
 		List<CurrentReserveDTO> reserve_list = psbservice.selectCur_reserve(psb_seq);
 		List<Mypet_regDTO> pet_list = psbservice.selectMypet(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
+		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+		int myPoint = psbservice.selectMyPoint(mem_id);
+		model.addAttribute("myPoint",myPoint);
 		model.addAttribute("tot_Info",totdto);
 		model.addAttribute("reserve_list",reserve_list);
 		model.addAttribute("pet_list",pet_list);
 		return "petsitter_board/board/board_single_view";
 	}
 
+	@RequestMapping("board_single_update")
+	public String board_single_update(String psb_writer,String psb_seq,Model model) throws Exception{
+		TotboardDTO totdto = psbservice.selectBoard(psb_writer,psb_seq);
+		model.addAttribute("tot_Info",totdto);
+		return "petsitter_board/board/board_single_update";
+	}
+	
 	@RequestMapping("output")
 	public String output(Model model)throws Exception{
 		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
@@ -154,11 +164,6 @@ public class PetsitterboardController {
 	@ResponseBody
 	@RequestMapping(value="/waitList", method=RequestMethod.POST)
 	public int waitList(WaitlistDTO wldto)throws Exception{
-//		System.out.println(wldto.getBoard_seq());
-//		System.out.println(wldto.getMem_id());
-//		System.out.println(wldto.getRsv_pet_name());
-//		System.out.println(wldto.getRsv_time());
-//		System.out.println(wldto.getRsv_end_day());
 		return psbservice.insertwaitlist(wldto);
 	}
 	
@@ -174,6 +179,12 @@ public class PetsitterboardController {
 		psbservice.deleteBoard(psb_seq);
 		return "redirect:outputList";
 	}
+	
+//	@RequestMapping("/updateBoard")
+//	public String updateBoard(String psb_seq) throws Exception{
+//		psbservice.updateBoard(psb_seq);
+//		return "redirect:outputList";
+//	}
 	
 	// 실시간 포인트가격 보여주기
 	@ResponseBody
@@ -210,9 +221,11 @@ public class PetsitterboardController {
 	}
 	
 	@RequestMapping("/board_confirmReserve")
-	public String board_confirmReserve()throws Exception{
+	public String board_confirmReserve(Model model)throws Exception{
 		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
-		psbservice.selectWaitlist(mem_id);
+		WaitlistDTO wldto = psbservice.selectWaitlist(mem_id);
+		model.addAttribute("waitlist",wldto);
 		return "petsitter_board/board/board_confirmReserve";
 	}
+
 }
