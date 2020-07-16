@@ -696,13 +696,22 @@
 				bu.html(htmlV);
 			})
 			var dataTime = '';
+			var edata = '';
 			$(".stimelist  li").on("click", function() {
 				dataTime = $(this).data("time");
-				$(".stime").attr("data-time", dataTime)
+				$(".stime").attr("data-time", dataTime);
+				if (dataTime >= edata) {
+					alert("다시선택하세요");
+					$(".stime").html("시작시간");
+				} else {
+					$("#stime").val($(".stime").html());
+					$("#etime").val($(".etime").html());
+					return true
+				}
 			});
 
 			$(".etimelist  li").on("click", function() {
-				var edata = $(this).data("time");
+				 edata = $(this).data("time");
 				if (dataTime >= edata) {
 					alert("다시선택하세요");
 					$(".etime").html("끝시간");

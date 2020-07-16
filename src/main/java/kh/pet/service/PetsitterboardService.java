@@ -237,7 +237,10 @@ public class PetsitterboardService {
 		}
 	
 	public WaitlistDTO selectWaitlist(String mem_id) throws Exception{
-		
 		return psbdao.selectWaitlist(mem_id);
+	}
+	
+	public int selectMyPoint(String mem_id) throws Exception{
+		return psbdao.selectMyPoint(mem_id);
 	}
 }

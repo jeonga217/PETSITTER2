@@ -82,7 +82,6 @@
 		select * from reservation where reserve_seq  = #{reserve_seq}
 	</select>
 	
-	
 	<select id="selectDayReserve" resultMap="dailyresult">
 		select am, pm from cur_reserve where parent_board_seq=#{parent_board_seq} and cur_date between #{start_day} and #{end_day}
 	</select>
@@ -92,7 +91,14 @@
 	</update>
 	
 	<update id="updateSysPoint">
-		insert into reservation_point (reservation_seq, reservation_point) values #{reservation_seq}, #{rsv_point}
+		insert into reservation_point (reservation_seq, reservation_point) values (#{reservation_seq}, #{rsv_point})
 	</update>
 	
+	<select id="selectWaitlist" resultType="kh.pet.dto.WaitlistDTO">
+		select * from (select * from waitlist where mem_id = #{mem_id} order by wait_seq desc) where rownum <![CDATA[<=]]> 1
+	</select>
+	
+	<select id="selectMyPoint" resultType="int">
+		select mem_point from member where mem_id = #{mem_id}
+	</select>
 </mapper>

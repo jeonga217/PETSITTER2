@@ -24,6 +24,11 @@
 <link rel="stylesheet" href="/resources/main/css/aos.css">
 <link rel="stylesheet" href="/resources/main/css/rangeslider.css">
 <link rel="stylesheet" href="/resources/mb/css/style.css">
+
+<link href="/resources/mb/icofont/icofont.min.css" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+<script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 </head>
 <body>
 
@@ -39,7 +44,7 @@
 
 		<header class="site-navbar" role="banner">
 
-			<div class="container">
+			<div class="container-fluid" style="padding:0 100px;">
 				<div class="row align-items-center">
 					<!-- 통합헤더 -->
 
@@ -51,17 +56,32 @@
 					</div>
 					
 					<div class="col-12 col-md-10 d-none d-xl-block">
-						<nav class="site-navigation position-relative text-right"
-							role="navigation">
-
-							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">			
-								<li><a href="/mb/mb_board?cpage=1"><span>펫시터 방문</span></a></li>
-								<li><a href="index.html"><span>반려인 방문</span></a></li>
-								<li><a href="index.html"><span>게시판</span></a></li>
-								<li><a href="#"><span>마이페이지</span></a></li>
-							</ul>
-						</nav>
-					</div>
+								<nav class="site-navigation position-relative text-right"
+									role="navigation">
+									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+									<li><a href="/member/login"><p>포인트 충전소</p></a></li>
+										<li><a href="/member/login"><i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></a></li>
+										<li><a href="/member/login"><p>MY PAGE</p></a></li>
+										<li><a href="/member/login"><i class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></a></li>
+										<li><a href="/member/logout"><span>LOGOUT</span></a></li>
+									</ul>
+								</nav>
+							</div>
+							<div class="col-12 col-md-12 d-none d-xl-block">
+								<nav class="site-navigation position-relative text-right"
+									role="navigation">
+									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+										<li><a href="/admin/adminindex"><span
+												style="font-size: 20px">팀 소개</span></a></li>
+										<li><a href="/mb/mb_board?cpage=1"><span
+												style="font-size: 20px">방문 돌봄</span></a></li>
+										<li><a href="/board/outputList"><span
+												style="font-size: 20px">위탁 돌봄</span></a></li>
+										<li><a href="/member/login"><span
+												style="font-size: 20px">게시판</span></a></li>
+									</ul>
+								</nav>
+							</div>
 					<!-- 끝 -->
 			<div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3"
 						style="position: relative; top: 3px;">

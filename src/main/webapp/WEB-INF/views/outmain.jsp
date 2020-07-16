@@ -46,8 +46,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <!--===============================================================================================-->
-<link rel="stylesheet"
-   href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+<link rel="stylesheet"  href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet"
    href="/resources/member/vendor/animate/animate.css">
@@ -75,6 +74,7 @@
 .number:hover {
 	background-color: aquamarine;
 }
+#register_btn { margin-top:20px;}
 </style>
 <body>
 
@@ -91,7 +91,7 @@
 
 		<header class="site-navbar" role="banner">
 
-			<div class="container">
+			<div class="container-fluid" style="padding:0 100px;">
 				<div class="row align-items-center">
 					<div class="col-12 col-xl-2">
 						<h1 class="mb-2 site-logo">
@@ -189,9 +189,11 @@
 								<nav class="site-navigation position-relative text-right"
 									role="navigation">
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-										<li><a href="/mypage/mypage"><p>MY PAGE</p></a></li>
-										<li><a href="/member/login"><i
-												class="icofont-envelope icofont-1x" style="color: #81DAD6"></i></a></li>
+
+									<li><a href="/member/login"><p>포인트 충전소</p></a></li>
+										<li><a href="/member/login"><i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></a></li>
+										<li><a href="/member/login"><p>MY PAGE</p></a></li>
+										<li><a href="/member/login"><i class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></a></li>
 										<li><a href="/member/logout"><span>LOGOUT</span></a></li>
 									</ul>
 								</nav>
@@ -401,22 +403,6 @@
 				</div>
 			</div>
 		</div>
-
-
-
-		<div class="py-5 bg-info">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 mr-auto mb-4 mb-lg-0">
-						<h4 class="mb-3 mt-0 text-white">우리강아지 전담 매니저,</h4>
-						<h1 class="mb-3 mt-0 text-white">전문 펫시터</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-
 		<div class="site-section bg-light">
 			<div class="container">
 				<div class="row justify-content-center mb-5">
@@ -514,6 +500,7 @@
 
 	<script src="resources/main/js/typed.js"></script>
 	<script>
+
 $("#login").on("submit",function(){	
 		
 		var queryString = $("form[name=loginProc]").serialize();
@@ -540,8 +527,9 @@ $("#login").on("submit",function(){
 	})
 	
 	
+
 		var typed = new Typed('.typed-words', {
-			strings : [ "방문돌봄서비스 ", " 위탁돌봄서비스 ", " 펫시터매칭"],
+			strings : [ "방문돌봄서비스 ", " 위탁돌봄서비스 ", " 펫시터매칭" ],
 			typeSpeed : 80,
 			backSpeed : 80,
 			backDelay : 4000,
