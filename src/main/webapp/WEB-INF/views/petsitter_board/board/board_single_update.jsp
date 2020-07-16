@@ -129,29 +129,51 @@ ul>li, input {
 
 <script>
 		$(function() {
-			$("input[name='ps_gender']").each(function(index, item) {
-				if ('${petsitter_Info.ps_gender}' == $(item).val()) {
+			// 펫시터가 설정해놓은 기본 값들 체크
+			var petType_list = "${tot_Info.psb_petType}";
+  			var petType_listarr = petType_list.split(",");
+	  		$("input[name='psb_petType']").each(function(index,item){
+	  			for(var i=0; i<petType_listarr.length;i++){
+	  				if(petType_listarr[i] == $(item).val()){
+		  				$(this).prop("checked",true);
+	  				}
+  				}
+  			});
+	  	// 펫시터가 설정해놓은 기본 값들 체크
+	  		$("input[name='ps_gender']").each(function(index, item) {
+				if ('${tot_Info.ps_gender}' == $(item).val()) {
 					$(this).prop('checked', true);
 					$("input[name='ps_gender']").prop('disabled', true);
 				}
 			});
-		
-			$("input[name='ps_resident_type']").each(function(index, item) {
-				if ('${petsitter_Info.ps_resident_type}' == $(item).val()) {
-					$(this).prop("checked", true);
-					$("input[name='ps_resident_type']").prop('disabled', true);
-				}
-			});
-		
-			var list = "${petsitter_Info.ps_service}";
-			var listarr = list.split(",");
-			$("input[name='psb_service']").each(function(index, item) {
-				for (var i = 0; i < listarr.length; i++) {
-					if (listarr[i] == $(item).val()) {
-						$(this).prop("checked", true);
-					}
-				}
-			});
+	  	
+	  		$("input[name='ps_resident_type']").each(function(index,item){
+	  			if('${tot_Info.ps_resident_type}' == $(item).val()){
+	  				$(this).prop("checked",true);
+	  				$("input[name='ps_resident_type']").prop('disabled',true);
+	  			}
+	  		});
+	  	// 펫시터가 설정해놓은 기본 값들 체크
+	  		var service_list = "${tot_Info.psb_service}";
+  			var service_listarr = service_list.split(",");
+	  		$("input[name='psb_service']").each(function(index,item){
+	  			for(var i=0; i<service_listarr.length;i++){
+	  				if(service_listarr[i] == $(item).val()){
+		  				$(this).prop("checked",true);
+		  				}
+	  				}
+	  			});
+	  		
+	  	// 펫시터가 설정해놓은 기본 값들 체크
+	  		var time_list = "${tot_Info.psb_time}";
+  			var time_listarr = time_list.split(",");
+	  		$("input[name='psb_time']").each(function(index,item){
+	  			for(var i=0;i<time_listarr.length;i++){
+	  				if(time_listarr[i]==$(item).val()){
+	  					$(this).prop('checked',true);
+	  				}
+	  			}
+	  		});
 
 			var fileTarget = $('.filebox .upload-hidden');
 			fileTarget.on('change', function() {
@@ -218,15 +240,15 @@ function check() {
 								<div class="mb-3">
 									<label for="psb_title">제목</label> <input type="text"
 										class="form-control" id="psb_title" name="psb_title"
-										placeholder="제목을 입력해주세요." required>
+										value="${tot_Info.psb_title }" required>
 								</div>
 								<div class="mb-3">
 									<label for="psb_thumb">썸네일</label>
 									<div class="filebox">
-										<input class="upload-name" value="파일선택" disabled="disabled"
+										<input class="upload-name" value="${tot_Info.psb_thumb }" disabled="disabled"
 											required> <label for="psb_thumb">찾아보기</label> <input
 											type="file" id="psb_thumb" class="upload-hidden form-control"
-											name="file" value="" required>
+											name="file" value="${tot_Info.psb_thumb }" required>
 									</div>
 								</div>
 
@@ -236,12 +258,12 @@ function check() {
 								<div class="mb-3">
 									<label for="psb_writer">아이디</label> <input type="text"
 										class="form-control" id="psb_writer" name="psb_writer"
-										value="${petsitter_Info.ps_id}" readonly>
+										value="${tot_Info.psb_writer}" readonly>
 								</div>
 								<div class="mb-3">
 									<label for="ps_age">나이</label> <input type="text"
 										class="form-control" id="ps_age" name="ps_age" id="ps_age"
-										value="${petsitter_Info.ps_age}" readonly>
+										value="${tot_Info.ps_age}" readonly>
 								</div>
 								<div class="mb-3">
 									<label for="ps_gender_F">성별</label>
@@ -257,7 +279,7 @@ function check() {
 								<div class="mb-3">
 									<label for="ps_address1">주소</label> <input type="text"
 										class="form-control" id="ps_address1" name="ps_address1"
-										value="${petsitter_Info.ps_address1}" readonly>
+										value="${tot_Info.ps_address1}" readonly>
 								</div>
 								<div class="mb-3">
 									<label for="psb_petType">돌봄 가능한 강아지 타입</label>
@@ -362,7 +384,7 @@ function check() {
 								<hr class="mb-4">
 								<h5 class="mb-3">전하고 싶은 말</h5>
 								<div class="d-block my-3">
-									<div id="div_psb_contents" contentEditable="true"></div>
+									<div id="div_psb_contents" contentEditable="true">${ tot_Info.psb_contents} </div>
 									<input id="psb_contents" type="hidden" name="psb_contents" required>
 									<script>
 										$(function() {
@@ -407,9 +429,9 @@ function check() {
 										var datePicker = new Datepickk1(
 												{	
 													container : document.querySelector('#datePicker'),
-													minDate : now.setDate(now.getDate() - 1),
 													inline : true,
 													range : true
+													
 												}).onSelect = function(checked) {
 											var state = (checked) ? 'selected' : 'unselected';
 											if (checked) {
@@ -447,7 +469,7 @@ function check() {
 							</div>
 							<hr class="mb-4">
 							<h3 class="h5 text-black mb-3 " style="text-align: center">
-								돌봄 가능한 시간 선택<i class="icofont-clock-time"></i>
+								돌봄 가능한시간 선택<i class="icofont-clock-time"></i>
 							</h3>
 							<div id="timelist" style="text-align: center">
 

@@ -75,7 +75,7 @@
 
 		<header class="site-navbar" role="banner">
 
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row align-items-center">
 
 					<div class="col-12 col-xl-2">

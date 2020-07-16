@@ -7,10 +7,17 @@
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <title>ID 찾기</title>
-</head>
 
-<link rel="stylesheet" href="/resources/member/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/member/css/style.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 
 <style>
 .btn-primary {
@@ -49,17 +56,21 @@
   color: white;
 }
 
-
+.main{
+	box-shadow: 0 7px 25px 0 rgba(0,0,0,0.1);
+    padding-top: 25px;
+    padding-left: 25px;
+}
 
 </style>
-
+</head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/member/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/member/find_head.jsp"/>
 
-	<div class="site-section bg-light">
+	<div class="site-section">
 		<div class="container">
-			<div class="row">
+			<div class="row main">
 				<div class="col-md-6 mb-5">
 
 					<div class="row form-group">
@@ -72,7 +83,7 @@
 
 						<div class="col-md-8">
 							<label class="text-black" for="email">Email</label> <input
-								type="text" id="email" class="form-control">
+								type="text" id="email1" class="form-control">
 						</div>
 					</div>
 
@@ -108,7 +119,7 @@
 
 						<div class="col-md-8">
 							<label class="text-black" for="email">Email</label> <input
-								type="text" id="email" class="form-control">
+								type="text" id="email2" class="form-control">
 						</div>
 					</div>
 					<div class="row form-group">
@@ -126,13 +137,13 @@
 	<script>
 		$("#findid").on("click",
 							function() {
-							var email = $("#email").val();
+							var email = $("#email1").val();
 
 							$.ajax({	url : "/member/findIdProc",
 										type : "post",
 										dataType : "json",
 										data : {
-											"email" : $("#email").val()
+											"email" : $("#email1").val()
 										},
 										success : function(data) {
 											var id = data.id
@@ -142,7 +153,7 @@
 												$("#yourid")
 														.html(
 																"<p>당신의 아이디는 <span id=strong>"+ id + "</span> 입니다.")
-												$("#email").val("");
+												$("#email1").val("");
 
 											} else if (id == null) {
 
@@ -162,7 +173,7 @@
 						}); //아이디 찾기
 
 		$("#findpw").on("click",function() {
-							var email = $("#email").val()
+							var email = $("#email2").val()
 							var id = $("#id").val()
 
 							if ((id != null && id != "")
@@ -191,13 +202,7 @@
 							}
 
 						}); //비번찾기
-
-		$("#login").on("click", function() {
-			location.href = "/member/login";
-		})
-		$("#findpw").on("click", function() {
-			location.href = "/member/findPw";
-		})
+	
 	</script>
 
 
