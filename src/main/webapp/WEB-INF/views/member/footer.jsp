@@ -80,4 +80,18 @@
 	<script src="/resources/main/js/main.js"></script>
 
 
-  
+  <!-- 로그인 -->
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/bootstrap/js/popper.js"></script>
+	<script src="/resources/member/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/vendor/daterangepicker/moment.min.js"></script>
+	<script
+		src="/resources/member/vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="/resources/member/js/main.js"></script>
+	<!--===============================================================================================-->

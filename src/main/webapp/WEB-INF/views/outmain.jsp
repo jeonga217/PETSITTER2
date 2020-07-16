@@ -44,22 +44,29 @@
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	
+
 <!--===============================================================================================-->
-<link rel="stylesheet" 	href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+<link rel="stylesheet"
+	href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" 	href="/resources/member/vendor/animate/animate.css">
+<link rel="stylesheet"
+	href="/resources/member/vendor/animate/animate.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" 	href="/resources/member/vendor/css-hamburgers/hamburgers.min.css">
+<link rel="stylesheet"
+	href="/resources/member/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" href="/resources/member/vendor/animsition/css/animsition.min.css">
+<link rel="stylesheet"
+	href="/resources/member/vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" 	href="/resources/member/vendor/select2/select2.min.css">
+<link rel="stylesheet"
+	href="/resources/member/vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" 	href="/resources/member/vendor/daterangepicker/daterangepicker.css">
+<link rel="stylesheet"
+	href="/resources/member/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" 	href="/resources/member/css/util.css">
-<link rel="stylesheet" 	href="/resources/member/css/main.css">
+<link rel="stylesheet" href="/resources/member/css/util.css">
+<link rel="stylesheet" href="/resources/member/css/main.css">
 <!--===============================================================================================-->
 
 </head>
@@ -100,85 +107,91 @@
 										<li><a href="/admin/adminindex"><span>팀소개</span></a></li>
 										<li><a href="#introduce"><span>서비스소개</span></a></li>
 										<li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
-										<li><a href="/member/login"><span>회원가입</span></a></li>
+										<li><a href="/member/signup"><span>회원가입</span></a></li>
 									</ul>
 								</nav>
 							</div>
-								<!-- 로그인-->
-					<div class="modal fade" id="login" data-keyboard="false"
-                  tabindex="-1" aria-hidden="true">
-                  <div class="modal-dialog">
-                     <div class="modal-content">
-                        <div class="modal-body">
-                           <div class="limiter">
-                              <div class="container-login100">
-                                 <div class="wrap-login100">
-                                    <button type="button" class="close" data-dismiss="modal"
-                                       aria-label="Close">
-                                       <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <form class="login100-form validate-form" action="/member/loginProc" name="loginProc" method="post">
-                                       <span class="logo100 p-10">
-                                          <p class="logo">
-                                             <span class="lnr lnr-paw"></span>뭐하냥 도와주개
-                                          </p>
-                                       </span> <span class="login100-form-title p-b-23"> LOGIN </span>
-                                       <div class="wrap-input100 validate-input"
-                                          data-validate="ID를 입력하세요.">
-                                          <input class="input100" type="text" name="mem_id">
-                                          <span class="focus-input100"></span> <span
-                                             class="label-input100">ID</span>
-                                       </div>
+							<!-- 로그인-->
+							<div class="modal fade" id="login" data-keyboard="false"
+								tabindex="-1" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-body">
+											<div class="limiter">
+												<div class="container-login100">
+													<div class="wrap-login100">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+														<form class="login100-form validate-form"
+															action="/member/loginProc" name="loginProc" method="post">
+															<span class="logo100 p-10">
+																<p class="logo">
+																	<span class="lnr lnr-paw"></span>뭐하냥 도와주개
+																</p>
+															</span> <span class="login100-form-title p-b-23"> LOGIN </span>
+															<div class="wrap-input100 validate-input"
+																data-validate="ID를 입력하세요.">
+																<input class="input100" type="text" name="mem_id">
+																<span class="focus-input100"></span> <span
+																	class="label-input100">ID</span>
+															</div>
 
-                                       <div class="wrap-input100 validate-input"
-                                          data-validate="비밀번호를 입력하세요.">
-                                          <input class="input100" type="password" name="mem_pw">
-                                          <span class="focus-input100"></span> <span
-                                             class="label-input100">Password</span>
-                                       </div>
-                                       <div class="flex-sb-m w-full p-t-3 p-b-32">
-                                          <div class="contact100-form-checkbox">
-                                             <a href="/member/findInfo" class="txt1"> Forgot ID/Password? </a>
-                                          </div>
-                                          <div>
-                                             <a href="/member/signup" class="txt1"> Sign Up </a>
-                                          </div>
-                                       </div>
+															<div class="wrap-input100 validate-input"
+																data-validate="비밀번호를 입력하세요.">
+																<input class="input100" type="password" name="mem_pw">
+																<span class="focus-input100"></span> <span
+																	class="label-input100">Password</span>
+															</div>
+															<div class="flex-sb-m w-full p-t-3 p-b-32">
+																<div class="contact100-form-checkbox">
+																	<a href="/member/findInfo" class="txt1"> Forgot
+																		ID/Password? </a>
+																</div>
+																<div>
+																	<a href="/member/signup" class="txt1"> Sign Up </a>
+																</div>
+															</div>
 
 
-                                       <div class="container-login100-form-btn">
-                                          <button class="login100-form-btn" type="submit">Login</button>
-                                       </div>
-                                       <div class="text-center p-t-46 p-b-20">
-                                          <span class="txt2"> OR SNS LOGIN </span>
-                                       </div>
+															<div class="container-login100-form-btn">
+																<button class="login100-form-btn" type="submit">Login</button>
+															</div>
+															<div class="text-center p-t-46 p-b-20">
+																<span class="txt2"> OR SNS LOGIN </span>
+															</div>
 
-                                       <div class="login100-form-social flex-c-m bg2 m-r-5">
-                                          <a class="btns" href="https://kauth.kakao.com/oauth/authorize?client_id=4dd67a91f5b80223eb0934cae5fa4c50&redirect_uri=http://192.168.60.13/member/kakao&response_type=code"> <span><img
-                                                src="/resources/member/images/kakao_icon.png"></span> <span class="txt3">Kakao
-                                                Login</span>
-                                          </a> <a class="btns" href="/member/naver"> <span><img
-                                                src="/resources/member/images/naver_icon.PNG" width="34px" height="35px"></span>
-                                             <span class="txt3">Naver Login</span>
-                                          </a>
-                                       </div>
-                                    </form>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+															<div class="login100-form-social flex-c-m bg2 m-r-5">
+																<a class="btns"
+																	href="https://kauth.kakao.com/oauth/authorize?client_id=4dd67a91f5b80223eb0934cae5fa4c50&redirect_uri=http://192.168.60.13/member/kakao&response_type=code">
+																	<span><img
+																		src="/resources/member/images/kakao_icon.png"></span> <span
+																	class="txt3">Kakao Login</span>
+																</a> <a class="btns" href="/member/naver"> <span><img
+																		src="/resources/member/images/naver_icon.PNG"
+																		width="34px" height="35px"></span> <span class="txt3">Naver
+																		Login</span>
+																</a>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="col-12 col-md-10 d-none d-xl-block">
 								<nav class="site-navigation position-relative text-right"
 									role="navigation">
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-										<li><a href="/member/login"><p>MY PAGE</p></a></li>
-										<li><a href="/member/login"><i class="icofont-envelope icofont-1x" style="color: #81DAD6"></i></a></li>
-										<li><a href="/admin/adminindex"><span>LOGOUT</span></a></li>
+										<li><a href="/mypage/mypage"><p>MY PAGE</p></a></li>
+										<li><a href="/member/login"><i
+												class="icofont-envelope icofont-1x" style="color: #81DAD6"></i></a></li>
+										<li><a href="/member/logout"><span>LOGOUT</span></a></li>
 									</ul>
 								</nav>
 							</div>
@@ -186,10 +199,14 @@
 								<nav class="site-navigation position-relative text-right"
 									role="navigation">
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-										<li><a href="/admin/adminindex"><span style="font-size: 20px">팀 소개</span></a></li>
-										<li><a href="/mb/mb_board?cpage=1"><span style="font-size: 20px">방문 돌봄</span></a></li>
-										<li><a href="/board/outputList"><span style="font-size: 20px">위탁 돌봄</span></a></li>
-										<li><a href="/member/login"><span style="font-size: 20px">게시판</span></a></li>
+										<li><a href="/admin/adminindex"><span
+												style="font-size: 20px">팀 소개</span></a></li>
+										<li><a href="/mb/mb_board?cpage=1"><span
+												style="font-size: 20px">방문 돌봄</span></a></li>
+										<li><a href="/board/outputList"><span
+												style="font-size: 20px">위탁 돌봄</span></a></li>
+										<li><a href="/member/login"><span
+												style="font-size: 20px">게시판</span></a></li>
 									</ul>
 								</nav>
 							</div>
@@ -217,17 +234,15 @@
 					<div class="col-md-10">
 						<div class="row justify-content-center mb-4">
 							<div class="col-md-10 text-center">
+								<h1 data-aos="fade-up">뭐하냥 도와주개</h1>
 								<h1 data-aos="fade-up">
-									뭐하냥 도와주개 
-								</h1>
-								<h1 data-aos="fade-up">
-									 <span class="typed-words"></span>
+									<span class="typed-words"></span>
 								</h1>
 							</div>
 							<c:if test="${!empty loginInfo}">
-							<button id="register_btn"
-								class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">펫시터
-								지원하기</button>
+								<button id="register_btn"
+									class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">펫시터
+									지원하기</button>
 							</c:if>
 						</div>
 					</div>
@@ -466,7 +481,7 @@
 		</footer>
 	</div>
 
-	
+
 	<script src="resources/main/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="resources/main/js/jquery-ui.js"></script>
 	<script src="resources/main/js/popper.min.js"></script>
@@ -478,7 +493,7 @@
 	<script src="resources/main/js/bootstrap-datepicker.min.js"></script>
 	<script src="resources/main/js/aos.js"></script>
 	<script src="resources/main/js/rangeslider.min.js"></script>
-	
+
 	<!-- 로그인 -->
 	<!--===============================================================================================-->
 	<script src="/resources/member/vendor/animsition/js/animsition.min.js"></script>
@@ -489,7 +504,8 @@
 	<script src="/resources/member/vendor/select2/select2.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="/resources/member/vendor/daterangepicker/moment.min.js"></script>
-	<script	src="/resources/member/vendor/daterangepicker/daterangepicker.js"></script>
+	<script
+		src="/resources/member/vendor/daterangepicker/daterangepicker.js"></script>
 	<!--===============================================================================================-->
 	<script src="/resources/member/js/main.js"></script>
 	<!--===============================================================================================-->
@@ -497,7 +513,7 @@
 
 	<script src="resources/main/js/typed.js"></script>
 	<script>
-$("#login").on("click",function(){	
+$("#login").on("submit",function(){	
 		
 		var queryString = $("form[name=loginProc]").serialize();
 		$.ajax({
@@ -519,7 +535,7 @@ $("#login").on("click",function(){
 					location.reload();
 				}		
 			}	
-		})
+		});
 	})
 	
 	

@@ -336,10 +336,10 @@ public class MemberController {
 		return "/";
 	}
 
-	@RequestMapping("/mypage")
+	@RequestMapping("/myInfo")
 	public String mypage() {
 
-		return "/member/mypage";
+		return "/member/myinfo";
 	}
 
 	
@@ -347,7 +347,7 @@ public class MemberController {
 	public String logout() {
 		
 		session.invalidate();
-		return "/";
+		return "redirect:/";
 		
 	}
 	
@@ -357,7 +357,7 @@ public class MemberController {
 		
 		mservice.withdraw(id);
 		
-		return "/";
+		return "redirect:/";
 	
 	}
 	
