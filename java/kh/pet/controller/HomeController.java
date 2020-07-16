@@ -32,7 +32,6 @@ public class HomeController {
 	
 	@RequestMapping("login2")
 	public String login(String id) {
-		session.setAttribute("id", id);
 		Log_Count.log_count++;
 		System.out.println(Log_Count.log_count);
 		return "home2";

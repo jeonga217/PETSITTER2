@@ -11,6 +11,7 @@ import kh.pet.dto.CommunityDTO;
 import kh.pet.dto.CommunityListDTO;
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.MemboardDto;
+import kh.pet.dto.MessageDTO;
 import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
 import kh.pet.dto.ReportDTO;
@@ -49,6 +50,10 @@ public class AdminDAO {
 	//게시글 상태
 	public int board_state(Map<String, Object> edit_date) {
 		return mybatis.update("Admin.board_state",edit_date);
+	}
+	
+	public void petsitter_time() {
+		mybatis.update("Admin.petsitter_time");
 	}
 	
 	//펫 시터 신청서 관리
@@ -122,13 +127,18 @@ public class AdminDAO {
 		}
 	}
 	
+	
 	public List<Stop_memberDTO> mem_stop_solve_search(){
 		return mybatis.selectList("Admin.mem_stop_solve_search");
 	}
 	
 	//예약 관리  테이블
-	public List<MemboardDto> re_memboard(){
-		return mybatis.selectList("Admin.rememboard");		
+	public List<MemboardDto> re_memboard(Map<String, Integer> map){
+		return mybatis.selectList("Admin.rememboard",map);		
+	}
+	
+	public int re_memberCount() {
+		return mybatis.selectOne("Admin.re_memboardCount");
 	}
 	
 	public int accept_memboard(Map<String, String> seq) {
@@ -159,7 +169,7 @@ public class AdminDAO {
 		return mybatis.delete("Admin.del_rsv",seq);
 	}
 	
-	//차트 신고 관련 프로그램
+	//차트 관련 프로그램
 	public List<Visitor_countDTO> be_visiter(){
 		return mybatis.selectList("Admin.be_week");
 	}
@@ -177,5 +187,13 @@ public class AdminDAO {
 	//관리자 패스워드 변경
 	public int admin_pass(String pw) {
 		return mybatis.update("Admin.admin_password",pw);
+	}
+	
+	//관리자 메세지 관리
+	public List<MessageDTO> message(Map<String, Integer> map){
+		return mybatis.selectList("Admin.admin_messagelist",map);
+	} 
+	public int message_count() {
+		return mybatis.selectOne("Admin.message_count");
 	}
 }

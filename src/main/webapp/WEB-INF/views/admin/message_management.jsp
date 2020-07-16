@@ -108,25 +108,24 @@
                                         </nav>
                                     </div>
                                     <div class="col-12">
-                                    	<div class="row">
+                                    	<div class="row">   		
                                     		<div class="col">제목</div>
-                                    		<div class="col">회원명</div>
+                                    		<div class="col">보낸이</div>
+                                    		<div class="col">내용</div>
                                     		<div class="col">보낸 날짜</div>
-                                    		<div class="col">답장/삭제</div>
                                     	</div>
-                                    	<c:forEach var="i" items="${messagelist}">
+                                    	<hr class="hr2">
+                                    	<c:forEach var="i" items="${list}">
                                     	<div class="row">
-                                    		<div class="col">제목</div>
-                                    		<div class="col">회원명</div>
-                                    		<div class="col">보낸 날짜</div>
-                                    		<div class="col">
-                                    			<button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">삭제</button>
-                                                <button class="btn btn-outline-primary my-2 my-sm-0 btn-sm">답장</button>
-                                            </div>
+                                    		<div class="col"><a href="/message/recieveMessageView?seq=${i.msg_seq}" onclick="window.open(this.href,'_blank','width=600, height=720, scrollbars=yes'); return false;">${i.msg_title}</a></div>
+                                    		<div class="col">${i.msg_sender}</div>
+                                    		<div class="col" style="overflow: hidden;">${i.msg_contents}</div>
+                                    		<div class="col">${i.msg_date}</div>
                                     	</div>
+                                    	<hr class="hr2">
                                     	</c:forEach>
-                                        
                                     </div>
+                                   <div class="col-12" style="text-align: center;">${navi}</div>
                                 </div>
                             </div>
                         </div>

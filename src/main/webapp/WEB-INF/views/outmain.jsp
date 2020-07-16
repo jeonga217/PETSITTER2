@@ -39,9 +39,11 @@
 <link rel="stylesheet" href="resources/main/css/style.css">
 
 <link href="/resources/mb/icofont/icofont.min.css" rel="stylesheet">
-<link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+<link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'
+	rel='stylesheet'>
 <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
@@ -69,11 +71,16 @@
 <!--===============================================================================================-->
 
 </head>
+
+</head>
 <style>
 .number:hover {
 	background-color: aquamarine;
 }
-#register_btn { margin-top:20px;}
+
+#register_btn {
+	margin-top: 20px;
+}
 </style>
 <body>
 
@@ -90,12 +97,22 @@
 
 		<header class="site-navbar" role="banner">
 
-			<div class="container-fluid" style="padding:0 100px;">
+			<div class="container-fluid" style="padding: 0 100px;">
 				<div class="row align-items-center">
 					<div class="col-12 col-xl-2">
 						<h1 class="mb-2 site-logo">
-							<a href="/"><img src="resources/images/dogss.png"
+
+						<c:choose>
+							<c:when test="${loginInfo.mem_id eq '관리자' && loginInfo.mem_address1 eq 'admin_address'}">
+								<a href="/admin/adminindex"><img src="resources/images/dogss.png"
 								style="width: 250px; height: 60px;"></a>
+							</c:when>
+							<c:otherwise>
+								<a href="index.html"><img src="resources/images/dogss.png"
+								style="width: 250px; height: 60px;"></a>
+							</c:otherwise>
+						</c:choose>
+							
 						</h1>
 					</div>
 					<c:choose>
@@ -107,7 +124,7 @@
 										<li><a href="/admin/adminindex"><span>팀소개</span></a></li>
 										<li><a href="#introduce"><span>서비스소개</span></a></li>
 										<li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
-										<li><a href="/member/login"><span>회원가입</span></a></li>
+										<li><a href="/member/signup"><span>회원가입</span></a></li>
 									</ul>
 								</nav>
 							</div>
@@ -188,9 +205,12 @@
 								<nav class="site-navigation position-relative text-right"
 									role="navigation">
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+
 										<li><a href="/member/login"><span>포인트 충전소<i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
 										<li><a href="/member/login"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
-										<li><a href="/member/login"><span>메시지<i class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></span></a></li>
+										<li><a href="/message/recievelist" onclick="window.open(this.href,'_blank','width=600, height=600, scrollbars=yes'); return false;"><i
+												class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></a></li>
+
 										<li><a href="/member/logout"><span>LOGOUT</span></a></li>
 									</ul>
 								</nav>
@@ -205,8 +225,9 @@
 												style="font-size: 20px">방문 돌봄</span></a></li>
 										<li><a href="/board/outputList"><span
 												style="font-size: 20px">위탁 돌봄</span></a></li>
-										<li><a href="/member/login"><span
+										<li><a href="/community/list"><span
 												style="font-size: 20px">게시판</span></a></li>
+
 									</ul>
 								</nav>
 							</div>
@@ -492,29 +513,37 @@
 
 	<script src="resources/main/js/typed.js"></script>
 	<script>
-		$("#login").on("submit", function() {
 
-			var queryString = $("form[name=loginProc]").serialize();
-			$.ajax({
-				type : "POST",
-				url : "/member/loginProc",
-				cache : false,
-				data : queryString,
-				dataType : "json",
-				success : function(data) {
-					var check = data.result;
-					console.log(check);
-					if (check == 0) {
-						alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');
-					} else if (check == 1) {
-						alert('ID 또는 비밀번호를 확인하세요.');
+$("#login").on("submit",function(){	
+		
+		var queryString = $("form[name=loginProc]").serialize();
+		$.ajax({
+			type: "POST",
+			url: "/member/loginProc",
+			cache: false,
+			data : queryString,
+			dataType : "json",
+			success: function(data){
+				var check = data.result;
+				console.log(check);
+				if(check == 0 ){
+					alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');				
+					location.reload();
 
-					} else {
-						location.href='/';
-					}
 				}
-			});
-		})
+				else if(check == 1){
+					alert('ID 또는 비밀번호를 확인하세요.');
+					location.reload();
+
+				
+				}else{
+					location.reload();
+				}		
+			}	
+		});
+	})
+	
+	
 
 		var typed = new Typed('.typed-words', {
 			strings : [ "방문돌봄서비스 ", " 위탁돌봄서비스 ", " 펫시터매칭" ],
@@ -525,6 +554,21 @@
 			loop : true,
 			showCursor : true
 		});
+			
+			
+	    $("#register_btn").on("click",function(){
+	       if(${sessionScope.loginInfo.mem_type == '2'}){
+	          alert("이미 펫시터로 활동 중입니다. 마이페이지로 이동합니다.");
+	          location.href="/petsitter/outputSingle";
+	       } else if(${sessionScope.loginInfo.mem_type == '1'}){
+	          location.href="/petsitter/petsitter_register_form";
+	       } else if(${empty sessionScope.loginInfo.mem_type}){
+	          alert("로그인 / 회원가입 후 지원해주세요.");
+	          location.href="/member/login";
+	       }
+	     });
+
+			
 	</script>
 
 	<script src="resources/main/js/main.js"></script>

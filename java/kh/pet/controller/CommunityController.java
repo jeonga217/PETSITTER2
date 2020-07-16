@@ -39,7 +39,7 @@ public class CommunityController {
 	@RequestMapping("write")
 	public String write() {
 
-		String id = (String)session.getAttribute("id");
+		String id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
 
 		if(id.contentEquals("admin")) {
 			return "community/write_Admin";
@@ -51,7 +51,7 @@ public class CommunityController {
 	//게시글 작성
 	@RequestMapping("writeProc")
 	public void writeProc(CommunityDTO cu_dto, HttpServletResponse res)throws Exception {
-		cu_dto.setCu_writer((String)session.getAttribute("id"));
+		cu_dto.setCu_writer(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
 		int result = cu_service.insert(cu_dto);
 		res.sendRedirect("list");
 
