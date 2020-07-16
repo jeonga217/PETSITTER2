@@ -127,6 +127,7 @@ public class AdminDAO {
 		}
 	}
 	
+	
 	public List<Stop_memberDTO> mem_stop_solve_search(){
 		return mybatis.selectList("Admin.mem_stop_solve_search");
 	}
