@@ -837,14 +837,14 @@ ul>li, input {
 		                                    <div data-brackets-id='37'
 		                                       style="display: flex; flex-direction: row; align-items: center; margin-right: 8px">
 		                                       <p data-brackets-id='38'
-		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">2시간당</p>
+		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">AM</p>
 		
 		                                       <div data-brackets-id='39'
 		                                          style="width: 1px; height: 15px; background-color: #ECEDF0; margin-left: 5px; margin-right: 5px">
 		                                       </div>
 		
 		                                       <p data-brackets-id='40'
-		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">AM,PM</p>
+		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">PM</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
@@ -863,12 +863,12 @@ ul>li, input {
 		                                    <div data-brackets-id='49'
 		                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
 		                                       <p data-brackets-id='50'
-		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">50포인트</p>
+		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">200point</p>
 		                                    </div>
 		                                    <div data-brackets-id='51'
 		                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
 		                                       <p data-brackets-id='52'
-		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">150포인트</p>
+		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">230point</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
@@ -887,12 +887,12 @@ ul>li, input {
 		                                    <div data-brackets-id='59'
 		                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
 		                                       <p data-brackets-id='60'
-		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">60포인트</p>
+		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">220point</p>
 		                                    </div>
 		                                    <div data-brackets-id='61'
 		                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
 		                                       <p data-brackets-id='62'
-		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">200포인트</p>
+		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">250point</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
@@ -911,28 +911,18 @@ ul>li, input {
 		                                    <div data-brackets-id='69'
 		                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
 		                                       <p data-brackets-id='70'
-		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">65포인트</p>
+		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">240point</p>
 		                                    </div>
 		                                    <div data-brackets-id='71'
 		                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
 		                                       <p data-brackets-id='72'
-		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">250포인트</p>
+		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">270point</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
 		                              <div data-brackets-id='73'
 		                                 style="width: 310px; height: 1px; background-color: #EBEBEB; margin: 32px 0"></div>
-		                              <div data-brackets-id='74'
-		                                 style="display: flex; flex-direction: row; justify-content: space-between">
-		                                 <p data-brackets-id='75'
-		                                    style="font-family: Noto Sans KR, sans-serif; font-size: 14px; color: #81DAD6">풀타임
-		                                    09:00~20:00</p>
-		                                 <div data-brackets-id='76'
-		                                    style="display: flex; flex-direction: column; justify-content: space-between">
-		                                    <p data-brackets-id='77'
-		                                       style="font-size: 13px; color: #81DAD6">400포인트</p>
-		                                 </div>
-		                              </div>
+		                             
 		                           </div>
 								</div>	
 							</div>	
