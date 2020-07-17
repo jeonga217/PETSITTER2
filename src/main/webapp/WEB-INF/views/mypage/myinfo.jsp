@@ -148,7 +148,7 @@ float: right;
 					</h2>
 				</div>
 			</div>
-			<form action="/member/myinfoProc" name=myinfoProc method="post">
+			<form action="/mypage/myinfoProc" name=myinfoProc method="post">
 				<div class="row">
 					<input type="hidden" name="mem_join_type" value="1">
 					<div class="col-12 menu">ID</div>
@@ -221,7 +221,7 @@ float: right;
 		$(function(){
 			$("#modify").on("click", function(){
 				
-				location.href="/member/myInfo_modifys";		
+				location.href="/mypage/myInfo_modifys";		
 			})
 			
 			$("#back").on("click", function(){
