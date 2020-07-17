@@ -13,12 +13,14 @@ public class Mypage_UseTableDTO {
 	private Date end_day; // 서비스종료날짜
 	private String reserve_time;
 	private Date reserve_day; // 현재 날짜
+	private String status;// 예약상태
 
 	public Mypage_UseTableDTO() {
 	}
 
 	public Mypage_UseTableDTO(String reserve_seq, String petsitter_board_seq, String petsitter_id, String mem_id,
-			String pet_name, int reserve_point, Date start_day, Date end_day, String reserve_time, Date reserve_day) {
+			String pet_name, int reserve_point, Date start_day, Date end_day, String reserve_time, Date reserve_day,
+			String status) {
 		super();
 		this.reserve_seq = reserve_seq;
 		this.petsitter_board_seq = petsitter_board_seq;
@@ -30,6 +32,7 @@ public class Mypage_UseTableDTO {
 		this.end_day = end_day;
 		this.reserve_time = reserve_time;
 		this.reserve_day = reserve_day;
+		this.status = status;
 	}
 
 	public String getReserve_seq() {
@@ -110,6 +113,14 @@ public class Mypage_UseTableDTO {
 
 	public void setReserve_day(Date reserve_day) {
 		this.reserve_day = reserve_day;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

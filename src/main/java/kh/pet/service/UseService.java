@@ -18,8 +18,9 @@ public class UseService {
 	private MypageUseDAO udao;
 
 	// �꽕鍮� 諛�
-	public List<Object> selectByPageNo(int cpage, String id, String name) throws Exception {
-		List<Object> dto = udao.selectByPageNo(cpage, id, name);
+	public List<Mypage_UseTableDTO> selectByPageNo(int cpage, String id, String name)
+			throws Exception {
+		List<Mypage_UseTableDTO> dto = udao.selectByPageNo(cpage, id, name);
 		return dto;
 	}
 
@@ -29,21 +30,21 @@ public class UseService {
 		return navi;
 	}
 
-	public List<String> usestate(String id) throws ParseException {
+	public void usestate(String id) throws ParseException {
 		List<Mypage_UseTableDTO> day = udao.statueday(id);
 		List<String> list = new ArrayList<String>();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String nowday = format.format(System.currentTimeMillis());
 		java.util.Date date1 = format.parse(nowday);
-		for(int i = 0; i<day.size(); i++) {
+		for (int i = 0; i < day.size(); i++) {
 			Date start = day.get(i).getStart_day();
 			Date end = day.get(i).getEnd_day();
-			if(start.after(date1)) {
-				list.add("예약대기");
-			}else if(start.before(date1) && end.after(date1)) {
-				list.add("서비스중");
+			if (start.after(date1)) {
+				day.get(i).setStatus("예약대기");
+			} else if (start.before(date1) && end.after(date1)) {
+				day.get(i).setStatus("서비스중");
 			}
 		}
-		return list;
+
 	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +45,7 @@
 	padding: 0;
 }
 
-input[type=text], input[type=password] {
+.signup{
 	width: 70%;
 	border: none;
     border-bottom: 1px solid;
@@ -124,7 +125,7 @@ i {
 
 <body>
 
-	<jsp:include page="/WEB-INF/views/member/header.jsp" />
+	<jsp:include page="/WEB-INF/views/member/signup_head.jsp" />
 	<div class="container">
 		<div class="wrap col-8" style="margin-top: 80px;">
 			<div class="row header">
@@ -139,7 +140,7 @@ i {
 					<input type="hidden" name="mem_join_type" value="1">
 					<div class="col-12 menu">ID</div>
 					<div class="col-12 ans">
-						<input type="text" id="id" name="mem_id"
+						<input type="text" id="id" name="mem_id" class="signup"
 							placeholder="영문 대소문자, 숫자/최소 6글자~12글자">
 					</div>
 					<div class="col-12 menu">
@@ -153,14 +154,14 @@ i {
 				<div class="row">
 					<div class="col-12 menu">비밀번호</div>
 					<div class="col-12 ans">
-						<input type="password" id="pw" name="mem_pw"
+						<input type="password" id="pw" name="mem_pw"  class="signup"
 							placeholder="영문 대소문자, 숫자, 특수문자 하나 이상/최소 8~16자">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">비밀번호 확인</div>
 					<div class="col-12 ans">
-						<input type="password" id="pwcheck">
+						<input type="password" id="pwcheck"  class="signup">
 					</div>
 					<div class="col-12 menu">
 						<span id="pwok" style="display: none; color: green;">비밀번호가
@@ -172,13 +173,13 @@ i {
 				<div class="row">
 					<div class="col-12 menu">이름</div>
 					<div class="col-12 ans">
-						<input type="text" id="name" name="mem_name">
+						<input type="text" id="name" name="mem_name"  class="signup">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">Email</div>
 					<div class="col-12 ans">
-						<input type="text" id="email" name="mem_email"
+						<input type="text" id="email" name="mem_email" class="signup"
 							placeholder="abcd@kh.com 형식으로 입력">
 					</div>
 
@@ -192,14 +193,14 @@ i {
 				<div class="row">
 					<div class="col-12 menu">연락처</div>
 					<div class="col-12 ans">
-						<input type="text" id="phone" name="mem_phone"
+						<input type="text" id="phone" name="mem_phone" class="signup"
 							placeholder="-를 제외한 숫자 입력">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">우편번호</div>
 					<div class="col-12 ans">
-						<input type="text" id="zipcode" name="mem_zipcode" readonly>
+						<input type="text" id="zipcode" name="mem_zipcode" class="signup" readonly>
 						<button type="button" class="btns btn1"
 							onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
 					</div>
@@ -207,13 +208,13 @@ i {
 				<div class="row">
 					<div class="col-12 menu">주소</div>
 					<div class="col-12 ans">
-						<input type="text" id="add1" name="mem_address1" readonly>
+						<input type="text" id="add1" name="mem_address1" class="signup"readonly>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">상세주소</div>
 					<div class="col-12 ans">
-						<input type="text" id="add2" name="mem_address2">
+						<input type="text" id="add2" name="mem_address2" class="signup">
 					</div>
 				</div>
 				<br>

@@ -173,15 +173,14 @@ td {
 										</tr>
 									</thead>
 									<tbody>
-									${bdto.get(0).size()}
-										<c:forEach var="i" items="${bdto.get(0)}" varStatus="status">
-												<tr>
-													<td>${i.reserve_day}
-													<td>${i.start_day}~${i.end_day}
-													<td>${i.reserve_point}
-													<td>${i.reserve_seq}
-													<td>${list.get(status.index)}
-												</tr>
+										<c:forEach var="i" items="${bdto}" varStatus="status">
+											<tr>
+												<td>${i.reserve_day}
+												<td>${i.start_day}~${i.end_day}
+												<td>${i.reserve_point}
+												<td>${i.reserve_seq}
+												<td>${list.get(status.index)}
+											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
@@ -206,19 +205,7 @@ td {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="i" items="${bdto.get(1)}" varStatus="status">
-											
-												<tr>
-													<td>${i.reserve_day}
-													<td>${i.start_day}~${i.end_day}
-													<td>${i.reserve_seq}
-													<td>서비스종료
-													<td>
-													<td>
-													
-												</tr>
-											
-										</c:forEach>
+
 									</tbody>
 								</table>
 							</div>
