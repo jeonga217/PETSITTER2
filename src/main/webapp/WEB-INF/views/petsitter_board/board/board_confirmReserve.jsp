@@ -26,6 +26,9 @@
 							<h4 class="font-weight-light text-info">예약 매칭 중입니다.</h4>
 								게시글 : ${waitlist.board_seq }
 								펫시터 : ${waitlist.petsitter_id }
+								펫시터 : ${waitlist.petsitter_id }
+								펫시터 : ${waitlist.petsitter_id }
+								펫시터 : ${waitlist.petsitter_id }
 								
 							
 							<button id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
