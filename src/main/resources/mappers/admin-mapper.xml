@@ -138,15 +138,19 @@
 	
 	<!--petsitter_board  -->
 	<select id="repsboard" resultType="kh.pet.dto.WaitlistDTO">
-		select * from waitlist
+		select * from (select waitlist.* , row_number() over(order by rsv_time desc)rnum from waitlist) where rnum between ${start} and ${end}
 	</select>
+	
+	<select id="re_pscount" resultType="int">
+		select count(*) from waitlist
+ 	</select>
 	
 	<select id="accept_pet_info" resultType="kh.pet.dto.WaitlistDTO">
 		select * from waitlist where wait_seq = #{value}
 	</select>
 	
 	<insert id="accept_pet_rsv">
-		insert into reservation values(#{reserve_seq},#{petsitter_board_seq},#{petsitter_id},#{mem_id},#{pet_name},${reserve_point},#{start_day},#{end_day},#{reserve_time})
+		insert into reservation values(#{reserve_seq},#{petsitter_board_seq},#{petsitter_id},#{mem_id},#{pet_name},${reserve_point},#{start_day},#{end_day},#{reserve_time},sysdate)
 	</insert>
 	
 	<delete id="del_rsv">
@@ -168,10 +172,25 @@
 		select to_char(v_date,'day'),v_count from visitor_count where v_date between sysdate-6 and sysdate order by to_char(v_date,'d')
 	</select>
 	
+	<insert id="record_count">
+		insert into visitor_count values (sysdate,#{value})
+	</insert>
+	
+	<update id="record_update">
+		update visitor_count set v_count = v_count + #{value} where v_date = sysdate 
+	</update>
+	
 	<!--report management -->
 	<select id="reportlist" resultType="kh.pet.dto.ReportDTO">
 		select * from (select reports.* , row_number() over(order by report_seq desc)rnum from reports) where rnum between ${start} and ${end}
 	</select>
+	
+	<update id="accpet_report">
+	</update>
+	
+	<delete id="delete_report">
+		delete from reports report_seq = #{value};
+	</delete>
 	
 	<!--admin password   -->
 	<update id="admin_password">

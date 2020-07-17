@@ -141,12 +141,16 @@ public class AdminDAO {
 		return mybatis.selectOne("Admin.re_memboardCount");
 	}
 	
+	public int re_psCount() {
+		return mybatis.selectOne("Admin.re_pscount");
+	}
+	
 	public int accept_memboard(Map<String, String> seq) {
 		return mybatis.update("Admin.accept_mem_board",seq);
 	}
 	
-	public List<WaitlistDTO> re_psboard(){
-		return mybatis.selectList("Admin.repsboard");
+	public List<WaitlistDTO> re_psboard(Map<String, Integer> map){
+		return mybatis.selectList("Admin.repsboard",map);
 	}
 	
 	public int cancel_memboard(String seq) {
@@ -178,6 +182,13 @@ public class AdminDAO {
 		return mybatis.selectList("Admin.to_week");
 	}
 	
+	public void v_count_insert(int v_count) {
+		mybatis.selectOne("Admin.record_count",v_count);
+	}
+	
+	public void v_count_update(int v_count) {
+		mybatis.selectOne("Admin.record_update",v_count);
+	}
 	
 	//신고 관련 테이블
 	public List<ReportDTO> reportlist(Map<String, Integer> map){

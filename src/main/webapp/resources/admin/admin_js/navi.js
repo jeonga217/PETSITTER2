@@ -83,4 +83,13 @@ $(function(){
     $(".chat").on("click",function(){
     	location.href="/admin/chat";
     })
+    
+	$('.home').on("click",function(){
+		location.href="/";
+	})
+	
+	$('.logout').on("click",function(){
+		location.href="/member/logout";
+	})
+	
 });

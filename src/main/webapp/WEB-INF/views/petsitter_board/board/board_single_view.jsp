@@ -139,6 +139,8 @@ ul>li, input {
 			$(".comment-list").on("click",".delete_review",function(){
 				var result = confirm("리뷰를 삭제하시겠습니까?");
 				
+				
+				
 				var seq = $(this).attr("seq");
 				if(result){
 					//삭제로직
@@ -460,13 +462,17 @@ ul>li, input {
 	
     <c:choose>
     	<c:when test="${tot_Info.psb_boardstatus == 'stop'}">
-		    <div class="site-section bg-light">
+	    	<div class="site-section bg-light">
 				<div class="container">
-					<div class="row justify-content-center mb-5">
-						<div class="col-md-7 text-center border-primary">
-							<h4 class="font-weight-light text-info">기간이 지난 게시물입니다.</h4>
+					<div class="d-block d-md-flex listing-horizontal">
+						<div class="lh-content" style="text-align:center;">
+							<h4 class="font-weight-light text-info">기간이 지난 게시글입니다.</h4>
+							
 						</div>
 					</div>
+				</div>
+				<div class="btns" style="text-align:center;">
+					<button id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
 				</div>
 			</div>
     	</c:when>
@@ -641,7 +647,7 @@ ul>li, input {
 				                 
 				                  <div class="form-group">
 				                    <label for="rw_contents">Review</label>
-				                    <textarea id="rw_contents" cols="60" rows="5" class="form-control"></textarea>
+				                    <textarea id="rw_contents" cols="60" rows="5" class="form-control" style="resize: none;"></textarea>
 				                  </div>
 				                  
 				                  <div class="form-group" style="text-align:right">
@@ -656,22 +662,29 @@ ul>li, input {
 				                    					rw_petsitter_id:"${tot_Info.psb_writer}",
 				                    					rw_parent_seq: "${tot_Info.psb_seq}"
 				                    			}
-				                    			$.ajax({
-				                    				url:"/review/insertProc",
-				                    				type:"POST",
-				                    				data:form,
-				                    				success:function(data){
-				                    					
-				                    					$(".star").removeClass("on");
-				                            			$("#rw_contents").val("");
-				                            			$("#contents").val("");
-				                            			alert("댓글이 등록되었습니다.");
-				                            			displayReview();
-				                    				},
-				                    				fail:function(){
-				                    					alert("insertProc err");
-				                    				}
-				                    			});
+				                    			
+				                    			if($("#rw_contents").val()=="" ){ 
+				                    				alert("리뷰 내용을 입력해주세요.");
+				                    			}else if($("#rw_star").val()==""){
+				                    				alert("별점을 체크해주세요.");
+				                    			} else {
+				                    				$.ajax({
+					                    				url:"/review/insertProc",
+					                    				type:"POST",
+					                    				data:form,
+					                    				success:function(data){
+					                    					
+					                    					$(".star").removeClass("on");
+					                            			$("#rw_contents").val("");
+					                            			$("#contents").val("");
+					                            			alert("댓글이 등록되었습니다.");
+					                            			displayReview();
+					                    				},
+					                    				fail:function(){
+					                    					alert("insertProc err");
+					                    				}
+					                    			});
+				                    			}
 				                    			
 				                    		});
 				                    	})
@@ -825,7 +838,7 @@ ul>li, input {
 										예상 포인트<i class="icofont-money"></i>
 									</h3>
 									<div id="pricing" style="text-align: center">
-									<input type="text" name="rsv_point" id="rsv_point" value="">
+									<input type="text" name="rsv_point" id="rsv_point" value="" readonly="readonly">
 									<div data-brackets-id='33'
 		                              style="width: 100%; border-radius: 8px; border: 1px solid #DFE3EA; box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.07); padding: 15px 15px; margin-top: 38px; margin-bottom: 38px">
 		                              <div data-brackets-id='34'
@@ -837,14 +850,14 @@ ul>li, input {
 		                                    <div data-brackets-id='37'
 		                                       style="display: flex; flex-direction: row; align-items: center; margin-right: 8px">
 		                                       <p data-brackets-id='38'
-		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">2시간당</p>
+		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">AM</p>
 		
 		                                       <div data-brackets-id='39'
 		                                          style="width: 1px; height: 15px; background-color: #ECEDF0; margin-left: 5px; margin-right: 5px">
 		                                       </div>
 		
 		                                       <p data-brackets-id='40'
-		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">AM,PM</p>
+		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">PM</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
@@ -863,12 +876,12 @@ ul>li, input {
 		                                    <div data-brackets-id='49'
 		                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
 		                                       <p data-brackets-id='50'
-		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">50포인트</p>
+		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">200point</p>
 		                                    </div>
 		                                    <div data-brackets-id='51'
 		                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
 		                                       <p data-brackets-id='52'
-		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">150포인트</p>
+		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">230point</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
@@ -887,12 +900,12 @@ ul>li, input {
 		                                    <div data-brackets-id='59'
 		                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
 		                                       <p data-brackets-id='60'
-		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">60포인트</p>
+		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">220point</p>
 		                                    </div>
 		                                    <div data-brackets-id='61'
 		                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
 		                                       <p data-brackets-id='62'
-		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">200포인트</p>
+		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">250point</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
@@ -911,28 +924,18 @@ ul>li, input {
 		                                    <div data-brackets-id='69'
 		                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
 		                                       <p data-brackets-id='70'
-		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">65포인트</p>
+		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">240point</p>
 		                                    </div>
 		                                    <div data-brackets-id='71'
 		                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
 		                                       <p data-brackets-id='72'
-		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">250포인트</p>
+		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">270point</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
 		                              <div data-brackets-id='73'
 		                                 style="width: 310px; height: 1px; background-color: #EBEBEB; margin: 32px 0"></div>
-		                              <div data-brackets-id='74'
-		                                 style="display: flex; flex-direction: row; justify-content: space-between">
-		                                 <p data-brackets-id='75'
-		                                    style="font-family: Noto Sans KR, sans-serif; font-size: 14px; color: #81DAD6">풀타임
-		                                    09:00~20:00</p>
-		                                 <div data-brackets-id='76'
-		                                    style="display: flex; flex-direction: column; justify-content: space-between">
-		                                    <p data-brackets-id='77'
-		                                       style="font-size: 13px; color: #81DAD6">400포인트</p>
-		                                 </div>
-		                              </div>
+		                             
 		                           </div>
 								</div>	
 							</div>	

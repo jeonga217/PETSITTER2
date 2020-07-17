@@ -22,6 +22,10 @@
 	margin-right: auto;
 	margin-left: auto;
 	margin-top: 30px width: 700px;
+	box-shadow: 0 7px 25px 0 rgba(0,0,0,0.1);
+	padding-top: 50px; 
+    padding-bottom: 50px; 
+    padding-left: 30px; !important
 }
 
 * {
@@ -30,14 +34,29 @@
 
 .menu {
 	text-align: left;
+	padding: 0;
 }
 
 .ans {
 	text-align: left;
+	margin-bottom: 10px;
+	padding: 0;
 }
 
-input[type=text], input[type=password] {
+.signup{
 	width: 70%;
+	border: none;
+    border-bottom: 1px solid;
+    border-color: #17a2b8;
+}
+.zipcode{
+	width: 58%;
+	border: none;
+    border-bottom: 1px solid;
+    border-color: #17a2b8;
+}
+.header{
+	padding-bottom: 10px;
 }
 
 i {
@@ -99,6 +118,8 @@ i {
 .title, .menu, .menu1 {
 	font-family: 'IBMPlexSansKR-Regular';
 }
+.row{
+ margin-left: 30px !important;}
 </style>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
@@ -124,7 +145,7 @@ i {
 					<input type="hidden" name="mem_join_type" value="${join_type}">
 					<div class="col-12 menu">ID</div>
 					<div class="col-12 ans">
-						<input type="text" id="id" name="mem_id" value="${joinInfo.id}"
+						<input type="text" id="id" name="mem_id" value="${joinInfo.id}" class="signup"
 							readonly>
 					</div>
 				</div>
@@ -132,41 +153,41 @@ i {
 				<div class="row">
 					<div class="col-12 menu">이름</div>
 					<div class="col-12 ans">
-						<input type="text" id="name" name="mem_name">
+						<input type="text" id="name" name="mem_name" class="signup">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">Email</div>
 					<div class="col-12 ans">
-						<input type="text" id="email" name="mem_email"
+						<input type="text" id="email" name="mem_email" class="signup"
 							value="${joinInfo.email}" readonly>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">연락처</div>
 					<div class="col-12 ans">
-						<input type="text" id="phone" name="mem_phone"
+						<input type="text" id="phone" name="mem_phone" class="signup"
 							placeholder="-를 제외한 숫자 입력">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">우편번호</div>
 					<div class="col-12 ans">
-						<input type="text" id="zipcode" name="mem_zipcode" readonly>
-						<button type="button" class="btns btn1"
-							onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
+						<input type="text" id="zipcode" name="mem_zipcode" class="zipcode" readonly>
+						<button type="button" class="btns1 btn1"
+							onclick="sample4_execDaumPostcode()">찾기</button>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">주소</div>
 					<div class="col-12 ans">
-						<input type="text" id="add1" name="mem_address1" readonly>
+						<input type="text" id="add1" name="mem_address1" class="signup" readonly>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">상세주소</div>
 					<div class="col-12 ans">
-						<input type="text" id="add2" name="mem_address2">
+						<input type="text" id="add2" name="mem_address2" class="signup">
 					</div>
 				</div>
 				<br>

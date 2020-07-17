@@ -14,13 +14,13 @@
 		insert into member values
 		<choose>
 		<when test="mem_join_type == 1">
-		(#{mem_id},#{mem_pw},#{mem_name},#{mem_email},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},1,#{mem_join_type},sysdate, 0, 0, 'N',#{mem_authkey}, 'YES')
+		(#{mem_id},#{mem_pw},#{mem_name},#{mem_email},#{mem_phone},${mem_zipcode},#{mem_address1},#{mem_address2},1,#{mem_join_type},sysdate, 0, 0, 'N',#{mem_authkey}, 'YES')
 		</when>
 		<when test="mem_join_type == 2">
-		(#{mem_id},'Kakao',#{mem_name},#{mem_email},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},1,#{mem_join_type},sysdate, 0, 0, 'N','Kakao', 'YES')
+		(#{mem_id},'Kakao',#{mem_name},#{mem_email},#{mem_phone},${mem_zipcode},#{mem_address1},#{mem_address2},1,#{mem_join_type},sysdate, 0, 0, 'N','Kakao', 'YES')
 		</when>
 		<when test="mem_join_type == 3">
-		(#{mem_id},'Naver',#{mem_name},#{mem_email},#{mem_phone},#{mem_zipcode},#{mem_address1},#{mem_address2},1,#{mem_join_type},sysdate, 0, 0, 'N','Naver', 'YES')
+		(#{mem_id},'Naver',#{mem_name},#{mem_email},#{mem_phone},${mem_zipcode},#{mem_address1},#{mem_address2},1,#{mem_join_type},sysdate, 0, 0, 'N','Naver', 'YES')
 		</when>
 		</choose>
 	</insert>
@@ -36,7 +36,7 @@
 	<select id="login" resultType="int"><!-- 로그인 -->
 		select count(*) from member where mem_id = #{id} and mem_pw = #{pw}
 	</select>
-	<select id="myinfo" resultType="kh.pet.dto.MemberDTO"> <!-- 로그인 후 정보 세션 저장용 -->
+	<select id="myinfo" resultType="kh.pet.dto.MemberDTO"> <!--  로그인 후 정보 세션 저장용-->
 		select * from member where mem_id = #{value}		
 	</select>
 	<select id="findid" resultType="String"><!-- 아이디 찾기 -->
@@ -49,8 +49,36 @@
 		update member set mem_pw = #{pw} where mem_id = #{id}
 	</update>
 	<delete id="withdraw"><!-- 회원탈퇴 -->	
-		delete from member where mem_id = {value};
-	
+		delete from member where mem_id = #{value}
 	</delete>
+	<update id="myinfo_modify"><!-- 내정보 수정 -->
+		<choose>
+		<when test="mem_pw != ''">
+		update member set mem_pw = #{mem_pw} , mem_name = #{mem_name}, mem_email = #{mem_email}, mem_phone = #{mem_phone}, mem_zipcode = ${mem_zipcode}, mem_address1 = #{mem_address1}, mem_address2 = #{mem_address2} where mem_id = #{mem_id}		
+		</when>
+		<when test="mem_pw == ''">
+		update member set mem_name = #{mem_name}, mem_email = #{mem_email}, mem_phone = #{mem_phone}, mem_zipcode = ${mem_zipcode}, mem_address1 = #{mem_address1}, mem_address2 = #{mem_address2} where mem_id = #{mem_id}		
+		</when>
+		</choose>
+	</update>
+	<update id="myinfo_email"><!-- 내정보 수정(이메일 포함) -->
+		<choose>
+		<when test="mem_pw != ''">
+		update member set mem_pw = #{mem_pw} , mem_name = #{mem_name}, mem_email = #{mem_email}, mem_phone = #{mem_phone}, mem_zipcode = ${mem_zipcode}, mem_address1 = #{mem_address1}, mem_address2 = #{mem_address2}, mem_verify = 'N' where mem_id = #{mem_id}
+		</when>
+		<when test="mem_pw == ''">
+		update member set mem_name = #{mem_name}, mem_email = #{mem_email}, mem_phone = #{mem_phone}, mem_zipcode = ${mem_zipcode}, mem_address1 = #{mem_address1}, mem_address2 = #{mem_address2}, mem_verify = 'N' where mem_id = #{mem_id}
+		</when>
+		</choose>
+		
+	</update>	
+	<update id="myinfo_sns"><!-- 내정보 수정(SNS) -->
+		update member set mem_name = #{mem_name}, mem_phone = #{mem_phone}, mem_zipcode = ${mem_zipcode}, mem_address1 = #{mem_address1}, mem_address2 = #{mem_address2} where mem_id = #{mem_id} 
+	</update> 
+	
+	
+	
+	
+	
 
 </mapper>

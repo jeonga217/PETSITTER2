@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.pet.dto.ReviewDTO;
+import kh.pet.filter.xssfilter;
 import kh.pet.service.PetsitterService;
 import kh.pet.service.ReviewService;
 
@@ -32,6 +33,8 @@ public class ReviewController {
 	@RequestMapping(value="/insertProc", method=RequestMethod.POST)
 	@ResponseBody
 	public String insertProc(ReviewDTO rwdto) throws Exception{
+		xssfilter xss = new xssfilter();
+		rwdto.setRw_contents(xss.cleanXSS(rwdto.getRw_contents()));
 		rwservice.insert(rwdto);
 		psservice.update_star(rwdto);
 		return "SUCCESS";

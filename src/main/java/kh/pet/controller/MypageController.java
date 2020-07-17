@@ -18,6 +18,7 @@ import kh.pet.dto.Mypage_UseTableDTO;
 import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PointDTO;
 import kh.pet.dto.RegLookupDTO;
+import kh.pet.service.MemberService;
 import kh.pet.service.Mypage_dateService;
 import kh.pet.service.Mypage_petmodfiyService;
 import kh.pet.service.Pet_listService;
@@ -29,7 +30,7 @@ import kh.pet.service.UseService;
 public class MypageController {
 
 	int sum = 0;
-	
+
 	@Autowired
 	private Mypage_petmodfiyService petmodfiy;
 
@@ -41,7 +42,7 @@ public class MypageController {
 
 	@Autowired
 	private UseService useservice;
-	
+
 	@Autowired
 	private Pet_listService plistservice;
 
@@ -51,7 +52,9 @@ public class MypageController {
 	@Autowired
 	private Mypage_dateService dateservice;
 	
-	
+	@Autowired
+	private MemberService mservice;
+
 	@RequestMapping("mypage")
 	public String main() {
 		return "mypage/mypage-main";
@@ -59,14 +62,11 @@ public class MypageController {
 
 	@RequestMapping("mypageuse")
 	public String mypageuse(HttpServletRequest request) {
-		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
 		List<RegLookupDTO> list = mdao.reglookup(dto.getMem_id());
 		request.setAttribute("list", list);
 		return "mypage/Mypage-Use";
 	}
-	
-	
-	
 
 	@RequestMapping("mypet")
 	public String mypet() {
@@ -75,7 +75,7 @@ public class MypageController {
 
 	@RequestMapping("community")
 	public String community(HttpServletRequest request) {
-		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
 		try {
 			int cpage = 1;
 			try {
@@ -115,7 +115,7 @@ public class MypageController {
 				cpage = Integer.parseInt(request.getParameter("cpage"));
 			} catch (Exception e) {
 			}
-			MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+			MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
 			System.out.println("현재페이지:" + cpage);
 			List<Object> bdto = plistservice.selectByPageNo(cpage, dto.getMem_id(), "listpoint");
 			String navi = plistservice.getPageNavi(cpage, "listpoint");
@@ -134,8 +134,7 @@ public class MypageController {
 		}
 		return "mypage/mypage-point";
 	}
-	
-	
+
 	@RequestMapping("usecontent")
 	public String usecontent(HttpServletRequest request) {
 		try {
@@ -144,12 +143,9 @@ public class MypageController {
 				cpage = Integer.parseInt(request.getParameter("cpage"));
 			} catch (Exception e) {
 			}
-			MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+			MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
 			System.out.println("현재페이지:" + cpage);
-			MemberDTO dtos = (MemberDTO)session.getAttribute("loginInfo");
 			List<Mypage_UseTableDTO> bdto = useservice.selectByPageNo(cpage, dto.getMem_id(), "usecontent");
-			useservice.usestate(dtos.getMem_id(), bdto);
-			
 			String navi = useservice.getPageNavi(cpage, "usecontent");
 			request.setAttribute("navi", navi);
 			request.setAttribute("bdto", bdto);
@@ -158,7 +154,6 @@ public class MypageController {
 		}
 		return "mypage/mypage-usecontent";
 	}
-	
 
 	int pointnum = 0;
 
@@ -175,7 +170,7 @@ public class MypageController {
 
 	@RequestMapping("pointadd")
 	public void pointadd(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
 		String mem_type = mdao.typecheck(dto.getMem_id());
 		mdao.pointinsert(dto.getMem_id(), pointnum, "입금", mem_type);
 		response.sendRedirect("listpoint");
@@ -183,7 +178,7 @@ public class MypageController {
 
 	@RequestMapping("list")
 	public String reservation(HttpServletRequest request) {
-		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
 		try {
 			int cpage = 1;
 			try {
@@ -205,21 +200,91 @@ public class MypageController {
 	public String registration() {
 		return "mypage/mypet-registration";
 	}
-	
+
 	@RequestMapping("modfiy")
 	public String modfiy(HttpServletRequest request) {
 		int seq = Integer.parseInt(request.getParameter("seq"));
-		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
 		Mypet_regDTO modresult = mdao.modfiylist(dto.getMem_id(), seq);
 		request.setAttribute("modresult", modresult);
 		return "mypage/mypage-modfiy";
 	}
+
 	@RequestMapping("resultmodfiy")
-	public void resultmodfiy(Mypet_regDTO dto, MultipartFile img, HttpServletResponse response)throws Exception {
-		MemberDTO dtos = (MemberDTO)session.getAttribute("loginInfo");
+	public void resultmodfiy(Mypet_regDTO dto, MultipartFile img, HttpServletResponse response) throws Exception {
+		MemberDTO dtos = (MemberDTO) session.getAttribute("loginInfo");
 		dto.setMaster_id(dtos.getMem_id());
 		petmodfiy.modfiy(dto, img);
 		response.sendRedirect("list");
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////mypage Info, modify
+
+	@RequestMapping("/myInfo")
+	public String mypage() {
+
+		MemberDTO mdto = (MemberDTO) session.getAttribute("loginInfo");
+		int type = mdto.getMem_join_type();
+
+		if (type == 1) {
+
+			return "mypage/myinfo";
+		}
+
+		return "mypage/sns_myinfo";
+
+	}
+
+	@RequestMapping("/myInfo_modifys")
+	public String myInfo_modify() {
+
+		return "mypage/myInfo_modify";
+
+	}
+
+	@RequestMapping("/myInfo_modify_sns")
+	public String myInfo_modify_sns() {
+
+		return "mypage/sns_myInfo_modify";
+
+	}
+
+	@RequestMapping("/myinfoProc")
+	public String myinfoProc(MemberDTO mdto) throws Exception {
+		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
+
+		int type = mdto.getMem_join_type();
+		String mail = mdto.getMem_email(); // 받아온 메일
+		String ori_mail = dto.getMem_email(); // 세션저장
+		String id = mdto.getMem_id();
+
+		if (type == 1) { // 일반 가입 수정
+			if (!mail.contentEquals(ori_mail)) {
+
+				System.out.println("메일 수정함");
+				mservice.myinfo_email(mdto);
+				mdto = mservice.loginInfo(id);
+				session.setAttribute("loginInfo", mdto);
+				return "redirect:/member/logout";
+
+			} else {
+				System.out.println("메일 수정 안함");
+				mservice.myinfo_modify(mdto);
+
+				mdto = mservice.loginInfo(id);
+				session.setAttribute("loginInfo", mdto);
+				return "/mypage/myinfo";
+
+			}
+
+		}
+
+//SNS로그인 가입 수정
+		mservice.myinfo_sns(mdto);
+		mdto = mservice.loginInfo(id);
+		session.setAttribute("loginInfo", mdto);
+		return "/mypage/myinfo";
+
 	}
 
 }
