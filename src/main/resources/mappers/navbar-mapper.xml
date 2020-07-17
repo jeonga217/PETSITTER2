@@ -112,9 +112,9 @@
 -->
 
 	<select id="statuday" resultType="kh.pet.dto.Mypage_UseTableDTO">
-		select start_day, end_day,
-		reserve_day from reservation where mem_id=#{value} order by
-		reserve_day desc
+		select start_day, end_day from (select reservation.*, row_number()
+		over(order
+		by reserve_day desc)rum from reservation) where rum between #{start} and #{end} and mem_id=#{id}
 	</select>
  
 

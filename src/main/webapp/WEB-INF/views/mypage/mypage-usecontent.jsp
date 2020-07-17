@@ -62,6 +62,17 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
+<script>
+$(function(){
+	$(".report").on("click",function(){
+		 window.open("/mypage/report","","width=400,height=400");
+	})
+	
+	$(".praise").on("click",function(){
+		location.href='/board/board_single_view?reserve_seq';
+	})
+})
+</script>
 <style>
 td {
 	text-align: center;
@@ -80,154 +91,161 @@ td {
 			<div class="site-mobile-menu-body"></div>
 		</div>
 
-		     <header class="site-navbar" role="banner">
+		<header class="site-navbar" role="banner">
 
-         <div class="container-fluid" style="padding: 0 100px;">
-            <div class="row align-items-center">
-               <div class="col-12 col-xl-2">
-                  <h1 class="mb-2 site-logo">
+			<div class="container-fluid" style="padding: 0 100px;">
+				<div class="row align-items-center">
+					<div class="col-12 col-xl-2">
+						<h1 class="mb-2 site-logo">
 
-                  <c:choose>
-                     <c:when test="${loginInfo.mem_id eq '관리자' && loginInfo.mem_address1 eq 'admin_address'}">
-                        <a href="#"><img src="resources/images/dogss.png"
-                        style="width: 250px; height: 60px;"></a>
-                     </c:when>
-                     <c:otherwise>
-                        <a href="index.html"><img src="/resources/images/dogss.png"
-                        style="width: 250px; height: 60px;"></a>
-                     </c:otherwise>
-                  </c:choose>
-                     
-                  </h1>
-               </div>
-               <c:choose>
-                  <c:when test="${empty loginInfo}">
-                     <div class="col-12 col-md-10 d-none d-xl-block">
-                        <nav class="site-navigation position-relative text-right"
-                           role="navigation">
-                           <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-                              <li><a href="/admin/adminindex"><span>팀소개</span></a></li>
-                              <li><a href="#introduce"><span>서비스소개</span></a></li>
-                              <li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
-                              <li><a href="/member/signup"><span>회원가입</span></a></li>
-                           </ul>
-                        </nav>
-                     </div>
-                     <!-- 로그인-->
-                     <div class="modal fade" id="login" data-keyboard="false"
-                        tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog">
-                           <div class="modal-content">
-                              <div class="modal-body">
-                                 <div class="limiter">
-                                    <div class="container-login100">
-                                       <div class="wrap-login100">
-                                          <button type="button" class="close" data-dismiss="modal"
-                                             aria-label="Close">
-                                             <span aria-hidden="true">&times;</span>
-                                          </button>
-                                          <form class="login100-form validate-form"
-                                             action="/member/loginProc" name="loginProc" method="post">
-                                             <span class="logo100 p-10">
-                                                <p class="logo">
-                                                   <span class="lnr lnr-paw"></span>뭐하냥 도와주개
-                                                </p>
-                                             </span> <span class="login100-form-title p-b-23"> LOGIN </span>
-                                             <div class="wrap-input100 validate-input"
-                                                data-validate="ID를 입력하세요.">
-                                                <input class="input100" type="text" name="mem_id">
-                                                <span class="focus-input100"></span> <span
-                                                   class="label-input100">ID</span>
-                                             </div>
+							<c:choose>
+								<c:when
+									test="${loginInfo.mem_id eq '관리자' && loginInfo.mem_address1 eq 'admin_address'}">
+									<a href="#"><img src="resources/images/dogss.png"
+										style="width: 250px; height: 60px;"></a>
+								</c:when>
+								<c:otherwise>
+									<a href="index.html"><img src="/resources/images/dogss.png"
+										style="width: 250px; height: 60px;"></a>
+								</c:otherwise>
+							</c:choose>
 
-                                             <div class="wrap-input100 validate-input"
-                                                data-validate="비밀번호를 입력하세요.">
-                                                <input class="input100" type="password" name="mem_pw">
-                                                <span class="focus-input100"></span> <span
-                                                   class="label-input100">Password</span>
-                                             </div>
-                                             <div class="flex-sb-m w-full p-t-3 p-b-32">
-                                                <div class="contact100-form-checkbox">
-                                                   <a href="/member/findInfo" class="txt1"> Forgot
-                                                      ID/Password? </a>
-                                                </div>
-                                                <div>
-                                                   <a href="/member/signup" class="txt1"> Sign Up </a>
-                                                </div>
-                                             </div>
+						</h1>
+					</div>
+					<c:choose>
+						<c:when test="${empty loginInfo}">
+							<div class="col-12 col-md-10 d-none d-xl-block">
+								<nav class="site-navigation position-relative text-right"
+									role="navigation">
+									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+										<li><a href="/admin/adminindex"><span>팀소개</span></a></li>
+										<li><a href="#introduce"><span>서비스소개</span></a></li>
+										<li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
+										<li><a href="/member/signup"><span>회원가입</span></a></li>
+									</ul>
+								</nav>
+							</div>
+							<!-- 로그인-->
+							<div class="modal fade" id="login" data-keyboard="false"
+								tabindex="-1" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-body">
+											<div class="limiter">
+												<div class="container-login100">
+													<div class="wrap-login100">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+														<form class="login100-form validate-form"
+															action="/member/loginProc" name="loginProc" method="post">
+															<span class="logo100 p-10">
+																<p class="logo">
+																	<span class="lnr lnr-paw"></span>뭐하냥 도와주개
+																</p>
+															</span> <span class="login100-form-title p-b-23"> LOGIN </span>
+															<div class="wrap-input100 validate-input"
+																data-validate="ID를 입력하세요.">
+																<input class="input100" type="text" name="mem_id">
+																<span class="focus-input100"></span> <span
+																	class="label-input100">ID</span>
+															</div>
+
+															<div class="wrap-input100 validate-input"
+																data-validate="비밀번호를 입력하세요.">
+																<input class="input100" type="password" name="mem_pw">
+																<span class="focus-input100"></span> <span
+																	class="label-input100">Password</span>
+															</div>
+															<div class="flex-sb-m w-full p-t-3 p-b-32">
+																<div class="contact100-form-checkbox">
+																	<a href="/member/findInfo" class="txt1"> Forgot
+																		ID/Password? </a>
+																</div>
+																<div>
+																	<a href="/member/signup" class="txt1"> Sign Up </a>
+																</div>
+															</div>
 
 
-                                             <div class="container-login100-form-btn">
-                                                <button class="login100-form-btn" type="submit">Login</button>
-                                             </div>
-                                             <div class="text-center p-t-46 p-b-20">
-                                                <span class="txt2"> OR SNS LOGIN </span>
-                                             </div>
+															<div class="container-login100-form-btn">
+																<button class="login100-form-btn" type="submit">Login</button>
+															</div>
+															<div class="text-center p-t-46 p-b-20">
+																<span class="txt2"> OR SNS LOGIN </span>
+															</div>
 
-                                             <div class="login100-form-social flex-c-m bg2 m-r-5">
-                                                <a class="btns"
-                                                   href="https://kauth.kakao.com/oauth/authorize?client_id=4dd67a91f5b80223eb0934cae5fa4c50&redirect_uri=http://192.168.60.13/member/kakao&response_type=code">
-                                                   <span><img
-                                                      src="/resources/member/images/kakao_icon.png"></span> <span
-                                                   class="txt3">Kakao Login</span>
-                                                </a> <a class="btns" href="/member/naver"> <span><img
-                                                      src="/resources/member/images/naver_icon.PNG"
-                                                      width="34px" height="35px"></span> <span class="txt3">Naver
-                                                      Login</span>
-                                                </a>
-                                             </div>
-                                          </form>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </c:when>
-                  <c:otherwise>
-                     <div class="col-12 col-md-10 d-none d-xl-block">
-                        <nav class="site-navigation position-relative text-right"
-                           role="navigation">
-                           <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+															<div class="login100-form-social flex-c-m bg2 m-r-5">
+																<a class="btns"
+																	href="https://kauth.kakao.com/oauth/authorize?client_id=4dd67a91f5b80223eb0934cae5fa4c50&redirect_uri=http://192.168.60.13/member/kakao&response_type=code">
+																	<span><img
+																		src="/resources/member/images/kakao_icon.png"></span> <span
+																	class="txt3">Kakao Login</span>
+																</a> <a class="btns" href="/member/naver"> <span><img
+																		src="/resources/member/images/naver_icon.PNG"
+																		width="34px" height="35px"></span> <span class="txt3">Naver
+																		Login</span>
+																</a>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="col-12 col-md-10 d-none d-xl-block">
+								<nav class="site-navigation position-relative text-right"
+									role="navigation">
+									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
 
-                              <li><a href="/mypage/Introduction"><span>포인트 충전소<i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
-                              <li><a href="/mypage/mypage"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
-                              <li><a href="/message/recievelist" onclick="window.open(this.href,'_blank','width=600, height=600, scrollbars=yes'); return false;">메세지<i
-                                    class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></a></li>
+										<li><a href="/mypage/Introduction"><span>포인트
+													충전소<i class="icofont-money icofont-1x"
+													style="color: #17a2b8; padding-right: 8px"></i>
+											</span></a></li>
+										<li><a href="/mypage/mypage"><span>MY PAGE<i
+													class="icofont-live-messenger icofont-1x"
+													style="color: #17a2b8; padding-right: 8px"></i></span></a></li>
+										<li><a href="/message/recievelist"
+											onclick="window.open(this.href,'_blank','width=600, height=600, scrollbars=yes'); return false;">메세지<i
+												class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></a></li>
 
-                              <li><a href="/member/logout"><span>LOGOUT</span></a></li>
-                           </ul>
-                        </nav>
-                     </div>
-                     <div class="col-12 col-md-12 d-none d-xl-block">
-                        <nav class="site-navigation position-relative text-right"
-                           role="navigation">
-                           <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-                              <li><a href="/admin/adminindex"><span
-                                    style="font-size: 20px">팀 소개</span></a></li>
-                              <li><a href="/mb/mb_board?cpage=1"><span
-                                    style="font-size: 20px">방문 돌봄</span></a></li>
-                              <li><a href="/board/outputList"><span
-                                    style="font-size: 20px">위탁 돌봄</span></a></li>
-                              <li><a href="/community/list"><span
-                                    style="font-size: 20px">게시판</span></a></li>
+										<li><a href="/member/logout"><span>LOGOUT</span></a></li>
+									</ul>
+								</nav>
+							</div>
+							<div class="col-12 col-md-12 d-none d-xl-block">
+								<nav class="site-navigation position-relative text-right"
+									role="navigation">
+									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+										<li><a href="/admin/adminindex"><span
+												style="font-size: 20px">팀 소개</span></a></li>
+										<li><a href="/mb/mb_board?cpage=1"><span
+												style="font-size: 20px">방문 돌봄</span></a></li>
+										<li><a href="/board/outputList"><span
+												style="font-size: 20px">위탁 돌봄</span></a></li>
+										<li><a href="/community/list"><span
+												style="font-size: 20px">게시판</span></a></li>
 
-                           </ul>
-                        </nav>
-                     </div>
-                  </c:otherwise>
-               </c:choose>
-               <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3"
-                  style="position: relative; top: 3px;">
-                  <a href="#" class="site-menu-toggle js-menu-toggle text-white"><span
-                     class="icon-menu h3"></span></a>
-               </div>
+									</ul>
+								</nav>
+							</div>
+						</c:otherwise>
+					</c:choose>
+					<div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3"
+						style="position: relative; top: 3px;">
+						<a href="#" class="site-menu-toggle js-menu-toggle text-white"><span
+							class="icon-menu h3"></span></a>
+					</div>
 
-            </div>
+				</div>
 
-         </div>
-      </header>
+			</div>
+		</header>
 
 	</div>
 
@@ -271,15 +289,18 @@ td {
 						<div class="table100 ver1 m-b-110">
 							<div class="limiter">
 
-								예약내역 테이블
+								펫시터 테이블
 								<table>
 									<thead>
 										<tr class="table100-head">
 											<th class="column1">서비스신청날짜</th>
 											<th class="column2">서비스이용날짜</th>
-											<th class="column3">사용포인트</th>
+											<th class="column3">적립포인트</th>
 											<th class="column3">예약번호</th>
 											<th class="column3">서비스이용상태</th>
+											<th class="column3">신고하기</th>
+											<th class="column3">칭찬하기</th>
+											<th class="column3">펫시터일지쓰기</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -289,35 +310,47 @@ td {
 												<td>${i.start_day}~${i.end_day}
 												<td>${i.reserve_point}
 												<td>${i.reserve_seq}
-												<td>${i.status}
+												<td class="status">${i.status}
+												<td><button type="button" class="btn btn-danger report">신고하기</button>
+												<td><button type="button" class="btn btn-primary praise">칭찬
+												하기</button>
+												<td><button type="button" class="btn btn-success diaryread">펫시터일지보기</button>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
-								<div class="col-12 mt-5 text-center">
-									<div class="custom-pagination">${navi}</div>
-								</div>
-
-
-								<br> <br> <br> <br> <br> <br> <br>
-
-								이용내역테이블
+								
+								
+								
+									반려인 테이블
 								<table>
 									<thead>
 										<tr class="table100-head">
 											<th class="column1">서비스신청날짜</th>
-											<th class="column1">서비스이용날짜</th>
-											<th class="column2">예약번호</th>
+											<th class="column2">서비스이용날짜</th>
+											<th class="column3">사용포인트</th>
+											<th class="column3">예약번호</th>
 											<th class="column3">서비스이용상태</th>
-											<th class="column3">신고하기</th>
-											<th class="column3">칭찬하기</th>
-											<th class="column3">펫시터일지보기</th>
+											<th class="column3">펫시터일지쓰기</th>
 										</tr>
 									</thead>
 									<tbody>
-
+										<c:forEach var="i" items="${bdto}">
+											<tr>
+												<td>${i.reserve_day}
+												<td>${i.start_day}~${i.end_day}
+												<td>${i.reserve_point}
+												<td>${i.reserve_seq}
+												<td class="status">${i.status}
+												<td><button type="button" class="btn btn-success diarywrite">펫시터일지쓰기</button>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
+								
+								<div class="col-12 mt-5 text-center">
+									<div class="custom-pagination">${navi}</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -396,7 +429,7 @@ td {
 			</div>
 		</footer>
 	</div>
-
+	
 
 	<script src="/resources/main/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/main/js/jquery-migrate-3.0.1.min.js"></script>
@@ -410,7 +443,6 @@ td {
 	<script src="/resources/main/js/bootstrap-datepicker.min.js"></script>
 	<script src="/resources/main/js/aos.js"></script>
 	<script src="/resources/main/js/rangeslider.min.js"></script>
-
 	<script src="/resources/main/js/main.js"></script>
 </body>
 </html>
