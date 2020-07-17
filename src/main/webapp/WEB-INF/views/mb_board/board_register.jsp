@@ -99,7 +99,7 @@
 
 		<!-- 통합헤더 -->
 		<header class="site-navbar" role="banner">
-			<div class="container-fluid" style="padding:0 100px;">
+			<div class="container-fluid" style="padding: 0 100px;">
 				<div class="row align-items-center">
 
 					<div class="col-12 col-xl-2">
@@ -108,33 +108,38 @@
 								style="width: 250px; height: 60px;"></a>
 						</h1>
 					</div>
-					
+
 					<div class="col-12 col-md-10 d-none d-xl-block">
-								<nav class="site-navigation position-relative text-right"
-									role="navigation">
-									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-										<li><a href="/member/login"><span>포인트 충전소<i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
-										<li><a href="/member/login"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
-										<li><a href="/member/login"><span>메시지<i class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></span></a></li>
-										<li><a href="/member/logout"><span>LOGOUT</span></a></li>
-									</ul>
-								</nav>
-							</div>
-							<div class="col-12 col-md-12 d-none d-xl-block">
-								<nav class="site-navigation position-relative text-right"
-									role="navigation">
-									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-										<li><a href="/admin/adminindex"><span
-												style="font-size: 20px">팀 소개</span></a></li>
-										<li><a href="/mb/mb_board?cpage=1"><span
-												style="font-size: 20px">방문 돌봄</span></a></li>
-										<li><a href="/board/outputList"><span
-												style="font-size: 20px">위탁 돌봄</span></a></li>
-										<li><a href="/member/login"><span
-												style="font-size: 20px">게시판</span></a></li>
-									</ul>
-								</nav>
-							</div>
+						<nav class="site-navigation position-relative text-right"
+							role="navigation">
+							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+								<li><a href="/member/login"><span>포인트 충전소<i
+											class="icofont-money icofont-1x"
+											style="color: #17a2b8; padding-right: 8px"></i></span></a></li>
+								<li><a href="/member/login"><span>MY PAGE<i
+											class="icofont-live-messenger icofont-1x"
+											style="color: #17a2b8; padding-right: 8px"></i></span></a></li>
+								<li><a href="/member/login"><span>메시지<i
+											class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></span></a></li>
+								<li><a href="/member/logout"><span>LOGOUT</span></a></li>
+							</ul>
+						</nav>
+					</div>
+					<div class="col-12 col-md-12 d-none d-xl-block">
+						<nav class="site-navigation position-relative text-right"
+							role="navigation">
+							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+								<li><a href="/admin/adminindex"><span
+										style="font-size: 20px">팀 소개</span></a></li>
+								<li><a href="/mb/mb_board?cpage=1"><span
+										style="font-size: 20px">방문 돌봄</span></a></li>
+								<li><a href="/board/outputList"><span
+										style="font-size: 20px">위탁 돌봄</span></a></li>
+								<li><a href="/member/login"><span
+										style="font-size: 20px">게시판</span></a></li>
+							</ul>
+						</nav>
+					</div>
 					<!-- 끝 -->
 					<div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3"
 						style="position: relative; top: 3px;">
@@ -186,15 +191,16 @@
 								</div>
 								<div class="lh-content">
 									<div class="pet">
-
-										<c:forEach items="${list}" var="i" varStatus="status">
-											<c:if test="${i.pet_name != petname[status.index]}">
-												<input type="hidden" name="mb_petphoto" id="petphoto">
-												<input type="checkbox" data-imgsrc="${i.pet_photo}"
-													class="petname" name="mb_pet_name" id="${i.pet_name}"
-													value="${i.pet_name}" />
-												<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
-											</c:if>
+										<c:forEach items="${tmp}" var="j">
+											<c:forEach items="${list}" var="i">
+												<c:if test="${i.pet_name eq j}">
+													<input type="hidden" name="mb_petphoto" id="petphoto">
+													<input type="checkbox" data-imgsrc="${i.pet_photo}"
+														class="petname" name="mb_pet_name" id="${i.pet_name}"
+														value="${i.pet_name}" />
+													<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
+												</c:if>
+											</c:forEach>
 										</c:forEach>
 									</div>
 								</div>
@@ -497,7 +503,8 @@
 					<div class="col-lg-4">
 						<p class="mb-0">
 							<a href="signup.html"
-								class="btn btn-outline-white text-white btn-md px-5 font-weight-bold btn-md-block">펫시터 지원하기</a>
+								class="btn btn-outline-white text-white btn-md px-5 font-weight-bold btn-md-block">펫시터
+								지원하기</a>
 						</p>
 					</div>
 				</div>
@@ -577,8 +584,7 @@
 	</script>
 	<script>
 		$(function() {
-			
-			
+
 			$(".petname").on("click", function() {
 				var src = [];
 				$(".petname:checked").each(function(index, item) {
@@ -612,11 +618,10 @@
 	</script>
 	<script>
 		$(function() {
-			
-			
+
 			$(".stimelist").hide();
 			$(".etimelist").hide();
-			
+
 			$(".stime").on("click", function() {
 				$(".stimelist").show(100);
 			})
@@ -632,18 +637,10 @@
 			$(".stimelist  li").on("click", function() {
 				dataTime = $(this).data("time");
 				$(".stime").attr("data-time", dataTime);
-				if (dataTime >= edata) {
-					alert("다시선택하세요");
-					$(".stime").html("시작시간");
-				} else {
-					$("#stime").val($(".stime").html());
-					$("#etime").val($(".etime").html());
-					return true
-				}
 			});
 
 			$(".etimelist  li").on("click", function() {
-				 edata = $(this).data("time");
+				edata = $(this).data("time");
 				if (dataTime >= edata) {
 					alert("다시선택하세요");
 					$(".etime").html("끝시간");
