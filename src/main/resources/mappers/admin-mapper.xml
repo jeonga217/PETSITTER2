@@ -168,6 +168,14 @@
 		select to_char(v_date,'day'),v_count from visitor_count where v_date between sysdate-6 and sysdate order by to_char(v_date,'d')
 	</select>
 	
+	<insert id="record_count">
+		insert into visitor_count values (sysdate,#{value})
+	</insert>
+	
+	<update id="record_update">
+		update visitor_count set v_count = v_count + #{value} where v_date = sysdate 
+	</update>
+	
 	<!--report management -->
 	<select id="reportlist" resultType="kh.pet.dto.ReportDTO">
 		select * from (select reports.* , row_number() over(order by report_seq desc)rnum from reports) where rnum between ${start} and ${end}

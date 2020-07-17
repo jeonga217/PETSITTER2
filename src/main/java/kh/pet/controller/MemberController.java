@@ -26,6 +26,7 @@ import kh.pet.dto.MemberDTO;
 import kh.pet.service.KakaoAPIService;
 import kh.pet.service.MemberService;
 import kh.pet.service.NaverLoginService;
+import kh.pet.staticInfo.Log_Count;
 
 @Controller
 @RequestMapping("/member/")
@@ -84,7 +85,6 @@ public class MemberController {
 		if(mdto == null) {
 			jobj.put("result", 0 );
 			rep.getWriter().append(jobj.toString());
-
 		}
 		mservice.signup(mdto);
 
@@ -191,6 +191,7 @@ public class MemberController {
 			}else {		
 
 				MemberDTO mdto = mservice.loginInfo(mem_id);
+				Log_Count.log_count++;
 				session.setAttribute("loginInfo", mdto);
 				jobj.put("result", 2);
 				rep.getWriter().append(jobj.toString());				
@@ -274,6 +275,7 @@ public class MemberController {
 		}
 
 		MemberDTO mdto = mservice.loginInfo(id);
+		Log_Count.log_count++;
 		session.setAttribute("loginInfo", mdto);
 		session.setAttribute("access_Token", access_Token);
 
@@ -292,6 +294,7 @@ public class MemberController {
 		System.out.println("2");
 		//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
 		//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
+		Log_Count.log_count++;
 		System.out.println("네이버:" + naverAuthUrl);
 
 		//네이버 

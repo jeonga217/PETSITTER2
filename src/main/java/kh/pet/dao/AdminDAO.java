@@ -178,6 +178,13 @@ public class AdminDAO {
 		return mybatis.selectList("Admin.to_week");
 	}
 	
+	public void v_count_insert(int v_count) {
+		mybatis.selectOne("Admin.record_count",v_count);
+	}
+	
+	public void v_count_update(int v_count) {
+		mybatis.selectOne("Admin.record_update",v_count);
+	}
 	
 	//신고 관련 테이블
 	public List<ReportDTO> reportlist(Map<String, Integer> map){

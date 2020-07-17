@@ -23,6 +23,7 @@ import kh.pet.dto.Stop_memberDTO;
 import kh.pet.dto.Visitor_countDTO;
 import kh.pet.dto.WaitlistDTO;
 import kh.pet.staticInfo.Admin_Configuration;
+import kh.pet.staticInfo.Log_Count;
 
 @Service
 public class AdminService {
@@ -285,6 +286,18 @@ public class AdminService {
 	}
 	public List<Visitor_countDTO> to_visitor(){
 		return  dao.to_visiter();
+	}
+	
+	public void insert_v() {
+		int v_count = Log_Count.log_count;
+		dao.v_count_insert(v_count);
+		Log_Count.log_count = 0;
+	}
+	
+	public void update_v() {
+		int v_count = Log_Count.log_count;
+		dao.v_count_update(v_count);
+		Log_Count.log_count = 0;
 	}
 
 	//관리자 패스워드 변경
