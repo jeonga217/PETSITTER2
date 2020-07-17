@@ -139,6 +139,8 @@ ul>li, input {
 			$(".comment-list").on("click",".delete_review",function(){
 				var result = confirm("리뷰를 삭제하시겠습니까?");
 				
+				
+				
 				var seq = $(this).attr("seq");
 				if(result){
 					//삭제로직
@@ -656,22 +658,29 @@ ul>li, input {
 				                    					rw_petsitter_id:"${tot_Info.psb_writer}",
 				                    					rw_parent_seq: "${tot_Info.psb_seq}"
 				                    			}
-				                    			$.ajax({
-				                    				url:"/review/insertProc",
-				                    				type:"POST",
-				                    				data:form,
-				                    				success:function(data){
-				                    					
-				                    					$(".star").removeClass("on");
-				                            			$("#rw_contents").val("");
-				                            			$("#contents").val("");
-				                            			alert("댓글이 등록되었습니다.");
-				                            			displayReview();
-				                    				},
-				                    				fail:function(){
-				                    					alert("insertProc err");
-				                    				}
-				                    			});
+				                    			
+				                    			if($("#rw_contents").val()=="" ){ 
+				                    				alert("리뷰 내용을 입력해주세요.");
+				                    			}else if($("#rw_star").val()==""){
+				                    				alert("별점을 체크해주세요.");
+				                    			} else {
+				                    				$.ajax({
+					                    				url:"/review/insertProc",
+					                    				type:"POST",
+					                    				data:form,
+					                    				success:function(data){
+					                    					
+					                    					$(".star").removeClass("on");
+					                            			$("#rw_contents").val("");
+					                            			$("#contents").val("");
+					                            			alert("댓글이 등록되었습니다.");
+					                            			displayReview();
+					                    				},
+					                    				fail:function(){
+					                    					alert("insertProc err");
+					                    				}
+					                    			});
+				                    			}
 				                    			
 				                    		});
 				                    	})
