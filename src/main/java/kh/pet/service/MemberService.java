@@ -1,9 +1,12 @@
 package kh.pet.service;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,16 +22,15 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO mdao;
-	
-	@Autowired
-    private JavaMailSender mailSender;
 
-	
-	public String isExistId(String ps_id) throws Exception{
+	@Autowired
+	private JavaMailSender mailSender;
+
+	public String isExistId(String ps_id) throws Exception {
 		return mdao.isExistId(ps_id);
 	}
-	
-	public String getSHA512(String input){
+
+	public String getSHA512(String input) {
 
 		String toReturn = null;
 		try {
@@ -43,156 +45,204 @@ public class MemberService {
 		return toReturn;
 	}
 
-	public int idDuplCheck(String id) throws Exception{
+	public int idDuplCheck(String id) throws Exception {
 
 		int result = mdao.idDuplCheck(id);
 		return result;
 	}
-	
+
 	public int emailCheck(String email) throws Exception {
-		
+
 		int result = mdao.emailCheck(email);
 		return result;
 	}
-	
 
-	public void signup(MemberDTO mdto) throws Exception{ //회원가입.
-		String key = new Tempkey().getKey(20, false);	
-		System.out.println("가입타입: "+mdto.getMem_join_type());
+	public void signup(MemberDTO mdto) throws Exception { // 회원가입.
+		String key = new Tempkey().getKey(20, false);
 		mdto.setMem_authkey(key);
-			
+
 		mdao.signup(mdto);
 		String id = mdto.getMem_id();
-		
-		//메일 전송
-        MailHandler sendMail = new MailHandler(mailSender);
-        sendMail.setSubject("뭐하냥도와주개 이메일 인증");
-        sendMail.setText(
-                new StringBuffer()
-                .append(id)
-                .append("님, 가입을 환영합니다. 아래 링크를 누르면 인증이 완료됩니다.")
-                .append("<br>")
-                .append("(혹시 잘못 전달되었다면, 이 이메일을 무시하셔도 됩니다)")
-                .append("<br>")
-                .append("<br>")
-                .append("<a href='http://192.168.60.13/member/emailConfirm?authKey=")
-                .append(key)
-                .append("&userid=")
-                .append(id)
-                .append("' target='_blank'>이메일 인증 확인</a>")
-                .toString());
-        
-        sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
-        sendMail.setTo(mdto.getMem_email());
-        sendMail.send();
+
+		// 메일 전송
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("뭐하냥도와주개 이메일 인증");
+		sendMail.setText(new StringBuffer().append(id).append("님, 가입을 환영합니다. 아래 링크를 누르면 인증이 완료됩니다.").append("<br>")
+				.append("(혹시 잘못 전달되었다면, 이 이메일을 무시하셔도 됩니다)").append("<br>").append("<br>")
+				.append("<a href='http://192.168.60.13/member/emailConfirm?authKey=").append(key).append("&userid=")
+				.append(id).append("' target='_blank'>이메일 인증 확인</a>").toString());
+
+		sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
+		sendMail.setTo(mdto.getMem_email());
+		sendMail.send();
 
 	}
-	
-	public void sns_signup(MemberDTO mdto) throws Exception{
-		
+
+	public void sns_signup(MemberDTO mdto) throws Exception {
+
 		mdao.signup(mdto);
-		
+
 	}
-	
-	
-	
-	
-	
+
 	public int emailConfirm(String authKey, String userid) {
-		int result = 0;		
-		int chkey = mdao.authkey(authKey);	
-		
-		if(chkey > 0) {
+		int result = 0;
+		int chkey = mdao.authkey(authKey);
+
+		if (chkey > 0) {
 			try {
-				result = mdao.successAuthkey(userid);				
-			}catch(Exception e) {
+				result = mdao.successAuthkey(userid);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}		
+		}
 		return result;
-		
+
 	}
-	
-	public int verify(String id) { //이메일 인증확인
-		
+
+	public int verify(String id) { // 이메일 인증확인
+
 		int result = mdao.verify(id);
 		return result;
 	}
-	
-	public boolean login(Map<String, String> map)throws Exception{
-		
-		boolean result = mdao.login(map);			
-		return result;		
+
+	public boolean login(Map<String, String> map) throws Exception {
+
+		boolean result = mdao.login(map);
+		return result;
 	}
-		
-	public MemberDTO loginInfo(String id)throws Exception{
-		
+
+	public MemberDTO loginInfo(String id) throws Exception {
+
 		MemberDTO mdto = mdao.myInfo(id);
-		return mdto;		
-		
+		return mdto;
+
 	}
-	
-	public String findID(String email) { //ID찾기
-				
+
+	public String findID(String email) { // ID찾기
+
 		return mdao.findID(email);
-		
+
 	}
-	
-	public int findPw(Map<String, String> map) { //일치 비번확인
-		
-		return mdao.findPw(map);		
-		
+
+	public int findPw(Map<String, String> map) { // 일치 비번확인
+
+		return mdao.findPw(map);
+
 	}
-	
-	public int replacepw(String id, String email) throws Exception { //비밀번호 재설정
-				
-		String key = new Tempkey().getKey(8, false);		
-		System.out.println("재설정 key: "+key);
-				
-		//메일 전송
-        MailHandler sendMail = new MailHandler(mailSender);
-        sendMail.setSubject("[뭐하냥도와주개] 임시 비밀 번호 안내드립니다. ");
-        sendMail.setText(
-                new StringBuffer()
-                .append(id)
-                .append("님의 임시 비밀번호는")
-                .append("&nbsp;<strong>") 
-                .append(key)
-                .append("</strong>&nbsp;")
-                .append("입니다.") 
-                .append("<br>")
-                .append("(혹시 잘못 전달되었다면, 이 이메일은 무시하셔도 됩니다)")
-                .append("<br>")
-                .append("임시 비밀번호로 로그인 후, 마이페이지에서 원하는 비밀번호로 수정해주세요.")
-                .append("<br>")
-                .append("<a href='http://192.168.60.13/'")
-                .append("' target='_blank'>뭐하냥 도와주개</a>")
-                .toString());
-        
-        sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
-        sendMail.setTo(email);
-        sendMail.send();
-		
-				
-		String pw = this.getSHA512(key); //암호화
-		
+
+	public int replacepw(String id, String email) throws Exception { // 비밀번호 재설정
+
+		String key = new Tempkey().getKey(8, false);
+		System.out.println("재설정 key: " + key);
+
+		// 메일 전송
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[뭐하냥도와주개] 임시 비밀 번호 안내드립니다. ");
+		sendMail.setText(new StringBuffer().append(id).append("님의 임시 비밀번호는").append("&nbsp;<strong>").append(key)
+				.append("</strong>&nbsp;").append("입니다.").append("<br>").append("(혹시 잘못 전달되었다면, 이 이메일은 무시하셔도 됩니다)")
+				.append("<br>").append("임시 비밀번호로 로그인 후, 마이페이지에서 원하는 비밀번호로 수정해주세요.").append("<br>")
+				.append("<a href='http://192.168.60.13/'").append("' target='_blank'>뭐하냥 도와주개</a>").toString());
+
+		sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
+		sendMail.setTo(email);
+		sendMail.send();
+
+		String pw = this.getSHA512(key); // 암호화
+
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
-		map.put("pw", pw);	
-		
-		return mdao.replacepw(map);	
+		map.put("pw", pw);
+
+		return mdao.replacepw(map);
 	}
-	
-	public int findSNS(Map<String, String> map) { //카카오 아이디 조회
-		
+
+	public int findSNS(Map<String, String> map) { // 카카오 아이디 조회
+
 		return mdao.findPw(map);
 	}
-	
-	public int withdraw(String id) { //회원탈퇴
-		
-		return mdao.withdraw(id);		
+
+	public int withdraw(String id) { // 회원탈퇴
+		System.out.println("service: " + id);
+		return mdao.withdraw(id);
 	}
-	
-	
+
+	public int myinfo_modify(MemberDTO dto) {
+
+		if (dto.getMem_pw() != "") {
+			dto.setMem_pw(this.getSHA512(dto.getMem_pw()));
+			
+			return mdao.myinfo_modify(dto);
+		}
+
+		else if (dto.getMem_pw().contentEquals("")) {
+			
+			return mdao.myinfo_modify(dto);
+			
+		} 
+		
+		return -1;
+
+	}
+
+	public int myinfo_email(MemberDTO dto) throws MessagingException, UnsupportedEncodingException {
+
+		String key = new Tempkey().getKey(20, false);
+		dto.setMem_authkey(key);
+		String id = dto.getMem_id();
+		
+		if (dto.getMem_pw() != "") {
+			dto.setMem_pw(this.getSHA512(dto.getMem_pw()));
+			
+			// 메일 전송
+			MailHandler sendMail = new MailHandler(mailSender);
+			sendMail.setSubject("뭐하냥도와주개 이메일 인증");
+			sendMail.setText(new StringBuffer().append(id).append("님, 재인증 부탁드립니다. 아래 링크를 누르면 인증이 완료됩니다.").append("<br>")
+					.append("(혹시 잘못 전달되었다면, 이 이메일을 무시하셔도 됩니다)").append("<br>").append("<br>")
+					.append("<a href='http://192.168.60.13/member/emailConfirm?authKey=").append(key).append("&userid=")
+					.append(id).append("' target='_blank'>이메일 인증 확인</a>").toString());
+
+			sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
+			sendMail.setTo(dto.getMem_email());
+			sendMail.send();
+
+			return mdao.myinfo_email(dto);
+			
+			
+			
+			
+		}
+
+		else if (dto.getMem_pw().contentEquals("")) {
+			
+			// 메일 전송
+			MailHandler sendMail = new MailHandler(mailSender);
+			sendMail.setSubject("뭐하냥도와주개 이메일 인증");
+			sendMail.setText(new StringBuffer().append(id).append("님, 재인증 부탁드립니다. 아래 링크를 누르면 인증이 완료됩니다.").append("<br>")
+					.append("(혹시 잘못 전달되었다면, 이 이메일을 무시하셔도 됩니다)").append("<br>").append("<br>")
+					.append("<a href='http://192.168.60.13/member/emailConfirm?authKey=").append(key).append("&userid=")
+					.append(id).append("' target='_blank'>이메일 인증 확인</a>").toString());
+
+			sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
+			sendMail.setTo(dto.getMem_email());
+			sendMail.send();
+
+			return mdao.myinfo_email(dto);
+			
+		} 
+		
+		return -1;
+
+		
+
+	}
+
+	public int myinfo_sns(MemberDTO dto) {
+
+		if (dto.getMem_pw() != null) {
+			dto.setMem_pw(this.getSHA512(dto.getMem_pw()));
+		}
+		return mdao.myinfo_sns(dto);
+
+	}
 
 }

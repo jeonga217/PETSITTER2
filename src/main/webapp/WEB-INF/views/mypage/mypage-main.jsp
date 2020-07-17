@@ -65,7 +65,7 @@
 		<div class="wrap">
 			<div class="row">
 				<div class="col-md-6 first">
-					<a href="/member/myInfo"><span>
+					<a href="/mypage/myInfo"><span>
 							<p>
 								<span>
 									<h3>My Info</h3>
