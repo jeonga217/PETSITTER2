@@ -1,6 +1,5 @@
 package kh.pet.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,6 @@ public class MypageUseDAO {
 		List<Mypage_UseTableDTO> uselist = mybaits.selectList("Navi.uselist", se);
 		return uselist;
 	}
-
 	public String getPageNavi(int currentPage, String name) throws Exception {
 		int recordTotalCount = 0;
 		if (name.contentEquals("usecontent")) {
@@ -97,8 +95,23 @@ public class MypageUseDAO {
 		return sb.toString();
 	}
 
-	public List<Mypage_UseTableDTO> statueday(String id) {
-		List<Mypage_UseTableDTO> day = mybaits.selectList("Navi.statuday", id);
+	public List<Mypage_UseTableDTO> statueday(String id, int cpage)throws Exception {
+		System.out.println("현재페이지 : "+cpage);
+		int recordTotalCount = 0;
+		recordTotalCount = getArticleCount("Navi.usecount");
+		
+		
+		int start = cpage * Main_Configuration.recordCountPerPage - (Main_Configuration.recordCountPerPage - 1);
+		int end = start + (Main_Configuration.recordCountPerPage - 1);
+		
+		
+		Map<String, Object> list = new HashMap<>();
+		list.put("id", id);
+		list.put("start",start);
+		list.put("end", end);
+		System.out.println("시작은 : "+start);
+		System.out.println("끝은 : "+end);
+		List<Mypage_UseTableDTO> day = mybaits.selectList("Navi.statuday", list);
 		return day;
 	}
 
