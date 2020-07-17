@@ -189,6 +189,7 @@ public class AdminService {
 	public int accept_memboard(MemboardDto bdto) {
 		Map<String , String> seq_set = new HashMap<String, String>();
 		UUID uuid = UUID.randomUUID();
+		
 		seq_set.put("p_seq", bdto.getMb_seq());
 		seq_set.put("seq",uuid.toString());
 
