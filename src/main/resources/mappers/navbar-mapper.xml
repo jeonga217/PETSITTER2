@@ -61,11 +61,7 @@
 	</select>
 	
 	<select id="usecount" resultType="int">
-		select count(*) from reservation where mem_id=#{id} and sysdate
-		between start_day and end_day or 
-		<![CDATA[
-		sysdate < start_day
-		  ]]>
+		select count(*) from reservation where mem_id=#{id}
 	</select>
 
 	<!-- <select id="usecontenttable"
