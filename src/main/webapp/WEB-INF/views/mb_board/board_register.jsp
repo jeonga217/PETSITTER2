@@ -632,14 +632,6 @@
 			$(".stimelist  li").on("click", function() {
 				dataTime = $(this).data("time");
 				$(".stime").attr("data-time", dataTime);
-				if (dataTime >= edata) {
-					alert("다시선택하세요");
-					$(".stime").html("시작시간");
-				} else {
-					$("#stime").val($(".stime").html());
-					$("#etime").val($(".etime").html());
-					return true
-				}
 			});
 
 			$(".etimelist  li").on("click", function() {
