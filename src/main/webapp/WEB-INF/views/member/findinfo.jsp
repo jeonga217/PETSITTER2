@@ -22,51 +22,51 @@
 <style>
 .btn-primary {
 	background-color: #81DAD6;
-	border-color: ;
+	border-color:;
 }
 
 #strong {
 	font-weight: bold;
 	color: green;
 }
+
 .btn {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 10px;
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 16px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 10px;
 }
+
 .btn1 {
-  background-color: #81DAD6; 
-  color: white; 
-  border: 2px solid #81DAD6;
-  
+	background-color: #81DAD6;
+	color: white;
+	border: 2px solid #81DAD6;
 }
 
 .btn1:hover {
-  background-color: turquoise;
-  color: white;
+	background-color: turquoise;
+	color: white;
 }
 
-.main{
-	box-shadow: 0 7px 25px 0 rgba(0,0,0,0.1);
-    padding-top: 25px;
-    padding-left: 25px;
+.main {
+	box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.1);
+	padding-top: 25px;
+	padding-left: 25px;
 }
-
 </style>
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/member/find_head.jsp"/>
+	<jsp:include page="/WEB-INF/views/member/find_head.jsp" />
 
 	<div class="site-section">
 		<div class="container">
@@ -89,9 +89,8 @@
 
 					<div class="row form-group">
 						<div class="col-md-12">
-						
-							<button type="button" class="btn btn1"
-								id="findid">ID 찾기</button>
+
+							<button type="button" class="btn btn1" id="findid">ID 찾기</button>
 						</div>
 					</div>
 					<div class="row form-group">
@@ -124,8 +123,7 @@
 					</div>
 					<div class="row form-group">
 						<div class="col-md-12">
-							<button type="button" class="btn btn1">비밀번호
-								재설정</button>
+							<button type="button" id="findpw" class="btn btn1">비밀번호 재설정</button>
 						</div>
 					</div>
 
@@ -133,7 +131,7 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/member/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/member/footer.jsp" />
 	<script>
 		$("#findid").on("click",
 							function() {
@@ -179,7 +177,7 @@
 							if ((id != null && id != "")
 									&& (email != null && email != "")) {
 
-								$.ajax({ url : "/member//findPwProc",
+								$.ajax({ url : "/member/findPwProc",
 											type : "post",
 											dataType : "json",
 											data : {

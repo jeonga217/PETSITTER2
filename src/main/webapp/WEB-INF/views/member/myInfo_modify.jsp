@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -17,17 +17,16 @@
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
-
 .wrap {
 	padding-right: 15px;
 	padding-left: 15px;
 	margin-right: auto;
 	margin-left: auto;
 	margin-top: 30px width: 700px;
-	box-shadow: 0 7px 25px 0 rgba(0,0,0,0.1);
-	padding-top: 50px; 
-    padding-bottom: 50px; 
-    padding-left: 30px; !important
+	box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.1);
+	padding-top: 50px;
+	padding-bottom: 50px;
+	padding-left: 30px !important;
 }
 
 * {
@@ -45,21 +44,24 @@
 	padding: 0;
 }
 
-.signup{
+.signup {
 	width: 70%;
 	border: none;
-    border-bottom: 1px solid;
-    border-color: #17a2b8;
+	border-bottom: 1px solid;
+	border-color: #17a2b8;
 }
-.zipcode{
+
+.zipcode {
 	width: 58%;
 	border: none;
-    border-bottom: 1px solid;
-    border-color: #17a2b8;
+	border-bottom: 1px solid;
+	border-color: #17a2b8;
 }
-.header{
+
+.header {
 	padding-bottom: 10px;
 }
+
 i {
 	color: #81DAD6;
 }
@@ -120,9 +122,13 @@ i {
 	font-family: 'IBMPlexSansKR-Regular';
 }
 
-.row{
- margin-left: 30px !important;}
+.row {
+	margin-left: 30px !important;
+}
 
+.withdraw {
+	float: right;
+}
 </style>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
@@ -139,37 +145,30 @@ i {
 			<div class="row header">
 				<div class="col-12 title">
 					<h2>
-						<i class="fas fa-user"></i> 회원가입
+						<i class="fas fa-user"></i> My Info
 					</h2>
 				</div>
 			</div>
-			<form action="/member/signupProc" name=signup method="post">
+			<form action="/member/myinfoProc" name=myinfoProc method="post">
 				<div class="row">
 					<input type="hidden" name="mem_join_type" value="1">
 					<div class="col-12 menu">ID</div>
 					<div class="col-12 ans">
 						<input type="text" id="id" name="mem_id" class="signup"
-							placeholder="영문 대소문자, 숫자/최소 6글자~12글자">
+							value="${loginInfo.mem_id}" readonly>
 					</div>
-					<div class="col-12 menu">
-						<span id="idregx" style="display: none;">사용 가능한 ID입니다.</span> <span
-							id="idok" style="display: none;">사용 가능한 ID입니다.</span> <span
-							id="idfail" style="display: none;">사용 중인 ID입니다. 새로운 ID를
-							입력하세요.</span>
-					</div>
-
 				</div>
 				<div class="row">
 					<div class="col-12 menu">비밀번호</div>
 					<div class="col-12 ans">
-						<input type="password" id="pw" name="mem_pw"  class="signup"
+						<input type="password" id="pw" name="mem_pw" class="signup"
 							placeholder="영문 대소문자, 숫자, 특수문자 하나 이상/최소 8~16자">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">비밀번호 확인</div>
 					<div class="col-12 ans">
-						<input type="password" id="pwcheck"  class="signup">
+						<input type="password" id="pwcheck" class="signup">
 					</div>
 					<div class="col-12 menu">
 						<span id="pwok" style="display: none; color: green;">비밀번호가
@@ -181,14 +180,15 @@ i {
 				<div class="row">
 					<div class="col-12 menu">이름</div>
 					<div class="col-12 ans">
-						<input type="text" id="name" name="mem_name"  class="signup">
+						<input type="text" id="name" name="mem_name" class="signup"
+							value="${loginInfo.mem_name}">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">Email</div>
 					<div class="col-12 ans">
 						<input type="text" id="email" name="mem_email" class="signup"
-							placeholder="abcd@kh.com 형식으로 입력">
+							placeholder="abcd@kh.com 형식으로 입력" value="${loginInfo.mem_email}">
 					</div>
 
 					<div class="col-12 menu">
@@ -202,13 +202,14 @@ i {
 					<div class="col-12 menu">연락처</div>
 					<div class="col-12 ans">
 						<input type="text" id="phone" name="mem_phone" class="signup"
-							placeholder="-를 제외한 숫자 입력">
+							value="${loginInfo.mem_phone}" placeholder="-를 제외한 숫자 입력">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">우편번호</div>
 					<div class="col-12 ans">
-						<input type="text" id="zipcode" name="mem_zipcode" class="zipcode" readonly>
+						<input type="text" id="zipcode" name="mem_zipcode" class="zipcode"
+							value="${loginInfo.mem_zipcode}" readonly>
 						<button type="button" class="btns1 btn1"
 							onclick="sample4_execDaumPostcode()">찾기</button>
 					</div>
@@ -216,21 +217,23 @@ i {
 				<div class="row">
 					<div class="col-12 menu">주소</div>
 					<div class="col-12 ans">
-						<input type="text" id="add1" name="mem_address1" class="signup"readonly>
+						<input type="text" id="add1" name="mem_address1" class="signup"
+							value="${loginInfo.mem_address1}" readonly>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">상세주소</div>
 					<div class="col-12 ans">
-						<input type="text" id="add2" name="mem_address2" class="signup">
+						<input type="text" id="add2" name="mem_address2" class="signup"
+							value="${loginInfo.mem_address2}">
 					</div>
 				</div>
 				<br>
 				<div class="row">
 					<div class="col-12 menu1">
-						<button type="button" id="signup" class="btns1 btn1">회원가입</button>
+						<button type="submit" id="modify" class="btns1 btn1">정보 수정</button>
 						<button type="button" id="back" class="btns1 btn1">취소</button>
-					</div>
+					</div>					
 				</div>
 			</form>
 		</div>
@@ -249,48 +252,6 @@ i {
 	</script>
 	<script>
 		$(function() {
-
-			$("#id").on(
-					"focusout",
-					function() {
-						var userIdCheck = RegExp(/^[A-Za-z0-9]{6,12}$/);
-						var id = $("#id").val()
-
-						if (id != null && id != "") {
-
-							if (userIdCheck.test(id)) {
-
-								$
-										.ajax({
-											url : "/member/idDuplCheck",
-											type : "post",
-											dataType : "json",
-											data : {
-												"id" : $("#id").val()
-											},
-											success : function(data) {
-												if (data == 1) {
-													$("#idok").css('display',
-															'none');
-													$("#idfail").css('display',
-															'inline-block');
-												} else if (data == 0) {
-													$("#idok").css('display',
-															'inline-block');
-													$("#idfail").css('display',
-															'none');
-												}
-											}
-										})
-							} else {
-								alert("ID는 영문 대소문자, 숫자/최소 6글자~12글자로 입력해주세요!");
-								$("#id").val("");
-								$("#id").focus();
-							}
-
-						}
-					})
-
 			$("#pw")
 					.on(
 							"focusout",
@@ -407,66 +368,54 @@ i {
 		});
 	</script>
 	<script>
-		document.getElementById("signup").onclick = function() {
+		document.getElementById("modify").onclick = function() {
 
-			if ($("#idok").css("display") == "none") {
-				alert("아이디를 확인해주세요.");
-
-			} else if ($("#pw").val() != $("#pwcheck").val()) {
+			if ($("#pw").val() != $("#pwcheck").val()) {
 				alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
 				$("#pwok").css('display', 'none');
 				$("#pwfail").css('display', 'inline-block');
 				$("#pwcheck").val("");
-
-			} else if ($("#pwok").css("display") == "none") {
-				alert("비밀번호를 확인해주십시오.");
+				return false;
 
 			} else if ($("#name").val() == "") {
 				alert("이름이 없습니다.");
 				$("#name").focus();
+				return false;
 
 			} else if ($("#phone").val() == "") {
 				alert("연락처가 없습니다.");
 				$("#phone").focus();
+				return false;
 
 			} else if ($("#zipcode").val() == "") {
 				alert("주소가 없습니다.");
 				$("#zipcode").focus();
+				return false;
 			} else if ($("#add1").val() == "") {
 				alert("주소가 없습니다.");
 				$("#add1").focus();
+				return false;
 			} else if ($("#add2").val() == "") {
 				alert("상세주소가 없습니다.\n주소가 없다면 없음 이라고 적어주세요.");
 				$("#add2").focus();
+				return false;
 			} else {
 
-				var queryString = $("form[name=signup]").serialize();
+				var email = $("#email").val();
+				var ori_email = "${loginInfo.mem_email}";
 
-				$.ajax({
-					type : "POST",
-					url : "/member/signupProc",
-					cache : false,
-					data : queryString,
-					dataType : "json",
-					success : function(data) {
-						var check = data.result;
+				if (email != ori_email) {
 
-						if (check == 0) {
-							alert('입력 정보를 확인하세요.');
-						} else
-							(check == 1)
-						{
-							alert('회원가입이 완료되었습니다. 이메일 인증 후 로그인 부탁드립니다.');
-							location.href = "/";
-						}
-					}
-				})
+					alert("Email주소가 변경되었습니다. 새로운 이메일로 인증 후 로그인이 가능합니다.");					
+
+				} else {
+
+					alert("정보 수정이 완료되었습니다.")	
+					
+				}
 
 			}
-
-		}	
-		
-		
+		}
 	</script>
 
 

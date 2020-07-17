@@ -2,9 +2,11 @@ package kh.pet.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,7 +15,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,13 +38,13 @@ public class MemberController {
 
 	@Autowired
 	private HttpSession session;	
-
+	@Autowired
 	private NaverLoginService naser;
-	private String apiResult = null;
+	
 
 	JSONObject jobj = new JSONObject();
-	
-	
+
+
 	@ResponseBody
 	@RequestMapping("isExistId")
 	public String isExistId(String ps_id)throws Exception{
@@ -78,13 +80,13 @@ public class MemberController {
 
 	@RequestMapping(value = "/signupProc", method = RequestMethod.POST)
 	public void signupProc(MemberDTO mdto,HttpServletResponse rep) throws Exception{
+
 		
-		System.out.println("컨트롤러까지 오셨는지?");
 
 		if(mdto == null) {
 			jobj.put("result", 0 );
 			rep.getWriter().append(jobj.toString());
-				
+
 		}
 		mservice.signup(mdto);
 
@@ -92,56 +94,50 @@ public class MemberController {
 		rep.getWriter().append(jobj.toString());
 
 	}
-	
-	
+
+
 	@RequestMapping(value = "/sns_signupProc", method = RequestMethod.POST)
 	public void sns_signupProc(MemberDTO mdto,HttpServletResponse rep) throws Exception {
-		
-		System.out.println("여까지 못 오니?1");
-		
-		
+
+
 		if(mdto == null) {
 			jobj.put("result", 0 );
 			rep.getWriter().append(jobj.toString());
-				
+
 		}
+
 		
-		System.out.println(mdto.getMem_id());
-		
-		System.out.println("여까지 못 오니?2");
+
+	
 		mservice.sns_signup(mdto);
 
 		jobj.put("result", 1);
 		rep.getWriter().append(jobj.toString());
-		
+
 	}
-	
+
 
 	@RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
 	public void emailConfirm(String authKey, String userid, HttpServletResponse response) throws IOException {
-	
+
 		int verify = mservice.verify(userid);
-		
+
 		if(verify > 0) {		
-			
+
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('이미 인증하셨습니다.'); location.href='/';</script>");
 			out.flush();
-			
-//			model.addAttribute("msg" , "이미 인증하셨습니다.");
-//			return "/member/emailconfirm"; 
+
 		}
 
 		if(authKey == "" || userid == "" || (authKey == "" && userid == "")) {
-			
+
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('인증키가 잘못되었습니다. 다시 인증해 주세요'); location.href='/';</script>");
 			out.flush();
 
-//			model.addAttribute("msg", "인증키가 잘못되었습니다. 다시 인증해 주세요");			
-//			return "/member/emailconfirm";
 		}
 
 		int result= mservice.emailConfirm(authKey, userid);		
@@ -151,16 +147,14 @@ public class MemberController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('잘못된 접근 입니다. 다시 인증해 주세요'); location.href='/';</script>");
 			out.flush();						
-			
-//			model.addAttribute("msg", "잘못된 접근 입니다. 다시 인증해 주세요");
-//			return "/member/emailconfirm";
+
 		}
-		
+
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<script>alert('인증 완료되었습니다. 로그인 후 이용 가능합니다.'); location.href='/';</script>");
 		out.flush();	
-		
+
 	}
 
 
@@ -171,15 +165,15 @@ public class MemberController {
 		JSONObject jobj = new JSONObject();
 
 		String pw1 = mservice.getSHA512(mem_pw);
-
+		System.out.println(pw1);
+	
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", mem_id);
 		map.put("pw", pw1);
 
 
 		boolean result = mservice.login(map);
-		System.out.println("3: "+result);
-
+		System.out.println("로그인: "+result);
 		if(result) {
 
 			int econfirm = mservice.verify(mem_id); //이메일 인증여부
@@ -189,7 +183,7 @@ public class MemberController {
 				jobj.put("result", econfirm );
 				rep.getWriter().append(jobj.toString());
 
-			}else {		
+			}else {		//정상 로그인
 
 				MemberDTO mdto = mservice.loginInfo(mem_id);
 				session.setAttribute("loginInfo", mdto);
@@ -198,7 +192,7 @@ public class MemberController {
 
 			}
 
-		}else {
+		}else { //로그인 실패 
 
 			jobj.put("result", 1);
 			rep.getWriter().append(jobj.toString());
@@ -217,13 +211,12 @@ public class MemberController {
 	public String findID(String email) {
 
 		String id= mservice.findID(email);
-		//System.out.println("id는? "+id);
-
+		
 		JsonObject jobj = new JsonObject();
 		jobj.addProperty("id", id);
 
 		String result = jobj.toString();
-		// System.out.println(result);
+	
 
 		return result;
 
@@ -251,7 +244,7 @@ public class MemberController {
 
 	@RequestMapping("/kakao") //카카오 로그인
 	public String kakaologin(String code, Model model) throws Exception {
-		
+
 		KakaoAPIService ka = new KakaoAPIService();
 		String access_Token = ka.getAccessToken(code);
 
@@ -283,20 +276,18 @@ public class MemberController {
 	}
 
 	@RequestMapping("/naver")
-	public String naver(HttpServletResponse rep) throws IOException, URISyntaxException {
+	public String naver(HttpServletResponse rep) throws IOException, URISyntaxException, Exception {
+		System.out.println("왜 안 넘어오지요?");
 		
-		System.out.println("1");
-
-		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naser.getAuthorizationUrl(session);
-		System.out.println("2");
+
 		//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
 		//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
 		System.out.println("네이버:" + naverAuthUrl);
 
 		//네이버 
 		//   model.addAttribute("url", naverAuthUrl);	
-
+		System.out.println("무시하고 리다이렉트?!");
 		return "redirect:"+naverAuthUrl;
 
 	}
@@ -336,47 +327,146 @@ public class MemberController {
 		return "/";
 	}
 
-	@RequestMapping("/myInfo")
-	public String mypage() {
 
-		return "/member/myinfo";
-	}
-
-	
 	@RequestMapping("/logout") //로그아웃
 	public String logout() {
+		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
+		int type = dto.getMem_join_type();
+		
+		
+		
+		if(type == 1) {
+			session.invalidate();
+			return "redirect:/";
+		}else if(type == 2) {
+		
+			KakaoAPIService ka = new KakaoAPIService();
+			ka.kakaoLogout((String)session.getAttribute("access_Token"));
+			
+			
+			session.invalidate();			
+			return "redirect:/";
+		}
 		
 		session.invalidate();
 		return "redirect:/";
-		
+		 
 	}
-	
-	
-	@RequestMapping("/withdraw") //회원탈퇴
-	public String withdraw(String id) {
+
+
+	@RequestMapping(value ="/withdraw",  method = RequestMethod.GET) //회원탈퇴
+	public String withdraw() throws Exception {
+		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
+		String id = dto.getMem_id();
+		int type = dto.getMem_join_type();
 		
-		mservice.withdraw(id);
 		
+		if(type == 1) {
+			mservice.withdraw(id);
+			session.invalidate();
+			return "redirect:/";
+			
+		}else if(type == 2) {
+			
+			KakaoAPIService ka = new KakaoAPIService();
+			
+			mservice.withdraw(id);
+			 ka.kakaoWithdraw((String)session.getAttribute("access_Token"));
+			 session.invalidate();
+			return "redirect:/";
+		}
+		
+		 session.invalidate();
 		return "redirect:/";
+		
+
+	}	
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////마이페이지로 갈 내용
+
+	@RequestMapping("/myInfo")
+	public String mypage() {
+
+		MemberDTO mdto = (MemberDTO)session.getAttribute("loginInfo");
+		int type = mdto.getMem_join_type();
+
+		if(type == 1) {
+
+			return "/member/myinfo";
+		}
+
+		return "/member/sns_myinfo";
+
+
 	}
 	
 
-	//예외오류처리.
-	@ExceptionHandler
-	public String exceptionHandler(Exception e) {		
-		System.out.println("Exception Handler : 에러가 발생했습니다.");
-		return "error";
-	}
+	@RequestMapping("/myInfo_modifys")
+	public String myInfo_modify() {
 
-	@ExceptionHandler
-	public String exceptionHandler(NumberFormatException e) {		
-		System.out.println("NFException Handler : 에러가 발생했습니다.");
-		return "error";
+		
+		return "member/myInfo_modify";
+
 	}
-	@ExceptionHandler
-	public String exceptionHandler(NullPointerException e) {		
-		System.out.println("NULLException Handler : 에러가 발생했습니다.");
-		return "error";
+	
+	@RequestMapping("/myInfo_modify_sns")
+	public String myInfo_modify_sns() {
+
+		
+		return "member/sns_myInfo_modify";
+
 	}
+	
+	
+	
+	
+	
+	@RequestMapping("/myinfoProc")
+	public String myinfoProc(MemberDTO mdto) throws Exception {
+		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+			
+		int type = mdto.getMem_join_type();
+		String mail = mdto.getMem_email(); //받아온 메일 
+		String ori_mail = dto.getMem_email(); //세션저장
+		String id = mdto.getMem_id();
+		
+		
+		if(type == 1) { //일반 가입 수정
+			if(!mail.contentEquals(ori_mail)) {
+				
+				System.out.println("메일 수정함");
+				mservice.myinfo_email(mdto);
+				mdto = mservice.loginInfo(id);
+				session.setAttribute("loginInfo", mdto);
+				return "redirect:/member/logout";
+					
+
+			}else {
+				System.out.println("메일 수정 안함");
+				mservice.myinfo_modify(mdto);
+				
+				mdto = mservice.loginInfo(id);				
+				session.setAttribute("loginInfo", mdto);
+				return "/member/myinfo"; 
+					
+				
+			}
+			
+			
+		}
+		
+		//SNS로그인 가입 수정
+		mservice.myinfo_sns(mdto);
+		mdto = mservice.loginInfo(id);
+		session.setAttribute("loginInfo", mdto);
+		return "/member/myinfo"; 
+		
+
+
+	}
+	
+	
+	
+	
+
 }

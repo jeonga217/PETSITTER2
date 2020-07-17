@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +7,7 @@
 <title>Browse &mdash; Free Website Template by Free-Template.co</title>
 <meta charset="UTF-8">
 <meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <meta name="description" content="" />
 <meta name="keywords" content="" />
@@ -16,22 +16,23 @@
 <link rel="shortcut icon" href="ftco-32x32.png">
 
 <link href="https://fonts.googleapis.com/css?family=Rubik:400,700"
-   rel="stylesheet">
+	rel="stylesheet">
 
 <link rel="stylesheet" href="resources/main/fonts/icomoon/style.css">
 
 <link rel="stylesheet" href="resources/main/css/bootstrap.min.css">
 <link rel="stylesheet" href="resources/main/css/magnific-popup.css">
+
 <link rel="stylesheet" href="resources/main/css/jquery-ui.css">
 <link rel="stylesheet" href="resources/main/css/owl.carousel.min.css">
 <link rel="stylesheet"
-   href="resources/main/css/owl.theme.default.min.css">
+	href="resources/main/css/owl.theme.default.min.css">
 
 <link rel="stylesheet"
-   href="resources/main/css/bootstrap-datepicker.css">
+	href="resources/main/css/bootstrap-datepicker.css">
 
 <link rel="stylesheet"
-   href="resources/main/fonts/flaticon/font/flaticon.css">
+	href="resources/main/fonts/flaticon/font/flaticon.css">
 
 <link rel="stylesheet" href="resources/main/css/aos.css">
 <link rel="stylesheet" href="resources/main/css/rangeslider.css">
@@ -39,30 +40,32 @@
 <link rel="stylesheet" href="resources/main/css/style.css">
 
 <link href="/resources/mb/icofont/icofont.min.css" rel="stylesheet">
-<link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+<link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'
+	rel='stylesheet'>
 <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <!--===============================================================================================-->
 <link rel="stylesheet"
-   href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet"
-   href="/resources/member/vendor/animate/animate.css">
+	href="/resources/member/vendor/animate/animate.css">
 <!--===============================================================================================-->
 <link rel="stylesheet"
-   href="/resources/member/vendor/css-hamburgers/hamburgers.min.css">
+	href="/resources/member/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet"
-   href="/resources/member/vendor/animsition/css/animsition.min.css">
+	href="/resources/member/vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet"
-   href="/resources/member/vendor/select2/select2.min.css">
+	href="/resources/member/vendor/select2/select2.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet"
-   href="/resources/member/vendor/daterangepicker/daterangepicker.css">
+	href="/resources/member/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" href="/resources/member/css/util.css">
 <link rel="stylesheet" href="/resources/member/css/main.css">
@@ -107,13 +110,13 @@
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
 										<li><a href="/admin/adminindex"><span>팀소개</span></a></li>
 										<li><a href="#introduce"><span>서비스소개</span></a></li>
-										<li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
+										<li><a data-toggle="modal" href="#login1"><span>로그인</span></a></li>
 										<li><a href="/member/signup"><span>회원가입</span></a></li>
 									</ul>
 								</nav>
 							</div>
 							<!-- 로그인-->
-							<div class="modal fade" id="login" data-keyboard="false"
+							<div class="modal fade" id="login1" data-keyboard="false"
 								tabindex="-1" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -157,7 +160,7 @@
 
 
 															<div class="container-login100-form-btn">
-																<button class="login100-form-btn" type="submit">Login</button>
+																<button class="login100-form-btn" type="button"  id="login">Login</button>
 															</div>
 															<div class="text-center p-t-46 p-b-20">
 																<span class="txt2"> OR SNS LOGIN </span>
@@ -514,7 +517,7 @@
 
 	<script src="resources/main/js/typed.js"></script>
 	<script>
-$("#login").on("submit",function(){	
+$("#login").on("click",function(){	
 		
 		var queryString = $("form[name=loginProc]").serialize();
 		$.ajax({
@@ -527,7 +530,7 @@ $("#login").on("submit",function(){
 				var check = data.result;
 				console.log(check);
 				if(check == 0 ){
-					alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');					
+					alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');
 				}
 				else if(check == 1){
 					alert('ID 또는 비밀번호를 확인하세요.');
