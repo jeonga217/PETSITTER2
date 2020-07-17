@@ -360,11 +360,6 @@ public class MemberController {
 		return "redirect:/";	
 	}
 
-<<<<<<< HEAD
-	
-	}
-=======
-
 }
->>>>>>> 04b1015d7d19e825c29cbdc7e5dc23bbd87e1d6d
+
 
