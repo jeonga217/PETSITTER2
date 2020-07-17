@@ -941,7 +941,6 @@ ul>li, input {
 										<c:when test="${sessionScope.loginInfo.mem_id == tot_Info.psb_writer}">
 											<div style="padding:10px;display:inline-block;">
 												<button type="button" id="update" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">수정하기</button>
-												a
 											</div>
 											<div style="padding:10px;display:inline-block;">
 												<button type="button" id="delete" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">삭제하기</button>
