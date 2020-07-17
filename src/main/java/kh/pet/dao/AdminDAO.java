@@ -141,12 +141,16 @@ public class AdminDAO {
 		return mybatis.selectOne("Admin.re_memboardCount");
 	}
 	
+	public int re_psCount() {
+		return mybatis.selectOne("Admin.re_pscount");
+	}
+	
 	public int accept_memboard(Map<String, String> seq) {
 		return mybatis.update("Admin.accept_mem_board",seq);
 	}
 	
-	public List<WaitlistDTO> re_psboard(){
-		return mybatis.selectList("Admin.repsboard");
+	public List<WaitlistDTO> re_psboard(Map<String, Integer> map){
+		return mybatis.selectList("Admin.repsboard",map);
 	}
 	
 	public int cancel_memboard(String seq) {
