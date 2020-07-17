@@ -147,8 +147,8 @@ public class MypageController {
 			MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
 			System.out.println("현재페이지:" + cpage);
 			MemberDTO dtos = (MemberDTO)session.getAttribute("loginInfo");
-			useservice.usestate(dtos.getMem_id());
 			List<Mypage_UseTableDTO> bdto = useservice.selectByPageNo(cpage, dto.getMem_id(), "usecontent");
+			useservice.usestate(dtos.getMem_id(), bdto);
 			
 			String navi = useservice.getPageNavi(cpage, "usecontent");
 			request.setAttribute("navi", navi);
