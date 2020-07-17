@@ -462,13 +462,17 @@ ul>li, input {
 	
     <c:choose>
     	<c:when test="${tot_Info.psb_boardstatus == 'stop'}">
-		    <div class="site-section bg-light">
+	    	<div class="site-section bg-light">
 				<div class="container">
-					<div class="row justify-content-center mb-5">
-						<div class="col-md-7 text-center border-primary">
-							<h4 class="font-weight-light text-info">기간이 지난 게시물입니다.</h4>
+					<div class="d-block d-md-flex listing-horizontal">
+						<div class="lh-content" style="text-align:center;">
+							<h4 class="font-weight-light text-info">기간이 지난 게시글입니다.</h4>
+							
 						</div>
 					</div>
+				</div>
+				<div class="btns" style="text-align:center;">
+					<button id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
 				</div>
 			</div>
     	</c:when>

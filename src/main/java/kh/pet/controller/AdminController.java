@@ -48,17 +48,17 @@ public class AdminController {
 
 	@Autowired
 	private HttpSession session;
-	
+
 	@Autowired
 	private PetsitterboardService sitter_service;
-	
+
 	@Autowired
 	private MessageService message_service;
-	
+
 	@Autowired
 	private MemberService member_service;
-		
-	
+
+
 	@RequestMapping("adminindex")
 	public String go_admin_main(Model m,Integer cpage) {
 		if(cpage == null) {
@@ -69,24 +69,24 @@ public class AdminController {
 		String navi = admin_service.PagNavi(cpage,"main");
 		m.addAttribute("memberlist",mdto);	
 		m.addAttribute("navi",navi);
-		
+
 		//일일 방문자 차트
 		List<Visitor_countDTO> be_visiter = admin_service.be_visitor();
 		List<Visitor_countDTO> to_visiter = admin_service.to_visitor();
 		m.addAttribute("to_visitor",to_visiter);
 		m.addAttribute("be_visitor",be_visiter);
-		
-		
+
+
 		return "admin/index";
 	}
 
 	//예약 관리
-	
+
 	@RequestMapping("reservation")
 	public String go_admin_reservation() {
 		return "admin/reservation_management";
 	}
-	
+
 	@RequestMapping("re_select")
 	public String re_board_select(String boardtype,Model m,Integer cpage) {
 		if(cpage == null) {
@@ -98,12 +98,16 @@ public class AdminController {
 			m.addAttribute("list", list);
 			m.addAttribute("navi", navi);
 		}else if(boardtype.contentEquals("ps")) {
-			List<WaitlistDTO> list = admin_service.re_psboard();
+			List<WaitlistDTO> list = admin_service.re_psboard(cpage);
+			String navi = admin_service.PagNavi(cpage, boardtype);
 			m.addAttribute("list", list);
+			m.addAttribute("navi", navi);
 		}
 		session.setAttribute("boardtype", boardtype);
 		return "admin/reservation_management";
 	}
+
+	
 	
 	@RequestMapping("accept_memboard")
 	public void accept_memboard(MemboardDto dto, HttpServletResponse response) {
@@ -113,10 +117,10 @@ public class AdminController {
 		try {
 			response.getWriter().append(jobj.toString());
 		} catch (Exception e) {
-			
+
 		}
 	}
-	
+
 	@RequestMapping("cancel_memboard")
 	public void cancel_memboard(MemboardDto dto, HttpServletResponse response) {
 		int re = admin_service.cancel_memboard(dto);
@@ -125,11 +129,11 @@ public class AdminController {
 		try {
 			response.getWriter().append(jobj.toString());
 		} catch (Exception e) {
-			
+
 		}
 	}
-	
-	
+
+
 	@RequestMapping("accept_petboard")
 	public void accept_petboard(int wait_seq,HttpServletResponse response) {
 		int re = admin_service.accept_petsitter(wait_seq);
@@ -138,10 +142,10 @@ public class AdminController {
 		try {
 			response.getWriter().append(jobj.toString());
 		} catch (Exception e) {
-			
+
 		}
 	}
-	
+
 	@RequestMapping("cancel_patsitter")
 	public void cancel_petboard(int wait_seq,HttpServletResponse response) {
 		int re = admin_service.cancel_petsitter(wait_seq);
@@ -150,11 +154,11 @@ public class AdminController {
 		try {
 			response.getWriter().append(jobj.toString());
 		} catch (Exception e) {
-			
+
 		}
 	}
-	
-	
+
+
 
 	//펫 시터 신청서 관리
 	@RequestMapping("petsiter")
@@ -189,7 +193,7 @@ public class AdminController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@RequestMapping("cencel")
 	public void petcencel(String id,HttpServletResponse response) {
 		int re = admin_service.petcencel(id);
@@ -210,7 +214,7 @@ public class AdminController {
 
 
 	//회원 정보 관리
-	
+
 	@RequestMapping("member")
 	public String go_admin_member(Integer cpage,Model m) {
 		if(cpage == null) {
@@ -222,7 +226,7 @@ public class AdminController {
 		m.addAttribute("memberlist",mdto);
 		return "admin/member_management";
 	}
-	
+
 	@RequestMapping("message")
 	public void admin_message(MessageDTO dto,HttpServletResponse response) throws Exception{
 		dto.setMsg_sender("관리자");
@@ -231,7 +235,7 @@ public class AdminController {
 		jobj.put("re", re );
 		response.getWriter().append(jobj.toString());
 	}
-	
+
 	@RequestMapping("mem_stop")
 	public void member_stop(Stop_memberDTO dto,HttpServletResponse response) throws Exception {
 		int re = admin_service.stop_mem(dto);
@@ -252,7 +256,7 @@ public class AdminController {
 		String navi = admin_service.PagNavi(cpage,"black");
 		m.addAttribute("memberlist",mdto);	
 		m.addAttribute("navi",navi);
-		
+
 		return "admin/blacklist";
 	}
 
@@ -273,7 +277,7 @@ public class AdminController {
 			List<MemboardDto> boardlist = admin_service.m_board(boardtype, cpage);
 			navi = admin_service.PagNavi(cpage, boardtype);
 			m.addAttribute("list", boardlist);
-			
+
 		}else if(boardtype.contentEquals("petsitter_board")) {
 			List<PetsitterboardDTO> boardlist = admin_service.p_board(boardtype, cpage);
 			navi = admin_service.PagNavi(cpage, boardtype);
@@ -286,13 +290,13 @@ public class AdminController {
 
 			m.addAttribute("list", boardlist);
 		}
-		
+
 		m.addAttribute("navi",navi);
 		session.setAttribute("boardtype", boardtype);
 		return "admin/board_management";
 	}
-	
-	
+
+
 
 	@RequestMapping("boardblack")
 	public void boardblack(String state, String seq,HttpServletResponse response) {
@@ -320,20 +324,20 @@ public class AdminController {
 	public String go_admin_cash() {
 		return "admin/cash_management";
 	}
-	
+
 	//관리자 패스워드 변경
 	@RequestMapping("pass")
 	public String go_admin_pass() {
 		return "admin/admin_pasword";
 	}
-	
+
 	@RequestMapping("admin_password")
 	public String admin_password(String pass){
 		String pw = member_service.getSHA512(pass);
 		admin_service.admin_password(pw);
 		return "admin/admin_pasword";
 	}
-	
+
 	//관리자 메세지 관리
 	@RequestMapping("mess")
 	public String go_admin_mess(Integer cpage,Model m) {

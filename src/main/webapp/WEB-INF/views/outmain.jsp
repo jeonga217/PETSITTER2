@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -208,8 +209,8 @@
 
 										<li><a href="/member/login"><span>포인트 충전소<i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
 										<li><a href="/mypage/mypage"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
-										<li><a href="/message/recievelist" onclick="window.open(this.href,'_blank','width=600, height=600, scrollbars=yes'); return false;">메세지<i
-												class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></a></li>
+										<li><a href="/message/recievelist" onclick="window.open(this.href,'_blank','width=600, height=600, scrollbars=yes'); return false;"><span>메세지<i
+												class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></span></a></li>
 
 										<li><a href="/member/logout"><span>LOGOUT</span></a></li>
 									</ul>
@@ -221,7 +222,7 @@
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
 										<li><a href="/admin/adminindex"><span
 												style="font-size: 20px">팀 소개</span></a></li>
-										<li><a href="/mb/mb_board?cpage=1"><span
+										<li><a href="/mb/mb_board"><span
 												style="font-size: 20px">방문 돌봄</span></a></li>
 										<li><a href="/board/outputList"><span
 												style="font-size: 20px">위탁 돌봄</span></a></li>
@@ -532,10 +533,7 @@ $("#login").on("click",function(){
 
 				}
 				else if(check == 1){
-					alert('ID 또는 비밀번호를 확인하세요.');
-					location.reload();
-
-				
+					alert('ID 또는 비밀번호를 확인하세요.');				
 				}else{
 					location.reload();
 				}		
@@ -554,24 +552,19 @@ $("#login").on("click",function(){
 			loop : true,
 			showCursor : true
 		});
-			
-		
-    $("#register_btn").on("click",function(){
-       if(${sessionScope.loginInfo.mem_type == '2'}){
-          alert("이미 펫시터로 활동 중입니다. 마이페이지로 이동합니다.");
-          location.href="/petsitter/outputSingle";
-       } else if(${sessionScope.loginInfo.mem_type == '1'}){
-          location.href="/petsitter/petsitter_register_form";
-       } else if(${empty sessionScope.loginInfo.mem_type}){
-          alert("로그인 / 회원가입 후 지원해주세요.");
-          location.href="/member/login";
-       }
-     });
 
+			
+	    $("#register_btn").on("click",function(){
+	       if(${sessionScope.loginInfo.mem_type == '2'}){
+	          alert("이미 펫시터로 활동 중입니다. 마이페이지로 이동합니다.");
+	          location.href="/petsitter/outputSingle";
+	       } else if(${sessionScope.loginInfo.mem_type == '1'}){
+	          location.href="/petsitter/petsitter_register_form";
+	       } 
+	     });
 			
 	</script>
 
 	<script src="resources/main/js/main.js"></script>
 </body>
-
 </html>

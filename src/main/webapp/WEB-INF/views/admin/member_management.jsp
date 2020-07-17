@@ -34,8 +34,8 @@
                         <input type="button" class="btn btn-outline-primary" value="닫기" id="navmenuoff" style="display: none">
                     </div>
                     <div class="col" style="text-align: right;">
-                        <button class="btn btn-outline-primary">홈으로</button>
-                        <button class="btn btn-outline-primary">로그 아웃</button>
+                        <button class="btn btn-outline-primary home">홈으로</button>
+                        <button class="btn btn-outline-primary logout">로그 아웃</button>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@
 		                                   	<div class="col-4 col-lg">${i.mem_warning}</div>
 		                                   	<div class="d-none d-lg-block col-lg">
 		                                   		<c:choose>
-		                                   			<c:when test="${i.mem_status eq 'no'}">
+		                                   			<c:when test="${i.mem_status eq 'YES'}">
 		                                   				통상
 		                                   			</c:when>
 		                                   			<c:when test="${i.mem_status eq 'black'}">

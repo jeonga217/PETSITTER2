@@ -217,6 +217,11 @@ public class MypageController {
 		petmodfiy.modfiy(dto, img);
 		response.sendRedirect("list");
 	}
+	
+	@RequestMapping("report")
+	public String report()throws Exception {
+		return "/mypage/mypage-report";
+	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////mypage Info, modify
 

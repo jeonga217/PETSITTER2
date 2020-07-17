@@ -51,14 +51,18 @@ public class Mb_boardController {
 				petname.add(PetNameArr);
 			}
 		}
-
-		for(Mypet_regDTO a: list) {
-			System.out.println("a"+a.getPet_name());
+		List<String> tmp = new ArrayList<String>();
+		for(Mypet_regDTO petall : list) {
+			tmp.add(petall.getPet_name());
 		}
-		for(String b: petname) {
-			System.out.println("b"+b);
+		
+		
+		for(String petboard: petname) {
+			tmp.remove(petboard);
 		}
-		m.addAttribute("petname",petname);
+		
+		
+		m.addAttribute("tmp",tmp);
 		m.addAttribute("list", list);
 		m.addAttribute("add", add);
 		return "mb_board/board_register";
@@ -200,10 +204,20 @@ public class Mb_boardController {
 				}
 			}
 		}
-
+		
+		List<String> tmp = new ArrayList<String>();
+		for(Mypet_regDTO petall : list) {
+			tmp.add(petall.getPet_name());
+		}
+		
+		
+		for(String petboard: petexc) {
+			System.out.println("a"+petboard);
+			tmp.remove(petboard);
+		}
 
 		String add = service.addselec(modlist.getMb_writer());
-		m.addAttribute("petexc",petexc);
+		m.addAttribute("tmp",tmp);
 		m.addAttribute("list", list);
 		m.addAttribute("add", add);	
 		m.addAttribute("modlist", modlist);	
@@ -249,7 +263,7 @@ public class Mb_boardController {
 		return "redirect:mb_board";
 	}
 
-	
 
-	
+
+
 }

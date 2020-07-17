@@ -34,8 +34,8 @@
 						type="button" value="닫기" id="navmenuoff" style="display: none">
 				</div>
 				<div class="col" style="text-align: right;">
-					<button class="btn btn-outline-primary">홈으로</button>
-					<button class="btn btn-outline-primary">로그 아웃</button>
+					<button class="btn btn-outline-primary home">홈으로</button>
+                        <button class="btn btn-outline-primary logout">로그 아웃</button>
 				</div>
 			</div>
 		</div>
@@ -134,7 +134,7 @@
 													<div class="col-4 col-md booker">${i.mb_booker}</div>
 													<div class="col-6 col-md point">${i.mb_point}</div>
 													<div class="col-6 col-md">
-														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_accept"> 
+														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_accept" id="${i.mb_seq}"> 
 														<input type="button" value="거절" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_cancel">
 													</div>
 												</div>
@@ -145,7 +145,7 @@
 											<c:forEach var="i" items="${list}">
 												<div class="row">
 													<div class="ps" style="display: none;"></div>
-													<div class="col-4 col-md p_seq"><a href="" onclick="window.open(this.href,'_blank','width=600, height=720, scrollbars=yes'); return false;">${i.board_seq}</a></div>
+													<div class="col-4 col-md p_seq"><a href="/board/board_confirmReserve?mem_id=${i.mem_id}" onclick="window.open(this.href,'_blank','width=600, height=720, scrollbars=yes'); return false;">${i.board_seq}</a></div>
 													<div class="col-4 col-md">${i.petsitter_id}</div>
 													<div class="col-4 col-md">${i.mem_id}</div>
 													<div class="col-6 col-md">${i.rsv_point}</div>
@@ -159,7 +159,7 @@
 										</c:when>
 									</c:choose>			
 								</div>
-								<div class="col-12">${navi}</div>
+								<div class="col-12" style="text-align: center">${navi}</div>
 							</div>
 						</div>
 					</div>

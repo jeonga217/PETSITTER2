@@ -225,8 +225,10 @@ public class PetsitterboardController {
 	}
 	
 	@RequestMapping("/board_confirmReserve")
-	public String board_confirmReserve(Model model)throws Exception{
-		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+	public String board_confirmReserve(Model model,String mem_id)throws Exception{
+		if(mem_id == null) {
+			mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+		}
 		WaitlistDTO wldto = psbservice.selectWaitlist(mem_id);
 		model.addAttribute("waitlist",wldto);
 		return "petsitter_board/board/board_confirmReserve";

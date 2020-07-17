@@ -28,8 +28,8 @@
                         <input class="btn btn-outline-primary" type="button" value="닫기" id="navmenuoff" style="display: none">
                     </div>
                     <div class="col" style="text-align: right;">
-                        <button class="btn btn-outline-primary">홈으로</button>
-                        <button class="btn btn-outline-primary">로그 아웃</button>
+                        <button class="btn btn-outline-primary home">홈으로</button>
+                        <button class="btn btn-outline-primary logout">로그 아웃</button>
                     </div>
                 </div>
             </div>

@@ -203,15 +203,15 @@
 
 								<div class="lh-content">
 									<div class="pet">
-										<c:forEach var="j" items="${petexc}">
+										<c:forEach var="j" items="${tmp}">
 											<c:forEach items="${list}" var="i">
-											<c:if test="${i.pet_name ne j}">
-												<input type="hidden" name="mb_petphoto" id="petphoto">
-												<input type="checkbox" data-imgsrc="${i.pet_photo}"
-													class="petname" name="mb_pet_name" id="${i.pet_name}"
-													value="${i.pet_name}" />
-												<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
-											</c:if>
+												<c:if test="${i.pet_name eq j}">
+													<input type="hidden" name="mb_petphoto" id="petphoto">
+													<input type="checkbox" data-imgsrc="${i.pet_photo}"
+														class="petname" name="mb_pet_name" id="${i.pet_name}"
+														value="${i.pet_name}" />
+													<label for="${i.pet_name}"><span></span>${i.pet_name}</label>
+												</c:if>
 											</c:forEach>
 										</c:forEach>
 									</div>
