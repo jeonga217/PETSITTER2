@@ -86,12 +86,12 @@
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
 										<li><a href="/admin/adminindex"><span>팀소개</span></a></li>
 										<li><a href="#introduce"><span>서비스소개</span></a></li>
-										<li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
+										<li><a data-toggle="modal" href="#login1"><span>로그인</span></a></li>
 										<li><a href="/member/signup"><span>회원가입</span></a></li>
 									</ul>
 								</nav>
 							</div>
-									<div class="modal fade" id="login" data-keyboard="false"
+									<div class="modal fade" id="login1" data-keyboard="false"
 								tabindex="-1" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -135,7 +135,7 @@
 
 
 															<div class="container-login100-form-btn">
-																<button class="login100-form-btn" type="submit">Login</button>
+																<button class="login100-form-btn"  type="button" id="login">Login</button>
 															</div>
 															<div class="text-center p-t-46 p-b-20">
 																<span class="txt2"> OR SNS LOGIN </span>

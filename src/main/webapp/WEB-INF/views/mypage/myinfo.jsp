@@ -138,7 +138,7 @@ float: right;
 
 <body>
 
-	<jsp:include page="/WEB-INF/views/member/signup_head.jsp" />
+<jsp:include page="/WEB-INF/views/mypage/myinfo_header.jsp" />
 	<div class="container">
 		<div class="wrap col-8" style="margin-top: 80px;">
 			<div class="row header">
@@ -239,16 +239,8 @@ float: right;
 			})
 			
 			
-		})
-		
-	
-	
-	
+		})	
 	
 	</script>
-
-
-
-
 </body>
 </html>

@@ -406,6 +406,7 @@ i {
 			}
 		});
 	</script>
+
 	<script>
 		document.getElementById("signup").onclick = function() {
 
@@ -471,6 +472,37 @@ i {
 		}
 		
 		
+	</script>
+	<script>
+$("#login").on("click",function(){	
+		
+		var queryString = $("form[name=loginProc]").serialize();
+		$.ajax({
+			type: "POST",
+			url: "/member/loginProc",
+			cache: false,
+			data : queryString,
+			dataType : "json",
+			success: function(data){
+				var check = data.result;
+				
+				if(check == 0 ){
+					alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');				
+					location.href="/";
+
+				}
+				else if(check == 1){
+					alert('ID 또는 비밀번호를 확인하세요.');
+					return false;
+
+				
+				}else{
+					location.href="/";
+				}		
+			}	
+		});
+	})
+	
 	</script>
 
 

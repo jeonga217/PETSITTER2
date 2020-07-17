@@ -123,7 +123,8 @@
 					</div>
 					<div class="row form-group">
 						<div class="col-md-12">
-							<button type="button" id="findpw" class="btn btn1">비밀번호 재설정</button>
+							<button type="button" id="findpw" class="btn btn1">비밀번호
+								재설정</button>
 						</div>
 					</div>
 
@@ -133,11 +134,15 @@
 	</div>
 	<jsp:include page="/WEB-INF/views/member/footer.jsp" />
 	<script>
-		$("#findid").on("click",
-							function() {
+		$("#findid")
+				.on(
+						"click",
+						function() {
 							var email = $("#email1").val();
 
-							$.ajax({	url : "/member/findIdProc",
+							$
+									.ajax({
+										url : "/member/findIdProc",
 										type : "post",
 										dataType : "json",
 										data : {
@@ -150,7 +155,9 @@
 
 												$("#yourid")
 														.html(
-																"<p>당신의 아이디는 <span id=strong>"+ id + "</span> 입니다.")
+																"<p>당신의 아이디는 <span id=strong>"
+																		+ id
+																		+ "</span> 입니다.")
 												$("#email1").val("");
 
 											} else if (id == null) {
@@ -170,14 +177,19 @@
 									})
 						}); //아이디 찾기
 
-		$("#findpw").on("click",function() {
+		$("#findpw")
+				.on(
+						"click",
+						function() {
 							var email = $("#email2").val()
 							var id = $("#id").val()
 
 							if ((id != null && id != "")
 									&& (email != null && email != "")) {
 
-								$.ajax({ url : "/member/findPwProc",
+								$
+										.ajax({
+											url : "/member/findPwProc",
 											type : "post",
 											dataType : "json",
 											data : {
@@ -200,7 +212,34 @@
 							}
 
 						}); //비번찾기
-	
+	</script>
+	<script>
+		$("#login").on("click", function() {
+
+			var queryString = $("form[name=loginProc]").serialize();
+			$.ajax({
+				type : "POST",
+				url : "/member/loginProc",
+				cache : false,
+				data : queryString,
+				dataType : "json",
+				success : function(data) {
+					var check = data.result;
+
+					if (check == 0) {
+						alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');
+						location.href = "/";
+
+					} else if (check == 1) {
+						alert('ID 또는 비밀번호를 확인하세요.');
+						return false;
+
+					} else {
+						location.href = "/";
+					}
+				}
+			});
+		})
 	</script>
 
 

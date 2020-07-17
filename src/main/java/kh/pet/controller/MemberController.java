@@ -158,7 +158,7 @@ public class MemberController {
 		JSONObject jobj = new JSONObject();
 
 		String pw1 = mservice.getSHA512(mem_pw);
-		System.out.println(pw1);
+		
 	
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", mem_id);
