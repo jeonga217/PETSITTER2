@@ -139,6 +139,8 @@ ul>li, input {
 			$(".comment-list").on("click",".delete_review",function(){
 				var result = confirm("리뷰를 삭제하시겠습니까?");
 				
+				
+				
 				var seq = $(this).attr("seq");
 				if(result){
 					//삭제로직
