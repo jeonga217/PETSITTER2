@@ -173,13 +173,13 @@ td {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="i" items="${bdto}" varStatus="status">
+										<c:forEach var="i" items="${bdto}">
 											<tr>
 												<td>${i.reserve_day}
 												<td>${i.start_day}~${i.end_day}
 												<td>${i.reserve_point}
 												<td>${i.reserve_seq}
-												<td>${list.get(status.index)}
+												<td>${i.status}
 											</tr>
 										</c:forEach>
 									</tbody>
