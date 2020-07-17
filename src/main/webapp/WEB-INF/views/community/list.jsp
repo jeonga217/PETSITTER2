@@ -165,7 +165,7 @@ RSS Feed: https://feeds.feedburner.com/Free-templateco
             
 
 				<div class="col-12">
-					<a href="/community/write?cu_writer=${id}" class="btn btn-primary btn-md text-white">글쓰기</a>
+					<a href="/community/write?cu_writer=${loginInfo.mem_id}" class="btn btn-primary btn-md text-white">글쓰기</a>
 				</div>
 	
 

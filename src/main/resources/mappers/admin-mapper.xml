@@ -62,7 +62,7 @@
 	
 	<!-- black member  -->
 	<select id="blackmem" resultType="kh.pet.dto.MemberDTO">
-	 	select * from (select member.* , row_number() over(order by MEM_JOIN_DATE desc)rnum from member where mem_status = 'black') where rnum between ${start} and ${end}
+	 	select * from (select member.* , row_number() over(order by MEM_JOIN_DATE desc)rnum  from member where mem_status = 'black') where rnum between ${start} and ${end}
 	</select>
 	
 	<select id="black_membercount" resultType="int">
@@ -121,8 +121,12 @@
 	<!--status  -->
 	
 	<select id="rememboard" resultType="kh.pet.dto.MemboardDto">
-		select * from mem_board where mb_restatus='yes' and mb_RESERVE_num ='null'
+		select * from (select mem_board.* , row_number() over(order by mb_seq desc)rnum from mem_board where mb_restatus='yes' and mb_RESERVE_num ='null' ) where rnum between ${start} and ${end}
 	</select>
+	
+	<select id="re_memboardCount" resultType="int">
+		select count(*) from mem_board where mb_restatus='yes' and mb_RESERVE_num ='null'
+ 	</select>
 	
 	<update id="accept_mem_board">
 		update mem_board set mb_RESERVE_num = #{seq} where mb_seq = #{p_seq}
@@ -149,6 +153,10 @@
 		delete from waitlist where wait_seq = #{value}
 	</delete>
 	
+	<update id="petsitter_time">
+		update petsitter_board set psb_boardstatus = 'stop' where psb_start_day <![CDATA[<]]> sysdate;
+	</update>
+	
 	
 	
 	<!--chart information  -->
@@ -172,7 +180,14 @@
 	
 	
 	<!--admin message  -->
-	<select id="recievemassagelist" resultType="kh.pet.dto.MessageDTO" resultMap="recievemessage">
-		select * from (select recieve_message.* , row_number() over(order by rmsg_seq desc)rnum from recieve_message where mem_id = '관리자' ) where rnum between ${start} and ${end}
+	<select id="admin_messagelist" resultType="kh.pet.dto.MessageDTO" resultMap="recievemessage">
+		select * from (select recieve_message.* , row_number() over(order by rmsg_seq desc)rnum from recieve_message where rmsg_reciever = '관리자' ) where rnum between ${start} and ${end}
 	</select>
+	
+	<select id="message_count" resultType="int">
+		select count(*) from recieve_message where rmsg_reciever = '관리자'
+	</select>
+	
+	
+	
 </mapper>

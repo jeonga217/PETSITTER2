@@ -41,8 +41,8 @@ public class MemberController {
 	private String apiResult = null;
 
 	JSONObject jobj = new JSONObject();
-	
-	
+
+
 	@ResponseBody
 	@RequestMapping("isExistId")
 	public String isExistId(String ps_id)throws Exception{
@@ -78,13 +78,13 @@ public class MemberController {
 
 	@RequestMapping(value = "/signupProc", method = RequestMethod.POST)
 	public void signupProc(MemberDTO mdto,HttpServletResponse rep) throws Exception{
-		
+
 		System.out.println("컨트롤러까지 오셨는지?");
 
 		if(mdto == null) {
 			jobj.put("result", 0 );
 			rep.getWriter().append(jobj.toString());
-				
+
 		}
 		mservice.signup(mdto);
 
@@ -92,56 +92,56 @@ public class MemberController {
 		rep.getWriter().append(jobj.toString());
 
 	}
-	
-	
+
+
 	@RequestMapping(value = "/sns_signupProc", method = RequestMethod.POST)
 	public void sns_signupProc(MemberDTO mdto,HttpServletResponse rep) throws Exception {
-		
+
 		System.out.println("여까지 못 오니?1");
-		
-		
+
+
 		if(mdto == null) {
 			jobj.put("result", 0 );
 			rep.getWriter().append(jobj.toString());
-				
+
 		}
-		
+
 		System.out.println(mdto.getMem_id());
-		
+
 		System.out.println("여까지 못 오니?2");
 		mservice.sns_signup(mdto);
 
 		jobj.put("result", 1);
 		rep.getWriter().append(jobj.toString());
-		
+
 	}
-	
+
 
 	@RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
 	public void emailConfirm(String authKey, String userid, HttpServletResponse response) throws IOException {
-	
+
 		int verify = mservice.verify(userid);
-		
+
 		if(verify > 0) {		
-			
+
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('이미 인증하셨습니다.'); location.href='/';</script>");
 			out.flush();
-			
-//			model.addAttribute("msg" , "이미 인증하셨습니다.");
-//			return "/member/emailconfirm"; 
+
+			//			model.addAttribute("msg" , "이미 인증하셨습니다.");
+			//			return "/member/emailconfirm"; 
 		}
 
 		if(authKey == "" || userid == "" || (authKey == "" && userid == "")) {
-			
+
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('인증키가 잘못되었습니다. 다시 인증해 주세요'); location.href='/';</script>");
 			out.flush();
 
-//			model.addAttribute("msg", "인증키가 잘못되었습니다. 다시 인증해 주세요");			
-//			return "/member/emailconfirm";
+			//			model.addAttribute("msg", "인증키가 잘못되었습니다. 다시 인증해 주세요");			
+			//			return "/member/emailconfirm";
 		}
 
 		int result= mservice.emailConfirm(authKey, userid);		
@@ -151,16 +151,16 @@ public class MemberController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('잘못된 접근 입니다. 다시 인증해 주세요'); location.href='/';</script>");
 			out.flush();						
-			
-//			model.addAttribute("msg", "잘못된 접근 입니다. 다시 인증해 주세요");
-//			return "/member/emailconfirm";
+
+			//			model.addAttribute("msg", "잘못된 접근 입니다. 다시 인증해 주세요");
+			//			return "/member/emailconfirm";
 		}
-		
+
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<script>alert('인증 완료되었습니다. 로그인 후 이용 가능합니다.'); location.href='/';</script>");
 		out.flush();	
-		
+
 	}
 
 
@@ -178,7 +178,6 @@ public class MemberController {
 
 
 		boolean result = mservice.login(map);
-		System.out.println("3: "+result);
 
 		if(result) {
 
@@ -203,7 +202,7 @@ public class MemberController {
 			jobj.put("result", 1);
 			rep.getWriter().append(jobj.toString());
 		}
-		
+
 	}
 
 	//아이디 찾기 페이지 연결
@@ -252,7 +251,7 @@ public class MemberController {
 
 	@RequestMapping("/kakao") //카카오 로그인
 	public String kakaologin(String code, Model model) throws Exception {
-		
+
 		KakaoAPIService ka = new KakaoAPIService();
 		String access_Token = ka.getAccessToken(code);
 
@@ -285,7 +284,7 @@ public class MemberController {
 
 	@RequestMapping("/naver")
 	public String naver(HttpServletResponse rep) throws IOException, URISyntaxException {
-		
+
 		System.out.println("1");
 
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -343,24 +342,29 @@ public class MemberController {
 		return "/member/myinfo";
 	}
 
-	
+
 	@RequestMapping("/logout") //로그아웃
 	public String logout() {
-		
+
 		session.invalidate();
 		return "redirect:/";
-		
+
 	}
-	
-	
+
+
 	@RequestMapping("/withdraw") //회원탈퇴
 	public String withdraw(String id) {
-		
+
 		mservice.withdraw(id);
-		
+
 		return "redirect:/";	
 	}
 
+<<<<<<< HEAD
 	
 	}
+=======
+
+}
+>>>>>>> 04b1015d7d19e825c29cbdc7e5dc23bbd87e1d6d
 

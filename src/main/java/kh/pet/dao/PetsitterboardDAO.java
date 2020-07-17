@@ -147,5 +147,6 @@ public class PetsitterboardDAO {
 		param2.put("reservation_seq",reservation_seq);
 		param2.put("rsv_point",rsv_point);
 		return mybatis.update("Board.updateSysPoint",param2);
+
 	}
 }

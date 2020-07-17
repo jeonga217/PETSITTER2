@@ -50,7 +50,7 @@
 	</select>
 	
 	<select id="selectCnt" resultType="int">
-		select count(*) from petsitter_board where psb_writer = #{psb_writer}
+		select count(*) from petsitter_board where psb_writer = #{psb_writer} and psb_boardstatus = 'yes'
 	</select>
 
 	

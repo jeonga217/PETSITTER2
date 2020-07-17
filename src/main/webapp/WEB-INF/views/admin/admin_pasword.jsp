@@ -92,7 +92,7 @@
             <div class="rside col"><!--본문 용-->
                 <div class="row">
                     <div class="maintitle col-12">
-                        관리자 비밀번호 변경
+                        비밀번호 변경
                     </div>
                     <div class="maincontent col-12">
                         <div class="row">

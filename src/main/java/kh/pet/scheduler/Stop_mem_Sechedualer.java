@@ -13,12 +13,8 @@ public class Stop_mem_Sechedualer {
 	@Autowired
 	private AdminService service;
 
-	/*
-	 * @Scheduled(cron = "0 0 18 * * *")
-	 */
-	@Scheduled(cron = "0 */10 * * * ?")
+	@Scheduled(cron = "0 0 0 * * ?")
 	public void stop_count(){
-		System.out.println("count");
-		service.stop_scaduler();
+		service.petsitter_time();
 	}
 }

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/resources/main/css/style.css">
     
 <!-- CSS only -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/main/css/bootstrap.min.css">
 
   
   <div class="site-wrap">
@@ -70,7 +70,7 @@
 
   
 
-   <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/resources/images/pet3.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+   <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/resources/images/head3.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center text-center">
 
