@@ -562,10 +562,7 @@ $("#login").on("submit",function(){
 	          location.href="/petsitter/outputSingle";
 	       } else if(${sessionScope.loginInfo.mem_type == '1'}){
 	          location.href="/petsitter/petsitter_register_form";
-	       } else if(${empty sessionScope.loginInfo.mem_type}){
-	          alert("로그인 / 회원가입 후 지원해주세요.");
-	          location.href="/member/login";
-	       }
+	       } 
 	     });
 
 			
