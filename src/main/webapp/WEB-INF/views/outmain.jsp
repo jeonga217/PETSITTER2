@@ -123,13 +123,13 @@
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
 										<li><a href="/admin/adminindex"><span>팀소개</span></a></li>
 										<li><a href="#introduce"><span>서비스소개</span></a></li>
-										<li><a data-toggle="modal" href="#login"><span>로그인</span></a></li>
+										<li><a data-toggle="modal" href="#login1"><span>로그인</span></a></li>
 										<li><a href="/member/signup"><span>회원가입</span></a></li>
 									</ul>
 								</nav>
 							</div>
 							<!-- 로그인-->
-							<div class="modal fade" id="login" data-keyboard="false"
+							<div class="modal fade" id="login1" data-keyboard="false"
 								tabindex="-1" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -173,7 +173,7 @@
 
 
 															<div class="container-login100-form-btn">
-																<button class="login100-form-btn" type="submit">Login</button>
+																<button class="login100-form-btn" type="button" id="login">Login</button>
 															</div>
 															<div class="text-center p-t-46 p-b-20">
 																<span class="txt2"> OR SNS LOGIN </span>
@@ -207,7 +207,7 @@
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
 
 										<li><a href="/member/login"><span>포인트 충전소<i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
-										<li><a href="/member/login"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
+										<li><a href="/mypage/mypage"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
 										<li><a href="/message/recievelist" onclick="window.open(this.href,'_blank','width=600, height=600, scrollbars=yes'); return false;">메세지<i
 												class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></a></li>
 
@@ -514,7 +514,7 @@
 	<script src="resources/main/js/typed.js"></script>
 	<script>
 
-$("#login").on("submit",function(){	
+$("#login").on("click",function(){	
 		
 		var queryString = $("form[name=loginProc]").serialize();
 		$.ajax({
@@ -525,17 +525,14 @@ $("#login").on("submit",function(){
 			dataType : "json",
 			success: function(data){
 				var check = data.result;
-				console.log(check);
+				
 				if(check == 0 ){
 					alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');				
 					location.reload();
 
 				}
 				else if(check == 1){
-					alert('ID 또는 비밀번호를 확인하세요.');
-					location.reload();
-
-				
+					alert('ID 또는 비밀번호를 확인하세요.');				
 				}else{
 					location.reload();
 				}		
@@ -554,7 +551,7 @@ $("#login").on("submit",function(){
 			loop : true,
 			showCursor : true
 		});
-			
+
 			
 	    $("#register_btn").on("click",function(){
 	       if(${sessionScope.loginInfo.mem_type == '2'}){
@@ -564,10 +561,10 @@ $("#login").on("submit",function(){
 	          location.href="/petsitter/petsitter_register_form";
 	       } 
 	     });
-
 			
 	</script>
 
 	<script src="resources/main/js/main.js"></script>
 </body>
+
 </html>

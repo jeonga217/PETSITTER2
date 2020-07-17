@@ -139,6 +139,8 @@ ul>li, input {
 			$(".comment-list").on("click",".delete_review",function(){
 				var result = confirm("리뷰를 삭제하시겠습니까?");
 				
+				
+				
 				var seq = $(this).attr("seq");
 				if(result){
 					//삭제로직
@@ -645,7 +647,7 @@ ul>li, input {
 				                 
 				                  <div class="form-group">
 				                    <label for="rw_contents">Review</label>
-				                    <textarea id="rw_contents" cols="60" rows="5" class="form-control"></textarea>
+				                    <textarea id="rw_contents" cols="60" rows="5" class="form-control" style="resize: none;"></textarea>
 				                  </div>
 				                  
 				                  <div class="form-group" style="text-align:right">
@@ -836,7 +838,7 @@ ul>li, input {
 										예상 포인트<i class="icofont-money"></i>
 									</h3>
 									<div id="pricing" style="text-align: center">
-									<input type="text" name="rsv_point" id="rsv_point" value="">
+									<input type="text" name="rsv_point" id="rsv_point" value="" readonly="readonly">
 									<div data-brackets-id='33'
 		                              style="width: 100%; border-radius: 8px; border: 1px solid #DFE3EA; box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.07); padding: 15px 15px; margin-top: 38px; margin-bottom: 38px">
 		                              <div data-brackets-id='34'

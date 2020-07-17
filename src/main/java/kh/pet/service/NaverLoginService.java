@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -19,6 +20,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+@Service
 public class NaverLoginService {
 
 
@@ -31,7 +33,8 @@ public class NaverLoginService {
 
 	/* 네이버 아이디로 인증  URL 생성  Method */
 	public String getAuthorizationUrl(HttpSession session) {
-
+		
+		
 		/* 세션 유효성 검증을 위하여 난수를 생성 */
 		String state = generateRandomString();
 		/* 생성한 난수 값을 session에 저장 */
@@ -50,7 +53,7 @@ public class NaverLoginService {
 
 	/* 네이버아이디로 Callback 처리 및  AccessToken 획득 Method */
 	public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) throws IOException{
-
+		
 		/* Callback으로 전달받은 세선검증용 난수값과 세션에 저장되어있는 값이 일치하는지 확인 */
 		String sessionState = getSession(session);
 		if(StringUtils.pathEquals(sessionState, state)){
@@ -71,17 +74,20 @@ public class NaverLoginService {
 
 	/* 세션 유효성 검증을 위한 난수 생성기 */
 	private String generateRandomString() {
+		
 		SecureRandom random = new SecureRandom();
 		return new BigInteger(130, random).toString(32);
 	}
 
 	/* http session에 데이터 저장 */
 	private void setSession(HttpSession session,String state){
+		
 		session.setAttribute(SESSION_STATE, state);     
 	}
 
 	/* http session에서 데이터 가져오기 */ 
 	private String getSession(HttpSession session){
+		
 		return (String) session.getAttribute(SESSION_STATE);
 	}
 	
@@ -90,7 +96,7 @@ public class NaverLoginService {
 	/* Access Token을 이용하여 네이버 사용자 프로필 API를 호출 */
 	public HashMap<String, String> getUserProfile(OAuth2AccessToken oauthToken) throws IOException{
 		 HashMap<String, String> userInfo = new HashMap<>();
-		 System.out.println("여기까지 오나?2");
+		 
 		OAuth20Service oauthService =new ServiceBuilder()
 				.apiKey(CLIENT_ID)
 				.apiSecret(CLIENT_SECRET)
@@ -100,7 +106,7 @@ public class NaverLoginService {
 		oauthService.signRequest(oauthToken, request);
 		Response response = request.send();
 		String nlogininfo = response.getBody();
-		System.out.println("여기까지 오나?3");
+	
 		System.out.println(nlogininfo);
 		
 		JsonElement jel = JsonParser.parseString(nlogininfo);
@@ -108,9 +114,7 @@ public class NaverLoginService {
 		String id = naver_account.get("id").getAsString();
 		String email = naver_account.get("email").getAsString();
 		
-		System.out.println("id: "+id);
-		System.out.println("네이버 이메일: "+email);
-		
+				
 		userInfo.put("id", id);
 		userInfo.put("email", email);
 		

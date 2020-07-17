@@ -23,6 +23,7 @@ import kh.pet.dto.Stop_memberDTO;
 import kh.pet.dto.Visitor_countDTO;
 import kh.pet.dto.WaitlistDTO;
 import kh.pet.staticInfo.Admin_Configuration;
+import kh.pet.staticInfo.Log_Count;
 
 @Service
 public class AdminService {
@@ -224,8 +225,13 @@ public class AdminService {
 
 
 	//petsitter_board 관련
-	public List<WaitlistDTO> re_psboard(){
-		return dao.re_psboard();
+	public List<WaitlistDTO> re_psboard(int cpage){
+		int start = cpage*Admin_Configuration.member_RECORD_COUNT_PER_PAGE - (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
+		int end = start + (Admin_Configuration.member_RECORD_COUNT_PER_PAGE-1);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start",start);
+		map.put("end", end);
+		return dao.re_psboard(map);
 	}
 
 	@Transactional("txManager")
@@ -234,7 +240,6 @@ public class AdminService {
 		WaitlistDTO w_dto = dao.accept_pet_info(wait_seq);
 		UUID uuid = UUID.randomUUID();
 		ReserveDto dto = new ReserveDto(uuid.toString(),w_dto.getBoard_seq(),w_dto.getPetsitter_id(),w_dto.getMem_id(),w_dto.getRsv_pet_name(),w_dto.getRsv_point(),w_dto.getRsv_start_day(),w_dto.getRsv_end_day(),w_dto.getRsv_time());
-
 		MessageDTO b_dto = new MessageDTO();
 		b_dto.setMsg_reciever(w_dto.getMem_id());
 		b_dto.setMsg_title("펫 시터 예약 관련 글입니다.");
@@ -286,6 +291,18 @@ public class AdminService {
 	public List<Visitor_countDTO> to_visitor(){
 		return  dao.to_visiter();
 	}
+	
+	public void insert_v() {
+		int v_count = Log_Count.log_count;
+		dao.v_count_insert(v_count);
+		Log_Count.log_count = 0;
+	}
+	
+	public void update_v() {
+		int v_count = Log_Count.log_count;
+		dao.v_count_update(v_count);
+		Log_Count.log_count = 0;
+	}
 
 	//관리자 패스워드 변경
 	public int admin_password(String pw) {
@@ -327,6 +344,9 @@ public class AdminService {
 		}
 		else if(boardType.contentEquals("mb")) {
 			recordTotalCount = this.dao.re_memberCount();
+		}
+		else if(boardType.contentEquals("ps")) {
+			recordTotalCount = this.dao.re_psCount();
 		}
 		else {
 			Map<String, String> map = new HashMap<String, String>();
@@ -394,6 +414,16 @@ public class AdminService {
 			}
 			if(needNext) {
 				sb.append("<a href=\"/admin/boardselect?boardtype="+boardType+"&cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
+			}
+		}else if(boardType.contentEquals("ps")||boardType.contentEquals("mb")) {
+			if(needPrev) {
+				sb.append("<a href=\"/admin/reservation?boardtype="+boardType+"&cpage="+(startNavi-1)+"\"class=\"badge badge-pill badge-info\"><</a>");
+			}
+			for(int i = startNavi; i<=endNavi; i++) {
+				sb.append("<a href=\"/admin/reservation?boardtype="+boardType+"&cpage="+i+"\"class=\"badge badge-pill badge-info\">"+i+"</a>");	
+			}
+			if(needNext) {
+				sb.append("<a href=\"/admin/reservation?boardtype="+boardType+"&cpage="+(endNavi+1)+"\"class=\"badge badge-pill badge-info\">></a>");
 			}
 		}
 		

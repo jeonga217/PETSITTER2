@@ -21,6 +21,26 @@ public class UseService {
 	public List<Mypage_UseTableDTO> selectByPageNo(int cpage, String id, String name)
 			throws Exception {
 		List<Mypage_UseTableDTO> dto = udao.selectByPageNo(cpage, id, name);
+		
+		List<Mypage_UseTableDTO> day = udao.statueday(id);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String nowday = format.format(System.currentTimeMillis());
+		java.util.Date date1 = format.parse(nowday);
+		
+		System.out.println("사이즈 : "+dto.size());
+		for (int i = 0; i < dto.size(); i++) {
+			Date start = day.get(i).getStart_day();
+			Date end = day.get(i).getEnd_day();
+			if (start.after(date1)) {
+				dto.get(i).setStatus("예약대기");
+			} else if (start.before(date1) && end.after(date1)) {
+				dto.get(i).setStatus("서비스중");
+			} else if(end.before(date1)) {
+				dto.get(i).setStatus("서비스 종료");
+			}
+		}
+		
 		return dto;
 	}
 
@@ -30,21 +50,5 @@ public class UseService {
 		return navi;
 	}
 
-	public void usestate(String id) throws ParseException {
-		List<Mypage_UseTableDTO> day = udao.statueday(id);
-		List<String> list = new ArrayList<String>();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		String nowday = format.format(System.currentTimeMillis());
-		java.util.Date date1 = format.parse(nowday);
-		for (int i = 0; i < day.size(); i++) {
-			Date start = day.get(i).getStart_day();
-			Date end = day.get(i).getEnd_day();
-			if (start.after(date1)) {
-				day.get(i).setStatus("예약대기");
-			} else if (start.before(date1) && end.after(date1)) {
-				day.get(i).setStatus("서비스중");
-			}
-		}
 
-	}
 }

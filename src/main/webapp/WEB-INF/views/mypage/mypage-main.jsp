@@ -65,7 +65,7 @@
 		<div class="wrap">
 			<div class="row">
 				<div class="col-md-6 first">
-					<a href="/member/myInfo"><span>
+					<a href="/mypage/myInfo"><span>
 							<p>
 								<span>
 									<h3>My Info</h3>
@@ -88,19 +88,23 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6 second">
-					<p>
-						<span>
-							<h3>Community</h3>
-						</span>
-					</p>
+					<a href="/mypage/community"><span>
+							<p>
+								<span>
+									<h3>User History</h3>
+								</span>
+							</p>
+					</span> </a>
 					<p>커뮤니티 게시판에서 내가 쓴 글을 확인합니다.</p>
 				</div>
 				<div class="col-md-6 second left">
-					<p>
-						<span>
-							<h3>Point</h3>
-						</span>
-					</p>
+					<a href="/mypage/listpoint"><span>
+							<p>
+								<span>
+									<h3>User History</h3>
+								</span>
+							</p>
+					</span> </a>
 					<p>포인트 내역/충전이 가능합니다.</p>
 				</div>
 			</div>

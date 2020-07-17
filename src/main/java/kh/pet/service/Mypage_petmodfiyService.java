@@ -21,24 +21,24 @@ public class Mypage_petmodfiyService {
 	HttpSession session;
 
 	public void modfiy(Mypet_regDTO dto, MultipartFile img) throws Exception {
-System.out.println("Ã³À½ ÀÌ¹ÌÁö : "+img);
+System.out.println("Ã³ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ : "+img);
 		if (img.getOriginalFilename() != "") {
 			String imgname = mdao.searchseq(dto.getPetseq());
 			String filePath = session.getServletContext().getRealPath("upload");
 			File file = new File(filePath + "/" + imgname);
 			if (file.exists()) {
 				if (file.delete()) {
-					System.out.println("ÆÄÀÏ»èÁ¦ ¼º°ø");
+					System.out.println("ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 					String systemFileName = System.currentTimeMillis() + "_" + img.getOriginalFilename();
 					File targetLoc = new File(filePath + "/" + systemFileName);
 					img.transferTo(targetLoc);
 					dto.setPet_photo(systemFileName);
 					mdao.petmodfiy(dto);
 				} else {
-					System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆÐ");
+					System.out.println("ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 				}
 			} else {
-				System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 			}
 		} else {
 			String imgname = mdao.searchseq(dto.getPetseq());
@@ -48,9 +48,10 @@ System.out.println("Ã³À½ ÀÌ¹ÌÁö : "+img);
 				dto.setPet_photo(imgname);
 				mdao.petmodfiy(dto);
 			}else {
-				System.out.println("ÆÄÀÏÀÌ ¾ø½À´Ï´Ù");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
 			}
 		}
 
 	}
+	
 }

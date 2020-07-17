@@ -50,25 +50,28 @@
 			expression="execution(* kh.pet.controller.ExceptionController.*(..))" id="login2" />
 		<aop:pointcut
 			expression="execution(* kh.pet.controller.Mb_boardController.*(..))" id="login3" />
-<!-- 		<aop:pointcut
-			expression="execution(* kh.pet.controller.MypageController.*(..))" id="login4" /> -->
-<!-- 		<aop:pointcut
-			expression="execution(* kh.pet.controller.Mypage_regController.*(..))" id="login5" /> -->
+ 		<aop:pointcut
+			expression="execution(* kh.pet.controller.MypageController.*(..))" id="login4" />
+		<aop:pointcut
+			expression="execution(* kh.pet.controller.Mypage_regController.*(..))" id="login5" /> 
 		<aop:pointcut
 			expression="execution(* kh.pet.controller.PetsitterboardController.*(..))" id="login6" />
 		<aop:pointcut
 			expression="execution(* kh.pet.controller.PetsitterController.*(..))" id="login7" />
 		<aop:pointcut
 			expression="execution(* kh.pet.controller.ReviewController.*(..))" id="login8" />
+		<aop:pointcut
+			expression="execution(* kh.pet.controller.CommunityController.*(..))" id="login9" />
 		<aop:aspect ref="logaop">
 			<aop:around method="logincheck" pointcut-ref="login"/>
 			<aop:around method="logincheck" pointcut-ref="login2"/>
 			<aop:around method="logincheck" pointcut-ref="login3"/>
-<!-- 			<aop:around method="logincheck" pointcut-ref="login4"/> -->
-<!-- 			<aop:around method="logincheck" pointcut-ref="login5"/> -->
+ 			<aop:around method="logincheck" pointcut-ref="login4"/>
+			<aop:around method="logincheck" pointcut-ref="login5"/> 
 			<aop:around method="logincheck" pointcut-ref="login6"/>
 			<aop:around method="logincheck" pointcut-ref="login7"/>
 			<aop:around method="logincheck" pointcut-ref="login8"/>
+			<aop:around method="logincheck" pointcut-ref="login9"/>
 		</aop:aspect>
 	</aop:config>
 

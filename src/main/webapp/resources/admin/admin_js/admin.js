@@ -23,7 +23,6 @@ $(function(){
 		$("#summernote").attr('class',id);
 	})
 	
-	
 	$(".stop_btn").on("click",function(){
 		$("#s_stop_day").val($(this).parent().children('.state').val());
 		$("#stop_id").val($(this).parent().parent().children('.id').html());

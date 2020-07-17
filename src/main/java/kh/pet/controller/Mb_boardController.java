@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.MemboardDto;
 import kh.pet.dto.Mypet_regDTO;
+import kh.pet.filter.xssfilter;
 import kh.pet.service.Petservice;
 
 @Controller
@@ -66,6 +67,9 @@ public class Mb_boardController {
 
 	@RequestMapping("index")
 	public String index(MemboardDto mbdto) throws Exception {
+		xssfilter xss =new xssfilter();
+		mbdto.setMb_title(xss.cleanXSS(mbdto.getMb_title()));
+		mbdto.setmb_request(xss.cleanXSS(mbdto.getmb_request()));
 		MemberDTO mdto = (MemberDTO)this.session.getAttribute("loginInfo");
 		mbdto.setMb_writer(mdto.getMem_id());
 		service.Memboardinsert(mbdto);
