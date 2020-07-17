@@ -44,7 +44,7 @@ public class KakaoAPIService { //사용자 토큰 받기
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=4dd67a91f5b80223eb0934cae5fa4c50");
-            sb.append("&redirect_uri=http://192.168.60.13/member/kakao"); //내부 도메인을 쓸 경우에는 자리 ip로 바꿔야함.
+            sb.append("&redirect_uri=http://www.sojuhanjan.com/member/kakao"); //내부 도메인을 쓸 경우에는 자리 ip로 바꿔야함.
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
