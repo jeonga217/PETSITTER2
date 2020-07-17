@@ -1,5 +1,6 @@
 package kh.pet.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class MypageUseDAO {
 		return result;
 	}
 
-	public List<Object> selectByPageNo(int cpage, String id, String name) throws Exception {
+	public List<Mypage_UseTableDTO> selectByPageNo(int cpage, String id, String name) throws Exception {
 		if (name.contentEquals("usecontent")) {
 			Main_Configuration.recordCountPerPage = 5;
 			Main_Configuration.naviCountPerPage = 5;
@@ -39,33 +40,34 @@ public class MypageUseDAO {
 		se.put("start", start);
 		se.put("end", end);
 		se.put("id", id);
-		if (name.contentEquals("usecontent")) {
-			List<Object> list = mybaits.selectList("Navi.usecontenttable", se);
-			return list;
-		}
-		return null;
+		List<Mypage_UseTableDTO> uselist = mybaits.selectList("Navi.uselist", se);
+		return uselist;
 	}
 
 	public String getPageNavi(int currentPage, String name) throws Exception {
-
 		int recordTotalCount = 0;
 		if (name.contentEquals("usecontent")) {
 			recordTotalCount = getArticleCount("Navi.usecount");
+			System.out.println("번호 : " + recordTotalCount);
 		}
+
 		int pageTotalCount = 0;
 		if ((recordTotalCount % Main_Configuration.recordCountPerPage != 0)) {
 			pageTotalCount = (recordTotalCount / Main_Configuration.recordCountPerPage) + 1;
 		} else {
 			pageTotalCount = (recordTotalCount / Main_Configuration.recordCountPerPage);
 		}
+
 		if (currentPage < 1) {
 			currentPage = 1;
 		} else if (currentPage > pageTotalCount) {
 			currentPage = pageTotalCount;
 		}
+
 		int startNavi = (currentPage - 1) / Main_Configuration.recordCountPerPage
 				* Main_Configuration.recordCountPerPage + 1;
 		int endNavi = startNavi + Main_Configuration.naviCountPerPage - 1;
+
 		if (pageTotalCount < endNavi) {
 			endNavi = pageTotalCount;
 		}
@@ -91,6 +93,7 @@ public class MypageUseDAO {
 		if (needNext) {
 			sb.append("<a href='" + name + "?cpage=" + (endNavi + 1) + "'> > </a>");
 		}
+		System.out.println(sb.toString());
 		return sb.toString();
 	}
 

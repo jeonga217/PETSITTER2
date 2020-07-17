@@ -8,17 +8,15 @@ import kh.pet.service.AdminService;
 
 
 @Service
-public class Stop_mem_Sechedualer {
+public class One_day_Sechedualer {
 	
 	@Autowired
 	private AdminService service;
 
-	/*
-	 * @Scheduled(cron = "0 0 18 * * *")
-	 */
-	@Scheduled(cron = "0 */10 * * * ?")
+	@Scheduled(cron = "0 0 0 * * ?")
 	public void stop_count(){
-		System.out.println("count");
+		service.petsitter_time();
 		service.stop_scaduler();
+		service.insert_v();
 	}
 }

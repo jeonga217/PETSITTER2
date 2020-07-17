@@ -107,8 +107,7 @@ public class MemberDAO {
 	}
 
 	public int myinfo_modify(MemberDTO dto) {
-		
-		System.out.println("mybatis를 찾아서");
+	
 		return mybatis.update("Member.myinfo_modify", dto);
 
 	}

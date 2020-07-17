@@ -30,6 +30,7 @@ import kh.pet.dto.PetsitterDTO;
 import kh.pet.dto.PetsitterboardDTO;
 import kh.pet.dto.TotboardDTO;
 import kh.pet.dto.WaitlistDTO;
+import kh.pet.filter.xssfilter;
 import kh.pet.service.PetsitterService;
 import kh.pet.service.PetsitterboardService;
 import kh.pet.service.ReviewService;
@@ -86,12 +87,22 @@ public class PetsitterboardController {
 		TotboardDTO totdto = psbservice.selectBoard(psb_writer,psb_seq);
 		List<CurrentReserveDTO> reserve_list = psbservice.selectCur_reserve(psb_seq);
 		List<Mypet_regDTO> pet_list = psbservice.selectMypet(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
+		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
+		int myPoint = psbservice.selectMyPoint(mem_id);
+		model.addAttribute("myPoint",myPoint);
 		model.addAttribute("tot_Info",totdto);
 		model.addAttribute("reserve_list",reserve_list);
 		model.addAttribute("pet_list",pet_list);
 		return "petsitter_board/board/board_single_view";
 	}
 
+	@RequestMapping("board_single_update")
+	public String board_single_update(String psb_writer,String psb_seq,Model model) throws Exception{
+		TotboardDTO totdto = psbservice.selectBoard(psb_writer,psb_seq);
+		model.addAttribute("tot_Info",totdto);
+		return "petsitter_board/board/board_single_update";
+	}
+	
 	@RequestMapping("output")
 	public String output(Model model)throws Exception{
 		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
@@ -100,9 +111,12 @@ public class PetsitterboardController {
 		return "petsitter_board/board/board_register";
 	}
 	
-	//petsitter°¡ °Ô½Ã¹° µî·Ï
+	
 	@RequestMapping("insertProc")
 	public String insertProc(HttpServletRequest req,TotboardDTO totdto, MultipartFile file, Model model)throws Exception {
+		xssfilter xss = new xssfilter();
+		totdto.setPsb_title(xss.cleanXSS(totdto.getPsb_title()));
+		totdto.setPsb_contents(xss.cleanXSS(totdto.getPsb_contents()));
 		
 		String realPath=session.getServletContext().getRealPath("upload");
 		File tempFilepath = new File(realPath);
@@ -150,19 +164,14 @@ public class PetsitterboardController {
 		return psbservice.selectCnt(psb_writer);
 	}
 	
-	//waitlist¿¡ Á¤º¸ ¿Ã¸®±â
+	//waitlistï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½
 	@ResponseBody
 	@RequestMapping(value="/waitList", method=RequestMethod.POST)
 	public int waitList(WaitlistDTO wldto)throws Exception{
-//		System.out.println(wldto.getBoard_seq());
-//		System.out.println(wldto.getMem_id());
-//		System.out.println(wldto.getRsv_pet_name());
-//		System.out.println(wldto.getRsv_time());
-//		System.out.println(wldto.getRsv_end_day());
 		return psbservice.insertwaitlist(wldto);
 	}
 	
-	//ÇØ´ç °Ô½Ã¹°¿¡ ¿¹¾àÀÌ ÀÖ´ÂÁö È®ÀÎ
+	//ï¿½Ø´ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	@ResponseBody
 	@RequestMapping(value="/checkExistReservation", method=RequestMethod.POST)
 	public int checkExistReservation (String psb_seq) throws Exception {
@@ -175,7 +184,13 @@ public class PetsitterboardController {
 		return "redirect:outputList";
 	}
 	
-	// ½Ç½Ã°£ Æ÷ÀÎÆ®°¡°Ý º¸¿©ÁÖ±â
+//	@RequestMapping("/updateBoard")
+//	public String updateBoard(String psb_seq) throws Exception{
+//		psbservice.updateBoard(psb_seq);
+//		return "redirect:outputList";
+//	}
+	
+	// ï¿½Ç½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	@ResponseBody
 	@RequestMapping(value="/selectPrice", method=RequestMethod.POST)
 	public List<Integer> selectPrice(@RequestParam(value="timearr[]") List<String> timearr,@RequestParam(value="typearr[]")List<String> typearr) throws Exception{
@@ -193,26 +208,28 @@ public class PetsitterboardController {
 	return psbservice.selectPrice(list);
 	}
 	
-	//¿¹¾àÃë¼Ò ¹öÆ° ´©¸£¸é  reserve_seq°ª ¹Þ¾Æ¼­ AJAX·Î Ãë¼Ò Ã¢ ¶ç¿öÁÖ±â
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  reserve_seqï¿½ï¿½ ï¿½Þ¾Æ¼ï¿½ AJAXï¿½ï¿½ ï¿½ï¿½ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	@ResponseBody
 	@RequestMapping("/cancelReserve")
 	public int cancelReserve(String reserve_seq)throws Exception{
 		return psbservice.cancelReserve(reserve_seq);
 	}
 	
-	//¼±ÅÃÇÑ ³¯Â¥¿¡ ¿¹¾àÀÌ °¡´ÉÇÑÁö  waitlist¿¡  µî·ÏµÇ±â Àü È®ÀÎ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  waitlistï¿½ï¿½  ï¿½ï¿½ÏµÇ±ï¿½ ï¿½ï¿½ È®ï¿½ï¿½
 	@ResponseBody
 	@RequestMapping(value="/checkAvailableReserve", method=RequestMethod.POST)
 	public boolean checkAvailableReserve (CurrentPickDTO pickdto)throws Exception{
 		boolean result = psbservice.checkAvailableReserve(pickdto);
-		//System.out.println("°ª"+result);
+		//System.out.println("ï¿½ï¿½"+result);
 		return result;
 	}
 	
 	@RequestMapping("/board_confirmReserve")
-	public String board_confirmReserve()throws Exception{
+	public String board_confirmReserve(Model model)throws Exception{
 		String mem_id= ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
-		psbservice.selectWaitlist(mem_id);
+		WaitlistDTO wldto = psbservice.selectWaitlist(mem_id);
+		model.addAttribute("waitlist",wldto);
 		return "petsitter_board/board/board_confirmReserve";
 	}
+
 }

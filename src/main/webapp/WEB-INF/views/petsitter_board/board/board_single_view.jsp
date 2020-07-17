@@ -7,7 +7,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="/resources/main/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet"
+   href="/resources/main/fonts/flaticon/font/flaticon.css">
 <link rel="stylesheet" href="/resources/petsiter/css/tavo-calendar.css">
 <link href="/resources/mb/icofont/icofont.min.css" rel="stylesheet">
 <link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'
@@ -138,6 +139,8 @@ ul>li, input {
 			$(".comment-list").on("click",".delete_review",function(){
 				var result = confirm("리뷰를 삭제하시겠습니까?");
 				
+				
+				
 				var seq = $(this).attr("seq");
 				if(result){
 					//삭제로직
@@ -187,18 +190,18 @@ ul>li, input {
 		  			});
 		  		
 		  	// 펫시터가 설정해놓은 기본 값들 체크
-		  		var time_list = "${tot_Info.psb_time}";
+/* 		  		var time_list = "${tot_Info.psb_time}";
 	  			var time_listarr = time_list.split(",");
-		  		$("input[name='psb_time']").each(function(index,item){
+		  		$("input[name='rsv_time']").each(function(index,item){
 		  			$(item).prop('checked',true);
-		  			$("input[name='psb_time']:checked").prop('disabled',true);
+		  			$("input[name='rsv_time']:checked").prop('disabled',true);
 		  			for(var i=0;i<time_listarr.length;i++){
 		  				if($(item).val()==time_listarr[i]){
 		  					$(this).prop('checked',false);
 		  					$(this).prop('disabled',false);
 		  				}
 		  			}
-		  		});
+		  		}); */
 		  		
 		  	// 별점 체크
 		  		 $(".star").on('click',function(){
@@ -225,7 +228,7 @@ ul>li, input {
 						type:"POST",
 						success:function(data){
 							if(data > 0){
-								alert("해당 게시물에 대한 예약이 존재하여 삭제가 불가능합니다.");
+								alert("해당 게시물에 대한 예약이 존재하여 삭제가 불가합니다.");
 							} else {
 								var result = confirm("게시물을 삭제하시겠습니까?");
 								if(result){
@@ -241,7 +244,20 @@ ul>li, input {
 		  		
 		  	// 게시물 수정 버튼
 				$("#update").on("click",function(){
-					location.href="/petsitter_board/board/update";
+					$.ajax({
+						url:"/board/checkExistReservation?psb_seq=${tot_Info.psb_seq}",
+						type:"POST",
+						success:function(data){
+							if(data > 0){
+								alert("해당 게시물에 대한 예약이 존재하여 수정이 불가합니다.");
+							} else {
+									location.href ="/board/board_single_update?psb_seq=${tot_Info.psb_seq}&psb_writer=${tot_Info.psb_writer}";
+							}
+						},
+						fail:function(){
+							alert("deleteProc err");
+						}
+					});	
 				});
 		         
 		  	// 펫타입 확인
@@ -268,7 +284,6 @@ ul>li, input {
 		        			 var diff=Math.abs(diffDate_2.getTime() - diffDate_1.getTime());
 		        			 diff = Math.ceil(diff/(1000*3600*24))+1;
 		        			
-		        			 
 		        			var timearr = [];
 			        		$("input[name='rsv_time']:checked").each(function(index,item){
 			        			timearr.push($(item).val());
@@ -359,20 +374,26 @@ ul>li, input {
 						alert(data);
 						console.log(form);
 						console.log(form.rsv_pet_name);
+						
 						if(data==true){
-							$.ajax({
-								url:"/board/waitList",
-								type:"POST",
-								dataType:"json",
-								data:reserve,
-								success : function(data){
-									alert("성공");
-									location.href = "/board/board_confirmReserve";
-								},
-								error :function(){
-									alert("waitlistProc error");
-								}
-							})	
+							alert($("#rsv_point").val());
+							if($("#rsv_point").val()<=${myPoint}){
+								$.ajax({
+									url:"/board/waitList",
+									type:"POST",
+									dataType:"json",
+									data:reserve,
+									success : function(data){
+										alert("성공");
+										location.href = "/board/board_confirmReserve";
+									},
+									error :function(){
+										alert("waitlistProc error");
+									}
+								})	
+							} else {
+								alert("포인트 부족");	
+							}
 						}else if(data== false){
 							alert("해당 날짜에 예약이 불가합니다. 날짜와 시간을 다시 선택해주세요.");
 						}
@@ -500,7 +521,7 @@ ul>li, input {
 										
 										<hr class="mb-4">
 										
-										<h5 class="mb-3">가능한 강아지 타입</h5>
+										<h5 class="mb-3">돌봄 가능한 강아지 타입</h5>
 										<div class="psb_petType">
 											<div>
 												<ul>
@@ -622,7 +643,7 @@ ul>li, input {
 				                 
 				                  <div class="form-group">
 				                    <label for="rw_contents">Review</label>
-				                    <textarea id="rw_contents" cols="60" rows="5" class="form-control"></textarea>
+				                    <textarea id="rw_contents" cols="60" rows="5" class="form-control" style="resize: none;"></textarea>
 				                  </div>
 				                  
 				                  <div class="form-group" style="text-align:right">
@@ -637,22 +658,29 @@ ul>li, input {
 				                    					rw_petsitter_id:"${tot_Info.psb_writer}",
 				                    					rw_parent_seq: "${tot_Info.psb_seq}"
 				                    			}
-				                    			$.ajax({
-				                    				url:"/review/insertProc",
-				                    				type:"POST",
-				                    				data:form,
-				                    				success:function(data){
-				                    					
-				                    					$(".star").removeClass("on");
-				                            			$("#rw_contents").val("");
-				                            			$("#contents").val("");
-				                            			alert("댓글이 등록되었습니다.");
-				                            			displayReview();
-				                    				},
-				                    				fail:function(){
-				                    					alert("insertProc err");
-				                    				}
-				                    			});
+				                    			
+				                    			if($("#rw_contents").val()=="" ){ 
+				                    				alert("리뷰 내용을 입력해주세요.");
+				                    			}else if($("#rw_star").val()==""){
+				                    				alert("별점을 체크해주세요.");
+				                    			} else {
+				                    				$.ajax({
+					                    				url:"/review/insertProc",
+					                    				type:"POST",
+					                    				data:form,
+					                    				success:function(data){
+					                    					
+					                    					$(".star").removeClass("on");
+					                            			$("#rw_contents").val("");
+					                            			$("#contents").val("");
+					                            			alert("댓글이 등록되었습니다.");
+					                            			displayReview();
+					                    				},
+					                    				fail:function(){
+					                    					alert("insertProc err");
+					                    				}
+					                    			});
+				                    			}
 				                    			
 				                    		});
 				                    	})
@@ -665,130 +693,148 @@ ul>li, input {
 						</div>
 						<div class="col-lg-4 ml-5">
 							<!--/board/waitList  -->
+							<div class='mb-5'
+							style="width: 375px; border-radius: 8px; border: 1px solid #DFE3EA; box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.07); padding: 38px 10px 0px;">
 							<form id="waitList">
-							<h3 class="h5 text-black mb-3 " style="text-align: center">
-								날짜 선택<i class="icofont-calendar"></i>
-							</h3>
-							<input type="hidden" name="board_seq" value="${tot_Info.psb_seq}">
-							<input type="hidden" name="petsitter_id" value="${tot_Info.psb_writer}">
-							<input type="hidden" name="mem_id" value="${sessionScope.loginInfo.mem_id}">
-							<div class="reserve_calendar">
-								<div id="datePicker" style="height:600px;width:100%;max-width: 600px;"></div>
-								<div class="select_date">
-									<ul class="head_date" style="text-align: center">
-										<li style="width: 150px;"><b>시작일</b></li>
-										<li style="width: 150px;"><b>종료일</b></li>
-									</ul>
-									<ul class="head_date" style="text-align: center">
-										<li><input type="text" id="rsv_start_day" name="rsv_start_day" class="price_item"
-											style="width: 150px; text-align: center;" placeholder="시작일" required readonly></li>
-										<li><input type="text" id="rsv_end_day" name="rsv_end_day"
-											style="width: 150px; text-align: center;" placeholder="종료일" required readonly></li>
-									</ul>
-								</div>
-								 <script>
-								 $(function(){
-									 var arr = [];
-									 var now = new Date();
-									 var reserve_list = "${reserve_list}";
-									 var blacklist=[] ;
-									 
-									 
-										 <c:forEach items="${reserve_list}" var="item1"> 
-											<c:if test="${item1.am == 0 && item1.pm == 0 }">
-												blacklist.push(new Date("${item1.cur_date}"));
-											</c:if>
-										 </c:forEach>
-									 
-						               var datePicker = new Datepickk1({
-						                  	container:document.querySelector('#datePicker'),
-						                    minDate : new Date("${tot_Info.psb_start_day}").setDate(new Date("${tot_Info.psb_start_day}").getDate()-1), //문자열
-						                    maxDate : "${tot_Info.psb_end_day}",
-						                    disabledDates : blacklist,
-						                    inline:true,
-						                    today : true,
-						                     range: true,
-						                     tooltips: 
-						                    	 [	
-						                    		 <c:forEach items="${reserve_list}" var="item1">
-						                    		 {
-						                    			 date:new Date("${item1.cur_date }"),
-						                    			 text: '오전  [${item1.am }마리] <br/> 오후  [${item1.pm }마리]'
-						                    			 },
-						                    		 </c:forEach>
-						                    		 ]
-								                  
-								              }).onSelect = function(checked) {
-													var state = (checked) ? 'selected' : 'unselected';
-													if (checked) {
-														var time = this.toLocaleDateString();
-														var timearr = time.split('. ');
-														var new_time = timearr[0]+'-'+timearr[1]+'-'+(timearr[2].split('.'))[0];
-														
-														arr.push(new_time);
-				
-														if (arr.length > 2) {
-															arr.shift();
-														}
-														if (arr.length > 1) {
-															var start = arr[0];
-															var end = arr[1];
-															var tmp = '';
-				
-															if (start >= end) {
-																tmp = start;
-																start = end;
-																end = tmp;
-															}
+								<h3 class="h5 text-black mb-3 " style="text-align: center">
+									돌봄 날짜 선택<i class="icofont-calendar"></i>
+								</h3>
+								<input type="hidden" name="board_seq" value="${tot_Info.psb_seq}">
+								<input type="hidden" name="petsitter_id" value="${tot_Info.psb_writer}">
+								<input type="hidden" name="mem_id" value="${sessionScope.loginInfo.mem_id}">
+								<div class="reserve_calendar">
+									<div id="datePicker" style="height:600px;width:100%;max-width: 600px;"></div>
+									<div class="select_date">
+										<ul class="head_date" style="text-align: center">
+											<li style="width: 150px;"><b>시작일</b></li>
+											<li style="width: 150px;"><b>종료일</b></li>
+										</ul>
+										<ul class="head_date" style="text-align: center">
+											<li><input type="text" id="rsv_start_day" name="rsv_start_day" class="price_item"
+												style="width: 140px; text-align: center;" placeholder="시작일" required readonly></li>
+											<li><input type="text" id="rsv_end_day" name="rsv_end_day"
+												style="width: 140px; text-align: center;" placeholder="종료일" required readonly></li>
+										</ul>
+									</div>
+									 <script>
+									 $(function(){
+										 var arr = [];
+										 var now = new Date();
+										 var reserve_list = "${reserve_list}";
+										 var blacklist=[] ;
+										 
+										 
+											 <c:forEach items="${reserve_list}" var="item1"> 
+												<c:if test="${item1.am == 0 && item1.pm == 0 }">
+													blacklist.push(new Date("${item1.cur_date}"));
+												</c:if>
+											 </c:forEach>
+										 
+							               var datePicker = new Datepickk1({
+							                  	container:document.querySelector('#datePicker'),
+							                    minDate : new Date("${tot_Info.psb_start_day}").setDate(new Date("${tot_Info.psb_start_day}").getDate()-1), //문자열
+							                    maxDate : "${tot_Info.psb_end_day}",
+							                    disabledDates : blacklist,
+							                    inline:true,
+							                    today : true,
+							                     range: true,
+							                     tooltips: 
+							                    	 [	
+							                    		 <c:forEach items="${reserve_list}" var="item1">
+							                    		 {
+							                    			 date:new Date("${item1.cur_date }"),
+							                    			 text: '오전  [${item1.am }마리] <br/> 오후  [${item1.pm }마리]'
+							                    			 },
+							                    		 </c:forEach>
+							                    		 ]
+									                  
+									              }).onSelect = function(checked) {
+														var state = (checked) ? 'selected' : 'unselected';
+														if (checked) {
+															var time = this.toLocaleDateString();
+															var timearr = time.split('. ');
+															var new_time = timearr[0]+'-'+timearr[1]+'-'+(timearr[2].split('.'))[0];
 															
-															$("#rsv_start_day").val(start);
-															$("#rsv_end_day").val(end);
-															console.log("날짜1:" + start + ", 날짜2:" + end);
-				
+															arr.push(new_time);
+					
+															if (arr.length > 2) {
+																arr.shift();
+															}
+															if (arr.length > 1) {
+																var start = arr[0];
+																var end = arr[1];
+																var tmp = '';
+					
+																if (start >= end) {
+																	tmp = start;
+																	start = end;
+																	end = tmp;
+																}
+																
+																$("#rsv_start_day").val(start);
+																$("#rsv_end_day").val(end);
+																console.log("날짜1:" + start + ", 날짜2:" + end);
+					
+															}
 														}
-													}
-												};
-										 })
-										</script>
+													};
+											 })
+											</script>
+									</div>
+								<hr class="mb-4">
+			
+								<h3 class="h5 text-black mb-3 " style="text-align: center">
+									돌봄 시간 선택<i class="icofont-clock-time"></i>
+								</h3>
+								<div id="timelist" style="text-align: center">
+								<c:choose>
+									<c:when test="${tot_Info.psb_time eq 'pm' }">
+										<div>
+											<input type="checkbox" name="rsv_time" value="pm" id="pm" class="price_item">
+											<label for="pm">&nbsp;&nbsp;오후 14:00 ~ 21:00</label>
+										</div>
+									</c:when>
+									<c:when test="${tot_Info.psb_time eq 'am' }">
+										<div>
+											<input type="checkbox" name="rsv_time" value="am" id="am" class="price_item">
+											<label for="am">&nbsp;&nbsp;오전 09:00 ~ 14:00</label>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div>
+											<input type="checkbox" name="rsv_time" value="am" id="am" class="price_item">
+											<label for="am">&nbsp;&nbsp;오전 09:00 ~ 14:00</label>
+										</div>
+										<div>
+											<input type="checkbox" name="rsv_time" value="pm" id="pm" class="price_item">
+											<label for="pm">&nbsp;&nbsp;오후 14:00 ~ 21:00</label>
+										</div>
+									</c:otherwise>
+								</c:choose>
 								</div>
-							<hr class="mb-4">
-		
-							<h3 class="h5 text-black mb-3 " style="text-align: center">
-								시간 선택<i class="icofont-clock-time"></i>
-							</h3>
-							<div id="timelist" style="text-align: center">
-								<div>
-									<input type="checkbox" name="rsv_time" value="am" id="am" class="price_item">
-									<label for="am">&nbsp;&nbsp;오전 09:00 ~ 14:00</label>
-								</div>
-								<div>
-									<input type="checkbox" name="rsv_time" value="pm" id="pm" class="price_item">
-									<label for="pm">&nbsp;&nbsp;오후 14:00 ~ 21:00</label>
-								</div>
-							</div>
-							<hr class="mb-4">
-							<h3 class="h5 text-black mb-3 " style="text-align: center">
-										마이펫 선택<i class="icofont-paw"></i>
-									</h3>
-								<div class="my_pet" style="text-align: center">
-									<c:if test="${empty pet_list }">
-										등록된 펫이 없습니다.
-									</c:if>
 								
-									<c:forEach var="i" items="${pet_list }">
-										<span>
-											<input type="checkbox" id="${i.pet_name}" class="price_item" data-type="${i.pet_type}" name="rsv_pet_name" value="${i.pet_name}"><label for="${i.pet_name}">${i.pet_name}(${i.pet_type} )</label>
-										</span>
-										
-									</c:forEach>
-								</div>
-							
-							<hr class="mb-4">
+								<hr class="mb-4">
+								<h3 class="h5 text-black mb-3 " style="text-align: center">
+											마이펫 선택<i class="icofont-paw"></i>
+										</h3>
+									<div class="my_pet" style="text-align: center">
+										<c:if test="${empty pet_list }">
+											등록된 펫이 없습니다.
+										</c:if>
+									
+										<c:forEach var="i" items="${pet_list }">
+											<span>
+												<input type="checkbox" id="${i.pet_name}" class="price_item" data-type="${i.pet_type}" name="rsv_pet_name" value="${i.pet_name}"><label for="${i.pet_name}">${i.pet_name}(${i.pet_type} )</label>
+											</span>
+											
+										</c:forEach>
+									</div>
+								<hr class="mb-4">
 									<h3 class="h5 text-black mb-3 " style="text-align: center">
 										예상 포인트<i class="icofont-money"></i>
 									</h3>
 									<div id="pricing" style="text-align: center">
-									<input type="text" name="rsv_point" id="rsv_point" value="">
+									<input type="text" name="rsv_point" id="rsv_point" value="" readonly="readonly">
 									<div data-brackets-id='33'
 		                              style="width: 100%; border-radius: 8px; border: 1px solid #DFE3EA; box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.07); padding: 15px 15px; margin-top: 38px; margin-bottom: 38px">
 		                              <div data-brackets-id='34'
@@ -800,14 +846,14 @@ ul>li, input {
 		                                    <div data-brackets-id='37'
 		                                       style="display: flex; flex-direction: row; align-items: center; margin-right: 8px">
 		                                       <p data-brackets-id='38'
-		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">2시간당</p>
+		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">AM</p>
 		
 		                                       <div data-brackets-id='39'
 		                                          style="width: 1px; height: 15px; background-color: #ECEDF0; margin-left: 5px; margin-right: 5px">
 		                                       </div>
 		
 		                                       <p data-brackets-id='40'
-		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">AM,PM</p>
+		                                          style="font-size: 13px; line-height: 18px; color: #81DAD6">PM</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
@@ -826,12 +872,12 @@ ul>li, input {
 		                                    <div data-brackets-id='49'
 		                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
 		                                       <p data-brackets-id='50'
-		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">50포인트</p>
+		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">200point</p>
 		                                    </div>
 		                                    <div data-brackets-id='51'
 		                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
 		                                       <p data-brackets-id='52'
-		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">150포인트</p>
+		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">230point</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
@@ -850,12 +896,12 @@ ul>li, input {
 		                                    <div data-brackets-id='59'
 		                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
 		                                       <p data-brackets-id='60'
-		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">60포인트</p>
+		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">220point</p>
 		                                    </div>
 		                                    <div data-brackets-id='61'
 		                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
 		                                       <p data-brackets-id='62'
-		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">200포인트</p>
+		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">250point</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
@@ -874,54 +920,44 @@ ul>li, input {
 		                                    <div data-brackets-id='69'
 		                                       style="display: flex; align-items: center; width: 62px; flex-direction: column; margin-right: 12px">
 		                                       <p data-brackets-id='70'
-		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">65포인트</p>
+		                                          style="font-size: 14px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">240point</p>
 		                                    </div>
 		                                    <div data-brackets-id='71'
 		                                       style="display: flex; flex-direction: column; align-items: center; width: 62px">
 		                                       <p data-brackets-id='72'
-		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">250포인트</p>
+		                                          style="font-size: 12px; letter-spacing: 0.5px; line-height: 20px; color: #81DAD6">270point</p>
 		                                    </div>
 		                                 </div>
 		                              </div>
 		                              <div data-brackets-id='73'
 		                                 style="width: 310px; height: 1px; background-color: #EBEBEB; margin: 32px 0"></div>
-		                              <div data-brackets-id='74'
-		                                 style="display: flex; flex-direction: row; justify-content: space-between">
-		                                 <p data-brackets-id='75'
-		                                    style="font-family: Noto Sans KR, sans-serif; font-size: 14px; color: #81DAD6">풀타임
-		                                    09:00~20:00</p>
-		                                 <div data-brackets-id='76'
-		                                    style="display: flex; flex-direction: column; justify-content: space-between">
-		                                    <p data-brackets-id='77'
-		                                       style="font-size: 13px; color: #81DAD6">400포인트</p>
-		                                 </div>
-		                              </div>
+		                             
 		                           </div>
+								</div>	
+							</div>	
+								<div class="mb-5" style="text-align:center; ">
+									<c:choose>
+										<c:when test="${sessionScope.loginInfo.mem_id == tot_Info.psb_writer}">
+											<div style="padding:10px;display:inline-block;">
+												<button type="button" id="update" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">수정하기</button>
+											</div>
+											<div style="padding:10px;display:inline-block;">
+												<button type="button" id="delete" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">삭제하기</button>
+											</div>
+											<div style="padding:10px;display:inline-block;">
+												<button type="button" id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div style="padding:10px;display:inline-block;">
+												<button id="submit_frm" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block" type="submit">신청하기</button>										</div>
+											<div style="padding:10px;display:inline-block;">
+												<button type="button" id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
+											</div>
+										</c:otherwise>
+									</c:choose>		
 								</div>
-							<div class="mb-5" style="text-align:center; ">
-								<c:choose>
-									<c:when test="${sessionScope.loginInfo.mem_id == tot_Info.psb_writer}">
-										<div style="padding:10px;">
-											<button id="update" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">수정하기</button>
-										</div>
-										<div style="padding:10px;">
-											<button id="delete" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">삭제하기</button>
-										</div>
-										<div style="padding:10px;">
-											<button type="button" id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
-										</div>
-										
-									</c:when>
-									<c:otherwise>
-										<div style="padding:10px;">
-											<button id="submit_frm" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block" type="submit">신청하기</button>										</div>
-										<div style="padding:10px;">
-											<button type="button" id="tolist" class="btn btn-primary text-#878786 btn-md px-5 font-weight-bold btn-md-block">목록으로</button>
-										</div>
-									</c:otherwise>
-								</c:choose>
-							</div>
-						</form>	
+							</form>	
 						</div>
 					</div>
 				</div>

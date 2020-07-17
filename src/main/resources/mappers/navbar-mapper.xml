@@ -49,25 +49,75 @@
 		community where
 		cu_writer=#{value}
 	</select>
-
-	<select id="usecontenttable"
-		resultType="kh.pet.dto.Mypage_UseTableDTO">
-		select * from (select reservation.*, row_number()
-		over(order by reserve_day desc)rum
+	
+	<select id="uselist" resultType="kh.pet.dto.Mypage_UseTableDTO">
+	select * from (select reservation.*, row_number()
+		over(order
+		by reserve_day desc)rum
 		from
 		reservation) where rum between
-		#{start} and #{end} and mem_id=#{id}
+		#{start} and #{end}
+		and mem_id=#{id}
+	</select>
+	
+	<select id="usecount" resultType="int">
+		select count(*) from reservation where mem_id=#{id}
 	</select>
 
-	<select id="statuday" resultType="kh.pet.dto.Mypage_UseTableDTO">
-		select start_day, end_day, reserve_day from reservation where mem_id=#{value} order by reserve_day desc
+	<!-- <select id="usecontenttable"
+		resultType="kh.pet.dto.Mypage_UseTableDTO">
+		select * from (select reservation.*, row_number()
+		over(order by
+		reserve_day desc)rum
+		from
+		reservation) where rum between
+		#{start} and
+		#{end} and
+		<choose>
+			<when test="#{list eq '예약대기'}">
+				sysdate between start_day and end_day and
+			</when>
+			<when test="#{list eq '서비스중'}">
+				sysdate > end_day and
+			</when>
+		</choose>
+		mem_id=#{id}
 	</select>
 
 	<select id="usecount" resultType="int">
-		select count(*) from
-		reservation where
-		mem_id=#{value}
+		select count(*) from reservation where mem_id=#{id} and sysdate
+		between start_day and end_day or 
+		<![CDATA[
+		sysdate < start_day
+		  ]]>
 	</select>
+
+
+	<select id="usecontenttable1"
+		resultType="kh.pet.dto.Mypage_UseTableDTO">
+		select * from (select reservation.*, row_number()
+		over(order by
+		reserve_day desc)rum
+		from
+		reservation) where rum between
+		#{start} and
+		#{end} and mem_id=#{id} and <![CDATA[reserve_day > end_day ]]>
+	</select>
+
+
+	<select id="usecount1" resultType="int">
+		select count(*) from reservation where mem_id=#{id} and <![CDATA[sysdate > end_day ]]>
+	</select>
+
+-->
+
+	<select id="statuday" resultType="kh.pet.dto.Mypage_UseTableDTO">
+		select start_day, end_day,
+		reserve_day from reservation where mem_id=#{value} order by
+		reserve_day desc
+	</select>
+ 
+
 
 
 </mapper>

@@ -94,20 +94,7 @@
                 <div class="form-group">
                   <input type="text" placeholder="What are you looking for?" class="form-control">
                 </div>
-                <div class="form-group">
-                  <div class="select-wrap">
-                      <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
-                      <select class="form-control" name="" id="">
-                        <option value="">All Categories</option>
-                        <option value="">Appartment</option>
-                        <option value="">Restaurant</option>
-                        <option value="">Eat &amp; Drink</option>
-                        <option value="">Events</option>
-                        <option value="">Fitness</option>
-                        <option value="">Others</option>
-                      </select>
-                    </div>
-                </div>
+   
                 <div class="form-group">
                   <!-- select-wrap, .wrap-icon -->
                   <div class="wrap-icon">

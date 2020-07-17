@@ -28,6 +28,7 @@ import kh.pet.dto.MemberDTO;
 import kh.pet.service.KakaoAPIService;
 import kh.pet.service.MemberService;
 import kh.pet.service.NaverLoginService;
+import kh.pet.staticInfo.Log_Count;
 
 @Controller
 @RequestMapping("/member/")
@@ -81,13 +82,12 @@ public class MemberController {
 	@RequestMapping(value = "/signupProc", method = RequestMethod.POST)
 	public void signupProc(MemberDTO mdto,HttpServletResponse rep) throws Exception{
 
-		
 
 		if(mdto == null) {
 			jobj.put("result", 0 );
 			rep.getWriter().append(jobj.toString());
-
 		}
+
 		mservice.signup(mdto);
 
 		jobj.put("result", 1);
@@ -99,16 +99,12 @@ public class MemberController {
 	@RequestMapping(value = "/sns_signupProc", method = RequestMethod.POST)
 	public void sns_signupProc(MemberDTO mdto,HttpServletResponse rep) throws Exception {
 
-
 		if(mdto == null) {
 			jobj.put("result", 0 );
 			rep.getWriter().append(jobj.toString());
 
 		}
 
-		
-
-	
 		mservice.sns_signup(mdto);
 
 		jobj.put("result", 1);
@@ -128,7 +124,6 @@ public class MemberController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('이미 인증하셨습니다.'); location.href='/';</script>");
 			out.flush();
-
 		}
 
 		if(authKey == "" || userid == "" || (authKey == "" && userid == "")) {
@@ -137,7 +132,6 @@ public class MemberController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('인증키가 잘못되었습니다. 다시 인증해 주세요'); location.href='/';</script>");
 			out.flush();
-
 		}
 
 		int result= mservice.emailConfirm(authKey, userid);		
@@ -147,7 +141,6 @@ public class MemberController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('잘못된 접근 입니다. 다시 인증해 주세요'); location.href='/';</script>");
 			out.flush();						
-
 		}
 
 		response.setContentType("text/html; charset=UTF-8");
@@ -173,7 +166,7 @@ public class MemberController {
 
 
 		boolean result = mservice.login(map);
-		System.out.println("로그인: "+result);
+
 		if(result) {
 
 			int econfirm = mservice.verify(mem_id); //이메일 인증여부
@@ -186,6 +179,7 @@ public class MemberController {
 			}else {		//정상 로그인
 
 				MemberDTO mdto = mservice.loginInfo(mem_id);
+				Log_Count.log_count++;
 				session.setAttribute("loginInfo", mdto);
 				jobj.put("result", 2);
 				rep.getWriter().append(jobj.toString());				
@@ -197,6 +191,7 @@ public class MemberController {
 			jobj.put("result", 1);
 			rep.getWriter().append(jobj.toString());
 		}
+
 	}
 
 	//아이디 찾기 페이지 연결
@@ -267,6 +262,7 @@ public class MemberController {
 		}
 
 		MemberDTO mdto = mservice.loginInfo(id);
+		Log_Count.log_count++;
 		session.setAttribute("loginInfo", mdto);
 		session.setAttribute("access_Token", access_Token);
 
@@ -276,18 +272,15 @@ public class MemberController {
 	}
 
 	@RequestMapping("/naver")
-	public String naver(HttpServletResponse rep) throws IOException, URISyntaxException, Exception {
-		System.out.println("왜 안 넘어오지요?");
+	public String naver(HttpServletResponse rep) throws IOException, URISyntaxException {
 		
+		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naser.getAuthorizationUrl(session);
 
 		//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
 		//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
-		System.out.println("네이버:" + naverAuthUrl);
+		Log_Count.log_count++;
 
-		//네이버 
-		//   model.addAttribute("url", naverAuthUrl);	
-		System.out.println("무시하고 리다이렉트?!");
 		return "redirect:"+naverAuthUrl;
 
 	}
@@ -297,11 +290,7 @@ public class MemberController {
 	//네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException {
-		System.out.println("여기는 callback");
-		System.out.println("code: "+code);
-		System.out.println("state: "+state);
-		System.out.println("session: "+session);
-
+		
 		OAuth2AccessToken oauthToken;
 		oauthToken = naser.getAccessToken(session, code, state);
 
@@ -382,91 +371,7 @@ public class MemberController {
 
 	}	
 	
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////마이페이지로 갈 내용
-
-	@RequestMapping("/myInfo")
-	public String mypage() {
-
-		MemberDTO mdto = (MemberDTO)session.getAttribute("loginInfo");
-		int type = mdto.getMem_join_type();
-
-		if(type == 1) {
-
-			return "/member/myinfo";
-		}
-
-		return "/member/sns_myinfo";
-
-
-	}
-	
-
-	@RequestMapping("/myInfo_modifys")
-	public String myInfo_modify() {
-
 		
-		return "member/myInfo_modify";
-
-	}
-	
-	@RequestMapping("/myInfo_modify_sns")
-	public String myInfo_modify_sns() {
-
-		
-		return "member/sns_myInfo_modify";
-
-	}
-	
-	
-	
-	
-	
-	@RequestMapping("/myinfoProc")
-	public String myinfoProc(MemberDTO mdto) throws Exception {
-		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
-			
-		int type = mdto.getMem_join_type();
-		String mail = mdto.getMem_email(); //받아온 메일 
-		String ori_mail = dto.getMem_email(); //세션저장
-		String id = mdto.getMem_id();
-		
-		
-		if(type == 1) { //일반 가입 수정
-			if(!mail.contentEquals(ori_mail)) {
-				
-				System.out.println("메일 수정함");
-				mservice.myinfo_email(mdto);
-				mdto = mservice.loginInfo(id);
-				session.setAttribute("loginInfo", mdto);
-				return "redirect:/member/logout";
-					
-
-			}else {
-				System.out.println("메일 수정 안함");
-				mservice.myinfo_modify(mdto);
-				
-				mdto = mservice.loginInfo(id);				
-				session.setAttribute("loginInfo", mdto);
-				return "/member/myinfo"; 
-					
-				
-			}
-			
-			
-		}
-		
-		//SNS로그인 가입 수정
-		mservice.myinfo_sns(mdto);
-		mdto = mservice.loginInfo(id);
-		session.setAttribute("loginInfo", mdto);
-		return "/member/myinfo"; 
-		
-
-
-	}
-	
-	
-	
-	
-
 }
+
+

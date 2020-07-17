@@ -140,7 +140,7 @@ i {
 					</h2>
 				</div>
 			</div>
-			<form action="/member/myinfoProc" name=myinfoProc method="post">
+			<form action="/mypage/myinfoProc" name=myinfoProc method="post">
 				<div class="row">
 					<input type="hidden" name="mem_join_type" value="${loginInfo.mem_join_type}">
 					<div class="col-12 menu">ID</div>

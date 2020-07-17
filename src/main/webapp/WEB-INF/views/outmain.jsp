@@ -22,7 +22,6 @@
 
 <link rel="stylesheet" href="resources/main/css/bootstrap.min.css">
 <link rel="stylesheet" href="resources/main/css/magnific-popup.css">
-
 <link rel="stylesheet" href="resources/main/css/jquery-ui.css">
 <link rel="stylesheet" href="resources/main/css/owl.carousel.min.css">
 <link rel="stylesheet"
@@ -78,6 +77,10 @@
 .number:hover {
 	background-color: aquamarine;
 }
+
+#register_btn {
+	margin-top: 20px;
+}
 </style>
 <body>
 
@@ -94,12 +97,22 @@
 
 		<header class="site-navbar" role="banner">
 
-			<div class="container">
+			<div class="container-fluid" style="padding: 0 100px;">
 				<div class="row align-items-center">
 					<div class="col-12 col-xl-2">
 						<h1 class="mb-2 site-logo">
-							<a href="index.html"><img src="resources/images/dogss.png"
+
+						<c:choose>
+							<c:when test="${loginInfo.mem_id eq '관리자' && loginInfo.mem_address1 eq 'admin_address'}">
+								<a href="/admin/adminindex"><img src="resources/images/dogss.png"
 								style="width: 250px; height: 60px;"></a>
+							</c:when>
+							<c:otherwise>
+								<a href="index.html"><img src="resources/images/dogss.png"
+								style="width: 250px; height: 60px;"></a>
+							</c:otherwise>
+						</c:choose>
+							
 						</h1>
 					</div>
 					<c:choose>
@@ -160,7 +173,7 @@
 
 
 															<div class="container-login100-form-btn">
-																<button class="login100-form-btn" type="button"  id="login">Login</button>
+																<button class="login100-form-btn" type="button" id="login">Login</button>
 															</div>
 															<div class="text-center p-t-46 p-b-20">
 																<span class="txt2"> OR SNS LOGIN </span>
@@ -192,9 +205,12 @@
 								<nav class="site-navigation position-relative text-right"
 									role="navigation">
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-										<li><a href="/mypage/mypage"><p>MY PAGE</p></a></li>
-										<li><a href="/member/login"><i
-												class="icofont-envelope icofont-1x" style="color: #81DAD6"></i></a></li>
+
+										<li><a href="/member/login"><span>포인트 충전소<i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
+										<li><a href="/mypage/mypage"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
+										<li><a href="/message/recievelist" onclick="window.open(this.href,'_blank','width=600, height=600, scrollbars=yes'); return false;">메세지<i
+												class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></a></li>
+
 										<li><a href="/member/logout"><span>LOGOUT</span></a></li>
 									</ul>
 								</nav>
@@ -209,8 +225,9 @@
 												style="font-size: 20px">방문 돌봄</span></a></li>
 										<li><a href="/board/outputList"><span
 												style="font-size: 20px">위탁 돌봄</span></a></li>
-										<li><a href="/member/login"><span
+										<li><a href="/community/list"><span
 												style="font-size: 20px">게시판</span></a></li>
+
 									</ul>
 								</nav>
 							</div>
@@ -404,22 +421,7 @@
 				</div>
 			</div>
 		</div>
-
-
-
-		<div class="py-5 bg-info">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 mr-auto mb-4 mb-lg-0">
-						<h4 class="mb-3 mt-0 text-white">우리강아지 전담 매니저,</h4>
-						<h1 class="mb-3 mt-0 text-white">전문 펫시터</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-
+		
 		<div class="site-section bg-light">
 			<div class="container">
 				<div class="row justify-content-center mb-5">
@@ -441,16 +443,10 @@
 							</div>
 						</div>
 					</c:forEach>
-
 				</div>
 			</div>
 		</div>
-
-
-
-
-
-
+		
 		<div class="py-5 bg-info">
 			<div class="container">
 				<div class="row">
@@ -517,6 +513,7 @@
 
 	<script src="resources/main/js/typed.js"></script>
 	<script>
+
 $("#login").on("click",function(){	
 		
 		var queryString = $("form[name=loginProc]").serialize();
@@ -528,12 +525,16 @@ $("#login").on("click",function(){
 			dataType : "json",
 			success: function(data){
 				var check = data.result;
-				console.log(check);
+				
 				if(check == 0 ){
-					alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');
+					alert('이메일 인증이 필요합니다. 이메일을 확인해주세요.');				
+					location.reload();
+
 				}
 				else if(check == 1){
 					alert('ID 또는 비밀번호를 확인하세요.');
+					location.reload();
+
 				
 				}else{
 					location.reload();
@@ -543,8 +544,9 @@ $("#login").on("click",function(){
 	})
 	
 	
+
 		var typed = new Typed('.typed-words', {
-			strings : [ "방문돌봄서비스 ", " 위탁돌봄서비스 ", " 펫시터매칭"],
+			strings : [ "방문돌봄서비스 ", " 위탁돌봄서비스 ", " 펫시터매칭" ],
 			typeSpeed : 80,
 			backSpeed : 80,
 			backDelay : 4000,
@@ -552,8 +554,24 @@ $("#login").on("click",function(){
 			loop : true,
 			showCursor : true
 		});
+			
+		
+    $("#register_btn").on("click",function(){
+       if(${sessionScope.loginInfo.mem_type == '2'}){
+          alert("이미 펫시터로 활동 중입니다. 마이페이지로 이동합니다.");
+          location.href="/petsitter/outputSingle";
+       } else if(${sessionScope.loginInfo.mem_type == '1'}){
+          location.href="/petsitter/petsitter_register_form";
+       } else if(${empty sessionScope.loginInfo.mem_type}){
+          alert("로그인 / 회원가입 후 지원해주세요.");
+          location.href="/member/login";
+       }
+     });
+
+			
 	</script>
 
 	<script src="resources/main/js/main.js"></script>
 </body>
+
 </html>

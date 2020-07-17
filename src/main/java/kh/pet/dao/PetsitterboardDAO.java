@@ -107,8 +107,6 @@ public class PetsitterboardDAO {
 		for(int i=0;i<list.size();i++) {
 
 			pricelist.add(mybatis.selectOne("Board.selectPrice",list.get(i)));
-
-
 		}
 		return pricelist;
 	}
@@ -129,12 +127,18 @@ public class PetsitterboardDAO {
 	public WaitlistDTO selectWaitlist(String mem_id) throws Exception{
 		return mybatis.selectOne("Board.selectWaitlist",mem_id);
 	}
+	public int selectMyPoint(String mem_id) throws Exception{
+		return mybatis.selectOne("Board.selectMyPoint",mem_id);
+	}
 	
 	// 
 	public int updatePoint(WaitlistDTO wldto) throws Exception{
 		int rsv_point = wldto.getRsv_point();
+		System.out.println("point"+rsv_point);
 		String mem_id = wldto.getMem_id();
+		System.out.println("id"+mem_id);
 		String reservation_seq = wldto.getBoard_seq();
+		System.out.println("seq"+reservation_seq);
 		Map<String, Object> param1 = new HashMap<String, Object>();
 		param1.put("mem_id",mem_id);
 		param1.put("rsv_point",rsv_point);
@@ -143,6 +147,6 @@ public class PetsitterboardDAO {
 		param2.put("reservation_seq",reservation_seq);
 		param2.put("rsv_point",rsv_point);
 		return mybatis.update("Board.updateSysPoint",param2);
-		
+
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.pet.dto.MemberDTO;
 import kh.pet.dto.MessageDTO;
 import kh.pet.filter.xssfilter;
 import kh.pet.service.MessageService;
@@ -55,7 +56,7 @@ public class MessageController {
 	
 	@RequestMapping("write")
 	public void messageWrite(MessageDTO dto,HttpServletResponse response) {
-		dto.setMsg_sender((String)session.getAttribute("id"));
+		dto.setMsg_sender(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
 		dto.setMsg_title(xss.cleanXSS(dto.getMsg_title()));
 		int re = service.sendMessage(dto);
 		response.setContentType("text/html; charset=UTF-8");
@@ -86,7 +87,7 @@ public class MessageController {
 
 	@RequestMapping("recievelist")
 	public String messagerecievelist(Integer cpage) {
-		String id = (String)session.getAttribute("id");
+		String id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
 		List<MessageDTO> recievelist = new ArrayList<MessageDTO>();
 		if(cpage == null) {
 			cpage = 1;
@@ -108,7 +109,7 @@ public class MessageController {
 	
 	@RequestMapping("sendlist")//보낸 메세지함 리스트
 	public String messagesendlist(Integer cpage) {
-		String id = (String)session.getAttribute("id");
+		String id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
 		List<MessageDTO> sendlist = new ArrayList<MessageDTO>();
 		if(cpage == null) {
 			cpage = 1;
@@ -122,7 +123,7 @@ public class MessageController {
 
 	@RequestMapping("senddelete")
 	public void senddelete(int seq,String recieve,HttpServletResponse response) {
-		String send = (String)session.getAttribute("id");
+		String send = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
 		int re = service.deletesendMessage(seq,send,recieve);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
@@ -141,7 +142,7 @@ public class MessageController {
 
 	@RequestMapping("recievedelete")
 	public void recievedelete(int seq,String send,HttpServletResponse response){
-		String reciever = (String)session.getAttribute("id");
+		String reciever = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
 		int re = service.deleterecieveMessage(seq,send,reciever);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;

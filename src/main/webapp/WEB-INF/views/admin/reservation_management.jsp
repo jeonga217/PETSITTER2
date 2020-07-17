@@ -129,7 +129,7 @@
 											<c:forEach var="i" items="${list}">										
 											<div class="row">
 													<div class="mb" style="display: none;"></div>
-													<div class="col-4 col-md p_seq">${i.mb_seq}</div>
+													<div class="col-4 col-md p_seq"><a href="/mb/modfilist?mb_seq=${i.mb_seq}" onclick="window.open(this.href,'_blank','width=600, height=720, scrollbars=yes'); return false;">${i.mb_seq}</a></div>
 													<div class="col-4 col-md writer">${i.mb_writer}</div>
 													<div class="col-4 col-md booker">${i.mb_booker}</div>
 													<div class="col-6 col-md point">${i.mb_point}</div>
@@ -145,7 +145,7 @@
 											<c:forEach var="i" items="${list}">
 												<div class="row">
 													<div class="ps" style="display: none;"></div>
-													<div class="col-4 col-md p_seq">${i.board_seq}</div>
+													<div class="col-4 col-md p_seq"><a href="" onclick="window.open(this.href,'_blank','width=600, height=720, scrollbars=yes'); return false;">${i.board_seq}</a></div>
 													<div class="col-4 col-md">${i.petsitter_id}</div>
 													<div class="col-4 col-md">${i.mem_id}</div>
 													<div class="col-6 col-md">${i.rsv_point}</div>
@@ -159,6 +159,7 @@
 										</c:when>
 									</c:choose>			
 								</div>
+								<div class="col-12">${navi}</div>
 							</div>
 						</div>
 					</div>

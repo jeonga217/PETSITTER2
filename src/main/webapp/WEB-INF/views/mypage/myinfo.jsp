@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,10 +23,10 @@
 	margin-right: auto;
 	margin-left: auto;
 	margin-top: 30px width: 700px;
-	box-shadow: 0 7px 25px 0 rgba(0,0,0,0.1);
-	padding-top: 50px; 
-    padding-bottom: 50px; 
-    padding-left: 30px; !important
+	box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.1);
+	padding-top: 50px;
+	padding-bottom: 50px;
+	padding-left: 30px !important;
 }
 
 * {
@@ -43,19 +44,21 @@
 	padding: 0;
 }
 
-.signup{
+.signup {
 	width: 70%;
 	border: none;
-    border-bottom: 1px solid;
-    border-color: #17a2b8;
+	border-bottom: 1px solid;
+	border-color: #17a2b8;
 }
-.zipcode{
+
+.zipcode {
 	width: 58%;
 	border: none;
-    border-bottom: 1px solid;
-    border-color: #17a2b8;
+	border-bottom: 1px solid;
+	border-color: #17a2b8;
 }
-.header{
+
+.header {
 	padding-bottom: 10px;
 }
 
@@ -118,8 +121,13 @@ i {
 .title, .menu, .menu1 {
 	font-family: 'IBMPlexSansKR-Regular';
 }
-.row{
- margin-left: 30px !important;}
+
+.row {
+	margin-left: 30px !important;
+}
+.withdraw{
+float: right;
+}
 </style>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
@@ -140,52 +148,54 @@ i {
 					</h2>
 				</div>
 			</div>
-			<form action="/member/myinfoProc" name=myinfoProc method="post">
+			<form action="/mypage/myinfoProc" name=myinfoProc method="post">
 				<div class="row">
-					<input type="hidden" name="mem_join_type" value="${loginInfo.mem_join_type}">
+					<input type="hidden" name="mem_join_type" value="1">
 					<div class="col-12 menu">ID</div>
 					<div class="col-12 ans">
-						<input type="text" id="id" name="mem_id" class="signup" value="${loginInfo.mem_id}"
-							readonly>
+						<input type="text" id="id" name="mem_id" class="signup"
+							value="${loginInfo.mem_id}" readonly>
 					</div>
-				</div>
-
+				</div>						
 				<div class="row">
 					<div class="col-12 menu">이름</div>
 					<div class="col-12 ans">
-						<input type="text" id="name" name="mem_name" class="signup" value="${loginInfo.mem_name}" readonly>
+						<input type="text" id="name" name="mem_name" class="signup" readonly value="${loginInfo.mem_name}">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">Email</div>
 					<div class="col-12 ans">
-						<input type="text" id="email" name="mem_email"  class="signup"
-							value="${loginInfo.mem_email}" readonly>
+						<input type="text" id="email" name="mem_email" class="signup" readonly
+							 value="${loginInfo.mem_email}">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">연락처</div>
 					<div class="col-12 ans">
-						<input type="text" id="phone" name="mem_phone" class="signup" value="${loginInfo.mem_phone}" readonly></div>
+						<input type="text" id="phone" name="mem_phone" class="signup"
+							value="${loginInfo.mem_phone}" readonly>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">우편번호</div>
 					<div class="col-12 ans">
-						<input type="text" id="zipcode" name="mem_zipcode" class="zipcode" value="${loginInfo.mem_zipcode}" readonly>
-						<button type="button" class="btns1 btn1"
-							onclick="sample4_execDaumPostcode()">찾기</button>
+						<input type="text" id="zipcode" name="mem_zipcode" class="zipcode"
+							value="${loginInfo.mem_zipcode}" readonly>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">주소</div>
 					<div class="col-12 ans">
-						<input type="text" id="add1" name="mem_address1" class="signup" value="${loginInfo.mem_address1}" readonly>
+						<input type="text" id="add1" name="mem_address1" class="signup"
+							value="${loginInfo.mem_address1}" readonly>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 menu">상세주소</div>
 					<div class="col-12 ans">
-						<input type="text" id="add2" name="mem_address2" class="signup" value="${loginInfo.mem_address2}"readonly>
+						<input type="text" id="add2" name="mem_address2" class="signup"
+							value="${loginInfo.mem_address2}" readonly>
 					</div>
 				</div>
 				<br>
@@ -202,12 +212,16 @@ i {
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/member/footer.jsp" />
+	
+						
+			
+			
 	<script>
 	
 		$(function(){
 			$("#modify").on("click", function(){
 				
-				location.href="/member/myInfo_modify_sns";		
+				location.href="/mypage/myInfo_modifys";		
 			})
 			
 			$("#back").on("click", function(){
@@ -232,6 +246,7 @@ i {
 	
 	
 	</script>
+
 
 
 

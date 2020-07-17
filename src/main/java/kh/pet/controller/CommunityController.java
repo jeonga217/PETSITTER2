@@ -19,6 +19,7 @@ import kh.pet.dto.CommunityDTO;
 import kh.pet.dto.CommunityListDTO;
 import kh.pet.dto.MemberDTO;
 import kh.pet.dto.ReportDTO;
+import kh.pet.filter.xssfilter;
 import kh.pet.service.CommentsService;
 import kh.pet.service.CommunityService;
 
@@ -39,7 +40,7 @@ public class CommunityController {
 	@RequestMapping("write")
 	public String write() {
 
-		String id = (String)session.getAttribute("id");
+		String id = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
 
 		if(id.contentEquals("admin")) {
 			return "community/write_Admin";
@@ -51,7 +52,9 @@ public class CommunityController {
 	//게시글 작성
 	@RequestMapping("writeProc")
 	public void writeProc(CommunityDTO cu_dto, HttpServletResponse res)throws Exception {
-		cu_dto.setCu_writer((String)session.getAttribute("id"));
+		xssfilter xss =new xssfilter();
+		cu_dto.setCu_title(xss.cleanXSS(cu_dto.getCu_contents()));
+		cu_dto.setCu_writer(((MemberDTO)session.getAttribute("loginInfo")).getMem_id());
 		int result = cu_service.insert(cu_dto);
 		res.sendRedirect("list");
 
@@ -142,7 +145,8 @@ public class CommunityController {
 	//댓글작성
 	@RequestMapping("comments_insert")
 	public void insert(CommentsDTO cm_dto,Model model)throws Exception {
-
+		xssfilter xss = new xssfilter();
+		cm_dto.setCm_contents(xss.cleanXSS(cm_dto.getCm_contents()));
 		CommunityListDTO cu_dto = (CommunityListDTO)session.getAttribute("view");
 		int cm_parent_seq = cu_dto.getCu_seq();
 		String cm_writer = ((MemberDTO)session.getAttribute("loginInfo")).getMem_id();
