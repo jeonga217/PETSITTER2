@@ -207,7 +207,7 @@
 									<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
 
 										<li><a href="/member/login"><span>포인트 충전소<i class="icofont-money icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
-										<li><a href="/member/login"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
+										<li><a href="/mypage/mypage"><span>MY PAGE<i class="icofont-live-messenger icofont-1x" style="color: #17a2b8;padding-right: 8px"></i></span></a></li>
 										<li><a href="/message/recievelist" onclick="window.open(this.href,'_blank','width=600, height=600, scrollbars=yes'); return false;">메세지<i
 												class="icofont-envelope icofont-1x" style="color: #17a2b8"></i></a></li>
 
@@ -555,18 +555,18 @@ $("#login").on("submit",function(){
 			showCursor : true
 		});
 			
-			
-	    $("#register_btn").on("click",function(){
-	       if(${sessionScope.loginInfo.mem_type == '2'}){
-	          alert("이미 펫시터로 활동 중입니다. 마이페이지로 이동합니다.");
-	          location.href="/petsitter/outputSingle";
-	       } else if(${sessionScope.loginInfo.mem_type == '1'}){
-	          location.href="/petsitter/petsitter_register_form";
-	       } else if(${empty sessionScope.loginInfo.mem_type}){
-	          alert("로그인 / 회원가입 후 지원해주세요.");
-	          location.href="/member/login";
-	       }
-	     });
+		
+    $("#register_btn").on("click",function(){
+       if(${sessionScope.loginInfo.mem_type == '2'}){
+          alert("이미 펫시터로 활동 중입니다. 마이페이지로 이동합니다.");
+          location.href="/petsitter/outputSingle";
+       } else if(${sessionScope.loginInfo.mem_type == '1'}){
+          location.href="/petsitter/petsitter_register_form";
+       } else if(${empty sessionScope.loginInfo.mem_type}){
+          alert("로그인 / 회원가입 후 지원해주세요.");
+          location.href="/member/login";
+       }
+     });
 
 			
 	</script>

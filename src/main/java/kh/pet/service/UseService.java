@@ -30,19 +30,22 @@ public class UseService {
 		return navi;
 	}
 
-	public void usestate(String id) throws ParseException {
+	public void usestate(String id , List<Mypage_UseTableDTO> lists) throws ParseException {
+
 		List<Mypage_UseTableDTO> day = udao.statueday(id);
-		List<String> list = new ArrayList<String>();
+		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String nowday = format.format(System.currentTimeMillis());
 		java.util.Date date1 = format.parse(nowday);
+		
+		
 		for (int i = 0; i < day.size(); i++) {
 			Date start = day.get(i).getStart_day();
 			Date end = day.get(i).getEnd_day();
 			if (start.after(date1)) {
-				day.get(i).setStatus("예약대기");
+				lists.get(i).setStatus("예약대기");
 			} else if (start.before(date1) && end.after(date1)) {
-				day.get(i).setStatus("서비스중");
+				lists.get(i).setStatus("서비스중");
 			}
 		}
 
