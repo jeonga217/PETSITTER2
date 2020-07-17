@@ -2,10 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-
 	<link rel="stylesheet" href="/resources/main/css/bootstrap-datepicker.css">
-<!-- 	<link rel="stylesheet" href="/resources/main/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
     <link rel="stylesheet" href="/resources/main/fonts/icomoon/style.css">
     <link rel="stylesheet" href="/resources/main/css/magnific-popup.css">
@@ -16,13 +13,10 @@
     <link rel="stylesheet" href="/resources/main/css/aos.css">
     <link rel="stylesheet" href="/resources/main/css/rangeslider.css">
     <link rel="stylesheet" href="/resources/main/css/style.css">
-    
 <!-- CSS only -->
 <link rel="stylesheet" href="/resources/main/css/bootstrap.min.css">
-
   
   <div class="site-wrap">
-
     <div class="site-mobile-menu">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close mt-3">
@@ -80,23 +74,16 @@
 			</div>
 		</header>
 
-  
-
    <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/resources/images/head3.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center text-center">
-
           <div class="col-md-10" data-aos="fade-up" data-aos-delay="400">
-            
-            
             <div class="row justify-content-center">
               <div class="col-md-8 text-center">
                 <h1>Jones Grill &amp; Restaurants</h1>
                 <p class="mb-0">Don St, Brooklyn, New York</p>
               </div>
             </div>
-
-            
           </div>
         </div>
       </div>
