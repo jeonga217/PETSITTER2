@@ -532,10 +532,7 @@ $("#login").on("click",function(){
 
 				}
 				else if(check == 1){
-					alert('ID 또는 비밀번호를 확인하세요.');
-					location.reload();
-
-				
+					alert('ID 또는 비밀번호를 확인하세요.');				
 				}else{
 					location.reload();
 				}		
