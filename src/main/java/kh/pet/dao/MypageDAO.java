@@ -116,9 +116,7 @@ public class MypageDAO {
 		return restlist;
 	}
 	
-	public List<Mypage_UseTableDTO> usecontenttable(String id) {
-		List<Mypage_UseTableDTO> use =  mybatis.selectList("Navi.usecontenttable", id);
-		return use;
-	}
+	
+	
 
 }

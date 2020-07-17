@@ -174,15 +174,13 @@ td {
 									</thead>
 									<tbody>
 										<c:forEach var="i" items="${bdto}" varStatus="status">
-											<c:if test="${list.get(status.index) ne '서비스종료'}">
-												<tr>
-													<td>${i.reserve_day}
-													<td>${i.start_day}~${i.end_day}
-													<td>${i.reserve_point}
-													<td>${i.reserve_seq}
-													<td>${list.get(status.index)}
-												</tr>
-											</c:if>
+											<tr>
+												<td>${i.reserve_day}
+												<td>${i.start_day}~${i.end_day}
+												<td>${i.reserve_point}
+												<td>${i.reserve_seq}
+												<td>${list.get(status.index)}
+											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
@@ -198,6 +196,7 @@ td {
 									<thead>
 										<tr class="table100-head">
 											<th class="column1">서비스신청날짜</th>
+											<th class="column1">서비스이용날짜</th>
 											<th class="column2">예약번호</th>
 											<th class="column3">서비스이용상태</th>
 											<th class="column3">신고하기</th>
@@ -206,22 +205,9 @@ td {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="i" items="${bdto}" varStatus="status">
-											<c:if test="${list.get(status.index) eq '서비스종료'}">
-												<tr>
-													<td>${i.reserve_day}
-													<td>${i.reserve_seq}
-													<td>${list.get(status.index)}
-													<td>
-													<td>
-													<td>
-												</tr>
-											</c:if>
-										</c:forEach>
+
 									</tbody>
 								</table>
-
-
 							</div>
 						</div>
 					</div>

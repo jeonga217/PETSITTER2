@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kh.pet.dao.MypageDAO;
 import kh.pet.dao.MypageUseDAO;
 import kh.pet.dto.MemberDTO;
+import kh.pet.dto.Mypage_UseTableDTO;
 import kh.pet.dto.Mypet_regDTO;
 import kh.pet.dto.PointDTO;
 import kh.pet.dto.RegLookupDTO;
@@ -89,11 +90,7 @@ public class MypageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
+
 		return "mypage/mypage-community";
 	}
 
@@ -149,25 +146,18 @@ public class MypageController {
 			}
 			MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
 			System.out.println("현재페이지:" + cpage);
-			List<Object> bdto = useservice.selectByPageNo(cpage, dto.getMem_id(), "usecontent");
-			String navi = useservice.getPageNavi(cpage, "usecontent");
 			MemberDTO dtos = (MemberDTO)session.getAttribute("loginInfo");
-			List<String> list = useservice.usestate(dtos.getMem_id());
+			useservice.usestate(dtos.getMem_id());
+			List<Mypage_UseTableDTO> bdto = useservice.selectByPageNo(cpage, dto.getMem_id(), "usecontent");
+			
+			String navi = useservice.getPageNavi(cpage, "usecontent");
 			request.setAttribute("navi", navi);
 			request.setAttribute("bdto", bdto);
-			request.setAttribute("list", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "mypage/mypage-usecontent";
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 
 	int pointnum = 0;

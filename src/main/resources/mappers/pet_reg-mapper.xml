@@ -25,6 +25,8 @@
 		insert into mypet
 		values(mypet_seq.nextval,#{master_id},#{pet_name},#{pet_photo},#{pet_gender},#{pet_ox},${pet_age},#{pet_animal},#{pet_type},#{pet_sort},#{pet_family},#{pet_character},#{pet_details})
 	</insert>
+	
+	
 
 	<select id="list" resultType="kh.pet.dto.Mypet_regDTO"
 		resultMap="listview">
@@ -78,8 +80,6 @@
 		pet_sort=#{pet_sort},pet_family=#{pet_family},
 		pet_character=#{pet_character},pet_details=#{pet_details}
 		where petseq=${petseq} and master_id=#{master_id}
-		
-		
 	</update>
 
 	<select id="seq" resultType="String">
