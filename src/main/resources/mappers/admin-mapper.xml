@@ -129,7 +129,7 @@
  	</select>
 	
 	<update id="accept_mem_board">
-		update mem_board set mb_RESERVE_num = #{seq} where mb_seq = #{p_seq}
+		update mem_board set MB_RESERVE_NUM = #{seq} where mb_seq = #{p_seq}
 	</update>
 	
 	<update id="cancel_mem_board">
@@ -186,6 +186,7 @@
 	</select>
 	
 	<update id="accpet_report">
+		update member set mem_warning = mem_warning + 1 where mem_id = #{value}
 	</update>
 	
 	<delete id="delete_report">

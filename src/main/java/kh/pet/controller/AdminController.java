@@ -107,6 +107,8 @@ public class AdminController {
 		return "admin/reservation_management";
 	}
 
+	
+	
 	@RequestMapping("accept_memboard")
 	public void accept_memboard(MemboardDto dto, HttpServletResponse response) {
 		int re = admin_service.accept_memboard(dto);

@@ -83,7 +83,7 @@ $(function(){
 	})
 	//memboard 
 	$(".mem_accept").on("click",function(){
-		var seq = $(this).parent().parent().children('.p_seq').html();
+		var seq = $(this).attr("id");
 		var writer = $(this).parent().parent().children('.writer').html();
 		var booker = $(this).parent().parent().children('.booker').html();
 		var point = $(this).parent().parent().children('.point').html();

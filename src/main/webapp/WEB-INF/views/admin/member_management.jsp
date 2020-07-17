@@ -164,7 +164,7 @@
 		                                   	<div class="col-4 col-lg">${i.mem_warning}</div>
 		                                   	<div class="d-none d-lg-block col-lg">
 		                                   		<c:choose>
-		                                   			<c:when test="${i.mem_status eq 'no'}">
+		                                   			<c:when test="${i.mem_status eq 'YES'}">
 		                                   				통상
 		                                   			</c:when>
 		                                   			<c:when test="${i.mem_status eq 'black'}">

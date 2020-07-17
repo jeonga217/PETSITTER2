@@ -134,7 +134,7 @@
 													<div class="col-4 col-md booker">${i.mb_booker}</div>
 													<div class="col-6 col-md point">${i.mb_point}</div>
 													<div class="col-6 col-md">
-														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_accept"> 
+														<input type="button" value="수락" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_accept" id="${i.mb_seq}"> 
 														<input type="button" value="거절" class="btn btn-outline-primary my-2 my-sm-0 btn-sm mem_cancel">
 													</div>
 												</div>
@@ -159,7 +159,7 @@
 										</c:when>
 									</c:choose>			
 								</div>
-								<div class="col-12">${navi}</div>
+								<div class="col-12" style="text-align: center">${navi}</div>
 							</div>
 						</div>
 					</div>
