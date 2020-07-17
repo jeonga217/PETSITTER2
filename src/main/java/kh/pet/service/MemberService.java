@@ -69,7 +69,7 @@ public class MemberService {
 		sendMail.setSubject("뭐하냥도와주개 이메일 인증");
 		sendMail.setText(new StringBuffer().append(id).append("님, 가입을 환영합니다. 아래 링크를 누르면 인증이 완료됩니다.").append("<br>")
 				.append("(혹시 잘못 전달되었다면, 이 이메일을 무시하셔도 됩니다)").append("<br>").append("<br>")
-				.append("<a href='http://www.sojuhanjan.com/member/emailConfirm?authKey=").append(key).append("&userid=")
+				.append("<a href='http://127.0.0.1/member/emailConfirm?authKey=").append(key).append("&userid=")
 				.append(id).append("' target='_blank'>이메일 인증 확인</a>").toString());
 
 		sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
@@ -141,7 +141,7 @@ public class MemberService {
 		sendMail.setText(new StringBuffer().append(id).append("님의 임시 비밀번호는").append("&nbsp;<strong>").append(key)
 				.append("</strong>&nbsp;").append("입니다.").append("<br>").append("(혹시 잘못 전달되었다면, 이 이메일은 무시하셔도 됩니다)")
 				.append("<br>").append("임시 비밀번호로 로그인 후, 마이페이지에서 원하는 비밀번호로 수정해주세요.").append("<br>")
-				.append("<a href='http://www.sojuhanjan.com.168.60.13/'").append("' target='_blank'>뭐하냥 도와주개</a>").toString());
+				.append("<a href='http://127.0.0.1/'").append("' target='_blank'>뭐하냥 도와주개</a>").toString());
 
 		sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
 		sendMail.setTo(email);
@@ -198,7 +198,7 @@ public class MemberService {
 			sendMail.setSubject("뭐하냥도와주개 이메일 인증");
 			sendMail.setText(new StringBuffer().append(id).append("님, 재인증 부탁드립니다. 아래 링크를 누르면 인증이 완료됩니다.").append("<br>")
 					.append("(혹시 잘못 전달되었다면, 이 이메일을 무시하셔도 됩니다)").append("<br>").append("<br>")
-					.append("<a href='http://www.sojuhanjan.com/member/emailConfirm?authKey=").append(key).append("&userid=")
+					.append("<a href='http://127.0.0.1/member/emailConfirm?authKey=").append(key).append("&userid=")
 					.append(id).append("' target='_blank'>이메일 인증 확인</a>").toString());
 
 			sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
@@ -219,7 +219,7 @@ public class MemberService {
 			sendMail.setSubject("뭐하냥도와주개 이메일 인증");
 			sendMail.setText(new StringBuffer().append(id).append("님, 재인증 부탁드립니다. 아래 링크를 누르면 인증이 완료됩니다.").append("<br>")
 					.append("(혹시 잘못 전달되었다면, 이 이메일을 무시하셔도 됩니다)").append("<br>").append("<br>")
-					.append("<a href='http://www.sojuhanjan.com/member/emailConfirm?authKey=").append(key).append("&userid=")
+					.append("<a href='http://127.0.0.1/member/emailConfirm?authKey=").append(key).append("&userid=")
 					.append(id).append("' target='_blank'>이메일 인증 확인</a>").toString());
 
 			sendMail.setFrom("whatcathelpdog@gmail.com", "뭐하냥도와주개");
