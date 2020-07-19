@@ -119,7 +119,7 @@ public class MemberController {
 		int verify = mservice.verify(userid);
 
 		if(verify > 0) {		
-
+			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('이미 인증하셨습니다.'); location.href='/';</script>");
@@ -289,7 +289,7 @@ public class MemberController {
 
 	//네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException {
+	public String callback(Model model,  String code, String state, HttpSession session) throws Exception {
 		
 		OAuth2AccessToken oauthToken;
 		oauthToken = naser.getAccessToken(session, code, state);
@@ -313,12 +313,17 @@ public class MemberController {
 			return "/member/signup_sns";
 
 		}
-		return "/";
+		
+		MemberDTO mdto = mservice.loginInfo(id);
+		Log_Count.log_count++;
+		session.setAttribute("loginInfo", mdto);
+		
+		return "redirect:/";
 	}
 
 
 	@RequestMapping("/logout") //로그아웃
-	public String logout() {
+	public String logout(HttpServletResponse response) throws Exception {
 		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
 		int type = dto.getMem_join_type();
 		
@@ -330,12 +335,22 @@ public class MemberController {
 		}else if(type == 2) {
 		
 			KakaoAPIService ka = new KakaoAPIService();
-			ka.kakaoLogout((String)session.getAttribute("access_Token"));
+			ka.kakaoLogout((String)session.getAttribute("access_Token"));			
 			
-			
+			session.removeAttribute("access_Token");
 			session.invalidate();			
 			return "redirect:/";
+			
+		}else if(type == 3) {
+			session.invalidate();
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('네이버 간편 로그인은 꼭 네이버에서도 로그아웃 부탁드립니다.'); location.href='/';</script>");
+			out.flush();
+			
 		}
+		
 		
 		session.invalidate();
 		return "redirect:/";
